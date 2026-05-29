@@ -515,66 +515,282 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
   <div class="slide-header" style="background:#0e4a2b;">
     <div class="left">
       <div class="sup">Chapitre 3 · Activité d'application · Compétence H1</div>
-      <h2>Cas Concret — Mise en situation</h2>
+      <h2 id="cc-title">Cas Concret — ⏱ Temps 1 : La situation</h2>
     </div>
-    <div class="badge-dur"><div class="v">7'</div><div class="l">Cas Concret</div></div>
+    <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+      <div class="badge-dur"><div class="v">7'</div><div class="l">Cas Concret</div></div>
+      <button onclick="switchCC()" id="cc-switch-btn" style="background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.4);color:white;padding:7px 16px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;">Temps 2 : Correction →</button>
+    </div>
   </div>
-  <div class="slide-body">
-    <div class="cc-box">
-      <div class="cc-badge">🎭 Scénario</div>
-      <h3>« La chute au skate park »</h3>
-      <div class="stxt">
-        Pendant la récré, ton camarade <strong>Lucas, 13 ans</strong>, fait du skate et chute violemment en arrière. Sa tête heurte le sol. Il est conscient, allongé par terre, et <strong>se plaint d'une vive douleur à la nuque</strong>. Il a peur de bouger.
-        <br><br>
-        Tu es le premier à arriver. <strong>Que fais-tu ?</strong>
-      </div>
-      <div class="cc-crit">
-        <div class="crit">✅ Demander à Lucas de ne pas bouger la tête</div>
-        <div class="crit">✅ Faire appeler les secours (15 / 18 / 112)</div>
-        <div class="crit">✅ Stabiliser la tête à 2 mains si possible</div>
-        <div class="crit">✅ Surveiller et parler régulièrement à la victime</div>
-        <div class="crit">✅ Ne PAS tenter de relever ou déplacer la victime</div>
-        <div class="crit">✅ Maintenir jusqu'à l'arrivée des secours</div>
-      </div>
-      <div class="chrono-zone">
-        <div id="chrono-display">0:00</div>
-        <button class="c-btn start" id="c-btn" onclick="toggleC()">▶ Démarrer</button>
-        <button class="c-btn" onclick="resetC()">↺ Reset</button>
-        <span style="font-size:11px;opacity:.6;margin-left:8px;">Objectif : action immédiate</span>
-      </div>
-    </div>
+  <div class="slide-body" style="gap:10px;">
 
-    <button class="reveal-btn" onclick="toggleReveal('debrief')" style="margin-top:4px;">💬 Afficher la correction / débriefing formateur</button>
-    <div class="reveal-content" id="reveal-debrief" style="margin-top:8px;">
-      <div class="objectif-box">
-        <strong>Points de débriefing formateur</strong>
-        <ul style="margin-top:8px;padding-left:16px;font-size:13px;line-height:2.2;">
-          <li>L'élève a-t-il demandé à Lucas de <strong>ne pas bouger la tête</strong> (et non juste « ne pas bouger ») ?</li>
-          <li>A-t-il <strong>maintenu la tête à 2 mains</strong> dans la position trouvée sans la corriger ?</li>
-          <li>Le message d'alerte était-il complet ? (qui, quoi, où, état de la victime)</li>
-          <li>A-t-il maintenu le contact verbal avec Lucas ?</li>
-          <li>A-t-il attendu les secours <strong>sans tenter de relever</strong> la victime ?</li>
-        </ul>
-        <div style="margin-top:10px;padding:8px 12px;background:#1a3a6b;color:white;border-radius:6px;font-size:12px;">
-          <strong>Points clés du maintien tête :</strong> le sauveteur est en position stable · le maintien de la tête limite ses mouvements
+    <!-- ======= TEMPS 1 ======= -->
+    <div id="cc-t1" style="display:flex;flex-direction:column;gap:10px;flex:1;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;">
+
+        <!-- COL GAUCHE : scénario + illustration SANS sauveteur -->
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="cc-box" style="flex:0 0 auto;">
+            <div class="cc-badge">🎭 Scénario — À toi de jouer !</div>
+            <h3>« La chute au skate park »</h3>
+            <div class="stxt">
+              Pendant la récré, ton camarade <strong>Lucas, 13 ans</strong>, fait du skate et chute violemment en arrière. Sa tête heurte le sol.<br><br>
+              Il est conscient, allongé sur le dos. Il <strong>se plaint d'une vive douleur à la nuque</strong> et a peur de bouger.<br><br>
+              Tu es le premier à arriver. <strong>Que fais-tu ?</strong>
+            </div>
+          </div>
+          <!-- SVG TEMPS 1 : Lucas seul, pas de sauveteur -->
+          <div style="background:#f0f6ff;border-radius:12px;border:1.5px solid #a0c0ea;padding:10px;flex:1;display:flex;align-items:center;justify-content:center;">
+            <svg viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:170px;">
+              <!-- SOL -->
+              <rect x="0" y="148" width="400" height="42" fill="#d4c9a8"/>
+              <text x="200" y="163" text-anchor="middle" font-size="8.5" fill="#907a40" font-family="Inter,sans-serif" font-weight="600">📍 Skate park — Collège Victor Hugo · 12 rue des Acacias, 75012 Paris</text>
+
+              <!-- SKATE éloigné -->
+              <rect x="40" y="141" width="52" height="8" rx="4" fill="#333" stroke="#555" stroke-width="1"/>
+              <circle cx="48" cy="151" r="4" fill="#666"/>
+              <circle cx="84" cy="151" r="4" fill="#666"/>
+              <line x1="53" y1="142" x2="53" y2="148" stroke="#555" stroke-width="0.8"/>
+              <line x1="63" y1="142" x2="63" y2="148" stroke="#555" stroke-width="0.8"/>
+              <line x1="73" y1="142" x2="73" y2="148" stroke="#555" stroke-width="0.8"/>
+              <line x1="83" y1="142" x2="83" y2="148" stroke="#555" stroke-width="0.8"/>
+
+              <!-- casque tombé -->
+              <ellipse cx="38" cy="140" rx="13" ry="10" fill="#e74c3c" stroke="#c0392b" stroke-width="1.2"/>
+              <text x="38" y="143" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif">⛑</text>
+
+              <!-- LUCAS allongé — corps -->
+              <rect x="105" y="132" width="105" height="16" rx="8" fill="#4a90d9" stroke="#2558a8" stroke-width="1.2"/>
+              <!-- jambes -->
+              <rect x="200" y="134" width="55" height="12" rx="6" fill="#2d5a9e" stroke="#1a3a6b" stroke-width="1"/>
+              <!-- bras -->
+              <ellipse cx="128" cy="148" rx="24" ry="5" fill="#4a90d9" stroke="#2558a8" stroke-width="1"/>
+              <ellipse cx="178" cy="148" rx="24" ry="5" fill="#4a90d9" stroke="#2558a8" stroke-width="1"/>
+              <!-- tête -->
+              <ellipse cx="90" cy="139" rx="18" ry="16" fill="#f5c89a" stroke="#c8956a" stroke-width="1.8"/>
+              <!-- cheveux -->
+              <path d="M74 130 Q90 120 106 130" fill="#5a3a1a"/>
+              <!-- yeux ouverts -->
+              <ellipse cx="84" cy="137" rx="2.8" ry="2.2" fill="#2d3a5a"/>
+              <ellipse cx="96" cy="137" rx="2.8" ry="2.2" fill="#2d3a5a"/>
+              <!-- sourcils crispés douleur -->
+              <path d="M80 132 Q84 130 88 132" stroke="#5a3a1a" stroke-width="1.5" fill="none"/>
+              <path d="M92 132 Q96 130 100 132" stroke="#5a3a1a" stroke-width="1.5" fill="none"/>
+              <!-- bouche douleur -->
+              <path d="M83 144 Q90 148 97 144" stroke="#c8956a" stroke-width="1.3" fill="none"/>
+
+              <!-- BULLE DOULEUR sur tête -->
+              <rect x="108" y="100" width="120" height="30" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+              <polygon points="116,130 126,130 121,138" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-linejoin="round"/>
+              <text x="168" y="114" text-anchor="middle" font-size="8.5" fill="#8b1a1a" font-family="Outfit,sans-serif" font-weight="700">😣 « J'ai très mal</text>
+              <text x="168" y="124" text-anchor="middle" font-size="8.5" fill="#8b1a1a" font-family="Outfit,sans-serif" font-weight="700">à la nuque ! »</text>
+
+              <!-- FLÈCHE DOULEUR cou -->
+              <circle cx="90" cy="125" r="7" fill="#c0392b" opacity="0.85"/>
+              <text x="90" y="129" text-anchor="middle" font-size="10" fill="white" font-family="Outfit,sans-serif" font-weight="900">!</text>
+              <line x1="90" y1="132" x2="90" y2="124" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+
+              <!-- flèches "?" autour de la scène = que faire ? -->
+              <text x="310" y="80" font-size="42" fill="#2558a8" opacity="0.15" font-family="Outfit,sans-serif" font-weight="900">?</text>
+
+              <!-- légende -->
+              <rect x="6" y="6" width="62" height="13" rx="3" fill="#4a90d9" opacity="0.9"/>
+              <text x="37" y="15.5" text-anchor="middle" font-size="7" fill="white" font-family="Outfit,sans-serif" font-weight="700">Lucas — victime</text>
+              <rect x="6" y="23" width="80" height="13" rx="3" fill="#c0392b" opacity="0.85"/>
+              <text x="46" y="32.5" text-anchor="middle" font-size="7" fill="white" font-family="Outfit,sans-serif" font-weight="700">Douleur à la nuque !</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- COL DROITE : fiche alerte + chrono -->
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:#1a3a6b;border-radius:12px;padding:14px;color:white;flex:1;">
+            <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;opacity:.7;margin-bottom:10px;">📞 Message d'alerte — les 4 éléments</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="background:rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:20px;flex-shrink:0;">👤</span>
+                <div>
+                  <div style="font-size:10px;opacity:.6;font-family:'Outfit',sans-serif;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Qui appelle</div>
+                  <div style="font-size:12.5px;font-weight:600;">"Je m'appelle [prénom], élève du collège Victor Hugo"</div>
+                </div>
+              </div>
+              <div style="background:rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:20px;flex-shrink:0;">📍</span>
+                <div>
+                  <div style="font-size:10px;opacity:.6;font-family:'Outfit',sans-serif;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Où — adresse précise</div>
+                  <div style="font-size:12.5px;font-weight:600;">Skate park — Collège Victor Hugo<br>12 rue des Acacias, 75012 Paris</div>
+                </div>
+              </div>
+              <div style="background:rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:20px;flex-shrink:0;">🤕</span>
+                <div>
+                  <div style="font-size:10px;opacity:.6;font-family:'Outfit',sans-serif;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Quoi — ce qui s'est passé</div>
+                  <div style="font-size:12.5px;font-weight:600;">"Un garçon de 13 ans a chuté en skate, il a mal à la nuque"</div>
+                </div>
+              </div>
+              <div style="background:rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:20px;flex-shrink:0;">🫀</span>
+                <div>
+                  <div style="font-size:10px;opacity:.6;font-family:'Outfit',sans-serif;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">État de la victime</div>
+                  <div style="font-size:12.5px;font-weight:600;">"Il est conscient, il respire, il ne peut pas bouger la tête"</div>
+                </div>
+              </div>
+              <div style="background:rgba(255,220,0,.18);border:1px solid rgba(255,220,0,.4);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
+                <span style="font-size:16px;">⚠️</span>
+                <div style="font-size:12px;font-weight:600;color:#ffe066;">Ne raccrochez PAS en premier — appliquez les consignes</div>
+              </div>
+            </div>
+          </div>
+          <!-- Chrono -->
+          <div style="background:#0e4a2b;border-radius:10px;padding:12px;color:white;">
+            <div style="font-family:'Outfit',sans-serif;font-size:11px;opacity:.65;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">⏱ Chronomètre formateur</div>
+            <div class="chrono-zone" style="margin:0;padding:0;border:none;">
+              <div id="chrono-display">0:00</div>
+              <button class="c-btn start" id="c-btn" onclick="toggleC()">▶ Démarrer</button>
+              <button class="c-btn" onclick="resetC()">↺ Reset</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="alerte-box" style="margin-top:4px;">
-      <div class="alerte-icon">📋</div>
-      <div>
-        <h3>Compétence H1 évaluée</h3>
-        <p>Chaque élève doit être sauveteur au moins une fois. Ce CC peut être rejoué avec un autre élève si le temps le permet.</p>
+    <!-- ======= TEMPS 2 ======= -->
+    <div id="cc-t2" style="display:none;flex-direction:column;gap:10px;flex:1;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;">
+
+        <!-- COL GAUCHE : illustration AVEC sauveteur -->
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="cc-box" style="flex:0 0 auto;">
+            <div class="cc-badge">✅ Temps 2 — Correction</div>
+            <h3>Ce qu'il fallait faire</h3>
+            <div class="stxt">
+              Le sauveteur <strong>demande à Lucas de ne pas bouger la tête</strong>, maintient sa tête à deux mains dans la position trouvée, fait appeler les secours et surveille jusqu'à leur arrivée.
+            </div>
+          </div>
+          <!-- SVG TEMPS 2 : avec sauveteur qui maintient la tête -->
+          <div style="background:#e8f8ef;border-radius:12px;border:1.5px solid #80cba0;padding:10px;flex:1;display:flex;align-items:center;justify-content:center;">
+            <svg viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:170px;">
+              <!-- SOL -->
+              <rect x="0" y="148" width="400" height="42" fill="#d4c9a8"/>
+              <text x="200" y="163" text-anchor="middle" font-size="8.5" fill="#907a40" font-family="Inter,sans-serif" font-weight="600">📍 Skate park — Collège Victor Hugo · 12 rue des Acacias, 75012 Paris</text>
+              <!-- SKATE -->
+              <rect x="40" y="141" width="52" height="8" rx="4" fill="#333" stroke="#555" stroke-width="1"/>
+              <circle cx="48" cy="151" r="4" fill="#666"/>
+              <circle cx="84" cy="151" r="4" fill="#666"/>
+              <!-- casque -->
+              <ellipse cx="38" cy="140" rx="13" ry="10" fill="#e74c3c" stroke="#c0392b" stroke-width="1.2"/>
+              <text x="38" y="143" text-anchor="middle" font-size="8" fill="white" font-family="Inter,sans-serif">⛑</text>
+              <!-- LUCAS -->
+              <rect x="105" y="132" width="105" height="16" rx="8" fill="#4a90d9" stroke="#2558a8" stroke-width="1.2"/>
+              <rect x="200" y="134" width="55" height="12" rx="6" fill="#2d5a9e" stroke="#1a3a6b" stroke-width="1"/>
+              <ellipse cx="128" cy="148" rx="24" ry="5" fill="#4a90d9" stroke="#2558a8" stroke-width="1"/>
+              <ellipse cx="178" cy="148" rx="24" ry="5" fill="#4a90d9" stroke="#2558a8" stroke-width="1"/>
+              <ellipse cx="90" cy="139" rx="18" ry="16" fill="#f5c89a" stroke="#c8956a" stroke-width="1.8"/>
+              <path d="M74 130 Q90 120 106 130" fill="#5a3a1a"/>
+              <ellipse cx="84" cy="137" rx="2.8" ry="2.2" fill="#2d3a5a"/>
+              <ellipse cx="96" cy="137" rx="2.8" ry="2.2" fill="#2d3a5a"/>
+              <path d="M83 144 Q90 147 97 144" stroke="#c8956a" stroke-width="1.3" fill="none"/>
+
+              <!-- SAUVETEUR à genoux derrière la tête -->
+              <rect x="48" y="100" width="38" height="32" rx="7" fill="#27ae60" stroke="#1a7a4a" stroke-width="1.2"/>
+              <ellipse cx="67" cy="91" rx="13" ry="13" fill="#f5c89a" stroke="#c8956a" stroke-width="1.5"/>
+              <path d="M55 87 Q67 79 79 87" fill="#3a2a0a"/>
+              <!-- yeux sauveteur -->
+              <ellipse cx="62" cy="89" rx="2" ry="1.8" fill="#2d3a5a"/>
+              <ellipse cx="72" cy="89" rx="2" ry="1.8" fill="#2d3a5a"/>
+              <!-- bras vers tête Lucas -->
+              <path d="M53 118 Q65 132 75 140" stroke="#27ae60" stroke-width="8" stroke-linecap="round" fill="none"/>
+              <path d="M81 118 Q82 130 105 140" stroke="#27ae60" stroke-width="8" stroke-linecap="round" fill="none"/>
+              <!-- mains sur les côtés de la tête -->
+              <ellipse cx="75" cy="141" rx="8" ry="6" fill="#f5c89a" stroke="#c8956a" stroke-width="1.2"/>
+              <ellipse cx="105" cy="141" rx="8" ry="6" fill="#f5c89a" stroke="#c8956a" stroke-width="1.2"/>
+
+              <!-- Bulle sauveteur -->
+              <rect x="88" y="68" width="130" height="24" rx="7" fill="#e8f8ef" stroke="#27ae60" stroke-width="1.8"/>
+              <polygon points="98,92 108,92 103,99" fill="#e8f8ef" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round"/>
+              <text x="153" y="80" text-anchor="middle" font-size="8" fill="#0e4a2b" font-family="Outfit,sans-serif" font-weight="700">« Lucas, ne bouge PAS la tête,</text>
+              <text x="153" y="89" text-anchor="middle" font-size="8" fill="#0e4a2b" font-family="Outfit,sans-serif" font-weight="700">je la maintiens, les secours arrivent ! »</text>
+
+              <!-- Témoin téléphone -->
+              <rect x="298" y="108" width="30" height="38" rx="6" fill="#e67e22" stroke="#d35400" stroke-width="1"/>
+              <ellipse cx="313" cy="100" rx="12" ry="12" fill="#f5c89a" stroke="#c8956a" stroke-width="1.5"/>
+              <path d="M302 96 Q313 89 324 96" fill="#3a2a0a"/>
+              <rect x="325" y="113" width="14" height="22" rx="3" fill="#2c3e50" stroke="#1a252f" stroke-width="1"/>
+              <rect x="326" y="115" width="12" height="16" rx="1" fill="#3498db"/>
+              <text x="332" y="125" text-anchor="middle" font-size="9" fill="white">📞</text>
+              <!-- bulle témoin -->
+              <rect x="210" y="78" width="92" height="24" rx="6" fill="white" stroke="#e67e22" stroke-width="1.5"/>
+              <polygon points="295,102 305,102 300,108" fill="white" stroke="#e67e22" stroke-width="1.2" stroke-linejoin="round"/>
+              <text x="256" y="89" text-anchor="middle" font-size="7.5" fill="#7a4400" font-family="Outfit,sans-serif" font-weight="700">Allô, le 15 ? Skate park</text>
+              <text x="256" y="98" text-anchor="middle" font-size="7.5" fill="#7a4400" font-family="Outfit,sans-serif" font-weight="700">du collège Victor Hugo...</text>
+
+              <!-- LABEL maintien tête -->
+              <rect x="6" y="6" width="90" height="13" rx="3" fill="#27ae60" opacity="0.9"/>
+              <text x="51" y="15.5" text-anchor="middle" font-size="7" fill="white" font-family="Outfit,sans-serif" font-weight="700">🤲 Maintien tête à 2 mains</text>
+              <rect x="6" y="23" width="62" height="13" rx="3" fill="#4a90d9" opacity="0.9"/>
+              <text x="37" y="32.5" text-anchor="middle" font-size="7" fill="white" font-family="Outfit,sans-serif" font-weight="700">Lucas — victime</text>
+              <rect x="6" y="40" width="62" height="13" rx="3" fill="#e67e22" opacity="0.9"/>
+              <text x="37" y="49.5" text-anchor="middle" font-size="7" fill="white" font-family="Outfit,sans-serif" font-weight="700">Témoin / alerte</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- COL DROITE : critères + débriefing -->
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:#0e4a2b;border-radius:12px;padding:14px;color:white;flex:1;">
+            <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;opacity:.7;margin-bottom:10px;">✅ Critères d'évaluation — Compétence H1</div>
+            <div style="display:flex;flex-direction:column;gap:7px;font-size:12.5px;">
+              <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:18px;flex-shrink:0;">1️⃣</span>
+                <span>Demander à la victime de <strong>ne pas bouger la tête</strong></span>
+              </div>
+              <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:18px;flex-shrink:0;">2️⃣</span>
+                <span>Faire alerter ou alerter les secours (15 / 18 / 112) — message complet</span>
+              </div>
+              <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:18px;flex-shrink:0;">3️⃣</span>
+                <span>Si possible : <strong>stabiliser à 2 mains</strong> dans la position trouvée</span>
+              </div>
+              <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:18px;flex-shrink:0;">4️⃣</span>
+                <span>Surveiller et <strong>parler régulièrement</strong> à la victime</span>
+              </div>
+              <div style="background:rgba(220,50,50,.25);border:1px solid rgba(255,100,100,.4);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:18px;flex-shrink:0;">🚫</span>
+                <span style="color:#ffaaaa;">Ne pas tenter de relever ou déplacer la victime</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="reveal-btn" onclick="toggleReveal('debrief')">💬 Débriefing formateur</button>
+          <div class="reveal-content" id="reveal-debrief">
+            <div class="objectif-box">
+              <strong>Points de débriefing</strong>
+              <ul style="margin-top:8px;padding-left:16px;font-size:13px;line-height:2;">
+                <li>A-t-il dit « ne bouge <strong>pas la tête</strong> » (et non juste « ne bouge pas ») ?</li>
+                <li>A-t-il <strong>maintenu la tête à 2 mains</strong> dans la position trouvée, sans la corriger ?</li>
+                <li>Le message d'alerte était-il complet ? (qui, où, quoi, état)</li>
+                <li>A-t-il maintenu le <strong>contact verbal</strong> avec Lucas ?</li>
+                <li>A-t-il attendu les secours sans <strong>relever ou déplacer</strong> la victime ?</li>
+              </ul>
+              <div style="margin-top:8px;padding:8px 12px;background:#1a3a6b;color:white;border-radius:6px;font-size:12px;">
+                <strong>Points clés maintien tête :</strong> le sauveteur est en position stable · le maintien de la tête limite ses mouvements
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
   </div>
   <div class="slide-footer">
-    <span>Cas Concret — Compétence H1 — Évaluation formative</span>
+    <span id="cc-footer">Temps 1 — Situation soumise aux élèves</span>
     <div class="progress-dots" id="dots-5"></div>
     <span>Slide 6/6</span>
   </div>
 </div>
+
 
 </div><!-- end stage -->
 
@@ -756,6 +972,31 @@ function resetDD(cat){
 
 buildPool('1');
 buildPool('2');
+
+// ===== CC 2 TEMPS =====
+let ccPhase=1;
+function switchCC(){
+  const t1=document.getElementById('cc-t1');
+  const t2=document.getElementById('cc-t2');
+  const btn=document.getElementById('cc-switch-btn');
+  const title=document.getElementById('cc-title');
+  const footer=document.getElementById('cc-footer');
+  if(ccPhase===1){
+    t1.style.display='none';
+    t2.style.display='flex';
+    btn.textContent='← Retour temps 1';
+    title.textContent='Cas Concret — ✅ Temps 2 : Correction';
+    footer.textContent='Temps 2 — Correction avec maintien tête';
+    ccPhase=2;
+  } else {
+    t1.style.display='flex';
+    t2.style.display='none';
+    btn.textContent='Temps 2 : Correction →';
+    title.textContent='Cas Concret — ⏱ Temps 1 : La situation';
+    footer.textContent='Temps 1 — Situation soumise aux élèves';
+    ccPhase=1;
+  }
+}
 
 // ===== CHRONO =====
 let cInt=null,cSecs=0,cRun=false;
