@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSC1 — Chapitre 3 : Traumatisme</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bleu:     #1a3a6b;
+    --bleu-mid: #2558a8;
+    --bleu-clair: #ddeeff;
+    --rouge:    #c0392b;
+    --rouge-clair: #fdecea;
+    --vert:     #1a7a4a;
+    --vert-clair: #e8f8ef;
+    --orange:   #e67e22;
+    --orange-clair: #fdf3e3;
+    --gris:     #f4f5f7;
+    --gris-bord: #d0d6e0;
+    --texte:    #1c2233;
+    --texte-sec: #5a6382;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0d1525;
+    color: var(--texte);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* BARRE DE NAVIGATION */
+  #nav {
+    background: #0d1525;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 20px;
+    border-bottom: 1px solid #1e2d4a;
+    flex-shrink: 0;
+  }
+  #nav .logo {
+    display: flex; align-items: center; gap: 10px;
+    color: #7fa8d4; font-size: 12px; font-family: 'Outfit', sans-serif; font-weight: 600;
+  }
+  #nav .logo span { color: white; font-size: 14px; }
+  #nav-pills {
+    display: flex; gap: 4px;
+  }
+  .pill {
+    font-size: 11px; padding: 4px 10px; border-radius: 20px;
+    border: 1px solid #2a3f5f; color: #7fa8d4; cursor: pointer;
+    font-family: 'Outfit', sans-serif; transition: all .2s;
+    white-space: nowrap;
+  }
+  .pill.active { background: var(--bleu-mid); border-color: var(--bleu-mid); color: white; }
+  .pill:hover:not(.active) { background: #1e2d4a; }
+  #nav-btns {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-btn {
+    background: #1e2d4a; border: 1px solid #2a3f5f; color: #7fa8d4;
+    padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 12px;
+    font-family: 'Outfit', sans-serif; font-weight: 600; transition: all .2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .nav-btn:hover { background: var(--bleu-mid); border-color: var(--bleu-mid); color: white; }
+  .nav-btn svg { width: 14px; height: 14px; }
+  #slide-counter { color: #7fa8d4; font-size: 11px; font-family: 'Outfit', sans-serif; }
+
+  /* ZONE SLIDE */
+  #stage {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    padding: 16px;
+    overflow: hidden;
+  }
+
+  .slide {
+    display: none;
+    background: white;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 960px;
+    position: relative;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; flex-direction: column; }
+
+  /* BANDEAU HAUT */
+  .slide-header {
+    background: var(--bleu);
+    color: white;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .slide-header .chapitre {
+    font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase; opacity: .7;
+  }
+  .slide-header h1 {
+    font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 800;
+    line-height: 1.1; margin-top: 4px;
+  }
+  .slide-header h2 {
+    font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700;
+    line-height: 1.2; margin-top: 4px;
+  }
+  .slide-header .badge-duree {
+    background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+    border-radius: 8px; padding: 8px 14px; text-align: center; flex-shrink: 0;
+  }
+  .slide-header .badge-duree .mins {
+    font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 800;
+  }
+  .slide-header .badge-duree .label {
+    font-size: 10px; opacity: .7; display: block;
+  }
+  .slide-header .men-logo {
+    font-family: 'Outfit', sans-serif; font-size: 10px; text-align: right;
+    opacity: .7; line-height: 1.4;
+  }
+
+  /* CORPS */
+  .slide-body {
+    flex: 1;
+    padding: 24px 32px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* OBJECTIF */
+  .objectif-box {
+    background: var(--bleu-clair);
+    border-left: 4px solid var(--bleu-mid);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: 14px; color: var(--bleu);
+  }
+  .objectif-box strong { font-family: 'Outfit', sans-serif; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 2px; color: var(--texte-sec);
+    margin-bottom: 8px;
+  }
+
+  /* DÉFINITIONS */
+  .def-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .def-card {
+    background: var(--gris); border: 1px solid var(--gris-bord);
+    border-radius: 10px; padding: 14px;
+  }
+  .def-card .def-icon { font-size: 22px; margin-bottom: 6px; }
+  .def-card h3 { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 700;
+    color: var(--bleu); margin-bottom: 4px; }
+  .def-card p { font-size: 12px; color: var(--texte-sec); line-height: 1.5; }
+
+  /* SIGNES */
+  .signes-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .signe-chip {
+    background: var(--orange-clair); border: 1px solid var(--orange);
+    color: #7a4400; border-radius: 20px; padding: 6px 14px;
+    font-size: 13px; font-family: 'Outfit', sans-serif; font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  /* DRAG & DROP CAT */
+  .cat-zone { }
+  .cat-instruction {
+    background: #fff8e1; border: 1px dashed #f0c040; border-radius: 8px;
+    padding: 10px 14px; font-size: 13px; color: #7a5800; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .steps-pool {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;
+    min-height: 48px; padding: 10px; background: var(--gris);
+    border-radius: 10px; border: 1.5px dashed var(--gris-bord);
+  }
+  .drop-zone {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .drop-slot {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .slot-num {
+    width: 28px; height: 28px; border-radius: 50%; background: var(--bleu);
+    color: white; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 13px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .slot-box {
+    flex: 1; min-height: 46px; border: 2px dashed var(--gris-bord);
+    border-radius: 8px; display: flex; align-items: center; padding: 6px 12px;
+    background: white; transition: all .2s; font-size: 13px; color: var(--texte-sec);
+  }
+  .slot-box.drag-over { border-color: var(--bleu-mid); background: var(--bleu-clair); }
+  .slot-box.filled { border: 2px solid transparent; padding: 0; background: transparent; }
+
+  .step-card {
+    background: white; border: 1.5px solid var(--gris-bord); border-radius: 8px;
+    padding: 8px 14px; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600;
+    color: var(--texte); cursor: grab; user-select: none; transition: all .2s;
+    display: flex; align-items: center; gap: 8px; white-space: nowrap;
+  }
+  .step-card:hover { border-color: var(--bleu-mid); box-shadow: 0 2px 8px rgba(37,88,168,.15); }
+  .step-card.dragging { opacity: .4; }
+  .step-card.correct { border-color: var(--vert); background: var(--vert-clair); color: #0e4a2b; cursor: default; }
+  .step-card.wrong { border-color: var(--rouge); background: var(--rouge-clair); color: var(--rouge); }
+
+  .check-btn {
+    background: var(--bleu-mid); color: white; border: none; border-radius: 8px;
+    padding: 10px 24px; font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 700;
+    cursor: pointer; transition: all .2s; margin-top: 8px; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .check-btn:hover { background: var(--bleu); }
+  .reset-btn {
+    background: white; color: var(--texte-sec); border: 1px solid var(--gris-bord);
+    border-radius: 8px; padding: 10px 18px; font-family: 'Outfit', sans-serif;
+    font-size: 13px; font-weight: 600; cursor: pointer; transition: all .2s; margin-top: 8px;
+  }
+  .reset-btn:hover { background: var(--gris); }
+  .feedback-msg {
+    margin-top: 10px; padding: 10px 14px; border-radius: 8px; font-size: 13px;
+    font-family: 'Outfit', sans-serif; font-weight: 600; display: none;
+  }
+  .feedback-msg.success { background: var(--vert-clair); color: var(--vert); border: 1px solid var(--vert); display: block; }
+  .feedback-msg.error { background: var(--rouge-clair); color: var(--rouge); border: 1px solid var(--rouge); display: block; }
+
+  /* ALERTE ENCADRÉ */
+  .alerte-box {
+    background: var(--rouge-clair); border: 2px solid var(--rouge);
+    border-radius: 10px; padding: 14px 18px; display: flex; align-items: flex-start; gap: 14px;
+  }
+  .alerte-icon { font-size: 28px; flex-shrink: 0; }
+  .alerte-box h3 { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800;
+    color: var(--rouge); margin-bottom: 4px; }
+  .alerte-box p { font-size: 13px; color: #7a1a10; line-height: 1.5; }
+
+  /* CAS CONCRET */
+  .cc-box {
+    background: #1a3a6b; color: white; border-radius: 12px; padding: 20px 24px;
+  }
+  .cc-box .cc-badge {
+    background: rgba(255,255,255,.15); border-radius: 6px; display: inline-block;
+    padding: 4px 12px; font-size: 11px; font-family: 'Outfit', sans-serif; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+  }
+  .cc-box h3 { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800;
+    margin-bottom: 8px; }
+  .cc-box .scenario-txt { font-size: 14px; line-height: 1.7; opacity: .9; }
+  .cc-criteres {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px;
+  }
+  .critere-item {
+    background: rgba(255,255,255,.1); border-radius: 8px; padding: 10px 12px;
+    font-size: 12px; display: flex; align-items: flex-start; gap: 8px;
+  }
+  .critere-item .ck { font-size: 16px; flex-shrink: 0; }
+
+  .chrono-zone {
+    display: flex; align-items: center; gap: 16px; margin-top: 16px;
+    padding-top: 16px; border-top: 1px solid rgba(255,255,255,.2);
+  }
+  #chrono-display {
+    font-family: 'Outfit', sans-serif; font-size: 36px; font-weight: 800; color: white;
+    min-width: 100px;
+  }
+  .chrono-btn {
+    background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+    color: white; border-radius: 8px; padding: 8px 18px; font-family: 'Outfit', sans-serif;
+    font-size: 13px; font-weight: 700; cursor: pointer; transition: all .2s;
+  }
+  .chrono-btn:hover { background: rgba(255,255,255,.25); }
+  .chrono-btn.start { background: var(--vert); border-color: var(--vert); }
+  .chrono-btn.stop { background: var(--rouge); border-color: var(--rouge); }
+
+  /* SLIDE 1 - TITRE */
+  .titre-body {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 24px;
+    padding: 32px;
+    background: linear-gradient(160deg, #f7f9ff 0%, #eef2fa 100%);
+  }
+  .titre-number {
+    font-family: 'Outfit', sans-serif; font-size: 120px; font-weight: 800;
+    color: #dde5f5; line-height: 1; user-select: none;
+  }
+  .titre-main {
+    font-family: 'Outfit', sans-serif; font-size: 38px; font-weight: 800;
+    color: var(--bleu); text-align: center; line-height: 1.2;
+  }
+  .titre-sub {
+    font-size: 15px; color: var(--texte-sec); text-align: center; max-width: 560px; line-height: 1.6;
+  }
+  .titre-chips { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .titre-chip {
+    background: var(--bleu-clair); border: 1px solid #a0c0ea;
+    color: var(--bleu); border-radius: 20px; padding: 6px 16px;
+    font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600;
+  }
+  .titre-timing {
+    display: flex; gap: 20px;
+  }
+  .timing-box {
+    text-align: center; padding: 12px 20px;
+    background: white; border: 1px solid var(--gris-bord); border-radius: 10px;
+  }
+  .timing-box .t-val {
+    font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 800; color: var(--bleu);
+  }
+  .timing-box .t-label {
+    font-size: 11px; color: var(--texte-sec); text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  /* SLIDE 5 point clé */
+  .cles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .cle-card {
+    border-radius: 10px; padding: 16px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .cle-card.bleu { background: var(--bleu-clair); border: 1px solid #a0c0ea; }
+  .cle-card.rouge { background: var(--rouge-clair); border: 1px solid #e8a09a; }
+  .cle-card.vert { background: var(--vert-clair); border: 1px solid #80cba0; }
+  .cle-card.orange { background: var(--orange-clair); border: 1px solid #f0c080; }
+  .cle-card h3 { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; }
+  .cle-card.bleu h3 { color: var(--bleu); }
+  .cle-card.rouge h3 { color: var(--rouge); }
+  .cle-card.vert h3 { color: var(--vert); }
+  .cle-card.orange h3 { color: #7a4400; }
+  .cle-card p { font-size: 12px; line-height: 1.5; }
+  .cle-card.bleu p { color: #2558a8; }
+  .cle-card.rouge p { color: #7a1a10; }
+  .cle-card.vert p { color: #0e4a2b; }
+  .cle-card.orange p { color: #7a4400; }
+
+  .reveal-btn {
+    background: white; border: 2px solid var(--bleu-mid); color: var(--bleu-mid);
+    border-radius: 8px; padding: 8px 18px; font-family: 'Outfit', sans-serif;
+    font-size: 13px; font-weight: 700; cursor: pointer; transition: all .2s;
+    margin-top: 6px;
+  }
+  .reveal-btn:hover { background: var(--bleu-mid); color: white; }
+  .reveal-content { display: none; }
+  .reveal-content.shown { display: block; }
+
+  /* FOOTER */
+  .slide-footer {
+    padding: 8px 32px; border-top: 1px solid var(--gris-bord);
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; color: var(--texte-sec); flex-shrink: 0;
+    background: var(--gris);
+  }
+  .progress-dots { display: flex; gap: 5px; }
+  .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--gris-bord); transition: all .3s;
+  }
+  .dot.active { background: var(--bleu-mid); }
+  .dot.done { background: #a0c0ea; }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .def-grid { grid-template-columns: 1fr; }
+    .cles-grid { grid-template-columns: 1fr; }
+    .cc-criteres { grid-template-columns: 1fr; }
+    #nav-pills { display: none; }
+    .slide-header h1 { font-size: 20px; }
+    .titre-main { font-size: 26px; }
+    .titre-number { font-size: 80px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<div id="nav">
+  <div class="logo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+    </svg>
+    <span>PSC1</span>&nbsp;— Scénario 5 FOAD
+  </div>
+  <div id="nav-pills">
+    <div class="pill active" onclick="goSlide(0)">Titre</div>
+    <div class="pill" onclick="goSlide(1)">Définitions</div>
+    <div class="pill" onclick="goSlide(2)">CAT membre</div>
+    <div class="pill" onclick="goSlide(3)">CAT cou</div>
+    <div class="pill" onclick="goSlide(4)">Points clés</div>
+    <div class="pill" onclick="goSlide(5)">Cas Concret</div>
+  </div>
+  <div id="nav-btns">
+    <span id="slide-counter">1 / 6</span>
+    <button class="nav-btn" onclick="prevSlide()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>
+      Préc.
+    </button>
+    <button class="nav-btn" onclick="nextSlide()">
+      Suiv.
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9,18 15,12 9,6"/></svg>
+    </button>
+  </div>
+</div>
+
+<div id="stage">
+
+  <!-- ===== SLIDE 1 : TITRE ===== -->
+  <div class="slide active" id="slide-0">
+    <div class="slide-header">
+      <div>
+        <div class="chapitre">Scénario 5 — FOAD + Présentiel · Chapitre 3</div>
+        <h1>TRAUMATISME</h1>
+        <div style="font-size:13px;opacity:.8;margin-top:4px;">Des os, des articulations et des organes</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="men-logo">Ministère de l'Éducation nationale<br>et de la Jeunesse</div>
+        <div style="margin-top:8px;font-size:10px;opacity:.5;">PSC1 · RIFC 2022 ver.12</div>
+      </div>
+    </div>
+    <div class="titre-body">
+      <div class="titre-number">3</div>
+      <div class="titre-main">Traumatisme<br>des os, articulations et organes</div>
+      <div class="titre-sub">
+        À la fin de cette partie, vous serez capable d'agir face à une victime présentant un traumatisme, en reconnaissant les signes et en réalisant les gestes de secours adaptés et nécessaires.
+      </div>
+      <div class="titre-timing">
+        <div class="timing-box">
+          <div class="t-val">15'</div>
+          <div class="t-label">FOAD (déjà fait)</div>
+        </div>
+        <div class="timing-box" style="border-color:var(--bleu-mid);">
+          <div class="t-val" style="color:var(--bleu-mid);">20'</div>
+          <div class="t-label">Présentiel aujourd'hui</div>
+        </div>
+        <div class="timing-box">
+          <div class="t-val">1</div>
+          <div class="t-label">Cas Concret</div>
+        </div>
+      </div>
+      <div class="titre-chips">
+        <div class="titre-chip">REFOR — Reformulation</div>
+        <div class="titre-chip">APG(M) — Douleur du cou</div>
+        <div class="titre-chip">Compétence H1</div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Formation PSC1 · Collège</span>
+      <div class="progress-dots" id="dots-0"></div>
+      <span>Slide 1/6</span>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 2 : DÉFINITIONS & SIGNES ===== -->
+  <div class="slide" id="slide-1">
+    <div class="slide-header">
+      <div>
+        <div class="chapitre">Chapitre 3 · Traumatisme · Activité d'apprentissage</div>
+        <h2>Qu'est-ce qu'un traumatisme ?</h2>
+      </div>
+      <div class="badge-duree"><div class="mins">3'</div><div class="label">Reformulation</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="objectif-box">
+        <strong>Question aux élèves</strong>
+        Vous avez fait la FOAD. Selon vous, qu'est-ce qu'un traumatisme ? Quels types de lésions peut-on observer ?
+      </div>
+
+      <div class="section-label">Les 3 types de lésions traumatiques</div>
+      <div class="def-grid">
+        <div class="def-card">
+          <div class="def-icon">🦴</div>
+          <h3>Os</h3>
+          <p><strong>Fracture</strong> — rupture de la continuité d'un os. Peut être visible (déformation) ou invisible.</p>
+        </div>
+        <div class="def-card">
+          <div class="def-icon">🔗</div>
+          <h3>Articulations</h3>
+          <p><strong>Entorse</strong> (élongation ligamentaire) ou <strong>luxation</strong> (déboîtement).</p>
+        </div>
+        <div class="def-card">
+          <div class="def-icon">🫁</div>
+          <h3>Organes internes</h3>
+          <p>Choc sur tête, thorax ou abdomen → atteinte possible des organes sous-jacents (secondaire).</p>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin-top:4px;">Causes fréquentes</div>
+      <div class="signes-row">
+        <div class="signe-chip">⚡ Choc / Coup</div>
+        <div class="signe-chip">⚡ Chute</div>
+        <div class="signe-chip">⚡ Faux mouvement</div>
+        <div class="signe-chip">⚡ Accident de sport</div>
+        <div class="signe-chip">⚡ Accident de la route</div>
+      </div>
+
+      <div class="section-label" style="margin-top:4px;">Signes que vous pouvez observer</div>
+      <div class="signes-row">
+        <div class="signe-chip" style="background:#fdecea;border-color:#c0392b;color:#7a1010;">😣 Douleur vive</div>
+        <div class="signe-chip" style="background:#fdecea;border-color:#c0392b;color:#7a1010;">🚫 Impossibilité de bouger</div>
+        <div class="signe-chip" style="background:#fdecea;border-color:#c0392b;color:#7a1010;">🫥 Gonflement</div>
+        <div class="signe-chip" style="background:#fdecea;border-color:#c0392b;color:#7a1010;">📐 Déformation</div>
+        <div class="signe-chip" style="background:#fdecea;border-color:#c0392b;color:#7a1010;">😵 Perte de connaissance possible</div>
+      </div>
+
+      <div class="alerte-box" style="margin-top:4px;">
+        <div class="alerte-icon">⚠️</div>
+        <div>
+          <h3>Risque colonne vertébrale</h3>
+          <p>Un traumatisme au niveau du dos ou de la nuque peut léser la moelle épinière → risque de paralysie. <strong>Ne jamais mobiliser la victime.</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>REFOR — Reformulation interactive</span>
+      <div class="progress-dots" id="dots-1"></div>
+      <span>Slide 2/6</span>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 3 : CAT TRAUMATISME MEMBRE (drag & drop) ===== -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header">
+      <div>
+        <div class="chapitre">Chapitre 3 · CAT · Victime consciente avec traumatisme d'un membre</div>
+        <h2>Remettez les étapes dans le bon ordre !</h2>
+      </div>
+      <div class="badge-duree"><div class="mins">5'</div><div class="label">Activité</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="cat-instruction">
+        🖐️ Un élève vient glisser les étapes dans le bon ordre. Les autres peuvent l'aider à voix haute.
+      </div>
+
+      <div class="section-label">Étapes disponibles — à placer dans le bon ordre ↓</div>
+      <div class="steps-pool" id="pool-1">
+        <!-- steps generated by JS -->
+      </div>
+
+      <div class="section-label">Ordre correct de la CAT</div>
+      <div class="drop-zone" id="dropzone-1">
+        <div class="drop-slot">
+          <div class="slot-num">1</div>
+          <div class="slot-box" id="slot-1-1" data-slot="0" ondragover="dragOver(event)" ondrop="drop(event,this,'1')">Déposer ici…</div>
+        </div>
+        <div class="drop-slot">
+          <div class="slot-num">2</div>
+          <div class="slot-box" id="slot-1-2" data-slot="1" ondragover="dragOver(event)" ondrop="drop(event,this,'1')">Déposer ici…</div>
+        </div>
+        <div class="drop-slot">
+          <div class="slot-num">3</div>
+          <div class="slot-box" id="slot-1-3" data-slot="2" ondragover="dragOver(event)" ondrop="drop(event,this,'1')">Déposer ici…</div>
+        </div>
+        <div class="drop-slot">
+          <div class="slot-num">4</div>
+          <div class="slot-box" id="slot-1-4" data-slot="3" ondragover="dragOver(event)" ondrop="drop(event,this,'1')">Déposer ici…</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:8px;">
+        <button class="check-btn" onclick="checkOrder('1')">✓ Vérifier</button>
+        <button class="reset-btn" onclick="resetDrag('1')">↺ Recommencer</button>
+        <button class="reveal-btn" onclick="revealAnswer('1')">👁 Voir la réponse</button>
+      </div>
+      <div class="feedback-msg" id="feedback-1"></div>
+
+      <div class="reveal-content" id="reveal-1">
+        <div style="margin-top:12px;" class="objectif-box">
+          <strong>Réponse correcte</strong>
+          1. Conseiller de NE PAS mobiliser → 2. Alerter les secours (15/18/112) → 3. Protéger (chaleur, froid, intempéries) → 4. Surveiller et parler régulièrement
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Activité drag &amp; drop — un élève au clavier</span>
+      <div class="progress-dots" id="dots-2"></div>
+      <span>Slide 3/6</span>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 4 : CAT DOULEUR DU COU (drag & drop) ===== -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header" style="background: #8b1a1a;">
+      <div>
+        <div class="chapitre">Chapitre 3 · CAT · Douleur du cou après traumatisme — APG(M)</div>
+        <h2>Douleur du cou (rachis cervical) — Remettez dans l'ordre !</h2>
+      </div>
+      <div class="badge-duree"><div class="mins">5'</div><div class="label">Activité</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="alerte-box" style="margin-bottom:4px;">
+        <div class="alerte-icon">🚨</div>
+        <div>
+          <h3>Situation à risque majeur</h3>
+          <p>Toute douleur du cou après un choc = suspicion de <strong>traumatisme du rachis cervical</strong>. Risque de paralysie si mal géré. Technique APG(M).</p>
+        </div>
+      </div>
+
+      <div class="cat-instruction">
+        🖐️ Un autre élève vient glisser les étapes. Le groupe peut aider.
+      </div>
+
+      <div class="section-label">Étapes disponibles</div>
+      <div class="steps-pool" id="pool-2"></div>
+
+      <div class="section-label">Ordre correct de la CAT — Douleur du cou</div>
+      <div class="drop-zone" id="dropzone-2">
+        <div class="drop-slot">
+          <div class="slot-num" style="background:#8b1a1a;">1</div>
+          <div class="slot-box" id="slot-2-1" ondragover="dragOver(event)" ondrop="drop(event,this,'2')">Déposer ici…</div>
+        </div>
+        <div class="drop-slot">
+          <div class="slot-num" style="background:#8b1a1a;">2</div>
+          <div class="slot-box" id="slot-2-2" ondragover="dragOver(event)" ondrop="drop(event,this,'2')">Déposer ici…</div>
+        </div>
+        <div class="drop-slot">
+          <div class="slot-num" style="background:#8b1a1a;">3</div>
+          <div class="slot-box" id="slot-2-3" ondragover="dragOver(event)" ondrop="drop(event,this,'2')">Déposer ici…</div>
+        </div>
+        <div class="drop-slot">
+          <div class="slot-num" style="background:#8b1a1a;">4</div>
+          <div class="slot-box" id="slot-2-4" ondragover="dragOver(event)" ondrop="drop(event,this,'2')">Déposer ici…</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:8px;">
+        <button class="check-btn" style="background:#8b1a1a;" onclick="checkOrder('2')">✓ Vérifier</button>
+        <button class="reset-btn" onclick="resetDrag('2')">↺ Recommencer</button>
+        <button class="reveal-btn" onclick="revealAnswer('2')">👁 Voir la réponse</button>
+      </div>
+      <div class="feedback-msg" id="feedback-2"></div>
+      <div class="reveal-content" id="reveal-2">
+        <div style="margin-top:12px;" class="alerte-box">
+          <div class="alerte-icon">✅</div>
+          <div>
+            <h3 style="color:#1a7a4a;">Réponse correcte</h3>
+            <p style="color:#0e4a2b;">1. DEMANDER de ne pas bouger la tête → 2. ALERTER les secours (15/18/112) → 3. STABILISER le rachis (maintien à 2 mains si possible) → 4. SURVEILLER régulièrement</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>APG(M) — Activité drag &amp; drop</span>
+      <div class="progress-dots" id="dots-3"></div>
+      <span>Slide 4/6</span>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 5 : POINTS CLÉS ===== -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header">
+      <div>
+        <div class="chapitre">Chapitre 3 · Points essentiels à retenir</div>
+        <h2>Ce qu'il ne faut JAMAIS oublier</h2>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="objectif-box">
+        <strong>Question orale au groupe</strong>
+        Qu'est-ce qu'on ne fait JAMAIS face à un traumatisme ? Qu'est-ce qui change si la victime a mal au cou ?
+      </div>
+
+      <div class="cles-grid">
+        <div class="cle-card rouge">
+          <h3>🚫 Ne JAMAIS mobiliser</h3>
+          <p>Le sauveteur ne doit pas déplacer, redresser ou réaligner un membre fracturé. On laisse la victime dans la position où elle se trouve.</p>
+        </div>
+        <div class="cle-card rouge">
+          <h3>🚫 Fracture déplacée : ne pas réaligner</h3>
+          <p>Même si la déformation est impressionnante, on ne tente jamais de remettre l'os en place. C'est le rôle des secours médicalisés.</p>
+        </div>
+        <div class="cle-card bleu">
+          <h3>📞 Toujours alerter</h3>
+          <p>Quel que soit le type de traumatisme : <strong>15</strong> (SAMU), <strong>18</strong> (Pompiers) ou <strong>112</strong> (urgence européenne). Appliquer les consignes données.</p>
+        </div>
+        <div class="cle-card vert">
+          <h3>🤲 Douleur du cou : maintien à 2 mains</h3>
+          <p>Si possible, stabiliser la tête et le cou dans la position trouvée, sans bouger, en maintenant avec les deux mains jusqu'à l'arrivée des secours.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:8px;">
+        <div class="section-label">Différences entre les 2 CAT</div>
+        <button class="reveal-btn" onclick="toggleReveal('comparatif')">Afficher le comparatif</button>
+        <div class="reveal-content" id="reveal-comparatif" style="margin-top:10px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div class="cle-card bleu">
+              <h3>Traumatisme membre</h3>
+              <p>1. Conseiller de ne pas mobiliser<br>2. Alerter 15/18/112<br>3. Protéger (chaleur, froid)<br>4. Surveiller et parler</p>
+            </div>
+            <div class="cle-card rouge">
+              <h3>Douleur du cou (rachis)</h3>
+              <p>1. Demander de ne pas bouger la tête<br>2. Alerter 15/18/112<br>3. Stabiliser à 2 mains si possible<br>4. Surveiller régulièrement</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Points clés — échange oral avec le groupe</span>
+      <div class="progress-dots" id="dots-4"></div>
+      <span>Slide 5/6</span>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 6 : CAS CONCRET ===== -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header" style="background:#0e4a2b;">
+      <div>
+        <div class="chapitre">Chapitre 3 · Activité d'application · Compétence H1</div>
+        <h2>Cas Concret — Mise en situation réelle</h2>
+      </div>
+      <div class="badge-duree"><div class="mins">7'</div><div class="label">Cas Concret</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="cc-box">
+        <div class="cc-badge">🎭 Scénario du Cas Concret</div>
+        <h3>« La chute au gymnase »</h3>
+        <div class="scenario-txt">
+          Lors d'un cours d'EPS, votre camarade <strong>Thomas, 14 ans</strong>, glisse et tombe lourdement pendant un exercice d'escalade. Il crie de douleur. Il est conscient, allongé au sol, et se plaint d'une <strong>douleur intense au bras droit</strong> avec une déformation visible. Il vous dit également avoir <strong>mal à la nuque</strong> depuis la chute.
+          <br><br>
+          Vous êtes le premier sur les lieux. Que faites-vous ?
+        </div>
+        <div class="cc-criteres">
+          <div class="critere-item">
+            <div class="ck">✅</div>
+            <div>Identifier 2 problèmes : membre + cou</div>
+          </div>
+          <div class="critere-item">
+            <div class="ck">✅</div>
+            <div>Demander de ne pas bouger (tête ET membre)</div>
+          </div>
+          <div class="critere-item">
+            <div class="ck">✅</div>
+            <div>Alerter les secours (15, 18 ou 112)</div>
+          </div>
+          <div class="critere-item">
+            <div class="ck">✅</div>
+            <div>Stabiliser le rachis à 2 mains si possible</div>
+          </div>
+          <div class="critere-item">
+            <div class="ck">✅</div>
+            <div>NE PAS tenter de réaligner le bras</div>
+          </div>
+          <div class="critere-item">
+            <div class="ck">✅</div>
+            <div>Surveiller et parler à la victime</div>
+          </div>
+        </div>
+        <div class="chrono-zone">
+          <div id="chrono-display">0:00</div>
+          <button class="chrono-btn start" id="chrono-btn" onclick="toggleChrono()">▶ Démarrer</button>
+          <button class="chrono-btn" onclick="resetChrono()">↺ Reset</button>
+          <span style="font-size:12px;opacity:.6;margin-left:8px;">Objectif : action en moins de 3 minutes</span>
+        </div>
+      </div>
+
+      <div style="margin-top:8px;">
+        <button class="reveal-btn" onclick="toggleReveal('debrief')">💬 Afficher la correction / débriefing</button>
+        <div class="reveal-content" id="reveal-debrief" style="margin-top:10px;">
+          <div class="objectif-box">
+            <strong>Points de débriefing formateur</strong>
+            <ul style="margin-top:8px;padding-left:18px;font-size:13px;line-height:2;">
+              <li>L'élève a-t-il repéré les <strong>2 problèmes</strong> (bras + cou) ?</li>
+              <li>A-t-il d'abord sécurisé la tête avant de toucher le bras ?</li>
+              <li>Le message d'alerte était-il complet ? (qui, quoi, où, combien)</li>
+              <li>A-t-il maintenu le contact verbal avec la victime ?</li>
+              <li>A-t-il attendu les secours sans mobiliser ?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="alerte-box" style="margin-top:8px;">
+        <div class="alerte-icon">📋</div>
+        <div>
+          <h3>Compétence H1 évaluée</h3>
+          <p>Chaque élève doit être sauveteur au moins une fois dans la session. Ce CC peut être rejoué avec un autre élève si le temps le permet.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Cas Concret — Compétence H1 — Évaluation formative</span>
+      <div class="progress-dots" id="dots-5"></div>
+      <span>Slide 6/6</span>
+    </div>
+  </div>
+
+</div><!-- end stage -->
+
+<script>
+const TOTAL = 6;
+let current = 0;
+
+// === NAVIGATION ===
+function goSlide(n) {
+  document.getElementById('slide-'+current).classList.remove('active');
+  document.querySelectorAll('.pill')[current].classList.remove('active');
+  current = n;
+  document.getElementById('slide-'+current).classList.add('active');
+  document.querySelectorAll('.pill')[current].classList.add('active');
+  document.getElementById('slide-counter').textContent = (current+1)+' / '+TOTAL;
+  updateDots();
+}
+function nextSlide() { if(current < TOTAL-1) goSlide(current+1); }
+function prevSlide() { if(current > 0) goSlide(current-1); }
+
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowRight'||e.key===' ') { e.preventDefault(); nextSlide(); }
+  if(e.key==='ArrowLeft') { e.preventDefault(); prevSlide(); }
+});
+
+function updateDots() {
+  for(let i=0;i<TOTAL;i++) {
+    const d = document.getElementById('dots-'+i);
+    if(!d) continue;
+    d.innerHTML = '';
+    for(let j=0;j<TOTAL;j++) {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (j===i?' active':(j<i?' done':''));
+      d.appendChild(dot);
+    }
+  }
+}
+updateDots();
+
+// === DRAG & DROP ===
+const cats = {
+  '1': {
+    steps: [
+      { id:'s1a', text:'🗣️ Conseiller fermement de NE PAS mobiliser la partie atteinte' },
+      { id:'s1b', text:'📞 Faire alerter ou alerter les secours (15/18/112)' },
+      { id:'s1c', text:'🌡️ Protéger de la chaleur, du froid ou des intempéries' },
+      { id:'s1d', text:'👁️ Surveiller la victime et lui parler régulièrement' },
+    ],
+    order: ['s1a','s1b','s1c','s1d']
+  },
+  '2': {
+    steps: [
+      { id:'s2a', text:'🤲 Stabiliser le rachis cervical dans la position trouvée (2 mains si possible)' },
+      { id:'s2b', text:'🗣️ Demander à la victime de NE PAS bouger la tête' },
+      { id:'s2c', text:'📞 Faire alerter ou alerter les secours (15/18/112)' },
+      { id:'s2d', text:'👁️ Surveiller la victime régulièrement' },
+    ],
+    order: ['s2b','s2c','s2a','s2d']
+  }
+};
+
+let dragging = null;
+let placedCards = {}; // slotId -> cardId
+
+function buildPool(catId) {
+  const pool = document.getElementById('pool-'+catId);
+  const shuffled = [...cats[catId].steps].sort(()=>Math.random()-.5);
+  pool.innerHTML = '';
+  shuffled.forEach(step => {
+    const card = makeCard(step.id, step.text, catId);
+    pool.appendChild(card);
+  });
+  placedCards[catId] = {};
+}
+
+function makeCard(id, text, catId) {
+  const div = document.createElement('div');
+  div.className = 'step-card';
+  div.id = 'card-'+id;
+  div.draggable = true;
+  div.textContent = text;
+  div.dataset.id = id;
+  div.dataset.cat = catId;
+  div.addEventListener('dragstart', e => {
+    dragging = div;
+    div.classList.add('dragging');
+  });
+  div.addEventListener('dragend', e => {
+    div.classList.remove('dragging');
+  });
+  return div;
+}
+
+function dragOver(e) {
+  e.preventDefault();
+  e.currentTarget.classList.add('drag-over');
+}
+
+function drop(e, slot, catId) {
+  e.preventDefault();
+  slot.classList.remove('drag-over');
+  if(!dragging) return;
+
+  // Si le slot est déjà occupé, remettre l'ancienne carte dans le pool
+  if(slot.classList.contains('filled') && slot.firstChild) {
+    const oldCard = slot.firstChild;
+    document.getElementById('pool-'+catId).appendChild(oldCard);
+    oldCard.classList.remove('correct','wrong');
+    oldCard.draggable = true;
+  }
+
+  slot.innerHTML = '';
+  slot.classList.add('filled');
+  slot.appendChild(dragging);
+  dragging.draggable = false;
+
+  // Track
+  const slotIdx = Array.from(slot.parentNode.parentNode.querySelectorAll('.slot-box')).indexOf(slot);
+  if(!placedCards[catId]) placedCards[catId] = {};
+  placedCards[catId][slotIdx] = dragging.dataset.id;
+
+  dragging = null;
+}
+
+function checkOrder(catId) {
+  const slots = document.querySelectorAll('#slide-'+(catId==='1'?'2':'3')+' .slot-box');
+  const correct = cats[catId].order;
+  let allOk = true;
+
+  slots.forEach((slot, i) => {
+    if(slot.classList.contains('filled') && slot.firstChild) {
+      const card = slot.firstChild;
+      if(card.dataset.id === correct[i]) {
+        card.classList.add('correct');
+        card.classList.remove('wrong');
+      } else {
+        card.classList.add('wrong');
+        card.classList.remove('correct');
+        allOk = false;
+      }
+    } else {
+      allOk = false;
+    }
+  });
+
+  const fb = document.getElementById('feedback-'+catId);
+  if(allOk) {
+    fb.className = 'feedback-msg success';
+    fb.textContent = '🎉 Bravo ! La CAT est dans le bon ordre. Parfait !';
+  } else {
+    fb.className = 'feedback-msg error';
+    fb.textContent = '❌ Pas encore… Les cases en rouge sont mal placées. Recommencez !';
+  }
+}
+
+function resetDrag(catId) {
+  const fb = document.getElementById('feedback-'+catId);
+  fb.className = 'feedback-msg';
+  document.getElementById('reveal-'+catId).classList.remove('shown');
+  buildPool(catId);
+  const slots = document.querySelectorAll('[id^="slot-'+catId+'-"]');
+  slots.forEach(slot => {
+    slot.innerHTML = 'Déposer ici…';
+    slot.classList.remove('filled','drag-over');
+  });
+  placedCards[catId] = {};
+}
+
+function revealAnswer(catId) {
+  const rev = document.getElementById('reveal-'+catId);
+  rev.classList.toggle('shown');
+}
+
+function toggleReveal(id) {
+  const el = document.getElementById('reveal-'+id);
+  el.classList.toggle('shown');
+}
+
+buildPool('1');
+buildPool('2');
+
+// === CHRONO ===
+let chronoInterval = null;
+let chronoSecs = 0;
+let chronoRunning = false;
+
+function toggleChrono() {
+  const btn = document.getElementById('chrono-btn');
+  if(chronoRunning) {
+    clearInterval(chronoInterval);
+    chronoRunning = false;
+    btn.textContent = '▶ Reprendre';
+    btn.className = 'chrono-btn start';
+  } else {
+    chronoInterval = setInterval(() => {
+      chronoSecs++;
+      const m = Math.floor(chronoSecs/60);
+      const s = chronoSecs%60;
+      document.getElementById('chrono-display').textContent = m+':'+(s<10?'0':'')+s;
+      if(chronoSecs === 180) {
+        document.getElementById('chrono-display').style.color = '#ff6b6b';
+      }
+    }, 1000);
+    chronoRunning = true;
+    btn.textContent = '⏸ Pause';
+    btn.className = 'chrono-btn stop';
+  }
+}
+
+function resetChrono() {
+  clearInterval(chronoInterval);
+  chronoRunning = false;
+  chronoSecs = 0;
+  document.getElementById('chrono-display').textContent = '0:00';
+  document.getElementById('chrono-display').style.color = 'white';
+  const btn = document.getElementById('chrono-btn');
+  btn.textContent = '▶ Démarrer';
+  btn.className = 'chrono-btn start';
+}
+</script>
+</body>
+</html>
