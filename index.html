@@ -94,9 +94,12 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 .pool-zone{display:flex;flex-wrap:wrap;gap:6px;min-height:100px;padding:10px;background:var(--gris);border-radius:10px;border:1.5px dashed var(--gris-bord);align-items:flex-start;align-content:flex-start}
 /* TIMELINE SLOTS */
 .timeline{display:flex;align-items:flex-start;gap:0;width:100%;margin-top:4px}
-.tl-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
-.tl-step:not(:last-child)::after{content:'';position:absolute;top:24px;right:-1px;width:calc(50% + 1px);height:2px;background:var(--gris-bord);z-index:0}
-.tl-step:not(:first-child)::before{content:'';position:absolute;top:24px;left:0;width:50%;height:2px;background:var(--gris-bord);z-index:0}
+.timeline .tl-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.timeline .tl-step:not(:last-child)::after{content:'';position:absolute;top:24px;right:-1px;width:calc(50% + 1px);height:2px;background:var(--gris-bord);z-index:0}
+.timeline .tl-step:not(:first-child)::before{content:'';position:absolute;top:24px;left:0;width:50%;height:2px;background:var(--gris-bord);z-index:0}
+/* cat-flow uses tl-step too but without pseudo lines */
+.cat-flow .tl-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.cat-flow .tl-step::before,.cat-flow .tl-step::after{display:none!important}
 .tl-num{width:46px;height:46px;border-radius:50%;background:var(--bleu);color:white;font-family:'Outfit',sans-serif;font-weight:800;font-size:19px;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;border:3px solid white;box-shadow:0 0 0 2px var(--bleu)}
 .tl-slot{margin-top:8px;width:100%;min-height:72px;border:2px dashed var(--gris-bord);border-radius:10px;background:white;display:flex;align-items:center;justify-content:center;transition:all .2s;padding:5px;cursor:pointer}
 .tl-slot.drag-over{border-color:var(--bleu-mid);background:var(--bleu-clair)}
@@ -146,7 +149,39 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 .inter-icon{width:44px;height:44px;background:var(--rouge);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:22px;flex-shrink:0}
 .interdiction-box p{font-size:13px;color:#7a1a10;line-height:1.5;font-family:'Outfit',sans-serif;font-weight:600}
 
-/* ===== SLIDE 6 : CAS CONCRET ===== */
+/* ===== ALERTE ITEMS REVEAL ===== */
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.04)}100%{transform:scale(1)}}
+.alerte-item{
+  border-radius:8px;margin-bottom:7px;cursor:pointer;
+  transition:transform .15s;overflow:hidden;
+  border:1.5px solid rgba(255,255,255,.15);
+}
+.alerte-item:hover{transform:scale(1.01)}
+.alerte-item:active{transform:scale(.98)}
+.ai-mask{
+  background:rgba(255,255,255,.08);
+  padding:9px 12px;display:flex;align-items:center;gap:10px;
+}
+.ai-num{
+  width:24px;height:24px;border-radius:50%;
+  background:rgba(255,255,255,.2);color:white;
+  font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.ai-question{font-size:12.5px;font-weight:700;color:white;font-family:'Outfit',sans-serif;flex:1;}
+.ai-hint{font-size:10px;opacity:.5;color:white;font-family:'Outfit',sans-serif;white-space:nowrap;}
+.ai-content{
+  display:none;background:rgba(255,255,255,.14);
+  padding:9px 12px;animation:fadeIn .35s ease, pop .35s ease;
+}
+.ai-label{display:block;font-size:9.5px;opacity:.6;font-family:'Outfit',sans-serif;
+  text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.ai-text{font-size:12.5px;font-weight:600;color:white;line-height:1.45;}
+.alerte-item.revealed .ai-mask{display:none}
+.alerte-item.revealed .ai-content{display:block}
+.alerte-item.revealed{border-color:rgba(100,220,100,.35);cursor:default}
+.alerte-item.revealed:hover{transform:none}
 .cc-box{background:var(--bleu);color:white;border-radius:12px;padding:18px 22px}
 .cc-badge{background:rgba(255,255,255,.15);border-radius:6px;display:inline-block;padding:3px 12px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
 .cc-box h3{font-family:'Outfit',sans-serif;font-size:17px;font-weight:800;margin-bottom:6px}
@@ -610,40 +645,68 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
         <!-- COL DROITE : fiche alerte + chrono -->
         <div style="display:flex;flex-direction:column;gap:10px;">
           <div style="background:#1a3a6b;border-radius:12px;padding:14px;color:white;flex:1;">
-            <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;opacity:.7;margin-bottom:10px;">📞 Message d'alerte — les 4 éléments</div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="background:rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;display:flex;align-items:center;gap:10px;">
-                <span style="font-size:20px;flex-shrink:0;">👤</span>
-                <div>
-                  <div style="font-size:10px;opacity:.6;font-family:'Outfit',sans-serif;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Qui appelle</div>
-                  <div style="font-size:12.5px;font-weight:600;">"Je m'appelle [prénom], élève du collège Victor Hugo"</div>
-                </div>
+            <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;opacity:.7;margin-bottom:10px;">📞 Message d'alerte — clique après chaque bonne réponse</div>
+
+            <!-- Élément 1 -->
+            <div class="alerte-item" id="ai-1" onclick="revealAlerteItem(1)">
+              <div class="ai-mask">
+                <span class="ai-num">1</span>
+                <span class="ai-question">👤 Qui appelle ?</span>
+                <span class="ai-hint">Clique après la réponse de l'élève →</span>
               </div>
-              <div style="background:rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;display:flex;align-items:center;gap:10px;">
-                <span style="font-size:20px;flex-shrink:0;">📍</span>
-                <div>
-                  <div style="font-size:10px;opacity:.6;font-family:'Outfit',sans-serif;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Où — adresse précise</div>
-                  <div style="font-size:12.5px;font-weight:600;">Skate park — Collège Victor Hugo<br>12 rue des Acacias, 75012 Paris</div>
-                </div>
+              <div class="ai-content">
+                <span class="ai-label">👤 QUI APPELLE</span>
+                <span class="ai-text">"Je m'appelle [prénom], élève du collège Victor Hugo"</span>
               </div>
-              <div style="background:rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;display:flex;align-items:center;gap:10px;">
-                <span style="font-size:20px;flex-shrink:0;">🤕</span>
-                <div>
-                  <div style="font-size:10px;opacity:.6;font-family:'Outfit',sans-serif;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Quoi — ce qui s'est passé</div>
-                  <div style="font-size:12.5px;font-weight:600;">"Un garçon de 13 ans a chuté en skate, il a mal à la nuque"</div>
-                </div>
+            </div>
+
+            <!-- Élément 2 -->
+            <div class="alerte-item" id="ai-2" onclick="revealAlerteItem(2)">
+              <div class="ai-mask">
+                <span class="ai-num">2</span>
+                <span class="ai-question">📍 Où ça se passe ?</span>
+                <span class="ai-hint">Clique après la réponse de l'élève →</span>
               </div>
-              <div style="background:rgba(255,255,255,.12);border-radius:8px;padding:9px 12px;display:flex;align-items:center;gap:10px;">
-                <span style="font-size:20px;flex-shrink:0;">🫀</span>
-                <div>
-                  <div style="font-size:10px;opacity:.6;font-family:'Outfit',sans-serif;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">État de la victime</div>
-                  <div style="font-size:12.5px;font-weight:600;">"Il est conscient, il respire, il ne peut pas bouger la tête"</div>
-                </div>
+              <div class="ai-content">
+                <span class="ai-label">📍 OÙ — ADRESSE PRÉCISE</span>
+                <span class="ai-text">Skate park — Collège Victor Hugo<br>12 rue des Acacias, 75012 Paris</span>
               </div>
-              <div style="background:rgba(255,220,0,.18);border:1px solid rgba(255,220,0,.4);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
-                <span style="font-size:16px;">⚠️</span>
-                <div style="font-size:12px;font-weight:600;color:#ffe066;">Ne raccrochez PAS en premier — appliquez les consignes</div>
+            </div>
+
+            <!-- Élément 3 -->
+            <div class="alerte-item" id="ai-3" onclick="revealAlerteItem(3)">
+              <div class="ai-mask">
+                <span class="ai-num">3</span>
+                <span class="ai-question">🤕 Que s'est-il passé ?</span>
+                <span class="ai-hint">Clique après la réponse de l'élève →</span>
               </div>
+              <div class="ai-content">
+                <span class="ai-label">🤕 QUOI — CE QUI S'EST PASSÉ</span>
+                <span class="ai-text">"Un garçon de 13 ans a chuté en skate, il a mal à la nuque"</span>
+              </div>
+            </div>
+
+            <!-- Élément 4 -->
+            <div class="alerte-item" id="ai-4" onclick="revealAlerteItem(4)">
+              <div class="ai-mask">
+                <span class="ai-num">4</span>
+                <span class="ai-question">🫀 État de la victime ?</span>
+                <span class="ai-hint">Clique après la réponse de l'élève →</span>
+              </div>
+              <div class="ai-content">
+                <span class="ai-label">🫀 ÉTAT DE LA VICTIME</span>
+                <span class="ai-text">"Il est conscient, il respire, il ne peut pas bouger la tête"</span>
+              </div>
+            </div>
+
+            <!-- Règle finale - apparaît après les 4 -->
+            <div id="ai-final" style="display:none;margin-top:8px;background:rgba(255,220,0,.18);border:1px solid rgba(255,220,0,.4);border-radius:8px;padding:8px 12px;display:none;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#ffe066;animation:fadeIn .4s ease;">
+              ⚠️ Ne raccrochez PAS en premier — appliquez les consignes des secours
+            </div>
+
+            <!-- Reset -->
+            <div style="margin-top:10px;text-align:right;">
+              <button onclick="resetAlerteItems()" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);padding:5px 12px;border-radius:6px;font-size:11px;font-family:'Outfit',sans-serif;cursor:pointer;">↺ Recommencer</button>
             </div>
           </div>
           <!-- Chrono -->
@@ -1014,6 +1077,28 @@ function resetDD(cat){
 
 buildPool('1');
 buildPool('2');
+
+// ===== ALERTE ITEMS REVEAL =====
+let alerteCount=0;
+function revealAlerteItem(n){
+  const el=document.getElementById('ai-'+n);
+  if(!el||el.classList.contains('revealed'))return;
+  el.classList.add('revealed');
+  alerteCount++;
+  if(alerteCount>=4){
+    const fin=document.getElementById('ai-final');
+    if(fin){fin.style.display='flex';fin.style.animation='fadeIn .4s ease';}
+  }
+}
+function resetAlerteItems(){
+  for(let i=1;i<=4;i++){
+    const el=document.getElementById('ai-'+i);
+    if(el)el.classList.remove('revealed');
+  }
+  const fin=document.getElementById('ai-final');
+  if(fin)fin.style.display='none';
+  alerteCount=0;
+}
 
 // ===== CC 2 TEMPS =====
 let ccPhase=1;
