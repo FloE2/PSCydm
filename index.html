@@ -23,12 +23,12 @@ body{font-family:'Inter',sans-serif;background:#0a1020;color:#e0e8f0;min-height:
 .reset-btn:hover{border-color:#4a6a8a;color:#7fa8d4}
 
 /* HERO */
-#hero{background:linear-gradient(160deg,#0d1525 0%,#1a2d4a 100%);padding:24px 28px 20px;border-bottom:1px solid #1e2d4a}
+#hero{background:linear-gradient(160deg,#0d1525 0%,#1a2d4a 100%);padding:16px 28px 14px;border-bottom:1px solid #1e2d4a}
 .hero-tag{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#4a6a8a;margin-bottom:6px}
 .hero-title{font-family:'Outfit',sans-serif;font-size:26px;font-weight:900;color:white;line-height:1.1;margin-bottom:6px}
 .hero-title em{color:#7fa8d4;font-style:normal}
 .hero-sub{font-size:13px;color:#5a7a9a;line-height:1.6;max-width:700px;margin-bottom:10px}
-.hero-rule{background:rgba(255,220,0,.15);border:1px solid rgba(255,220,0,.35);border-radius:8px;padding:8px 14px;display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#ffe066;font-family:'Outfit',sans-serif;font-weight:700}
+.hero-rule{background:rgba(255,220,0,.15);border:1px solid rgba(255,220,0,.35);border-radius:8px;padding:6px 14px;display:flex;align-items:center;gap:8px;font-size:12px;color:#ffe066;font-family:'Outfit',sans-serif;font-weight:700;align-self:flex-start}
 
 /* MAIN */
 #main{flex:1;padding:20px 24px;overflow-y:auto}
@@ -139,29 +139,33 @@ body{font-family:'Inter',sans-serif;background:#0a1020;color:#e0e8f0;min-height:
 
     <div class="card foad">
       <div class="card-accent acc-grey"></div>
-      <div class="card-body">
-        <div class="card-num">Chapitre 1</div>
-        <div class="card-icon">📡</div>
-        <div class="card-title">Alerte et protection des populations</div>
-        <div class="card-desc">Signal national d'alerte · sirènes · mesures de confinement et d'évacuation · comportements à adopter. Compétence A1.</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-dur">10' · FOAD</div>
-        <div class="card-status" style="color:#4a6a8a;"><div class="status-dot" style="background:#2a3f5f"></div>Vu en FOAD</div>
+      <div class="card-body" style="flex-direction:row;align-items:center;gap:10px;padding:9px 14px;">
+        <div style="font-size:18px;flex-shrink:0;">📡</div>
+        <div style="flex:1;">
+          <div class="card-num" style="margin-bottom:2px;">Chapitre 1</div>
+          <div class="card-title" style="font-size:12px;">Alerte et protection des populations</div>
+          <div class="card-desc" style="font-size:10px;margin-top:2px;">Signal national d'alerte · mesures de confinement et d'évacuation · comportements à adopter. Compétence A1.</div>
+        </div>
+        <div class="card-status" style="color:#4a6a8a;flex-shrink:0;flex-direction:column;align-items:flex-end;gap:2px;">
+          <div style="font-size:10px;color:#3a5a7a;">10' · FOAD</div>
+          <div style="display:flex;align-items:center;gap:4px;"><div class="status-dot" style="background:#2a3f5f"></div>Vu en FOAD</div>
+        </div>
       </div>
     </div>
 
     <div class="card foad">
       <div class="card-accent acc-grey"></div>
-      <div class="card-body">
-        <div class="card-num">Chapitre 2</div>
-        <div class="card-icon">🛡️</div>
-        <div class="card-title">Protection &amp; Alerte</div>
-        <div class="card-desc">Analyser une situation · protéger soi-même, la victime et les autres · transmettre l'alerte au service d'urgence le plus adapté (15 · 18 · 112 · 114). Compétences B &amp; C.</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-dur">20' · FOAD</div>
-        <div class="card-status" style="color:#4a6a8a;"><div class="status-dot" style="background:#2a3f5f"></div>Vu en FOAD</div>
+      <div class="card-body" style="flex-direction:row;align-items:center;gap:10px;padding:9px 14px;">
+        <div style="font-size:18px;flex-shrink:0;">🛡️</div>
+        <div style="flex:1;">
+          <div class="card-num" style="margin-bottom:2px;">Chapitre 2</div>
+          <div class="card-title" style="font-size:12px;">Protection &amp; Alerte</div>
+          <div class="card-desc" style="font-size:10px;margin-top:2px;">Analyser · protéger soi-même, la victime et les autres · transmettre l'alerte (15 · 18 · 112 · 114). Compétences B &amp; C.</div>
+        </div>
+        <div class="card-status" style="color:#4a6a8a;flex-shrink:0;flex-direction:column;align-items:flex-end;gap:2px;">
+          <div style="font-size:10px;color:#3a5a7a;">20' · FOAD</div>
+          <div style="display:flex;align-items:center;gap:4px;"><div class="status-dot" style="background:#2a3f5f"></div>Vu en FOAD</div>
+        </div>
       </div>
     </div>
 
