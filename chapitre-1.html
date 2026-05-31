@@ -411,6 +411,36 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
         <p>Une atteinte de la moelle épinière est possible. Ne jamais mobiliser la tête. Technique APG(M).</p>
       </div>
     </div>
+
+    <!-- RAPPEL TECHNIQUE APG(M) -->
+    <div style="background:linear-gradient(135deg,#1a2d4a,#1e3560);border:1.5px solid #2a4a7f;border-radius:10px;padding:10px 14px;display:flex;gap:12px;align-items:flex-start;">
+      <div style="font-size:22px;flex-shrink:0;">🪞</div>
+      <div style="flex:1;">
+        <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#7fa8d4;margin-bottom:5px;">
+          Technique pédagogique — APG(M) · Atelier Pratique du Geste en Miroir
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11.5px;color:#a0c0e0;line-height:1.6;">
+          <div>
+            <div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:#5a8abf;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Le formateur</div>
+            <ul style="padding-left:14px;margin:0;">
+              <li>Constitue des binômes (sauveteur / victime)</li>
+              <li>Réalise 2 à 3 fois les gestes <strong style="color:white;">en demandant aux élèves de faire en même temps</strong></li>
+              <li>Demande ensuite de faire l'ensemble de la CAT</li>
+              <li>Évalue la maîtrise des gestes et de la CAT</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:#5a8abf;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">L'apprenant</div>
+            <ul style="padding-left:14px;margin:0;">
+              <li>En binôme, <strong style="color:white;">réalise les gestes en même temps</strong> que le formateur</li>
+              <li>Passe successivement sauveteur → victime → témoin</li>
+              <li>Refait ensuite l'ensemble de la CAT</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="dd-instruction">🖐️ Un autre élève vient déposer les étapes. Le groupe l'aide.</div>
     <div class="section-label">Étapes disponibles</div>
     <div class="pool-zone" id="pool-2"></div>
@@ -540,6 +570,38 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
             Le maintien de la tête est efficace lorsque :<br>
             &bull; le sauveteur est en position stable ;<br>
             &bull; le maintien de la tête limite ses mouvements
+          </div>
+        </div>
+      </div>
+    </div><!-- fin grid bas -->
+
+    <!-- MÉMO FORMATEUR : APGM à faire ici -->
+    <div style="background:linear-gradient(135deg,#2a1a4a,#3a1a6b);border:2px solid #7f77dd;border-radius:12px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;margin-top:4px;">
+      <div style="font-size:24px;flex-shrink:0;">📋</div>
+      <div style="flex:1;">
+        <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#afa9ec;margin-bottom:6px;">
+          ⚠️ Mémo formateur — APGM à faire maintenant !
+        </div>
+        <div style="font-size:12px;color:#cecbf6;line-height:1.7;">
+          <strong style="color:white;">Faire réaliser la CAT complète avec maintien de tête en même temps que vous.</strong><br>
+          Si un élève n'a pas réalisé le maintien de tête, il doit <strong style="color:#ffe066;">refaire toute la CAT depuis le début</strong>.
+        </div>
+        <div style="margin-top:8px;background:rgba(127,119,221,.2);border-radius:8px;padding:8px 12px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+          <div style="font-size:11px;color:#afa9ec;text-align:center;padding:4px;background:rgba(255,255,255,.06);border-radius:5px;">
+            <div style="font-size:16px;">🗣️</div>
+            <div>Demander de<br>ne pas bouger la tête</div>
+          </div>
+          <div style="font-size:11px;color:#afa9ec;text-align:center;padding:4px;background:rgba(255,255,255,.06);border-radius:5px;">
+            <div style="font-size:16px;">📞</div>
+            <div>Alerter ou faire<br>alerter les secours</div>
+          </div>
+          <div style="font-size:11px;color:#ffe066;text-align:center;padding:4px;background:rgba(250,200,0,.1);border-radius:5px;border:1px solid rgba(250,200,0,.3);">
+            <div style="font-size:16px;">🤲</div>
+            <div><strong>Maintenir la tête<br>à 2 mains ★</strong></div>
+          </div>
+          <div style="font-size:11px;color:#afa9ec;text-align:center;padding:4px;background:rgba(255,255,255,.06);border-radius:5px;">
+            <div style="font-size:16px;">👁️</div>
+            <div>Surveiller et<br>parler à la victime</div>
           </div>
         </div>
       </div>
@@ -1002,12 +1064,13 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 <script>
 const TOTAL=7;
 let cur=0;
+const slidePills=document.querySelectorAll('.pill[onclick^="goSlide"]');
 function goSlide(n){
   document.getElementById('slide-'+cur).classList.remove('active');
-  document.querySelectorAll('.pill')[cur].classList.remove('active');
+  slidePills[cur].classList.remove('active');
   cur=n;
   document.getElementById('slide-'+cur).classList.add('active');
-  document.querySelectorAll('.pill')[cur].classList.add('active');
+  slidePills[cur].classList.add('active');
   document.getElementById('slide-counter').textContent=(cur+1)+' / '+TOTAL;
   updateDots();
 }
