@@ -806,12 +806,14 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
       <!-- ÉTAT 0 : photo plein écran -->
       <div id="t1-state0" style="flex:1;display:flex;flex-direction:column;">
         <div style="background:#2a0a00;border-radius:12px;overflow:hidden;flex:1;display:flex;flex-direction:column;cursor:pointer;" onclick="t1Reveal(1)">
-          <div style="flex:1;position:relative;min-height:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2a0a00,#4a1500);">
-            <!-- Photo à venir -->
-            <div style="text-align:center;padding:30px;">
-              <div style="font-size:60px;opacity:.4;margin-bottom:16px;">🍎</div>
-              <div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;color:rgba(255,255,255,.3);margin-bottom:8px;">Photo du scénario</div>
-              <div style="font-size:12px;color:rgba(255,255,255,.2);">À ajouter dans images/obva_scenario_t1.jpg</div>
+          <div style="flex:1;position:relative;min-height:0;">
+            <img src="images/obva_scenario_t1.jpg"
+                 alt="Étouffement à la cantine"
+                 style="width:100%;height:100%;object-fit:cover;display:block;"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:linear-gradient(135deg,#2a0a00,#4a1500);flex-direction:column;gap:8px;">
+              <div style="font-size:50px;opacity:.4;">🍎</div>
+              <div style="font-size:12px;color:rgba(255,255,255,.3);">obva_scenario_t1.jpg</div>
             </div>
             <!-- Invite à cliquer -->
             <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:24px;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 60%);">
@@ -841,10 +843,13 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
               </div>
             </div>
             <div style="background:#2a0a00;border-radius:12px;overflow:hidden;flex:1;display:flex;flex-direction:column;cursor:pointer;" onclick="t1Reveal(2)">
-              <div style="flex:1;position:relative;min-height:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2a0a00,#4a1500);">
-                <div style="text-align:center;padding:20px;">
-                  <div style="font-size:40px;opacity:.3;margin-bottom:8px;">🍎</div>
-                  <div style="font-size:11px;color:rgba(255,255,255,.3);">Photo à ajouter : obva_scenario_t1.jpg</div>
+              <div style="flex:1;position:relative;min-height:0;">
+                <img src="images/obva_scenario_t1.jpg"
+                     alt="Étouffement à la cantine"
+                     style="width:100%;height:100%;object-fit:cover;display:block;"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+                <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:linear-gradient(135deg,#2a0a00,#4a1500);">
+                  <div style="font-size:40px;opacity:.3;">🍎</div>
                 </div>
                 <div style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 60%);">
                   <div style="background:rgba(14,74,43,0.92);border:2px solid rgba(255,255,255,.4);border-radius:30px;padding:8px 18px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:white;animation:pulse 2s ease-in-out infinite;">
@@ -893,10 +898,13 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
               </div>
             </div>
             <div style="background:#2a0a00;border-radius:12px;overflow:hidden;flex:1;display:flex;flex-direction:column;">
-              <div style="flex:1;position:relative;min-height:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2a0a00,#4a1500);">
-                <div style="text-align:center;padding:20px;">
-                  <div style="font-size:40px;opacity:.3;margin-bottom:8px;">🍎</div>
-                  <div style="font-size:11px;color:rgba(255,255,255,.3);">Photo à ajouter : obva_scenario_t1.jpg</div>
+              <div style="flex:1;position:relative;min-height:0;">
+                <img src="images/obva_scenario_t1.jpg"
+                     alt="Étouffement à la cantine"
+                     style="width:100%;height:100%;object-fit:cover;display:block;"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+                <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:linear-gradient(135deg,#2a0a00,#4a1500);">
+                  <div style="font-size:40px;opacity:.3;">🍎</div>
                 </div>
                 <div style="position:absolute;top:8px;right:8px;">
                   <span style="background:var(--rouge);color:white;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;">🚨 Obstruction complète !</span>
@@ -972,12 +980,15 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
               Le sauveteur <strong>penche Théo en avant</strong>, réalise 1 à 5 <strong>claques vigoureuses dans le dos</strong> entre les omoplates. Si inefficaces, encercle l'abdomen et réalise 1 à 5 <strong>compressions abdominales</strong> vers l'arrière et vers le haut. Alerte le 15 et surveille.
             </div>
           </div>
-          <!-- Photo Temps 2 (à ajouter) -->
+          <!-- Photo Temps 2 -->
           <div style="background:#1a4a1a;border-radius:12px;border:1.5px solid #80cba0;overflow:hidden;flex:1;display:flex;flex-direction:column;">
-            <div style="flex:1;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a4a1a,#2a6a2a);">
-              <div style="text-align:center;padding:20px;">
-                <div style="font-size:40px;opacity:.4;margin-bottom:8px;">🤲</div>
-                <div style="font-size:11px;color:rgba(255,255,255,.3);">Photo à ajouter : obva_correction_t2.jpg</div>
+            <div style="flex:1;position:relative;min-height:0;">
+              <img src="images/obva_correction_t2.jpg"
+                   alt="Claques dans le dos et compressions abdominales"
+                   style="width:100%;height:100%;object-fit:cover;display:block;"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+              <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a4a1a,#2a6a2a);">
+                <div style="font-size:40px;opacity:.4;">🤲</div>
               </div>
             </div>
             <div style="background:#0e4a2b;padding:5px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
