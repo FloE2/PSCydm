@@ -89,6 +89,17 @@ body{font-family:'Inter',sans-serif;background:#0a1020;color:#e0e8f0;min-height:
 .acc-pdc{background:#1a4a7a}
 .acc-ac{background:#7a1a35}
 
+/* Chapter color highlights */
+.card[id="card-3"]{border-color:#3a2010}.card[id="card-3"]:hover{border-color:#c0560a}
+.card[id="card-4"]{border-color:#3a1505}.card[id="card-4"]:hover{border-color:#9a3a10}
+.card[id="card-5"]{border-color:#3a1010}.card[id="card-5"]:hover{border-color:#8b1a1a}
+.card[id="card-6"]{border-color:#2a1035}.card[id="card-6"]:hover{border-color:#7a3a9a}
+.card[id="card-7"]{border-color:#3a2005}.card[id="card-7"]:hover{border-color:#b45a00}
+.card[id="card-8"]{border-color:#102515}.card[id="card-8"]:hover{border-color:#1a7a4a}
+.card[id="card-9"]{border-color:#102035}.card[id="card-9"]:hover{border-color:#2558a8}
+.card[id="card-10"]{border-color:#350a1a}.card[id="card-10"]:hover{border-color:#9a1a40}
+.card-accent{height:6px;flex-shrink:0}
+
 /* INFOS BAS */
 .info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
 .info-card{background:#111e35;border:1px solid #1e2d4a;border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px}
@@ -180,8 +191,10 @@ body{font-family:'Inter',sans-serif;background:#0a1020;color:#e0e8f0;min-height:
       <div class="card-accent acc-trauma"></div>
       <div class="card-body">
         <div class="card-num">Chapitre 3</div>
-        <div class="card-icon">🦴</div>
-        <div class="card-title">Traumatisme</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-size:22px;">🦴</span>
+          <div class="card-title" style="font-size:15px;color:#f0a070;">Traumatisme</div>
+        </div>
         <div class="card-desc">Os, articulations et organes · CAT membre · rachis cervical · maintien de tête à 2 mains.</div>
       </div>
       <div class="card-footer">
@@ -201,8 +214,10 @@ body{font-family:'Inter',sans-serif;background:#0a1020;color:#e0e8f0;min-height:
       <div class="card-accent acc-obva"></div>
       <div class="card-body">
         <div class="card-num">Chapitre 4</div>
-        <div class="card-icon">🫁</div>
-        <div class="card-title">Obstruction des voies aériennes</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-size:22px;">🫁</span>
+          <div class="card-title" style="font-size:15px;color:#f0a070;">Obstruction des voies aériennes</div>
+        </div>
         <div class="card-desc">Partielle · complète adulte/enfant · claques + compressions abdominales · nourrisson · compressions thoraciques.</div>
       </div>
       <div class="card-footer">
@@ -222,8 +237,10 @@ body{font-family:'Inter',sans-serif;background:#0a1020;color:#e0e8f0;min-height:
       <div class="card-accent acc-hemo"></div>
       <div class="card-body">
         <div class="card-num">Chapitre 5</div>
-        <div class="card-icon">🩸</div>
-        <div class="card-title">Hémorragies externes</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-size:22px;">🩸</span>
+          <div class="card-title" style="font-size:15px;color:#ff9090;">Hémorragies externes</div>
+        </div>
         <div class="card-desc">Compression directe · pansement compressif · garrot d'urgence · saignements par le nez, la bouche ou autre.</div>
       </div>
       <div class="card-footer">
@@ -243,8 +260,10 @@ body{font-family:'Inter',sans-serif;background:#0a1020;color:#e0e8f0;min-height:
       <div class="card-accent acc-plaie"></div>
       <div class="card-body">
         <div class="card-num">Chapitre 6</div>
-        <div class="card-icon">🩹</div>
-        <div class="card-title">Plaies</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-size:22px;">🩹</span>
+          <div class="card-title" style="font-size:15px;color:#c890ff;">Plaies</div>
+        </div>
         <div class="card-desc">Plaies simples · plaies graves · ne pas retirer le corps étranger · position allongée · alerte et surveillance.</div>
       </div>
       <div class="card-footer">
@@ -264,8 +283,10 @@ body{font-family:'Inter',sans-serif;background:#0a1020;color:#e0e8f0;min-height:
       <div class="card-accent acc-brulure"></div>
       <div class="card-body">
         <div class="card-num">Chapitre 7</div>
-        <div class="card-icon">🔥</div>
-        <div class="card-title">Brûlures</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-size:22px;">🔥</span>
+          <div class="card-title" style="font-size:15px;color:#ffa050;">Brûlures</div>
+        </div>
         <div class="card-desc">Refroidissement à l'eau tempérée 15 min · protection stérile · brûlures chimiques/électriques · brûlures graves.</div>
       </div>
       <div class="card-footer">
@@ -285,8 +306,10 @@ body{font-family:'Inter',sans-serif;background:#0a1020;color:#e0e8f0;min-height:
       <div class="card-accent acc-malaise"></div>
       <div class="card-body">
         <div class="card-num">Chapitre 8</div>
-        <div class="card-icon">😵‍💫</div>
-        <div class="card-title">Malaise</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-size:22px;">😵‍💫</span>
+          <div class="card-title" style="font-size:15px;color:#70d4a0;">Malaise</div>
+        </div>
         <div class="card-desc">Reconnaître le malaise · position adaptée · ne pas laisser seul · alerte · manœuvres physiques spécifiques.</div>
       </div>
       <div class="card-footer">
@@ -306,8 +329,10 @@ body{font-family:'Inter',sans-serif;background:#0a1020;color:#e0e8f0;min-height:
       <div class="card-accent acc-pdc"></div>
       <div class="card-body">
         <div class="card-num">Chapitre 9</div>
-        <div class="card-icon">💤</div>
-        <div class="card-title">Perte de connaissance</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-size:22px;">💤</span>
+          <div class="card-title" style="font-size:15px;color:#80b8f0;">Perte de connaissance</div>
+        </div>
         <div class="card-desc">Stimulation · LVA · ventilation · PLS adulte et nourrisson · surveillance jusqu'aux secours.</div>
       </div>
       <div class="card-footer">
@@ -327,8 +352,10 @@ body{font-family:'Inter',sans-serif;background:#0a1020;color:#e0e8f0;min-height:
       <div class="card-accent acc-ac"></div>
       <div class="card-body">
         <div class="card-num">Chapitre 10</div>
-        <div class="card-icon">❤️</div>
-        <div class="card-title">Arrêt cardiaque</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-size:22px;">❤️</span>
+          <div class="card-title" style="font-size:15px;color:#ff80a0;">Arrêt cardiaque</div>
+        </div>
         <div class="card-desc">Reconnaissance · RCP adulte et nourrisson · utilisation du DAE · chaîne de survie · ne pas interrompre jusqu'aux secours.</div>
       </div>
       <div class="card-footer">
