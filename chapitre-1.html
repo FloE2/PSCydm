@@ -842,12 +842,23 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
               </div>
             </div>
           </div>
-          <!-- COL DROITE : masquée avec invite -->
-          <div style="display:flex;align-items:center;justify-content:center;background:#111e35;border-radius:12px;border:1.5px dashed #2a3f5f;">
-            <div style="text-align:center;padding:20px;">
-              <div style="font-size:36px;opacity:.3;margin-bottom:10px;">📞</div>
-              <div style="font-family:'Outfit',sans-serif;font-size:13px;color:#4a6a8a;font-weight:600;">Message d'alerte</div>
-              <div style="font-size:11px;color:#2a3f5f;margin-top:4px;">Clique sur la photo pour révéler</div>
+          <!-- COL DROITE état 1 : masquée avec invite + chrono déjà disponible -->
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;background:#111e35;border-radius:12px;border:1.5px dashed #2a3f5f;">
+              <div style="text-align:center;padding:20px;">
+                <div style="font-size:36px;opacity:.3;margin-bottom:10px;">📞</div>
+                <div style="font-family:'Outfit',sans-serif;font-size:13px;color:#4a6a8a;font-weight:600;">Message d'alerte</div>
+                <div style="font-size:11px;color:#2a3f5f;margin-top:4px;">Clique sur la photo pour révéler</div>
+              </div>
+            </div>
+            <!-- CHRONO dès l'état 1 -->
+            <div style="background:#0e4a2b;border-radius:10px;padding:12px;color:white;flex-shrink:0;">
+              <div style="font-family:'Outfit',sans-serif;font-size:11px;opacity:.65;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">⏱ Chronomètre formateur</div>
+              <div class="chrono-zone" style="margin:0;padding:0;border:none;">
+                <div id="chrono-display">0:00</div>
+                <button class="c-btn start" id="c-btn" onclick="toggleC()">▶ Démarrer</button>
+                <button class="c-btn" onclick="resetC()">↺ Reset</button>
+              </div>
             </div>
           </div>
         </div>
@@ -918,12 +929,13 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
                 <button onclick="resetAlerteItems()" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);padding:5px 12px;border-radius:6px;font-size:11px;font-family:'Outfit',sans-serif;cursor:pointer;">↺ Recommencer</button>
               </div>
             </div>
-            <div style="background:#0e4a2b;border-radius:10px;padding:12px;color:white;">
-              <div style="font-family:'Outfit',sans-serif;font-size:11px;opacity:.65;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">⏱ Chronomètre formateur</div>
-              <div class="chrono-zone" style="margin:0;padding:0;border:none;">
-                <div id="chrono-display">0:00</div>
-                <button class="c-btn start" id="c-btn" onclick="toggleC()">▶ Démarrer</button>
-                <button class="c-btn" onclick="resetC()">↺ Reset</button>
+            <!-- Affichage chrono compact (le chrono est dans l'état 1, on affiche juste le temps) -->
+            <div style="background:#0e4a2b;border-radius:10px;padding:10px 14px;color:white;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+              <div style="font-family:'Outfit',sans-serif;font-size:11px;opacity:.65;text-transform:uppercase;letter-spacing:1px;">⏱ Chronomètre</div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div id="chrono-display2" style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:white;">0:00</div>
+                <button class="c-btn start" onclick="toggleC()" style="font-size:11px;padding:5px 12px;">▶/⏸</button>
+                <button class="c-btn" onclick="resetC2()" style="font-size:11px;padding:5px 10px;">↺</button>
               </div>
             </div>
           </div>
@@ -1350,28 +1362,35 @@ function switchCC(){
 
 // ===== CHRONO =====
 let cInt=null,cSecs=0,cRun=false;
+function updateChronoDisplays(){
+  const m=Math.floor(cSecs/60),s=cSecs%60;
+  const txt=m+':'+(s<10?'0':'')+s;
+  const d1=document.getElementById('chrono-display');
+  const d2=document.getElementById('chrono-display2');
+  if(d1)d1.textContent=txt;
+  if(d2)d2.textContent=txt;
+  const col=cSecs>=420?'#ff6b6b':'white';
+  if(d1)d1.style.color=col;
+  if(d2)d2.style.color=col;
+}
 function toggleC(){
   const btn=document.getElementById('c-btn');
   if(cRun){
     clearInterval(cInt);cRun=false;
-    btn.textContent='▶ Reprendre';btn.className='c-btn start';
+    if(btn){btn.textContent='▶ Reprendre';btn.className='c-btn start';}
   } else {
-    cInt=setInterval(()=>{
-      cSecs++;
-      const m=Math.floor(cSecs/60),s=cSecs%60;
-      document.getElementById('chrono-display').textContent=m+':'+(s<10?'0':'')+s;
-      if(cSecs>=180)document.getElementById('chrono-display').style.color='#ff6b6b';
-    },1000);
-    cRun=true;btn.textContent='⏸ Pause';btn.className='c-btn stop';
+    cInt=setInterval(()=>{cSecs++;updateChronoDisplays();},1000);
+    cRun=true;
+    if(btn){btn.textContent='⏸ Pause';btn.className='c-btn stop';}
   }
 }
 function resetC(){
   clearInterval(cInt);cRun=false;cSecs=0;
-  document.getElementById('chrono-display').textContent='0:00';
-  document.getElementById('chrono-display').style.color='white';
+  updateChronoDisplays();
   const btn=document.getElementById('c-btn');
-  btn.textContent='▶ Démarrer';btn.className='c-btn start';
+  if(btn){btn.textContent='▶ Démarrer';btn.className='c-btn start';}
 }
+function resetC2(){resetC();}
 </script>
 </body>
 </html>
