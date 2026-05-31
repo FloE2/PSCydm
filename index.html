@@ -3,249 +3,337 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PSC1 — Formation Prévention et Secours Civiques</title>
+<title>PSC1 — Formation Scénario 5 · Collège de Vaucresson</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bleu:#1a3a6b;--bleu-mid:#2558a8;--bleu-clair:#ddeeff;--bleu-pale:#f0f6ff;
-  --rouge:#c0392b;--rouge-clair:#fdecea;
-  --vert:#1a7a4a;--vert-clair:#e8f8ef;--vert-bord:#80cba0;
-  --orange:#e67e22;--orange-clair:#fdf3e3;
-  --gris:#f4f5f7;--gris-bord:#d0d6e0;--texte:#1c2233;--texte-sec:#5a6382;
-}
-body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);min-height:100vh;display:flex;flex-direction:column}
+body{font-family:'Inter',sans-serif;background:#0a1020;color:#e0e8f0;min-height:100vh;display:flex;flex-direction:column}
 
 /* HEADER */
-#header{background:#0d1525;border-bottom:1px solid #1e2d4a;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.logo{display:flex;align-items:center;gap:10px;color:#7fa8d4;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px}
-.logo-badge{background:var(--bleu-mid);color:white;font-family:'Outfit',sans-serif;font-weight:900;font-size:18px;padding:6px 14px;border-radius:8px}
-.header-right{display:flex;align-items:center;gap:16px}
-.progress-global{display:flex;align-items:center;gap:10px}
-.progress-bar-wrap{width:160px;height:6px;background:#1e2d4a;border-radius:3px;overflow:hidden}
-.progress-bar-fill{height:100%;background:var(--vert);border-radius:3px;transition:width .5s ease}
-.progress-label{font-family:'Outfit',sans-serif;font-size:12px;color:#7fa8d4}
-.reset-btn{background:transparent;border:1px solid #2a3f5f;color:#5a7a9a;padding:5px 12px;border-radius:6px;font-family:'Outfit',sans-serif;font-size:11px;cursor:pointer;transition:all .2s}
+#header{background:#0d1525;border-bottom:1px solid #1e2d4a;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.logo-zone{display:flex;align-items:center;gap:12px}
+.logo-badge{background:#2558a8;color:white;font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;padding:6px 14px;border-radius:8px;letter-spacing:1px}
+.logo-text{font-family:'Outfit',sans-serif;font-size:13px;color:#7fa8d4;line-height:1.4}
+.logo-text strong{color:white;display:block;font-size:15px}
+.progress-zone{display:flex;align-items:center;gap:12px}
+.prog-bar-wrap{width:180px;height:6px;background:#1e2d4a;border-radius:3px;overflow:hidden}
+.prog-bar-fill{height:100%;background:#27ae60;border-radius:3px;transition:width .5s}
+.prog-label{font-family:'Outfit',sans-serif;font-size:12px;color:#7fa8d4}
+.reset-btn{background:transparent;border:1px solid #2a3f5f;color:#5a7a9a;padding:5px 12px;border-radius:6px;font-size:11px;font-family:'Outfit',sans-serif;cursor:pointer}
 .reset-btn:hover{border-color:#4a6a8a;color:#7fa8d4}
 
 /* HERO */
-#hero{background:linear-gradient(135deg,#0d1525 0%,#1a2d4a 100%);padding:32px 28px 28px;border-bottom:1px solid #1e2d4a}
-.hero-sup{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#4a6a8a;margin-bottom:8px}
-.hero-title{font-family:'Outfit',sans-serif;font-size:30px;font-weight:900;color:white;line-height:1.1;margin-bottom:8px}
-.hero-title span{color:#7fa8d4}
-.hero-sub{font-size:13px;color:#5a7a9a;max-width:600px;line-height:1.7}
-.hero-chips{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
-.hero-chip{background:#1e2d4a;border:1px solid #2a3f5f;color:#7fa8d4;border-radius:20px;padding:4px 12px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:600}
+#hero{background:linear-gradient(160deg,#0d1525 0%,#1a2d4a 100%);padding:24px 28px 20px;border-bottom:1px solid #1e2d4a}
+.hero-tag{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#4a6a8a;margin-bottom:6px}
+.hero-title{font-family:'Outfit',sans-serif;font-size:26px;font-weight:900;color:white;line-height:1.1;margin-bottom:6px}
+.hero-title em{color:#7fa8d4;font-style:normal}
+.hero-sub{font-size:13px;color:#5a7a9a;line-height:1.6;max-width:700px;margin-bottom:10px}
+.hero-rule{background:rgba(255,220,0,.15);border:1px solid rgba(255,220,0,.35);border-radius:8px;padding:8px 14px;display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#ffe066;font-family:'Outfit',sans-serif;font-weight:700}
 
 /* MAIN */
-#main{flex:1;padding:24px 28px;background:#0d1525}
+#main{flex:1;padding:20px 24px;overflow-y:auto}
 
-/* SECTION */
-.section-label{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#4a6a8a;margin-bottom:14px}
+/* SECTION LABELS */
+.section-sep{display:flex;align-items:center;gap:10px;margin:16px 0 10px}
+.section-sep span{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#3a5a7a;white-space:nowrap}
+.section-sep::before,.section-sep::after{content:'';flex:1;height:1px;background:#1e2d4a}
+.section-sep::before{display:none}
 
-/* GRILLE CHAPITRES */
-.chapters-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+/* GRID */
+.grid-foad{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
+.grid-presentiel{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 
-/* CARD */
-.chapter-card{background:#111e35;border:1px solid #1e2d4a;border-radius:14px;padding:0;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit}
-.chapter-card:hover{border-color:#2558a8;transform:translateY(-2px)}
-.chapter-card.done{border-color:#1a5a35}
-.chapter-card.done:hover{border-color:#27ae60}
+/* CARD BASE */
+.card{border-radius:12px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:transform .2s,box-shadow .2s}
+.card:not(.foad):hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.card-accent{height:4px;flex-shrink:0}
+.card-body{padding:12px 14px;flex:1;display:flex;flex-direction:column;gap:6px}
+.card-num{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.55}
+.card-icon{font-size:20px;line-height:1}
+.card-title{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;line-height:1.25;flex:1}
+.card-desc{font-size:10.5px;line-height:1.5;opacity:.7}
+.card-footer{padding:8px 14px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;gap:6px}
+.card-dur{font-size:10px;font-family:'Outfit',sans-serif;font-weight:600;opacity:.6}
+.card-tech{font-size:9.5px;font-family:'Outfit',sans-serif;font-weight:700;padding:2px 7px;border-radius:10px;background:rgba(255,255,255,.08);opacity:.8}
+.card-status{font-size:10px;font-family:'Outfit',sans-serif;font-weight:700;display:flex;align-items:center;gap:4px}
+.status-dot{width:6px;height:6px;border-radius:50%}
+.card-arrow{font-size:14px;opacity:.4;transition:all .2s}
+.card:hover .card-arrow{opacity:1;transform:translateX(3px)}
+.done-badge{position:absolute;top:10px;right:10px;background:#1a5a35;color:#80cba0;font-family:'Outfit',sans-serif;font-size:9px;font-weight:800;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:1px}
 
-/* Barre de couleur top */
-.card-top{height:5px;width:100%;flex-shrink:0}
-.chapter-card:not(.done) .card-top{background:#1e2d4a}
-.chapter-card.done .card-top{background:var(--vert)}
-.chapter-card.active-ch .card-top{background:var(--bleu-mid)}
+/* FOAD cards */
+.card.foad{background:#111820;border:1px solid #1e2d4a;cursor:default;opacity:.75}
+.card.foad .card-title{color:#7fa8d4}
+.card.foad .card-accent{background:#2a3f5f}
 
-/* Contenu */
-.card-body{padding:16px 18px;flex:1;display:flex;flex-direction:column}
-.card-num{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#4a6a8a;margin-bottom:6px}
-.card-icon{font-size:22px;margin-bottom:8px}
-.card-title{font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;color:white;line-height:1.25;margin-bottom:4px}
-.chapter-card.done .card-title{color:#80cba0}
-.card-desc{font-size:11.5px;color:#5a7a9a;line-height:1.5;flex:1}
-.card-footer{padding:10px 18px;border-top:1px solid #1e2d4a;display:flex;align-items:center;justify-content:space-between}
-.chapter-card.done .card-footer{border-color:#1a5a35}
-.card-slides{font-family:'Outfit',sans-serif;font-size:10px;color:#4a6a8a}
-.card-status{display:flex;align-items:center;gap:5px;font-family:'Outfit',sans-serif;font-size:10px;font-weight:700}
-.status-dot{width:7px;height:7px;border-radius:50%}
-.chapter-card:not(.done) .status-dot{background:#2a3f5f}
-.chapter-card:not(.done) .card-status{color:#4a6a8a}
-.chapter-card.done .status-dot{background:var(--vert)}
-.chapter-card.done .card-status{color:#80cba0}
-.card-arrow{font-size:14px;color:#2a3f5f;transition:all .2s}
-.chapter-card:hover .card-arrow{color:#7fa8d4;transform:translateX(3px)}
-.chapter-card.done .card-arrow{color:var(--vert)}
+/* Presentiel cards */
+.card.presentiel{background:#111e35;border:1px solid #1e2d4a;cursor:pointer;text-decoration:none;color:inherit}
+.card.presentiel .card-title{color:white}
+.card.presentiel:hover{border-color:#2558a8}
 
-/* Badge "Terminé" overlay */
-.done-badge{position:absolute;top:14px;right:14px;background:#1a5a35;color:#80cba0;font-family:'Outfit',sans-serif;font-size:9px;font-weight:800;padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:1px}
+/* Done */
+.card.done{border-color:#1a5a35 !important}
+.card.done .card-accent{background:#27ae60 !important}
+.card.done .card-title{color:#80cba0 !important}
+.card.done:hover{border-color:#27ae60 !important}
 
-/* SECTION TRANSVERSAL */
-.transversal-box{background:#111e35;border:1px solid #1e2d4a;border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:14px}
-.transversal-icon{width:40px;height:40px;background:#1e2d4a;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.transversal-body{flex:1}
-.transversal-title{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:white;margin-bottom:2px}
-.transversal-desc{font-size:11.5px;color:#5a7a9a}
-.transversal-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.t-chip{background:#1e2d4a;color:#7fa8d4;border-radius:20px;padding:3px 10px;font-family:'Outfit',sans-serif;font-size:10px;font-weight:600}
+/* Color accents per chapter */
+.acc-grey{background:#2a3f5f}
+.acc-blue{background:#2558a8}
+.acc-trauma{background:#c0560a}
+.acc-obva{background:#7a2a00}
+.acc-hemo{background:#8b1a1a}
+.acc-plaie{background:#5a1a6b}
+.acc-brulure{background:#b45a00}
+.acc-malaise{background:#1a5a3a}
+.acc-pdc{background:#1a4a7a}
+.acc-ac{background:#7a1a35}
 
-/* INFO BARRE */
-.info-bar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:20px}
-.info-item{background:#111e35;border:1px solid #1e2d4a;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px}
-.info-val{font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:white}
+/* INFOS BAS */
+.info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+.info-card{background:#111e35;border:1px solid #1e2d4a;border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px}
+.info-val{font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:white}
 .info-label{font-size:11px;color:#5a7a9a;line-height:1.4}
 
-/* Toast confirmation */
-#toast{position:fixed;bottom:24px;right:24px;background:#1a5a35;color:#80cba0;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;padding:10px 18px;border-radius:10px;border:1px solid #27ae60;display:none;z-index:999;animation:fadeIn .3s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* Toast */
+#toast{position:fixed;bottom:20px;right:20px;background:#1a5a35;color:#80cba0;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;padding:10px 18px;border-radius:10px;border:1px solid #27ae60;display:none;z-index:99;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <div id="header">
-  <div class="logo">
+  <div class="logo-zone">
     <div class="logo-badge">PSC1</div>
-    <div>
-      <div style="color:white;font-size:14px;">Prévention et Secours Civiques</div>
-      <div style="font-size:11px;color:#4a6a8a;">Scénario 5 — FOAD + Présentiel · 4h30</div>
+    <div class="logo-text">
+      <strong>Prévention et Secours Civiques</strong>
+      Scénario 5 · FOAD + Présentiel · 4h30 · Collège de Vaucresson
     </div>
   </div>
-  <div class="header-right">
-    <div class="progress-global">
-      <div class="progress-bar-wrap">
-        <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
-      </div>
-      <div class="progress-label" id="progress-text">0 / 6 chapitres</div>
-    </div>
+  <div class="progress-zone">
+    <div class="prog-bar-wrap"><div class="prog-bar-fill" id="prog-fill" style="width:0%"></div></div>
+    <div class="prog-label" id="prog-label">0 / 8 chapitres</div>
     <button class="reset-btn" onclick="resetProgress()">↺ Réinitialiser</button>
   </div>
 </div>
 
 <!-- HERO -->
 <div id="hero">
-  <div class="hero-sup">Tableau de bord · Formation PSC1</div>
-  <div class="hero-title">Devenir <span>citoyen sauveteur</span></div>
-  <div class="hero-sub">À la fin de cette formation, vous serez capable d'agir face à une situation d'urgence — protéger, alerter et secourir avec les bons gestes.</div>
-  <div class="hero-chips">
-    <div class="hero-chip">🏫 Collège de Vaucresson</div>
-    <div class="hero-chip">⏱ 4h30 en présentiel</div>
-    <div class="hero-chip">📱 FOAD incluse</div>
-    <div class="hero-chip">🎓 Compétences H1 à H10</div>
+  <div class="hero-tag">Tableau de bord · Formation PSC1 · Scénario 5</div>
+  <div class="hero-title">Devenir <em>citoyen·ne sauveteur·se</em></div>
+  <div class="hero-sub">
+    Hybride FOAD (3h) + Présentiel (4h30). Les chapitres 1 et 2 sont étudiés en FOAD. Les chapitres 3 à 10 sont travaillés en présentiel avec cas concret pour chacun.
+  </div>
+  <div class="hero-rule">
+    🎯 À l'issue de la formation, tous les apprenants doivent avoir été au moins une fois sauveteur au cours d'un cas concret.
   </div>
 </div>
 
 <!-- MAIN -->
 <div id="main">
 
-  <div class="section-label">Chapitres de la formation</div>
+  <!-- FOAD -->
+  <div class="section-sep"><span>Chapitres vus en FOAD — à distance avant la formation</span></div>
+  <div class="grid-foad">
 
-  <div class="chapters-grid" id="chapters-grid">
-
-    <!-- Ch.1 Traumatisme -->
-    <a class="chapter-card" id="card-1" href="chapitre-1.html" onclick="markVisited(1)">
-      <div class="card-top"></div>
+    <div class="card foad">
+      <div class="card-accent acc-grey"></div>
       <div class="card-body">
         <div class="card-num">Chapitre 1</div>
-        <div class="card-icon">🦴</div>
-        <div class="card-title">Traumatisme</div>
-        <div class="card-desc">Os, articulations et organes. CAT membre et rachis cervical. Cas concret : chute au skate park.</div>
+        <div class="card-icon">📡</div>
+        <div class="card-title">Alerte et protection des populations</div>
+        <div class="card-desc">Signal national d'alerte · sirènes · mesures de confinement et d'évacuation · comportements à adopter. Compétence A1.</div>
       </div>
       <div class="card-footer">
-        <div class="card-slides">7 slides</div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div class="card-status"><div class="status-dot"></div><span id="status-1">Non commencé</span></div>
-          <div class="card-arrow">→</div>
-        </div>
+        <div class="card-dur">10' · FOAD</div>
+        <div class="card-status" style="color:#4a6a8a;"><div class="status-dot" style="background:#2a3f5f"></div>Vu en FOAD</div>
       </div>
-    </a>
+    </div>
 
-    <!-- Ch.2 Obstruction -->
-    <a class="chapter-card" id="card-2" href="chapitre-2.html" onclick="markVisited(2)">
-      <div class="card-top"></div>
+    <div class="card foad">
+      <div class="card-accent acc-grey"></div>
       <div class="card-body">
         <div class="card-num">Chapitre 2</div>
-        <div class="card-icon">🫁</div>
-        <div class="card-title">Obstruction des voies aériennes</div>
-        <div class="card-desc">Corps étranger chez l'adulte et le nourrisson. Claques dans le dos, compressions abdominales.</div>
+        <div class="card-icon">🛡️</div>
+        <div class="card-title">Protection &amp; Alerte</div>
+        <div class="card-desc">Analyser une situation · protéger soi-même, la victime et les autres · transmettre l'alerte au service d'urgence le plus adapté (15 · 18 · 112 · 114). Compétences B &amp; C.</div>
       </div>
       <div class="card-footer">
-        <div class="card-slides">À venir</div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div class="card-status"><div class="status-dot"></div><span id="status-2">Non commencé</span></div>
-          <div class="card-arrow">→</div>
-        </div>
+        <div class="card-dur">20' · FOAD</div>
+        <div class="card-status" style="color:#4a6a8a;"><div class="status-dot" style="background:#2a3f5f"></div>Vu en FOAD</div>
       </div>
-    </a>
+    </div>
 
-    <!-- Ch.3 Hémorragies -->
-    <a class="chapter-card" id="card-3" href="chapitre-3.html" onclick="markVisited(3)">
-      <div class="card-top"></div>
+  </div>
+
+  <!-- PRESENTIEL -->
+  <div class="section-sep"><span>Chapitres en présentiel — 4h30</span></div>
+  <div class="grid-presentiel">
+
+    <!-- Ch3 Traumatisme -->
+    <a class="card presentiel" id="card-3" href="chapitre-1.html" onclick="markVisited(3)">
+      <div class="card-accent acc-trauma"></div>
       <div class="card-body">
         <div class="card-num">Chapitre 3</div>
-        <div class="card-icon">🩸</div>
-        <div class="card-title">Hémorragies externes</div>
-        <div class="card-desc">Compression manuelle directe, garrot d'urgence. Conduite à tenir face à un saignement abondant.</div>
+        <div class="card-icon">🦴</div>
+        <div class="card-title">Traumatisme</div>
+        <div class="card-desc">Os, articulations et organes · CAT membre · rachis cervical · maintien de tête à 2 mains.</div>
       </div>
       <div class="card-footer">
-        <div class="card-slides">À venir</div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div class="card-status"><div class="status-dot"></div><span id="status-3">Non commencé</span></div>
+        <div>
+          <div class="card-dur">20' · 1 CC</div>
+          <div class="card-tech" style="color:#f0a070;">REFOR + APG(M)</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="card-status" id="status-3"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
           <div class="card-arrow">→</div>
         </div>
       </div>
     </a>
 
-    <!-- Ch.4 Malaise / PDC -->
-    <a class="chapter-card" id="card-4" href="chapitre-4.html" onclick="markVisited(4)">
-      <div class="card-top"></div>
+    <!-- Ch4 OBVA -->
+    <a class="card presentiel" id="card-4" href="chapitre-2.html" onclick="markVisited(4)">
+      <div class="card-accent acc-obva"></div>
       <div class="card-body">
         <div class="card-num">Chapitre 4</div>
-        <div class="card-icon">😵</div>
-        <div class="card-title">Malaise &amp; perte de connaissance</div>
-        <div class="card-desc">Reconnaissance du malaise, position latérale de sécurité (PLS), surveillance et alerte.</div>
+        <div class="card-icon">🫁</div>
+        <div class="card-title">Obstruction des voies aériennes</div>
+        <div class="card-desc">Partielle · complète adulte/enfant · claques + compressions abdominales · nourrisson · compressions thoraciques.</div>
       </div>
       <div class="card-footer">
-        <div class="card-slides">À venir</div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div class="card-status"><div class="status-dot"></div><span id="status-4">Non commencé</span></div>
+        <div>
+          <div class="card-dur">30' · 1 CC</div>
+          <div class="card-tech" style="color:#f0a070;">REFOR + APG(M)</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="card-status" id="status-4"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
           <div class="card-arrow">→</div>
         </div>
       </div>
     </a>
 
-    <!-- Ch.5 Brûlures / Plaies -->
-    <a class="chapter-card" id="card-5" href="chapitre-5.html" onclick="markVisited(5)">
-      <div class="card-top"></div>
+    <!-- Ch5 Hémorragies -->
+    <a class="card presentiel" id="card-5" href="chapitre-3.html" onclick="markVisited(5)">
+      <div class="card-accent acc-hemo"></div>
       <div class="card-body">
         <div class="card-num">Chapitre 5</div>
-        <div class="card-icon">🔥</div>
-        <div class="card-title">Brûlures &amp; plaies</div>
-        <div class="card-desc">Refroidissement à l'eau tempérée, protection stérile. Plaies simples et plaies graves.</div>
+        <div class="card-icon">🩸</div>
+        <div class="card-title">Hémorragies externes</div>
+        <div class="card-desc">Compression directe · pansement compressif · garrot d'urgence · saignements par le nez, la bouche ou autre.</div>
       </div>
       <div class="card-footer">
-        <div class="card-slides">À venir</div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div class="card-status"><div class="status-dot"></div><span id="status-5">Non commencé</span></div>
+        <div>
+          <div class="card-dur">40' · 2 CC</div>
+          <div class="card-tech" style="color:#ffaaaa;">DCJIM</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="card-status" id="status-5"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
           <div class="card-arrow">→</div>
         </div>
       </div>
     </a>
 
-    <!-- Ch.6 Arrêt cardiaque -->
-    <a class="chapter-card" id="card-6" href="chapitre-6.html" onclick="markVisited(6)">
-      <div class="card-top"></div>
+    <!-- Ch6 Plaies -->
+    <a class="card presentiel" id="card-6" href="chapitre-4.html" onclick="markVisited(6)">
+      <div class="card-accent acc-plaie"></div>
       <div class="card-body">
         <div class="card-num">Chapitre 6</div>
-        <div class="card-icon">❤️</div>
-        <div class="card-title">Arrêt cardiaque</div>
-        <div class="card-desc">Reconnaissance de l'arrêt, réanimation cardio-pulmonaire (RCP), utilisation du DAE.</div>
+        <div class="card-icon">🩹</div>
+        <div class="card-title">Plaies</div>
+        <div class="card-desc">Plaies simples · plaies graves · ne pas retirer le corps étranger · position allongée · alerte et surveillance.</div>
       </div>
       <div class="card-footer">
-        <div class="card-slides">À venir</div>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div class="card-status"><div class="status-dot"></div><span id="status-6">Non commencé</span></div>
+        <div>
+          <div class="card-dur">20' · 1 CC</div>
+          <div class="card-tech" style="color:#d4aaff;">REFOR CAT</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="card-status" id="status-6"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
+          <div class="card-arrow">→</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Ch7 Brûlures -->
+    <a class="card presentiel" id="card-7" href="chapitre-5.html" onclick="markVisited(7)">
+      <div class="card-accent acc-brulure"></div>
+      <div class="card-body">
+        <div class="card-num">Chapitre 7</div>
+        <div class="card-icon">🔥</div>
+        <div class="card-title">Brûlures</div>
+        <div class="card-desc">Refroidissement à l'eau tempérée 15 min · protection stérile · brûlures chimiques/électriques · brûlures graves.</div>
+      </div>
+      <div class="card-footer">
+        <div>
+          <div class="card-dur">25' · 1 CC</div>
+          <div class="card-tech" style="color:#ffc080;">REFOR CAT</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="card-status" id="status-7"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
+          <div class="card-arrow">→</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Ch8 Malaise -->
+    <a class="card presentiel" id="card-8" href="chapitre-6.html" onclick="markVisited(8)">
+      <div class="card-accent acc-malaise"></div>
+      <div class="card-body">
+        <div class="card-num">Chapitre 8</div>
+        <div class="card-icon">😵‍💫</div>
+        <div class="card-title">Malaise</div>
+        <div class="card-desc">Reconnaître le malaise · position adaptée · ne pas laisser seul · alerte · manœuvres physiques spécifiques.</div>
+      </div>
+      <div class="card-footer">
+        <div>
+          <div class="card-dur">25' · 1 CC</div>
+          <div class="card-tech" style="color:#80cba0;">REFOR CAT + APG(M)</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="card-status" id="status-8"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
+          <div class="card-arrow">→</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Ch9 Perte de connaissance -->
+    <a class="card presentiel" id="card-9" href="chapitre-7.html" onclick="markVisited(9)">
+      <div class="card-accent acc-pdc"></div>
+      <div class="card-body">
+        <div class="card-num">Chapitre 9</div>
+        <div class="card-icon">💤</div>
+        <div class="card-title">Perte de connaissance</div>
+        <div class="card-desc">Stimulation · LVA · ventilation · PLS adulte et nourrisson · surveillance jusqu'aux secours.</div>
+      </div>
+      <div class="card-footer">
+        <div>
+          <div class="card-dur">30' · 1 CC</div>
+          <div class="card-tech" style="color:#a0c8f0;">REFOR + APG LVA &amp; PLS</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="card-status" id="status-9"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
+          <div class="card-arrow">→</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Ch10 Arrêt cardiaque -->
+    <a class="card presentiel" id="card-10" href="chapitre-8.html" onclick="markVisited(10)">
+      <div class="card-accent acc-ac"></div>
+      <div class="card-body">
+        <div class="card-num">Chapitre 10</div>
+        <div class="card-icon">❤️</div>
+        <div class="card-title">Arrêt cardiaque</div>
+        <div class="card-desc">Reconnaissance · RCP adulte et nourrisson · utilisation du DAE · chaîne de survie · ne pas interrompre jusqu'aux secours.</div>
+      </div>
+      <div class="card-footer">
+        <div>
+          <div class="card-dur">105' · 1 CC</div>
+          <div class="card-tech" style="color:#ffaacc;">REFOR + APG(M)</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="card-status" id="status-10"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
           <div class="card-arrow">→</div>
         </div>
       </div>
@@ -253,52 +341,19 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);min-he
 
   </div>
 
-  <!-- Compétences transversales -->
-  <div class="section-label">Compétences transversales — présentes dans chaque chapitre</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
-    <div class="transversal-box">
-      <div class="transversal-icon">🛡️</div>
-      <div class="transversal-body">
-        <div class="transversal-title">Protection (2.01)</div>
-        <div class="transversal-desc">Analyser · protéger soi-même, la victime et les autres</div>
-        <div class="transversal-chips">
-          <span class="t-chip">Danger contrôlable</span>
-          <span class="t-chip">Suppression du danger</span>
-        </div>
-      </div>
+  <!-- INFOS -->
+  <div class="info-grid">
+    <div class="info-card">
+      <div><div class="info-val">4h30</div><div class="info-label">Présentiel<br>+ 3h FOAD</div></div>
     </div>
-    <div class="transversal-box">
-      <div class="transversal-icon">📞</div>
-      <div class="transversal-body">
-        <div class="transversal-title">Alerte (2.02)</div>
-        <div class="transversal-desc">Informer un service d'urgence avec les 5 informations clés</div>
-        <div class="transversal-chips">
-          <span class="t-chip">15 · 18 · 112 · 114</span>
-          <span class="t-chip">Adresse + téléphone</span>
-        </div>
-      </div>
+    <div class="info-card">
+      <div><div class="info-val">10</div><div class="info-label">Chapitres<br>au total</div></div>
     </div>
-  </div>
-
-  <!-- Infos pratiques -->
-  <div class="info-bar">
-    <div class="info-item">
-      <div>
-        <div class="info-val">4h30</div>
-        <div class="info-label">Durée totale<br>dont 15 min de pause</div>
-      </div>
+    <div class="info-card">
+      <div><div class="info-val">8</div><div class="info-label">Cas concrets<br>en présentiel</div></div>
     </div>
-    <div class="info-item">
-      <div>
-        <div class="info-val">6</div>
-        <div class="info-label">Chapitres<br>avec cas concret</div>
-      </div>
-    </div>
-    <div class="info-item">
-      <div>
-        <div class="info-val" id="done-count">0</div>
-        <div class="info-label">Chapitres<br>terminés</div>
-      </div>
+    <div class="info-card">
+      <div><div class="info-val" id="done-count">0</div><div class="info-label">Chapitres<br>terminés</div></div>
     </div>
   </div>
 
@@ -307,98 +362,73 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);min-he
 <div id="toast">✓ Progression sauvegardée</div>
 
 <script>
-const STORAGE_KEY = 'psc1_progress';
+const STORAGE_KEY='psc1_v2_progress';
+const CHAPTERS=[3,4,5,6,7,8,9,10];
 
-function getProgress() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-  } catch(e) { return {}; }
+function getProgress(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch{return{};}}
+function saveProgress(d){localStorage.setItem(STORAGE_KEY,JSON.stringify(d));}
+
+function markVisited(n){
+  const p=getProgress();
+  if(!p['ch'+n]){p['ch'+n]={visited:true,ts:Date.now()};saveProgress(p);}
 }
 
-function saveProgress(data) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+function markDone(n){
+  const p=getProgress();
+  p['ch'+n]={visited:true,done:true,ts:Date.now()};
+  saveProgress(p);renderProgress();showToast();
 }
 
-function markVisited(n) {
-  const p = getProgress();
-  if (!p['ch'+n]) {
-    p['ch'+n] = { visited: true, ts: Date.now() };
-    saveProgress(p);
+function resetProgress(){
+  if(confirm('Réinitialiser toute la progression ?')){
+    localStorage.removeItem(STORAGE_KEY);renderProgress();
   }
 }
 
-function markDone(n) {
-  const p = getProgress();
-  p['ch'+n] = { visited: true, done: true, ts: Date.now() };
-  saveProgress(p);
-  renderProgress();
-  showToast();
+function showToast(){
+  const t=document.getElementById('toast');
+  t.style.display='block';setTimeout(()=>t.style.display='none',2200);
 }
 
-function resetProgress() {
-  if (confirm('Réinitialiser toute la progression ?')) {
-    localStorage.removeItem(STORAGE_KEY);
-    renderProgress();
-  }
-}
-
-function showToast() {
-  const t = document.getElementById('toast');
-  t.style.display = 'block';
-  setTimeout(() => t.style.display = 'none', 2200);
-}
-
-function renderProgress() {
-  const p = getProgress();
-  let doneCount = 0;
-
-  for (let i = 1; i <= 6; i++) {
-    const card = document.getElementById('card-' + i);
-    const statusEl = document.getElementById('status-' + i);
-    const doneBadge = card.querySelector('.done-badge');
-
-    const ch = p['ch' + i];
-    if (ch && ch.done) {
-      doneCount++;
+function renderProgress(){
+  const p=getProgress();
+  let done=0;
+  CHAPTERS.forEach(i=>{
+    const card=document.getElementById('card-'+i);
+    const statusEl=document.getElementById('status-'+i);
+    if(!card)return;
+    const ch=p['ch'+i];
+    const existingBadge=card.querySelector('.done-badge');
+    if(ch&&ch.done){
+      done++;
       card.classList.add('done');
-      card.classList.remove('active-ch');
-      if (statusEl) statusEl.textContent = 'Terminé';
-      if (!doneBadge) {
-        const b = document.createElement('div');
-        b.className = 'done-badge';
-        b.textContent = '✓ Fait';
-        card.appendChild(b);
-      }
-    } else if (ch && ch.visited) {
-      card.classList.add('active-ch');
+      if(statusEl){statusEl.innerHTML='<div class="status-dot" style="background:#27ae60"></div><span style="color:#80cba0;">Terminé</span>';}
+      if(!existingBadge){const b=document.createElement('div');b.className='done-badge';b.textContent='✓ Fait';card.appendChild(b);}
+    } else if(ch&&ch.visited){
       card.classList.remove('done');
-      if (statusEl) statusEl.textContent = 'En cours';
-      if (doneBadge) doneBadge.remove();
+      if(statusEl){statusEl.innerHTML='<div class="status-dot" style="background:#2558a8"></div><span style="color:#7fa8d4;">En cours</span>';}
+      if(existingBadge)existingBadge.remove();
     } else {
-      card.classList.remove('done', 'active-ch');
-      if (statusEl) statusEl.textContent = 'Non commencé';
-      if (doneBadge) doneBadge.remove();
+      card.classList.remove('done');
+      if(statusEl){statusEl.innerHTML='<div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span>';}
+      if(existingBadge)existingBadge.remove();
     }
-  }
-
-  const pct = Math.round((doneCount / 6) * 100);
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-text').textContent = doneCount + ' / 6 chapitres';
-  document.getElementById('done-count').textContent = doneCount;
+  });
+  const pct=Math.round(done/8*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-label').textContent=done+' / 8 chapitres';
+  document.getElementById('done-count').textContent=done;
 }
 
-// Écoute les messages des chapitres enfants (quand ils envoient "done")
-window.addEventListener('message', function(e) {
-  if (e.data && e.data.type === 'chapter-done') {
-    markDone(e.data.chapter);
-  }
-});
-
-// Paramètre URL ?done=N (pour retour depuis un chapitre sans iframe)
-const params = new URLSearchParams(location.search);
-if (params.get('done')) {
-  markDone(parseInt(params.get('done')));
-  history.replaceState({}, '', location.pathname);
+// Retour depuis un chapitre via ?done=N
+const params=new URLSearchParams(location.search);
+const doneParam=params.get('done');
+if(doneParam){
+  // Mapper les anciens numéros (done=1→ch3, done=2→ch4)
+  const map={'1':3,'2':4,'3':5,'4':6,'5':7,'6':8,'7':9,'8':10};
+  const chNum=map[doneParam]||parseInt(doneParam);
+  if(chNum>=3&&chNum<=10)markDone(chNum);
+  history.replaceState({},'',location.pathname);
 }
 
 renderProgress();
