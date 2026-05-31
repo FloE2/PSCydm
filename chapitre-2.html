@@ -386,33 +386,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
       </div>
     </div>
 
-    <!-- Rappel APGM -->
-    <div style="background:linear-gradient(135deg,#1a2d4a,#1e3560);border:1.5px solid #2a4a7f;border-radius:10px;padding:10px 14px;display:flex;gap:12px;align-items:flex-start;">
-      <div style="font-size:20px;flex-shrink:0;">🪞</div>
-      <div style="flex:1;">
-        <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#7fa8d4;margin-bottom:4px;">Technique pédagogique — APG(M) · Atelier Pratique du Geste en Miroir</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px;color:#a0c0e0;line-height:1.6;">
-          <div>
-            <div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:#5a8abf;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Le formateur</div>
-            <ul style="padding-left:14px;margin:0;">
-              <li>Constitue des binômes (sauveteur / victime)</li>
-              <li>Réalise 2 à 3 fois les gestes <strong style="color:white;">en demandant aux élèves de faire en même temps</strong></li>
-              <li>Demande ensuite de faire l'ensemble de la CAT</li>
-            </ul>
-          </div>
-          <div>
-            <div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:#5a8abf;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">L'apprenant</div>
-            <ul style="padding-left:14px;margin:0;">
-              <li>En binôme, <strong style="color:white;">réalise les gestes en même temps</strong> que le formateur</li>
-              <li>Passe successivement sauveteur → victime → témoin</li>
-              <li>Refait ensuite l'ensemble de la CAT</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="dd-instruction">🖐️ Un autre élève vient déposer les étapes. Le groupe l'aide.</div>
+    <div class="dd-instruction">🖐️ Un autre élève vient déposer les étapes dans l'ordre. Le groupe l'aide.</div>
     <div class="section-label">Étapes disponibles</div>
     <div class="pool-zone" id="pool-adulte"></div>
     <div class="section-label">La CAT dans le bon ordre</div>
@@ -444,6 +419,13 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
           <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
         </div>
       </div>
+      <div style="align-self:center;color:#7a2a00;font-size:20px;padding:0 4px;flex-shrink:0;">→</div>
+      <div class="tl-step">
+        <div class="tl-num" style="background:#7a2a00;box-shadow:0 0 0 2px #7a2a00;">5</div>
+        <div class="tl-slot" id="slot-adulte-4" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'adulte')" ontouchend="tdrop(event,this,'adulte')">
+          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
+        </div>
+      </div>
     </div>
     <div class="action-row">
       <button class="check-btn" onclick="checkDD('adulte')">✓ Vérifier</button>
@@ -456,7 +438,33 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
         <div class="alerte-icon">✅</div>
         <div>
           <h3 style="color:var(--vert)">Réponse correcte</h3>
-          <p style="color:#0e4a2b;">1. Pencher en avant + 1 à 5 claques dans le dos → Si claques efficaces : repos + alerter + surveiller → 2. Si claques inefficaces : 1 à 5 compressions abdominales → Si efficaces : repos + alerter + surveiller → 3. Si compressions inefficaces : reprendre les claques → 4. Si perte de connaissance : accompagner au sol + alerter + RCP (Ch.6)</p>
+          <p style="color:#0e4a2b;">1. Protection → 2. Claques dos → Si efficaces : repos + alerter + surveiller → 3. Si inefficaces : compressions abdominales → Si efficaces : repos + alerter + surveiller → 4. Si inefficaces : reprendre les claques → 5. Si perte de connaissance : RCP (Ch.6)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- APGM rappel APRÈS la reformulation -->
+    <div style="background:linear-gradient(135deg,#1a2d4a,#1e3560);border:1.5px solid #2a4a7f;border-radius:10px;padding:10px 14px;display:flex;gap:12px;align-items:flex-start;">
+      <div style="font-size:20px;flex-shrink:0;">🪞</div>
+      <div style="flex:1;">
+        <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#7fa8d4;margin-bottom:4px;">Technique pédagogique — APG(M) · Atelier Pratique du Geste en Miroir</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px;color:#a0c0e0;line-height:1.6;">
+          <div>
+            <div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:#5a8abf;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Le formateur</div>
+            <ul style="padding-left:14px;margin:0;">
+              <li>Constitue des binômes (sauveteur / victime)</li>
+              <li>Réalise 2 à 3 fois les gestes <strong style="color:white;">en demandant aux élèves de faire en même temps</strong></li>
+              <li>Demande ensuite de faire l'ensemble de la CAT</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:#5a8abf;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">L'apprenant</div>
+            <ul style="padding-left:14px;margin:0;">
+              <li>En binôme, <strong style="color:white;">réalise les gestes en même temps</strong> que le formateur</li>
+              <li>Passe successivement sauveteur → victime → témoin</li>
+              <li>Refait ensuite l'ensemble de la CAT</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -533,6 +541,19 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
         <div>
           <h3 style="color:var(--vert)">Réponse correcte</h3>
           <p style="color:#0e4a2b;">1. Protection — cuisse, tête en bas → 2. 1à5 claques dos → Si efficaces : alerter + surveiller → 3. Si inefficaces : avant-bras, 1à5 compressions thoraciques → Si efficaces : alerter + surveiller → Si inefficaces : reprendre claques → 4. Si perte connaissance : RCP (Ch.6)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MÉMO APGM nourrisson -->
+    <div style="background:linear-gradient(135deg,#1a2d4a,#1e3560);border:1.5px solid #2a4a7f;border-radius:10px;padding:10px 14px;display:flex;gap:10px;align-items:flex-start;">
+      <div style="font-size:20px;flex-shrink:0;">🪞</div>
+      <div style="flex:1;">
+        <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#7fa8d4;margin-bottom:4px;">⚠️ Mémo formateur — APG(M) à faire maintenant !</div>
+        <div style="font-size:11.5px;color:#a0c0e0;line-height:1.6;">
+          Faire réaliser la CAT complète en binôme <strong style="color:white;">enfant + nourrisson</strong> en même temps que vous.<br>
+          Penser à faire passer les rôles : <strong style="color:white;">sauveteur → victime → témoin</strong>.<br>
+          Si un élève rate les gestes → <strong style="color:#ffe066;">refaire toute la CAT depuis le début</strong>.
         </div>
       </div>
     </div>
@@ -1094,12 +1115,13 @@ function toggleReveal(id){
 const DATA={
   'adulte':{
     steps:[
+      {id:'a0',icon:'🛡️',text:'Assurer la protection'},
       {id:'a1',icon:'👋',text:'Pencher en avant + 1 à 5 claques dans le dos'},
       {id:'a2',icon:'🤜',text:'Si claques inefficaces → 1 à 5 compressions abdominales'},
       {id:'a3',icon:'🔄',text:'Répéter claques/compressions jusqu\'à désobstruction'},
       {id:'a4',icon:'✅',text:'Si efficace : mettre au repos, alerter le 15, surveiller'},
     ],
-    order:['a1','a2','a3','a4']
+    order:['a0','a1','a2','a3','a4']
   },
   'nourr':{
     steps:[
