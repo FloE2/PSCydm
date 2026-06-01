@@ -526,13 +526,14 @@
     <div class="phase-lbl">Présentiel — 2ème partie</div>
     <div class="s-row">
 
-      <div class="card soon" id="card-7">
+      <div class="card has-link" id="card-7" data-href="chapitre-5.html" onclick="openChapter(this)">
         <div class="card-check-icon">✓</div>
-        <div class="card-dot" style="border-color:#ccc"></div>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 7</div>
         <div class="card-title">🔥 Brûlures</div>
         <div class="card-detail">Refroidissement à l'eau tempérée 15 min · protection stérile · brûlures chimiques/électriques · brûlures graves.</div>
         <div class="chips"><span class="chip">REFOR CAT</span><span class="chip">1 CC</span></div>
+        <div class="card-open">Ouvrir →</div>
       </div>
 
       <div class="card soon" id="card-8">
@@ -602,7 +603,7 @@
   </div>
 
   <script>
-    const DONE_MAP = { '1': '3', '2': '4', '3': '5', '4': '6' };
+    const DONE_MAP = { '1': '3', '2': '4', '3': '5', '4': '6', '5': '7' };
     const FOAD_IDS = ['1', '2'];
     const PRESENTIEL_IDS = ['3','4','5','6','7','8','9','10'];
 
@@ -686,8 +687,8 @@
         card.classList.remove('checked');
         const dot = card.querySelector('.card-dot');
         // Ch3 + Ch4 get blue dot + link back
-        if (id === '3' || id === '4' || id === '5' || id === '6') {
-          const hrefs = {'3':'chapitre-1.html','4':'chapitre-2.html','5':'chapitre-3.html','6':'chapitre-4.html'};
+        if (id === '3' || id === '4' || id === '5' || id === '6' || id === '7') {
+          const hrefs = {'3':'chapitre-1.html','4':'chapitre-2.html','5':'chapitre-3.html','6':'chapitre-4.html','7':'chapitre-5.html'};
           card.classList.add('has-link');
           card.setAttribute('onclick', 'openChapter(this)');
           card.setAttribute('data-href', hrefs[id]);
