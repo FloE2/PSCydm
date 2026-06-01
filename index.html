@@ -500,13 +500,14 @@
         <div class="card-open">Ouvrir →</div>
       </div>
 
-      <div class="card soon" id="card-5">
+      <div class="card has-link" id="card-5" data-href="chapitre-3.html" onclick="openChapter(this)">
         <div class="card-check-icon">✓</div>
-        <div class="card-dot" style="border-color:#ccc"></div>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 5</div>
         <div class="card-title">🩸 Hémorragies externes</div>
         <div class="card-detail">Compression directe · pansement compressif · garrot d'urgence · saignements par le nez, la bouche ou autre.</div>
         <div class="chips"><span class="chip">DCJIM</span><span class="chip">2 CC</span></div>
+        <div class="card-open">Ouvrir →</div>
       </div>
 
       <div class="card soon" id="card-6">
@@ -600,7 +601,7 @@
   </div>
 
   <script>
-    const DONE_MAP = { '1': '3', '2': '4' };
+    const DONE_MAP = { '1': '3', '2': '4', '3': '5' };
     const FOAD_IDS = ['1', '2'];
     const PRESENTIEL_IDS = ['3','4','5','6','7','8','9','10'];
 
@@ -684,9 +685,11 @@
         card.classList.remove('checked');
         const dot = card.querySelector('.card-dot');
         // Ch3 + Ch4 get blue dot + link back
-        if (id === '3' || id === '4') {
+        if (id === '3' || id === '4' || id === '5') {
+          const hrefs = {'3':'chapitre-1.html','4':'chapitre-2.html','5':'chapitre-3.html'};
           card.classList.add('has-link');
           card.setAttribute('onclick', 'openChapter(this)');
+          card.setAttribute('data-href', hrefs[id]);
           if (dot) dot.style.borderColor = '#2d7dd2';
         } else {
           card.classList.add('soon');
