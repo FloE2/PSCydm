@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSC1 — Chapitre 6 : Plaies</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bleu:#1a3a6b;--bleu-mid:#2558a8;--bleu-clair:#ddeeff;--bleu-pale:#f0f6ff;
+  --rouge:#c0392b;--rouge-clair:#fdecea;--rouge-bord:#e8a09a;
+  --vert:#1a7a4a;--vert-clair:#e8f8ef;--vert-bord:#80cba0;
+  --orange:#e67e22;--orange-clair:#fdf3e3;--orange-bord:#f0b060;
+  --violet:#6c3483;--violet-clair:#f5eef8;--violet-bord:#c39bd3;
+  --gris:#f4f5f7;--gris-bord:#d0d6e0;--texte:#1c2233;--texte-sec:#5a6382;
+  --accent:#8B4513;--accent-clair:#fdf5f0;--accent-bord:#d4956a;
+}
+body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+
+#nav{background:#0d1525;display:flex;align-items:center;justify-content:space-between;padding:8px 18px;border-bottom:1px solid #1e2d4a;flex-shrink:0;gap:12px}
+.logo{display:flex;align-items:center;gap:8px;color:#7fa8d4;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;white-space:nowrap}
+.logo span{color:white;font-size:14px}
+#nav-pills{display:flex;gap:3px;flex-wrap:wrap}
+.pill{font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid #2a3f5f;color:#7fa8d4;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;white-space:nowrap}
+.pill.active{background:var(--bleu-mid);border-color:var(--bleu-mid);color:white}
+.pill:hover:not(.active){background:#1e2d4a}
+#nav-btns{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nav-btn{background:#1e2d4a;border:1px solid #2a3f5f;color:#7fa8d4;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;transition:all .2s;display:flex;align-items:center;gap:5px}
+.nav-btn:hover{background:var(--bleu-mid);border-color:var(--bleu-mid);color:white}
+#slide-counter{color:#7fa8d4;font-size:11px;font-family:'Outfit',sans-serif;white-space:nowrap}
+
+#stage{flex:1;display:flex;align-items:stretch;justify-content:center;padding:14px;overflow:hidden}
+.slide{display:none;background:white;border-radius:16px;width:100%;max-width:980px;position:relative;overflow:hidden}
+.slide.active{display:flex;flex-direction:column}
+
+.slide-header{background:var(--accent);color:white;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:16px}
+.slide-header .left .sup{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.65;margin-bottom:3px}
+.slide-header h1{font-family:'Outfit',sans-serif;font-size:26px;font-weight:900;line-height:1.1}
+.slide-header h2{font-family:'Outfit',sans-serif;font-size:19px;font-weight:700;line-height:1.2}
+.slide-header .badge-dur{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:8px 14px;text-align:center;flex-shrink:0}
+.slide-header .badge-dur .v{font-family:'Outfit',sans-serif;font-size:24px;font-weight:800}
+.slide-header .badge-dur .l{font-size:10px;opacity:.7;display:block}
+
+.slide-body{flex:1;padding:14px 28px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+
+.slide-footer{padding:7px 28px;border-top:1px solid var(--gris-bord);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--texte-sec);flex-shrink:0;background:var(--gris)}
+.progress-dots{display:flex;gap:5px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--gris-bord);transition:all .3s}
+.dot.active{background:var(--accent)}
+.dot.done{background:#d4956a}
+
+/* COMMUN */
+.objectif-box{background:var(--accent-clair);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;color:var(--accent)}
+.objectif-box strong{font-family:'Outfit',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:3px;opacity:.7}
+.section-label{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--texte-sec);margin-bottom:6px}
+.alerte-box{background:var(--rouge-clair);border:2px solid var(--rouge);border-radius:10px;padding:9px 14px;display:flex;align-items:flex-start;gap:10px}
+.alerte-icon{font-size:20px;flex-shrink:0}
+.alerte-box h3{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:var(--rouge);margin-bottom:2px}
+.alerte-box p{font-size:11.5px;color:#7a1a10;line-height:1.4}
+.info-box{background:var(--bleu-pale);border:1px solid #a0c0ea;border-radius:10px;padding:9px 14px;font-size:12.5px;color:var(--bleu);line-height:1.5}
+.vert-box{background:var(--vert-clair);border:1px solid var(--vert-bord);border-radius:10px;padding:9px 14px;font-size:12.5px;color:var(--vert);line-height:1.5}
+
+/* TITRE */
+.titre-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:28px;background:linear-gradient(160deg,#fdf8f5 0%,#f5e8de 100%)}
+.titre-number{font-family:'Outfit',sans-serif;font-size:110px;font-weight:900;color:#e8d0be;line-height:1;user-select:none}
+.titre-main{font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;color:var(--accent);text-align:center;line-height:1.15}
+.titre-sub{font-size:14px;color:var(--texte-sec);text-align:center;max-width:560px;line-height:1.65}
+.timing-row{display:flex;gap:16px}
+.timing-box{text-align:center;padding:10px 18px;background:white;border:1px solid var(--gris-bord);border-radius:10px}
+.timing-box .tv{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:var(--accent)}
+.timing-box .tl{font-size:10px;color:var(--texte-sec);text-transform:uppercase;letter-spacing:1px}
+.chips-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.chip{background:var(--accent-clair);border:1px solid var(--accent-bord);color:var(--accent);border-radius:20px;padding:5px 14px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600}
+
+/* GRILLE PLAIES */
+.plaie-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.plaie-col{border-radius:12px;padding:14px;border:2px solid}
+.plaie-col.simple{background:#f0fdf4;border-color:var(--vert-bord)}
+.plaie-col.grave{background:#fff5f5;border-color:var(--rouge-bord)}
+.plaie-col-title{font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;margin-bottom:8px}
+.plaie-col.simple .plaie-col-title{color:var(--vert)}
+.plaie-col.grave .plaie-col-title{color:var(--rouge)}
+.plaie-col ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.plaie-col ul li{font-size:12px;color:var(--texte-sec);padding-left:14px;position:relative;line-height:1.4}
+.plaie-col ul li::before{position:absolute;left:0;font-size:10px}
+.plaie-col.simple ul li::before{content:'✓';color:var(--vert)}
+.plaie-col.grave ul li::before{content:'⚠';color:var(--rouge)}
+
+/* STEPS */
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.step-card{background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:10px;text-align:center}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:white;font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 6px}
+.step-ic{font-size:22px;margin-bottom:5px}
+.step-title{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:var(--texte);margin-bottom:3px}
+.step-desc{font-size:10.5px;color:var(--texte-sec);line-height:1.4}
+
+/* POSITIONS GRID */
+.pos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pos-card{border-radius:10px;padding:10px;text-align:center;border:1.5px solid}
+.pos-card .ic{font-size:26px;margin-bottom:6px}
+.pos-card h3{font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;margin-bottom:4px}
+.pos-card p{font-size:10.5px;line-height:1.4}
+.pos-card.bras{background:#fff5f5;border-color:var(--rouge-bord);color:var(--rouge)}
+.pos-card.bras p{color:#7a1a10}
+.pos-card.thorax{background:var(--bleu-pale);border-color:#a0c0ea;color:var(--bleu)}
+.pos-card.thorax p{color:#2a4a8a}
+.pos-card.abdo{background:var(--orange-clair);border-color:var(--orange-bord);color:var(--orange)}
+.pos-card.abdo p{color:#7a4400}
+.pos-card.oeil{background:var(--violet-clair);border-color:var(--violet-bord);color:var(--violet)}
+.pos-card.oeil p{color:#4a1a6a}
+
+/* CORPS ÉTRANGER */
+.ce-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ce-card{border-radius:10px;padding:12px;border:2px solid}
+.ce-card h3{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;margin-bottom:6px}
+.ce-card ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.ce-card ul li{font-size:12px;padding-left:14px;position:relative;line-height:1.4}
+.ce-card ul li::before{position:absolute;left:0}
+.ce-card.non{background:#fff5f5;border-color:var(--rouge-bord)}
+.ce-card.non h3{color:var(--rouge)}
+.ce-card.non ul li::before{content:'🚫';font-size:10px}
+.ce-card.non ul li{color:#7a1a10}
+.ce-card.oui{background:var(--vert-clair);border-color:var(--vert-bord)}
+.ce-card.oui h3{color:var(--vert)}
+.ce-card.oui ul li::before{content:'✓';color:var(--vert);font-size:11px}
+.ce-card.oui ul li{color:#1a5a3a}
+
+/* VRAI/FAUX */
+.vf-grid{display:flex;flex-direction:column;gap:8px}
+.vf-item{background:var(--gris);border:1.5px solid var(--gris-bord);border-radius:10px;padding:10px 14px;transition:all .2s}
+.vf-statement{font-size:13px;color:var(--texte);margin-bottom:8px;line-height:1.4}
+.vf-btns{display:flex;gap:8px}
+.vf-btn{flex:1;padding:6px;border-radius:6px;border:1.5px solid var(--gris-bord);background:white;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s}
+.vf-btn:hover:not(:disabled){border-color:#999}
+.vf-btn.selected-v{background:var(--vert-clair);border-color:var(--vert);color:var(--vert)}
+.vf-btn.selected-f{background:var(--rouge-clair);border-color:var(--rouge);color:var(--rouge)}
+.vf-explication{display:none;margin-top:8px;font-size:11.5px;padding:8px 12px;border-radius:6px;line-height:1.5}
+.vf-explication.correct{background:var(--vert-clair);color:var(--vert);border:1px solid var(--vert-bord)}
+.vf-explication.incorrect{background:var(--rouge-clair);color:var(--rouge);border:1px solid var(--rouge-bord)}
+.vf-item.revealed .vf-explication{display:block}
+.score-box{padding:8px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;display:none;margin-top:4px}
+
+/* PLAIE SIMPLE CAT */
+.simple-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.ss-card{background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:10px;text-align:center}
+.ss-num{width:22px;height:22px;border-radius:50%;background:var(--vert);color:white;font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 5px}
+.ss-ic{font-size:20px;margin-bottom:4px}
+.ss-title{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:var(--texte);margin-bottom:2px}
+.ss-desc{font-size:10px;color:var(--texte-sec);line-height:1.35}
+
+/* CAS CONCRET */
+.cc-header{background:linear-gradient(135deg,#5a2d0c,#8B4513);color:white;padding:14px 20px;border-radius:12px;margin-bottom:10px}
+.cc-tag{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:4px}
+.cc-header h3{font-family:'Outfit',sans-serif;font-size:16px;font-weight:800}
+.cc-scene{background:#f0f6ff;border:1.5px solid #a0c0ea;border-radius:10px;padding:13px 16px;font-size:13px;color:var(--texte);line-height:1.6}
+.cc-scene strong{color:var(--bleu)}
+.cc-step{background:var(--gris);border:1.5px solid var(--gris-bord);border-radius:10px;overflow:hidden}
+.cc-step-header{padding:10px 14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;color:var(--texte);transition:background .2s;user-select:none}
+.cc-step-header:hover{background:#e8eaf0}
+.cc-step-header .chevron{font-size:12px;color:var(--texte-sec);transition:transform .2s}
+.cc-step.open .chevron{transform:rotate(90deg)}
+.cc-step-body{display:none;padding:10px 14px;font-size:12.5px;color:var(--texte-sec);line-height:1.6;border-top:1px solid var(--gris-bord)}
+.cc-step.open .cc-step-body{display:block}
+.cc-step.ok .cc-step-header{background:var(--vert-clair);color:var(--vert)}
+.cc-step.ok .cc-step-body{background:#f5fdf9;border-color:var(--vert-bord)}
+.debrief-box{background:linear-gradient(135deg,#1a3a6b,#0d1f3c);color:white;border-radius:10px;padding:14px 16px;font-size:12.5px;line-height:1.6}
+.debrief-box h4{font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<div id="nav">
+  <div class="logo">🩹 <span>PSC1</span> · Plaies</div>
+  <div id="nav-pills">
+    <div class="pill" onclick="goToDashboard()" style="border-color:#1a5a35;color:#80cba0;">← Dashboard</div>
+    <div class="pill active" onclick="goSlide(0)">Titre</div>
+    <div class="pill" onclick="goSlide(1)">Plaie simple / grave</div>
+    <div class="pill" onclick="goSlide(2)">Corps étranger</div>
+    <div class="pill" onclick="goSlide(3)">Positions d'attente</div>
+    <div class="pill" onclick="goSlide(4)">CAT plaie simple</div>
+    <div class="pill" onclick="goSlide(5)">Vrai / Faux</div>
+    <div class="pill" onclick="goSlide(6)">🛡️ Protection &amp; Alerte</div>
+    <div class="pill" onclick="goSlide(7)">Cas Concret</div>
+  </div>
+  <div id="nav-btns">
+    <div id="slide-counter">1 / 8</div>
+    <button class="nav-btn" onclick="prevSlide()">← Préc.</button>
+    <button class="nav-btn" onclick="nextSlide()">Suiv. →</button>
+  </div>
+</div>
+
+<div id="stage">
+
+  <!-- SLIDE 0 : TITRE -->
+  <div class="slide active">
+    <div class="titre-body">
+      <div class="titre-number">6</div>
+      <div class="titre-main">🩹 Plaies</div>
+      <div class="titre-sub">Évaluer la gravité · Ne jamais retirer un corps étranger · Installer en position d'attente · Alerter et surveiller</div>
+      <div class="timing-row">
+        <div class="timing-box"><div class="tv">20'</div><div class="tl">Durée estimée</div></div>
+        <div class="timing-box"><div class="tv">1</div><div class="tl">Cas concret</div></div>
+        <div class="timing-box"><div class="tv">5e</div><div class="tl">Classe</div></div>
+      </div>
+      <div class="chips-row">
+        <span class="chip">REFOR CAT</span>
+        <span class="chip">Compétence F</span>
+        <span class="chip">Corps étranger</span>
+        <span class="chip">Position allongée</span>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Scénario 5 — Collège Yves du Manoir · Vaucresson</span>
+      <div class="progress-dots" id="dots0"></div>
+      <span>Chapitre 6 / 10</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 1 : PLAIE SIMPLE VS GRAVE -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left">
+        <div class="sup">Chapitre 6 · Définition</div>
+        <h1>Plaie simple ou grave ?</h1>
+      </div>
+      <div class="badge-dur"><div class="v">🔍</div><div class="l">Évaluer</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="objectif-box">
+        <strong>Objectif</strong>
+        Savoir distinguer une plaie simple d'une plaie grave pour adapter sa conduite à tenir.
+      </div>
+      <div class="plaie-compare">
+        <div class="plaie-col simple">
+          <div class="plaie-col-title">✅ Plaie simple</div>
+          <ul>
+            <li>Petite coupure superficielle</li>
+            <li>Éraflure saignant peu</li>
+            <li>Pas de corps étranger</li>
+            <li>Localisation sans risque (bras, jambe, surface)</li>
+            <li>Saignement qui s'arrête facilement</li>
+          </ul>
+          <div style="margin-top:8px;font-size:11px;color:var(--vert);font-weight:600">→ Je soigne moi-même avec un antiseptique</div>
+        </div>
+        <div class="plaie-col grave">
+          <div class="plaie-col-title">⚠️ Plaie grave</div>
+          <ul>
+            <li>Hémorragie associée (saignement abondant)</li>
+            <li>Corps étranger planté (verre, couteau, clou…)</li>
+            <li>Mécanisme pénétrant (objet tranchant, morsure)</li>
+            <li>Localisation dangereuse : thorax, abdomen, œil, près d'un orifice naturel</li>
+            <li>Aspect déchiqueté ou écrasé</li>
+          </ul>
+          <div style="margin-top:8px;font-size:11px;color:var(--rouge);font-weight:600">→ Alerter les secours immédiatement</div>
+        </div>
+      </div>
+      <div class="alerte-box">
+        <div class="alerte-icon">🦠</div>
+        <div>
+          <h3>Risque d'infection — pensez au tétanos</h3>
+          <p>Toute plaie, même simple, peut s'infecter. Le tétanos est une maladie grave, parfois mortelle. Seule la <strong>vaccination antitétanique</strong> protège. Conseiller de vérifier la validité du vaccin.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Plaie simple vs grave</span>
+      <div class="progress-dots" id="dots1"></div>
+      <span>Slide 2/8</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 : CORPS ÉTRANGER -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left">
+        <div class="sup">Chapitre 6 · Règle absolue</div>
+        <h2>🚫 Ne jamais retirer un corps étranger</h2>
+      </div>
+      <div class="badge-dur"><div class="v">🔒</div><div class="l">Règle n°1</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="alerte-box" style="border-width:3px">
+        <div class="alerte-icon">🚫</div>
+        <div>
+          <h3>RÈGLE ABSOLUE : ne jamais retirer le corps étranger</h3>
+          <p>Qu'il s'agisse d'un éclat de verre, d'un couteau, d'un clou ou d'une branche — <strong>retirer un corps étranger planté peut provoquer une hémorragie grave</strong> en libérant les vaisseaux qu'il comprimait.</p>
+        </div>
+      </div>
+
+      <div style="background:#fff8f0;border:2px solid var(--accent-bord);border-radius:12px;padding:14px 18px">
+        <div class="section-label" style="color:var(--accent)">🍷 Cas concret : éclat de verre dans le bras</div>
+        <div style="font-size:13px;color:var(--texte);line-height:1.65">
+          Ton ami a trébuché sur une bouteille cassée. Un gros éclat de verre est planté dans son avant-bras. Il saigne autour, mais l'éclat tient bien en place.
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+          <div style="background:var(--rouge-clair);border:1.5px solid var(--rouge-bord);border-radius:8px;padding:10px">
+            <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:var(--rouge);margin-bottom:4px">❌ Ce qu'il NE faut PAS faire</div>
+            <ul style="list-style:none;font-size:11.5px;color:#7a1a10;display:flex;flex-direction:column;gap:3px">
+              <li>🚫 Retirer l'éclat de verre</li>
+              <li>🚫 Appuyer dessus</li>
+              <li>🚫 Tenter de l'enfoncer davantage</li>
+              <li>🚫 Nettoyer autour avec des cotons</li>
+            </ul>
+          </div>
+          <div style="background:var(--vert-clair);border:1.5px solid var(--vert-bord);border-radius:8px;padding:10px">
+            <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:var(--vert);margin-bottom:4px">✅ Ce qu'il faut faire</div>
+            <ul style="list-style:none;font-size:11.5px;color:#1a5a3a;display:flex;flex-direction:column;gap:3px">
+              <li>✓ Laisser le verre en place</li>
+              <li>✓ Comprimer autour si ça saigne (pas sur l'éclat)</li>
+              <li>✓ Allonger la victime</li>
+              <li>✓ Alerter les secours (15 / 18 / 112)</li>
+              <li>✓ Surveiller et rassurer</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="ce-grid">
+        <div class="ce-card non">
+          <h3>🚫 Jamais retiré par le sauveteur</h3>
+          <ul>
+            <li>Éclat de verre planté</li>
+            <li>Couteau ou lame</li>
+            <li>Clou, branche, objet pointu</li>
+            <li>Tout objet pénétrant profond</li>
+          </ul>
+        </div>
+        <div class="ce-card oui">
+          <h3>✅ Le corps étranger est retiré uniquement par</h3>
+          <ul>
+            <li>Les secours médicaux (SAMU, pompiers)</li>
+            <li>Un médecin, aux urgences</li>
+            <li>Jamais sur le terrain par un sauveteur non formé</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Corps étranger — ne jamais retirer</span>
+      <div class="progress-dots" id="dots2"></div>
+      <span>Slide 3/8</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 : POSITIONS D'ATTENTE -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left">
+        <div class="sup">Chapitre 6 · Plaie grave — CAT</div>
+        <h2>Quelle position d'attente selon la plaie ?</h2>
+      </div>
+      <div class="badge-dur"><div class="v">🛏️</div><div class="l">Position</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="info-box">
+        📍 La position d'attente dépend de la <strong>localisation</strong> de la plaie. Elle vise à prévenir les complications et à faciliter la respiration ou la circulation.
+      </div>
+      <div class="pos-grid">
+        <div class="pos-card bras">
+          <div class="ic">💪</div>
+          <h3>Membre, tronc (général)</h3>
+          <p><strong>Allongée</strong><br>sur le sol ou canapé<br>Position la plus fréquente</p>
+        </div>
+        <div class="pos-card thorax">
+          <div class="ic">🫁</div>
+          <h3>Plaie au thorax</h3>
+          <p><strong>Assise</strong><br>en laissant la plaie à l'air libre<br>Facilite la respiration</p>
+        </div>
+        <div class="pos-card abdo">
+          <div class="ic">🤰</div>
+          <h3>Plaie à l'abdomen</h3>
+          <p><strong>Allongée</strong><br>jambes <strong>fléchies</strong><br>Relâche les muscles abdominaux → diminue la douleur</p>
+        </div>
+        <div class="pos-card oeil">
+          <div class="ic">👁️</div>
+          <h3>Plaie à l'œil</h3>
+          <p><strong>Allongée</strong>, yeux fermés<br>Ne pas bouger la tête<br>Maintenir tête à 2 mains si possible</p>
+        </div>
+      </div>
+      <div class="steps-grid" style="grid-template-columns:repeat(4,1fr)">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-ic">🛡️</div>
+          <div class="step-title">Protéger</div>
+          <div class="step-desc">Sécuriser la zone, écarter les dangers (verre, objet tranchant…)</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-ic">🚫</div>
+          <div class="step-title">Ne pas retirer</div>
+          <div class="step-desc">Laisser tout corps étranger en place. Comprimer autour si saignement.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-ic">🛏️</div>
+          <div class="step-title">Installer</div>
+          <div class="step-desc">Choisir la bonne position selon localisation de la plaie.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-ic">📞</div>
+          <div class="step-title">Alerter &amp; surveiller</div>
+          <div class="step-desc">15 / 18 / 112 · Rassurer · Protéger du froid · Surveiller jusqu'aux secours.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Positions d'attente selon la localisation</span>
+      <div class="progress-dots" id="dots3"></div>
+      <span>Slide 4/8</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 : CAT PLAIE SIMPLE -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left">
+        <div class="sup">Chapitre 6 · Plaie simple</div>
+        <h2>Je soigne une plaie simple — étape par étape</h2>
+      </div>
+      <div class="badge-dur"><div class="v">🩹</div><div class="l">Geste simple</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="vert-box">
+        ✅ Une plaie simple (petite coupure, éraflure) peut être soignée directement. Pas besoin d'appeler les secours si le saignement s'arrête rapidement.
+      </div>
+      <div class="simple-steps">
+        <div class="ss-card">
+          <div class="ss-num">1</div>
+          <div class="ss-ic">🤲</div>
+          <div class="ss-title">Se laver les mains</div>
+          <div class="ss-desc">À l'eau et au savon avant de toucher la plaie.</div>
+        </div>
+        <div class="ss-card">
+          <div class="ss-num">2</div>
+          <div class="ss-ic">🚿</div>
+          <div class="ss-title">Rincer abondamment</div>
+          <div class="ss-desc">À l'eau courante, avec ou sans savon. Utiliser une compresse si besoin pour enlever les souillures.</div>
+        </div>
+        <div class="ss-card">
+          <div class="ss-num">3</div>
+          <div class="ss-ic">🧴</div>
+          <div class="ss-title">Désinfecter</div>
+          <div class="ss-desc">Appliquer un antiseptique (facultatif si eau disponible).</div>
+        </div>
+        <div class="ss-card">
+          <div class="ss-num">4</div>
+          <div class="ss-ic">🩹</div>
+          <div class="ss-title">Protéger</div>
+          <div class="ss-desc">Couvrir avec un pansement adhésif propre.</div>
+        </div>
+        <div class="ss-card">
+          <div class="ss-num">5</div>
+          <div class="ss-ic">⚕️</div>
+          <div class="ss-title">Conseiller un médecin</div>
+          <div class="ss-desc">Pour vérifier le vaccin antitétanique · Si fièvre ou rougeur apparaissent dans les jours suivants.</div>
+        </div>
+      </div>
+      <div class="alerte-box">
+        <div class="alerte-icon">⚠️</div>
+        <div>
+          <h3>Quand la plaie simple devient grave…</h3>
+          <p>Si le saignement ne s'arrête pas · Si la plaie est profonde ou très large · Si un corps étranger est présent → appliquer la <strong>conduite à tenir plaie grave</strong> et alerter les secours.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>CAT plaie simple</span>
+      <div class="progress-dots" id="dots4"></div>
+      <span>Slide 5/8</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 : VRAI/FAUX -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left">
+        <div class="sup">Chapitre 6 · Idées reçues</div>
+        <h2>Plaies — Vrai ou Faux ?</h2>
+      </div>
+      <div class="badge-dur"><div class="v">🧠</div><div class="l">Idées reçues</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="info-box" style="margin-bottom:4px">
+        👇 Clique sur <strong>VRAI</strong> ou <strong>FAUX</strong> pour chaque affirmation.
+      </div>
+      <div class="vf-grid">
+
+        <div class="vf-item" id="vf1">
+          <div class="vf-statement">💬 « Si un éclat de verre est planté dans le bras, il faut l'enlever doucement pour nettoyer la plaie. »</div>
+          <div class="vf-btns">
+            <button class="vf-btn" onclick="answerVF('vf1',true,false)">✅ VRAI</button>
+            <button class="vf-btn" onclick="answerVF('vf1',false,false)">❌ FAUX</button>
+          </div>
+          <div class="vf-explication incorrect">❌ FAUX. Il ne faut <strong>jamais retirer un corps étranger planté</strong>. Le retirer pourrait provoquer une hémorragie grave en libérant les vaisseaux sanguins qu'il comprime.</div>
+        </div>
+
+        <div class="vf-item" id="vf2">
+          <div class="vf-statement">💬 « Pour une plaie au thorax, on allonge la victime à plat. »</div>
+          <div class="vf-btns">
+            <button class="vf-btn" onclick="answerVF('vf2',true,false)">✅ VRAI</button>
+            <button class="vf-btn" onclick="answerVF('vf2',false,true)">❌ FAUX</button>
+          </div>
+          <div class="vf-explication correct">✅ FAUX. Pour une plaie au thorax, on installe la victime en position <strong>assise</strong>, en laissant la plaie à l'air libre. Cela facilite la respiration.</div>
+        </div>
+
+        <div class="vf-item" id="vf3">
+          <div class="vf-statement">💬 « Une simple éraflure qui s'arrête de saigner seule n'est pas une hémorragie. »</div>
+          <div class="vf-btns">
+            <button class="vf-btn" onclick="answerVF('vf3',true,true)">✅ VRAI</button>
+            <button class="vf-btn" onclick="answerVF('vf3',false,false)">❌ FAUX</button>
+          </div>
+          <div class="vf-explication correct">✅ VRAI. Une hémorragie ne s'arrête pas spontanément et imprègne un mouchoir en quelques secondes. Une éraflure qui s'arrête seule est une <strong>plaie simple</strong>, pas une hémorragie.</div>
+        </div>
+
+        <div class="vf-item" id="vf4">
+          <div class="vf-statement">💬 « Pour une plaie à l'abdomen, on allonge la victime les jambes fléchies. »</div>
+          <div class="vf-btns">
+            <button class="vf-btn" onclick="answerVF('vf4',true,true)">✅ VRAI</button>
+            <button class="vf-btn" onclick="answerVF('vf4',false,false)">❌ FAUX</button>
+          </div>
+          <div class="vf-explication correct">✅ VRAI. Les jambes fléchies permettent de <strong>relâcher les muscles abdominaux</strong>, ce qui diminue la douleur et les risques de complications.</div>
+        </div>
+
+        <div class="vf-item" id="vf5">
+          <div class="vf-statement">💬 « Pour une plaie à l'œil, on ferme les deux yeux et on évite de bouger la tête. »</div>
+          <div class="vf-btns">
+            <button class="vf-btn" onclick="answerVF('vf5',true,true)">✅ VRAI</button>
+            <button class="vf-btn" onclick="answerVF('vf5',false,false)">❌ FAUX</button>
+          </div>
+          <div class="vf-explication correct">✅ VRAI. Fermer les yeux et immobiliser la tête <strong>limite le risque d'aggravation de la lésion oculaire</strong>. Maintenir la tête à deux mains si possible.</div>
+        </div>
+
+      </div>
+      <div class="score-box" id="vf-score"></div>
+    </div>
+    <div class="slide-footer">
+      <span>Vrai / Faux — Plaies</span>
+      <div class="progress-dots" id="dots5"></div>
+      <span>Slide 6/8</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 6 : PROTECTION & ALERTE -->
+  <div class="slide">
+    <div class="slide-header" style="background:#2558a8">
+      <div class="left">
+        <div class="sup">Chapitre 6 · Rappel transversal</div>
+        <h2>🛡️ Protéger · Alerter · Surveiller</h2>
+      </div>
+      <div class="badge-dur"><div class="v">📞</div><div class="l">Rappel</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="steps-grid">
+        <div class="step-card" style="background:var(--rouge-clair);border-color:var(--rouge-bord)">
+          <div class="step-num" style="background:var(--rouge)">P</div>
+          <div class="step-ic">🛡️</div>
+          <div class="step-title" style="color:var(--rouge)">Protéger</div>
+          <div class="step-desc">Sécuriser la zone · Éloigner les dangers · Se protéger soi-même du contact avec le sang.</div>
+        </div>
+        <div class="step-card" style="background:var(--orange-clair);border-color:var(--orange-bord)">
+          <div class="step-num" style="background:var(--orange)">A</div>
+          <div class="step-ic">📞</div>
+          <div class="step-title" style="color:var(--orange)">Alerter</div>
+          <div class="step-desc"><strong>15</strong> (SAMU) · <strong>18</strong> (Pompiers) · <strong>112</strong> (Urgences européen)<br>Qui ? Où ? Quoi ? Combien ?</div>
+        </div>
+        <div class="step-card" style="background:var(--bleu-pale);border-color:#a0c0ea">
+          <div class="step-num" style="background:var(--bleu-mid)">S</div>
+          <div class="step-ic">👀</div>
+          <div class="step-title" style="color:var(--bleu)">Secourir</div>
+          <div class="step-desc">Appliquer la CAT adaptée (plaie simple ou grave) · Ne pas retirer le corps étranger.</div>
+        </div>
+        <div class="step-card" style="background:var(--vert-clair);border-color:var(--vert-bord)">
+          <div class="step-num" style="background:var(--vert)">S</div>
+          <div class="step-ic">💬</div>
+          <div class="step-title" style="color:var(--vert)">Surveiller</div>
+          <div class="step-desc">Rassurer en parlant régulièrement · Surveiller la respiration et l'état de conscience jusqu'aux secours.</div>
+        </div>
+      </div>
+      <div class="info-box">
+        🔔 <strong>Si la victime s'aggrave</strong> (pâleur intense, perte de connaissance, difficultés à respirer) → recontacter les secours immédiatement pour signaler l'aggravation.
+      </div>
+      <div class="alerte-box">
+        <div class="alerte-icon">🌡️</div>
+        <div>
+          <h3>Protéger contre les intempéries</h3>
+          <p>Couvrir la victime contre le froid, la chaleur ou la pluie — surtout en cas d'attente prolongée des secours. Glisser une couverture sous et au-dessus d'elle si possible.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Protéger · Alerter · Surveiller</span>
+      <div class="progress-dots" id="dots6"></div>
+      <span>Slide 7/8</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 7 : CAS CONCRET -->
+  <div class="slide">
+    <div class="slide-header" style="background:linear-gradient(135deg,var(--accent),#5a2d0c)">
+      <div class="left">
+        <div class="sup">Chapitre 6 · Activité d'application · Compétence F</div>
+        <h2 id="cc-title">🏠 Cas Concret — Temps 1 : La situation</h2>
+      </div>
+      <button id="cc-switch-btn" onclick="switchCC()" style="background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.4);color:white;padding:7px 16px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;">Temps 2 : Correction →</button>
+    </div>
+    <div class="slide-body">
+
+      <!-- TEMPS 1 -->
+      <div id="cc-t1">
+        <div class="cc-header">
+          <div class="cc-tag">🏠 Bris de verre — plaie grave avec corps étranger</div>
+          <h3>Emma (14 ans) a un éclat de verre planté dans le bras</h3>
+        </div>
+        <div class="cc-scene">
+          Tu es chez ton ami Hugo. Sa petite sœur <strong>Emma, 14 ans</strong>, a renversé un grand bocal en verre sur le plan de travail en voulant l'attraper. En tombant, un gros éclat de verre s'est planté dans son <strong>avant-bras gauche</strong>. L'éclat est encore en place. Le sang coule autour mais ne jaillit pas.<br><br>
+          Emma pleure, elle est assise par terre. Hugo est à côté, paniqué. <strong>Tu as un téléphone.</strong><br><br>
+          <strong>Que fais-tu ? Dans quel ordre ?</strong>
+        </div>
+        <div class="info-box" style="font-size:12px;margin-top:6px">
+          💬 <strong>À l'élève :</strong> décris ou mime les gestes dans l'ordre. Le formateur observe et note.
+        </div>
+      </div>
+
+      <!-- TEMPS 2 : CORRECTION -->
+      <div id="cc-t2" style="display:none">
+        <div class="section-label">Correction — ce qu'il fallait faire</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+
+          <div class="cc-step ok" id="cs1">
+            <div class="cc-step-header" onclick="toggleStep('cs1')">
+              <span>🛡️ 1. Protéger la zone</span><span class="chevron">›</span>
+            </div>
+            <div class="cc-step-body">Éloigner les morceaux de verre pour éviter d'autres blessures. Ne pas marcher dedans. Se protéger soi-même.</div>
+          </div>
+
+          <div class="cc-step ok" id="cs2">
+            <div class="cc-step-header" onclick="toggleStep('cs2')">
+              <span>🚫 2. Ne PAS retirer l'éclat de verre</span><span class="chevron">›</span>
+            </div>
+            <div class="cc-step-body">C'est la règle absolue. L'éclat comprime peut-être un vaisseau. Le retirer risquerait de provoquer une hémorragie grave.</div>
+          </div>
+
+          <div class="cc-step ok" id="cs3">
+            <div class="cc-step-header" onclick="toggleStep('cs3')">
+              <span>✊ 3. Comprimer autour de l'éclat si ça saigne</span><span class="chevron">›</span>
+            </div>
+            <div class="cc-step-body">Appuyer avec un tissu propre autour de la plaie (pas sur l'éclat). Demander à Emma de comprimer elle-même si elle peut.</div>
+          </div>
+
+          <div class="cc-step ok" id="cs4">
+            <div class="cc-step-header" onclick="toggleStep('cs4')">
+              <span>🛏️ 4. Allonger Emma</span><span class="chevron">›</span>
+            </div>
+            <div class="cc-step-body">Plaie au bras → position allongée sur le sol ou le canapé. Cela prévient les complications et une éventuelle détresse.</div>
+          </div>
+
+          <div class="cc-step ok" id="cs5">
+            <div class="cc-step-header" onclick="toggleStep('cs5')">
+              <span>📞 5. Demander à Hugo d'appeler les secours</span><span class="chevron">›</span>
+            </div>
+            <div class="cc-step-body">15 (SAMU) ou 18 (Pompiers) ou 112. Hugo peut appeler pendant que tu maintiens la compression. Indiquer l'adresse, l'âge de la victime, l'éclat de verre planté.</div>
+          </div>
+
+          <div class="cc-step ok" id="cs6">
+            <div class="cc-step-header" onclick="toggleStep('cs6')">
+              <span>💬 6. Rassurer &amp; surveiller</span><span class="chevron">›</span>
+            </div>
+            <div class="cc-step-body">Parler à Emma, lui expliquer ce qui se passe. Surveiller sa respiration et son état de conscience jusqu'à l'arrivée des secours. Protéger du froid si nécessaire.</div>
+          </div>
+
+        </div>
+
+        <div class="debrief-box" style="margin-top:10px">
+          <h4>💬 Débriefing formateur</h4>
+          <p>Points clés : l'éclat a-t-il été laissé en place ? La compression a-t-elle été faite <em>autour</em> (pas dessus) ? Emma a-t-elle été allongée ? Hugo a-t-il été mis à contribution pour alerter ? La victime a-t-elle été rassurée ?</p>
+          <p style="margin-top:6px"><strong>Question de prévention :</strong> Comment éviter ce type d'accident ? (ne pas attraper un objet qui tombe s'il est fragile, ranger les bocaux en verre hors de portée)</p>
+        </div>
+
+        <div style="margin-top:10px;text-align:center">
+          <a href="index.html?done=4" onclick="goToDashboard(event)"
+             style="display:inline-block;background:var(--vert);color:white;padding:10px 24px;border-radius:10px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;text-decoration:none;">
+            ✅ Chapitre terminé — Retour au dashboard
+          </a>
+        </div>
+      </div>
+
+    </div>
+    <div class="slide-footer" id="cc-footer">
+      <span>Temps 1 — Situation soumise aux élèves</span>
+      <div class="progress-dots" id="dots7"></div>
+      <span>Slide 8/8</span>
+    </div>
+  </div>
+
+</div><!-- /stage -->
+
+<script>
+let current = 0;
+const total = 8;
+const slidePills = document.querySelectorAll('.pill[onclick^="goSlide"]');
+
+function goSlide(n) {
+  document.querySelectorAll('.slide')[current].classList.remove('active');
+  slidePills[current + 1].classList.remove('active');
+  current = n;
+  document.querySelectorAll('.slide')[current].classList.add('active');
+  slidePills[current + 1].classList.add('active');
+  document.getElementById('slide-counter').textContent = (current+1) + ' / ' + total;
+  renderDots();
+}
+function nextSlide(){if(current<total-1)goSlide(current+1);}
+function prevSlide(){if(current>0)goSlide(current-1);}
+
+function renderDots() {
+  for(let i=0;i<total;i++){
+    const el=document.getElementById('dots'+i);
+    if(!el) continue;
+    let html='';
+    for(let j=0;j<total;j++){
+      html+=`<div class="dot${j===i?' active':j<i?' done':''}"></div>`;
+    }
+    el.innerHTML=html;
+  }
+}
+renderDots();
+
+// VRAI/FAUX
+const vfCorrects={vf1:false,vf2:false,vf3:true,vf4:true,vf5:true};
+const vfAnswers={};
+function answerVF(id, userAnswer, correctAnswer){
+  if(vfAnswers[id]!==undefined) return;
+  const isCorrect = (userAnswer===correctAnswer);
+  vfAnswers[id]=isCorrect;
+  const item=document.getElementById(id);
+  item.classList.add('revealed');
+  item.querySelectorAll('.vf-btn').forEach(b=>b.disabled=true);
+  const expl=item.querySelector('.vf-explication');
+  expl.className='vf-explication '+(isCorrect?'correct':'incorrect');
+  if(Object.keys(vfAnswers).length===5){
+    const ok=Object.values(vfAnswers).filter(Boolean).length;
+    const sc=document.getElementById('vf-score');
+    sc.style.display='block';
+    sc.textContent=`Score : ${ok} / 5 bonne${ok>1?'s':''} réponse${ok>1?'s':''}`;
+    sc.style.cssText+=`;background:${ok>=4?'#e8f8ef':'#fdecea'};border:1.5px solid ${ok>=4?'#80cba0':'#e8a09a'};color:${ok>=4?'#1a7a4a':'#c0392b'}`;
+  }
+}
+
+// CAS CONCRET
+let ccTime2=false;
+function switchCC(){
+  ccTime2=!ccTime2;
+  document.getElementById('cc-t1').style.display=ccTime2?'none':'block';
+  document.getElementById('cc-t2').style.display=ccTime2?'block':'none';
+  document.getElementById('cc-switch-btn').textContent=ccTime2?'← Retour temps 1':'Temps 2 : Correction →';
+  document.getElementById('cc-title').textContent=ccTime2?'Cas Concret — ✅ Temps 2 : Correction':'🏠 Cas Concret — Temps 1 : La situation';
+  document.getElementById('cc-footer').querySelector('span').textContent=ccTime2?'Temps 2 — Correction':'Temps 1 — Situation soumise aux élèves';
+}
+function toggleStep(id){document.getElementById(id).classList.toggle('open');}
+
+function goToDashboard(e){
+  if(e) e.preventDefault();
+  window.location.href='index.html?done=4';
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight') nextSlide();
+  if(e.key==='ArrowLeft') prevSlide();
+});
+</script>
+</body>
+</html>
