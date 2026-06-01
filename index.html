@@ -1,468 +1,589 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PSC1 — Formation Scénario 5 · Collège de Vaucresson</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#0a1020;color:#e0e8f0;min-height:100vh;display:flex;flex-direction:column}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PSC1 · Parcours de formation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* HEADER */
-#header{background:#0d1525;border-bottom:1px solid #1e2d4a;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.logo-zone{display:flex;align-items:center;gap:12px}
-.logo-badge{background:#2558a8;color:white;font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;padding:6px 14px;border-radius:8px;letter-spacing:1px}
-.logo-text{font-family:'Outfit',sans-serif;font-size:13px;color:#7fa8d4;line-height:1.4}
-.logo-text strong{color:white;display:block;font-size:15px}
-.progress-zone{display:flex;align-items:center;gap:12px}
-.prog-bar-wrap{width:180px;height:6px;background:#1e2d4a;border-radius:3px;overflow:hidden}
-.prog-bar-fill{height:100%;background:#27ae60;border-radius:3px;transition:width .5s}
-.prog-label{font-family:'Outfit',sans-serif;font-size:12px;color:#7fa8d4}
-.reset-btn{background:transparent;border:1px solid #2a3f5f;color:#5a7a9a;padding:5px 12px;border-radius:6px;font-size:11px;font-family:'Outfit',sans-serif;cursor:pointer}
-.reset-btn:hover{border-color:#4a6a8a;color:#7fa8d4}
+    :root {
+      --bg: #f2f1ee;
+      --surface: #ffffff;
+      --border: #e0dfd9;
+      --border-light: #ebebea;
+      --text-primary: #1a1a18;
+      --text-secondary: #6b6b65;
+      --text-muted: #b0b0aa;
+      --green: #1D9E75;
+      --green-light: #e8f5ef;
+      --blue: #2d7dd2;
+      --blue-light: #eef4fb;
+      --red: #D94F3D;
+      --red-light: #fdf1ef;
+      --font: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
 
-/* HERO */
-#hero{background:linear-gradient(160deg,#0d1525 0%,#1a2d4a 100%);padding:16px 28px 14px;border-bottom:1px solid #1e2d4a}
-.hero-tag{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#4a6a8a;margin-bottom:6px}
-.hero-title{font-family:'Outfit',sans-serif;font-size:26px;font-weight:900;color:white;line-height:1.1;margin-bottom:6px}
-.hero-title em{color:#7fa8d4;font-style:normal}
-.hero-sub{font-size:13px;color:#5a7a9a;line-height:1.6;max-width:700px;margin-bottom:10px}
-.hero-rule{background:rgba(255,220,0,.15);border:1px solid rgba(255,220,0,.35);border-radius:8px;padding:6px 14px;display:flex;align-items:center;gap:8px;font-size:12px;color:#ffe066;font-family:'Outfit',sans-serif;font-weight:700;align-self:flex-start}
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 2rem 1.5rem 4rem;
+    }
 
-/* MAIN */
-#main{flex:1;padding:20px 24px;overflow-y:auto}
+    /* ── HEADER ── */
+    .header {
+      max-width: 960px;
+      margin: 0 auto 2.5rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .header-left {}
+    .header-badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .header-title {
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+    .header-title span { color: var(--green); }
+    .header-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .header-progress { text-align: right; flex-shrink: 0; }
+    .prog-bar {
+      width: 130px;
+      height: 3px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-left: auto;
+      margin-bottom: 6px;
+    }
+    .prog-fill {
+      height: 100%;
+      background: var(--green);
+      border-radius: 3px;
+      transition: width 1s ease;
+    }
+    .prog-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
 
-/* SECTION LABELS */
-.section-sep{display:flex;align-items:center;gap:10px;margin:16px 0 10px}
-.section-sep span{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#3a5a7a;white-space:nowrap}
-.section-sep::before,.section-sep::after{content:'';flex:1;height:1px;background:#1e2d4a}
-.section-sep::before{display:none}
+    /* ── ALERT ── */
+    .alert {
+      max-width: 960px;
+      margin: 0 auto 2rem;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+    }
 
-/* GRID */
-.grid-foad{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
-.grid-presentiel{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    /* ── LEGEND ── */
+    .legend {
+      max-width: 960px;
+      margin: 0 auto 2rem;
+      display: flex;
+      gap: 20px;
+    }
+    .leg-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+    .leg-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
 
-/* CARD BASE */
-.card{border-radius:12px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:transform .2s,box-shadow .2s}
-.card:not(.foad):hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
-.card-accent{height:4px;flex-shrink:0}
-.card-body{padding:12px 14px;flex:1;display:flex;flex-direction:column;gap:6px}
-.card-num{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.55}
-.card-icon{font-size:20px;line-height:1}
-.card-title{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;line-height:1.25;flex:1}
-.card-desc{font-size:10.5px;line-height:1.5;opacity:.7}
-.card-footer{padding:8px 14px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;gap:6px}
-.card-dur{font-size:10px;font-family:'Outfit',sans-serif;font-weight:600;opacity:.6}
-.card-tech{font-size:9.5px;font-family:'Outfit',sans-serif;font-weight:700;padding:2px 7px;border-radius:10px;background:rgba(255,255,255,.08);opacity:.8}
-.card-status{font-size:10px;font-family:'Outfit',sans-serif;font-weight:700;display:flex;align-items:center;gap:4px}
-.status-dot{width:6px;height:6px;border-radius:50%}
-.card-arrow{font-size:14px;opacity:.4;transition:all .2s}
-.card:hover .card-arrow{opacity:1;transform:translateX(3px)}
-.done-badge{position:absolute;top:10px;right:10px;background:#1a5a35;color:#80cba0;font-family:'Outfit',sans-serif;font-size:9px;font-weight:800;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:1px}
+    /* ── SNAKE CONTAINER ── */
+    .snake {
+      max-width: 960px;
+      margin: 0 auto;
+    }
 
-/* FOAD cards */
-.card.foad{background:#111820;border:1px solid #1e2d4a;cursor:default;opacity:.75}
-.card.foad .card-title{color:#7fa8d4}
-.card.foad .card-accent{background:#2a3f5f}
+    /* ── PHASE LABEL ── */
+    .phase-lbl {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .phase-lbl::after {
+      content: '';
+      flex: 1;
+      height: 0.5px;
+      background: var(--border);
+    }
 
-/* Presentiel cards */
-.card.presentiel{background:#111e35;border:1px solid #1e2d4a;cursor:pointer;text-decoration:none;color:inherit}
-.card.presentiel .card-title{color:white}
-.card.presentiel:hover{border-color:#2558a8}
+    /* ── ROW ── */
+    .s-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      position: relative;
+    }
 
-/* Done */
-.card.done{border-color:#1a5a35 !important}
-.card.done .card-accent{background:#27ae60 !important}
-.card.done .card-title{color:#80cba0 !important}
-.card.done:hover{border-color:#27ae60 !important}
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 14px 12px;
+      cursor: default;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      transform: translateY(-2px);
+    }
+    .card.done {
+      border-color: var(--green);
+      background: var(--green-light);
+    }
+    .card.key {
+      border: 1.5px solid var(--red);
+      background: var(--red-light);
+    }
+    .card.completed {
+      opacity: 0.6;
+    }
+    .card.completed .card-title { text-decoration: line-through; color: var(--text-muted); }
 
-/* Color accents per chapter */
-.acc-grey{background:#2a3f5f}
-.acc-blue{background:#2558a8}
-.acc-trauma{background:#c0560a}
-.acc-obva{background:#7a2a00}
-.acc-hemo{background:#8b1a1a}
-.acc-plaie{background:#5a1a6b}
-.acc-brulure{background:#b45a00}
-.acc-malaise{background:#1a5a3a}
-.acc-pdc{background:#1a4a7a}
-.acc-ac{background:#7a1a35}
+    .card-dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      border: 2px solid;
+      background: var(--surface);
+      margin-bottom: 10px;
+      transition: transform 0.2s;
+    }
+    .card:hover .card-dot { transform: scale(1.3); }
+    .card.done .card-dot { background: var(--green-light); }
+    .card.key .card-dot { background: var(--red-light); }
 
-/* Chapter color highlights */
-.card[id="card-3"]{border-color:#3a2010}.card[id="card-3"]:hover{border-color:#c0560a}
-.card[id="card-4"]{border-color:#3a1505}.card[id="card-4"]:hover{border-color:#9a3a10}
-.card[id="card-5"]{border-color:#3a1010}.card[id="card-5"]:hover{border-color:#8b1a1a}
-.card[id="card-6"]{border-color:#2a1035}.card[id="card-6"]:hover{border-color:#7a3a9a}
-.card[id="card-7"]{border-color:#3a2005}.card[id="card-7"]:hover{border-color:#b45a00}
-.card[id="card-8"]{border-color:#102515}.card[id="card-8"]:hover{border-color:#1a7a4a}
-.card[id="card-9"]{border-color:#102035}.card[id="card-9"]:hover{border-color:#2558a8}
-.card[id="card-10"]{border-color:#350a1a}.card[id="card-10"]:hover{border-color:#9a1a40}
-.card-accent{height:6px;flex-shrink:0}
+    .card-num {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+    .card.key .card-num { color: var(--red); }
 
-/* INFOS BAS */
-.info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
-.info-card{background:#111e35;border:1px solid #1e2d4a;border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px}
-.info-val{font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:white}
-.info-label{font-size:11px;color:#5a7a9a;line-height:1.4}
+    .card-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+    .card.key .card-title { color: var(--red); }
 
-/* Toast */
-#toast{position:fixed;bottom:20px;right:20px;background:#1a5a35;color:#80cba0;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;padding:10px 18px;border-radius:10px;border:1px solid #27ae60;display:none;z-index:99;animation:fadeIn .3s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-</style>
+    /* Hover reveal */
+    .card-detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.2s;
+      opacity: 0;
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .card:hover .card-detail {
+      max-height: 120px;
+      opacity: 1;
+      margin-top: 8px;
+    }
+
+    .chips {
+      display: flex;
+      gap: 4px;
+      margin-top: 9px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      padding: 2px 7px;
+      border-radius: 20px;
+      background: var(--bg);
+      color: var(--text-muted);
+      border: 0.5px solid var(--border);
+    }
+
+    .done-badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 8px;
+    }
+
+    /* Checkbox to mark done */
+    .card-check {
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+      color: transparent;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .card-check:hover { border-color: var(--green); }
+    .card-check.checked {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff;
+    }
+
+    /* ── CONNECTOR SVG ── */
+    .s-connector {
+      position: relative;
+      height: 52px;
+      pointer-events: none;
+    }
+    .s-connector svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow: visible;
+    }
+
+    /* ── TODAY MARKER ── */
+    .now-sep {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0 16px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--red);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .now-sep::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--red);
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* ── SPACER CARD ── */
+    .card-empty {
+      background: transparent;
+      border: 0.5px dashed var(--border-light);
+      border-radius: 12px;
+    }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding-top: 1.5rem;
+      margin-top: 1.75rem;
+      border-top: 0.5px solid var(--border);
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .stat {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+    .stat-val {
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .stat-val.green { color: var(--green); }
+    .stat-lbl {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .card { animation: fadeUp 0.4s ease both; }
+    .s-row .card:nth-child(1) { animation-delay: 0.05s; }
+    .s-row .card:nth-child(2) { animation-delay: 0.10s; }
+    .s-row .card:nth-child(3) { animation-delay: 0.15s; }
+    .s-row .card:nth-child(4) { animation-delay: 0.20s; }
+  </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<div id="header">
-  <div class="logo-zone">
-    <div class="logo-badge">PSC1</div>
-    <div class="logo-text">
-      <strong>Prévention et Secours Civiques</strong>
-      Scénario 5 · FOAD + Présentiel · 4h30 · Collège de Vaucresson
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-badge">PSC1 · Scénario 5 · Collège de Vaucresson</div>
+      <div class="header-title">Devenir <span>citoyen·ne sauveteur·se</span></div>
+      <div class="header-sub">Hybride FOAD (3h) + Présentiel (4h30)</div>
     </div>
-  </div>
-  <div class="progress-zone">
-    <div class="prog-bar-wrap"><div class="prog-bar-fill" id="prog-fill" style="width:0%"></div></div>
-    <div class="prog-label" id="prog-label">0 / 8 chapitres</div>
-    <button class="reset-btn" onclick="resetProgress()">↺ Réinitialiser</button>
-  </div>
-</div>
-
-<!-- HERO -->
-<div id="hero">
-  <div class="hero-tag">Tableau de bord · Formation PSC1 · Scénario 5</div>
-  <div class="hero-title">Devenir <em>citoyen·ne sauveteur·se</em></div>
-  <div class="hero-sub">
-    Hybride FOAD (3h) + Présentiel (4h30). Les chapitres 1 et 2 sont étudiés en FOAD. Les chapitres 3 à 10 sont travaillés en présentiel avec cas concret pour chacun.
-  </div>
-  <div class="hero-rule">
-    🎯 À l'issue de la formation, tous les apprenants doivent avoir été au moins une fois sauveteur au cours d'un cas concret.
-  </div>
-</div>
-
-<!-- MAIN -->
-<div id="main">
-
-  <!-- FOAD -->
-  <div class="section-sep"><span>Chapitres vus en FOAD — à distance avant la formation</span></div>
-  <div class="grid-foad">
-
-    <div class="card foad">
-      <div class="card-accent acc-grey"></div>
-      <div class="card-body" style="flex-direction:row;align-items:center;gap:10px;padding:9px 14px;">
-        <div style="font-size:18px;flex-shrink:0;">📡</div>
-        <div style="flex:1;">
-          <div class="card-num" style="margin-bottom:2px;">Chapitre 1</div>
-          <div class="card-title" style="font-size:12px;">Alerte et protection des populations</div>
-          <div class="card-desc" style="font-size:10px;margin-top:2px;">Signal national d'alerte · mesures de confinement et d'évacuation · comportements à adopter. Compétence A1.</div>
-        </div>
-        <div class="card-status" style="color:#4a6a8a;flex-shrink:0;flex-direction:column;align-items:flex-end;gap:2px;">
-          <div style="font-size:10px;color:#3a5a7a;">10' · FOAD</div>
-          <div style="display:flex;align-items:center;gap:4px;"><div class="status-dot" style="background:#2a3f5f"></div>Vu en FOAD</div>
-        </div>
+    <div class="header-progress">
+      <div class="prog-bar">
+        <div class="prog-fill" id="progFill" style="width: 20%"></div>
       </div>
+      <div class="prog-label" id="progLabel">2 / 10 chapitres</div>
     </div>
-
-    <div class="card foad">
-      <div class="card-accent acc-grey"></div>
-      <div class="card-body" style="flex-direction:row;align-items:center;gap:10px;padding:9px 14px;">
-        <div style="font-size:18px;flex-shrink:0;">🛡️</div>
-        <div style="flex:1;">
-          <div class="card-num" style="margin-bottom:2px;">Chapitre 2</div>
-          <div class="card-title" style="font-size:12px;">Protection &amp; Alerte</div>
-          <div class="card-desc" style="font-size:10px;margin-top:2px;">Analyser · protéger soi-même, la victime et les autres · transmettre l'alerte (15 · 18 · 112 · 114). Compétences B &amp; C.</div>
-        </div>
-        <div class="card-status" style="color:#4a6a8a;flex-shrink:0;flex-direction:column;align-items:flex-end;gap:2px;">
-          <div style="font-size:10px;color:#3a5a7a;">20' · FOAD</div>
-          <div style="display:flex;align-items:center;gap:4px;"><div class="status-dot" style="background:#2a3f5f"></div>Vu en FOAD</div>
-        </div>
-      </div>
-    </div>
-
   </div>
 
-  <!-- PRESENTIEL -->
-  <div class="section-sep"><span>Chapitres en présentiel — 4h30</span></div>
-  <div class="grid-presentiel">
+  <!-- ALERT -->
+  <div class="alert">
+    À l'issue de la formation, tous les apprenants doivent avoir été <strong>au moins une fois sauveteur</strong> au cours d'un cas concret.
+  </div>
 
-    <!-- Ch3 Traumatisme -->
-    <a class="card presentiel" id="card-3" href="chapitre-1.html" onclick="markVisited(3)">
-      <div class="card-accent acc-trauma"></div>
-      <div class="card-body">
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:#1D9E75"></div> FOAD — terminé</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#2d7dd2"></div> Présentiel</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#D94F3D"></div> Prioritaire</div>
+    <div class="leg-item" style="margin-left:auto; font-size:11px; color:#b0b0aa; font-style:italic;">Survoler une carte pour voir les détails · Cocher pour marquer terminé</div>
+  </div>
+
+  <!-- SNAKE -->
+  <div class="snake">
+
+    <!-- ROW 1 : LTR — FOAD -->
+    <div class="phase-lbl">FOAD — en autonomie avant la formation</div>
+    <div class="s-row" id="row1">
+
+      <div class="card done" data-id="1">
+        <button class="card-check checked" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+        <div class="card-dot" style="border-color:#1D9E75"></div>
+        <div class="card-num">Chapitre 1</div>
+        <div class="card-title">🔊 Alerte et protection des populations</div>
+        <div class="card-detail">Signal national d'alerte · mesures de confinement et d'évacuation · comportements à adopter. Compétence A1.</div>
+        <div class="done-badge">✓ Vu en FOAD · 10 min</div>
+      </div>
+
+      <div class="card done" data-id="2">
+        <button class="card-check checked" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+        <div class="card-dot" style="border-color:#1D9E75"></div>
+        <div class="card-num">Chapitre 2</div>
+        <div class="card-title">🛡️ Protection & Alerte</div>
+        <div class="card-detail">Analyser · protéger soi-même, la victime et les autres · transmettre l'alerte (15 · 18 · 112 · 114). Compétences B & C.</div>
+        <div class="done-badge">✓ Vu en FOAD · 20 min</div>
+      </div>
+
+      <div class="card-empty"></div>
+      <div class="card-empty"></div>
+
+    </div>
+
+    <!-- CONNECTOR 1 → 2 : vire à droite -->
+    <div class="s-connector">
+      <svg viewBox="0 0 960 52" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 696 0 Q 944 0 944 26 Q 944 52 696 52 L 16 52"
+              fill="none" stroke="#d0cfc9" stroke-width="1.5" stroke-dasharray="5 5"/>
+        <polygon points="10,48 20,52 10,56" fill="#d0cfc9" transform="translate(0,-4)"/>
+      </svg>
+    </div>
+
+    <!-- ROW 2 : RTL — Ch6 Ch5 Ch4 Ch3 -->
+    <div class="now-sep">Aujourd'hui — présentiel · à votre rythme</div>
+    <div class="phase-lbl">Présentiel — 1ère partie</div>
+    <div class="s-row" style="direction:rtl" id="row2">
+
+      <div class="card" data-id="3" style="direction:ltr">
+        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 3</div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-          <span style="font-size:22px;">🦴</span>
-          <div class="card-title" style="font-size:15px;color:#f0a070;">Traumatisme</div>
-        </div>
-        <div class="card-desc">Os, articulations et organes · CAT membre · rachis cervical · maintien de tête à 2 mains.</div>
+        <div class="card-title">🦴 Traumatisme</div>
+        <div class="card-detail">Os, articulations et organes · CAT membre · rachis cervical · maintien de tête à 2 mains.</div>
+        <div class="chips"><span class="chip">REFOR</span><span class="chip">APG(M)</span><span class="chip">1 CC</span></div>
       </div>
-      <div class="card-footer">
-        <div>
-          <div class="card-dur">20' · 1 CC</div>
-          <div class="card-tech" style="color:#f0a070;">REFOR + APG(M)</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="card-status" id="status-3"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
-          <div class="card-arrow">→</div>
-        </div>
-      </div>
-    </a>
 
-    <!-- Ch4 OBVA -->
-    <a class="card presentiel" id="card-4" href="chapitre-2.html" onclick="markVisited(4)">
-      <div class="card-accent acc-obva"></div>
-      <div class="card-body">
+      <div class="card" data-id="4" style="direction:ltr">
+        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 4</div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-          <span style="font-size:22px;">🫁</span>
-          <div class="card-title" style="font-size:15px;color:#f0a070;">Obstruction des voies aériennes</div>
-        </div>
-        <div class="card-desc">Partielle · complète adulte/enfant · claques + compressions abdominales · nourrisson · compressions thoraciques.</div>
+        <div class="card-title">💨 Obstruction des voies aériennes</div>
+        <div class="card-detail">Partielle · complète adulte/enfant · claques + compressions abdominales · nourrisson · compressions thoraciques.</div>
+        <div class="chips"><span class="chip">REFOR</span><span class="chip">APG(M)</span><span class="chip">1 CC</span></div>
       </div>
-      <div class="card-footer">
-        <div>
-          <div class="card-dur">30' · 1 CC</div>
-          <div class="card-tech" style="color:#f0a070;">REFOR + APG(M)</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="card-status" id="status-4"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
-          <div class="card-arrow">→</div>
-        </div>
-      </div>
-    </a>
 
-    <!-- Ch5 Hémorragies -->
-    <a class="card presentiel" id="card-5" href="chapitre-3.html" onclick="markVisited(5)">
-      <div class="card-accent acc-hemo"></div>
-      <div class="card-body">
+      <div class="card" data-id="5" style="direction:ltr">
+        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 5</div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-          <span style="font-size:22px;">🩸</span>
-          <div class="card-title" style="font-size:15px;color:#ff9090;">Hémorragies externes</div>
-        </div>
-        <div class="card-desc">Compression directe · pansement compressif · garrot d'urgence · saignements par le nez, la bouche ou autre.</div>
+        <div class="card-title">🩸 Hémorragies externes</div>
+        <div class="card-detail">Compression directe · pansement compressif · garrot d'urgence · saignements par le nez, la bouche ou autre.</div>
+        <div class="chips"><span class="chip">DCJIM</span><span class="chip">2 CC</span></div>
       </div>
-      <div class="card-footer">
-        <div>
-          <div class="card-dur">40' · 2 CC</div>
-          <div class="card-tech" style="color:#ffaaaa;">DCJIM</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="card-status" id="status-5"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
-          <div class="card-arrow">→</div>
-        </div>
-      </div>
-    </a>
 
-    <!-- Ch6 Plaies -->
-    <a class="card presentiel" id="card-6" href="chapitre-4.html" onclick="markVisited(6)">
-      <div class="card-accent acc-plaie"></div>
-      <div class="card-body">
+      <div class="card" data-id="6" style="direction:ltr">
+        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 6</div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-          <span style="font-size:22px;">🩹</span>
-          <div class="card-title" style="font-size:15px;color:#c890ff;">Plaies</div>
-        </div>
-        <div class="card-desc">Plaies simples · plaies graves · ne pas retirer le corps étranger · position allongée · alerte et surveillance.</div>
+        <div class="card-title">🩹 Plaies</div>
+        <div class="card-detail">Plaies simples · plaies graves · ne pas retirer le corps étranger · position allongée · alerte et surveillance.</div>
+        <div class="chips"><span class="chip">REFOR CAT</span><span class="chip">1 CC</span></div>
       </div>
-      <div class="card-footer">
-        <div>
-          <div class="card-dur">20' · 1 CC</div>
-          <div class="card-tech" style="color:#d4aaff;">REFOR CAT</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="card-status" id="status-6"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
-          <div class="card-arrow">→</div>
-        </div>
-      </div>
-    </a>
 
-    <!-- Ch7 Brûlures -->
-    <a class="card presentiel" id="card-7" href="chapitre-5.html" onclick="markVisited(7)">
-      <div class="card-accent acc-brulure"></div>
-      <div class="card-body">
+    </div>
+
+    <!-- CONNECTOR 2 → 3 : vire à gauche -->
+    <div class="s-connector">
+      <svg viewBox="0 0 960 52" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 264 0 Q 16 0 16 26 Q 16 52 264 52 L 944 52"
+              fill="none" stroke="#d0cfc9" stroke-width="1.5" stroke-dasharray="5 5"/>
+        <polygon points="950,48 940,52 950,56" fill="#d0cfc9" transform="translate(0,-4)"/>
+      </svg>
+    </div>
+
+    <!-- ROW 3 : LTR — Ch7 Ch8 Ch9 Ch10 -->
+    <div class="phase-lbl">Présentiel — 2ème partie</div>
+    <div class="s-row" id="row3">
+
+      <div class="card" data-id="7">
+        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 7</div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-          <span style="font-size:22px;">🔥</span>
-          <div class="card-title" style="font-size:15px;color:#ffa050;">Brûlures</div>
-        </div>
-        <div class="card-desc">Refroidissement à l'eau tempérée 15 min · protection stérile · brûlures chimiques/électriques · brûlures graves.</div>
+        <div class="card-title">🔥 Brûlures</div>
+        <div class="card-detail">Refroidissement à l'eau tempérée 15 min · protection stérile · brûlures chimiques/électriques · brûlures graves.</div>
+        <div class="chips"><span class="chip">REFOR CAT</span><span class="chip">1 CC</span></div>
       </div>
-      <div class="card-footer">
-        <div>
-          <div class="card-dur">25' · 1 CC</div>
-          <div class="card-tech" style="color:#ffc080;">REFOR CAT</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="card-status" id="status-7"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
-          <div class="card-arrow">→</div>
-        </div>
-      </div>
-    </a>
 
-    <!-- Ch8 Malaise -->
-    <a class="card presentiel" id="card-8" href="chapitre-6.html" onclick="markVisited(8)">
-      <div class="card-accent acc-malaise"></div>
-      <div class="card-body">
+      <div class="card" data-id="8">
+        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 8</div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-          <span style="font-size:22px;">😵‍💫</span>
-          <div class="card-title" style="font-size:15px;color:#70d4a0;">Malaise</div>
-        </div>
-        <div class="card-desc">Reconnaître le malaise · position adaptée · ne pas laisser seul · alerte · manœuvres physiques spécifiques.</div>
+        <div class="card-title">😮 Malaise</div>
+        <div class="card-detail">Reconnaître le malaise · position adaptée · ne pas laisser seul · alerte · manœuvres physiques spécifiques.</div>
+        <div class="chips"><span class="chip">REFOR CAT</span><span class="chip">APG(M)</span><span class="chip">1 CC</span></div>
       </div>
-      <div class="card-footer">
-        <div>
-          <div class="card-dur">25' · 1 CC</div>
-          <div class="card-tech" style="color:#80cba0;">REFOR CAT + APG(M)</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="card-status" id="status-8"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
-          <div class="card-arrow">→</div>
-        </div>
-      </div>
-    </a>
 
-    <!-- Ch9 Perte de connaissance -->
-    <a class="card presentiel" id="card-9" href="chapitre-7.html" onclick="markVisited(9)">
-      <div class="card-accent acc-pdc"></div>
-      <div class="card-body">
+      <div class="card" data-id="9">
+        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 9</div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-          <span style="font-size:22px;">💤</span>
-          <div class="card-title" style="font-size:15px;color:#80b8f0;">Perte de connaissance</div>
-        </div>
-        <div class="card-desc">Stimulation · LVA · ventilation · PLS adulte et nourrisson · surveillance jusqu'aux secours.</div>
+        <div class="card-title">💤 Perte de connaissance</div>
+        <div class="card-detail">Stimulation · LVA · ventilation · PLS adulte et nourrisson · surveillance jusqu'aux secours.</div>
+        <div class="chips"><span class="chip">REFOR</span><span class="chip">APG LVA & PLS</span><span class="chip">1 CC</span></div>
       </div>
-      <div class="card-footer">
-        <div>
-          <div class="card-dur">30' · 1 CC</div>
-          <div class="card-tech" style="color:#a0c8f0;">REFOR + APG LVA &amp; PLS</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="card-status" id="status-9"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
-          <div class="card-arrow">→</div>
-        </div>
-      </div>
-    </a>
 
-    <!-- Ch10 Arrêt cardiaque -->
-    <a class="card presentiel" id="card-10" href="chapitre-8.html" onclick="markVisited(10)">
-      <div class="card-accent acc-ac"></div>
-      <div class="card-body">
-        <div class="card-num">Chapitre 10</div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-          <span style="font-size:22px;">❤️</span>
-          <div class="card-title" style="font-size:15px;color:#ff80a0;">Arrêt cardiaque</div>
-        </div>
-        <div class="card-desc">Reconnaissance · RCP adulte et nourrisson · utilisation du DAE · chaîne de survie · ne pas interrompre jusqu'aux secours.</div>
+      <div class="card key" data-id="10">
+        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé" style="border-color:#D94F3D;">✓</button>
+        <div class="card-dot" style="border-color:#D94F3D; background:var(--red-light)"></div>
+        <div class="card-num">Chapitre 10 · Prioritaire</div>
+        <div class="card-title">❤️ Arrêt cardiaque</div>
+        <div class="card-detail">Reconnaissance · RCP adulte/nourrisson · utilisation du DAE · chaîne de survie · ne pas interrompre jusqu'aux secours.</div>
+        <div class="chips"><span class="chip">REFOR</span><span class="chip">APG(M)</span><span class="chip">2 CC</span></div>
       </div>
-      <div class="card-footer">
-        <div>
-          <div class="card-dur">105' · 2 CC</div>
-          <div class="card-tech" style="color:#ffaacc;">REFOR + APG(M)</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="card-status" id="status-10"><div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span></div>
-          <div class="card-arrow">→</div>
-        </div>
-      </div>
-    </a>
 
-  </div>
+    </div>
 
-  <!-- INFOS -->
-  <div class="info-grid">
-    <div class="info-card">
-      <div><div class="info-val">4h30</div><div class="info-label">Présentiel<br>+ 3h FOAD</div></div>
+  </div><!-- /snake -->
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-val">4h30</div>
+      <div class="stat-lbl">Durée présentiel</div>
     </div>
-    <div class="info-card">
-      <div><div class="info-val">10</div><div class="info-label">Chapitres<br>au total</div></div>
+    <div class="stat">
+      <div class="stat-val">10</div>
+      <div class="stat-lbl">Cas concrets</div>
     </div>
-    <div class="info-card">
-      <div><div class="info-val">10</div><div class="info-label">Cas concrets<br>en présentiel</div></div>
+    <div class="stat">
+      <div class="stat-val">10</div>
+      <div class="stat-lbl">Chapitres</div>
     </div>
-    <div class="info-card">
-      <div><div class="info-val" id="done-count">0</div><div class="info-label">Chapitres<br>terminés</div></div>
+    <div class="stat">
+      <div class="stat-val green" id="statDone">2</div>
+      <div class="stat-lbl">Complétés</div>
     </div>
   </div>
 
-</div>
+  <script>
+    // Count of completed chapters
+    let completed = 2;
+    const total = 10;
 
-<div id="toast">✓ Progression sauvegardée</div>
-
-<script>
-const STORAGE_KEY='psc1_v2_progress';
-const CHAPTERS=[3,4,5,6,7,8,9,10];
-
-function getProgress(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch{return{};}}
-function saveProgress(d){localStorage.setItem(STORAGE_KEY,JSON.stringify(d));}
-
-function markVisited(n){
-  const p=getProgress();
-  if(!p['ch'+n]){p['ch'+n]={visited:true,ts:Date.now()};saveProgress(p);}
-}
-
-function markDone(n){
-  const p=getProgress();
-  p['ch'+n]={visited:true,done:true,ts:Date.now()};
-  saveProgress(p);renderProgress();showToast();
-}
-
-function resetProgress(){
-  if(confirm('Réinitialiser toute la progression ?')){
-    localStorage.removeItem(STORAGE_KEY);renderProgress();
-  }
-}
-
-function showToast(){
-  const t=document.getElementById('toast');
-  t.style.display='block';setTimeout(()=>t.style.display='none',2200);
-}
-
-function renderProgress(){
-  const p=getProgress();
-  let done=0;
-  CHAPTERS.forEach(i=>{
-    const card=document.getElementById('card-'+i);
-    const statusEl=document.getElementById('status-'+i);
-    if(!card)return;
-    const ch=p['ch'+i];
-    const existingBadge=card.querySelector('.done-badge');
-    if(ch&&ch.done){
-      done++;
-      card.classList.add('done');
-      if(statusEl){statusEl.innerHTML='<div class="status-dot" style="background:#27ae60"></div><span style="color:#80cba0;">Terminé</span>';}
-      if(!existingBadge){const b=document.createElement('div');b.className='done-badge';b.textContent='✓ Fait';card.appendChild(b);}
-    } else if(ch&&ch.visited){
-      card.classList.remove('done');
-      if(statusEl){statusEl.innerHTML='<div class="status-dot" style="background:#2558a8"></div><span style="color:#7fa8d4;">En cours</span>';}
-      if(existingBadge)existingBadge.remove();
-    } else {
-      card.classList.remove('done');
-      if(statusEl){statusEl.innerHTML='<div class="status-dot" style="background:#2a3f5f"></div><span>À faire</span>';}
-      if(existingBadge)existingBadge.remove();
+    function updateProgress() {
+      const pct = (completed / total) * 100;
+      document.getElementById('progFill').style.width = pct + '%';
+      document.getElementById('progLabel').textContent = completed + ' / ' + total + ' chapitres';
+      document.getElementById('statDone').textContent = completed;
     }
-  });
-  const pct=Math.round(done/8*100);
-  document.getElementById('prog-fill').style.width=pct+'%';
-  document.getElementById('prog-label').textContent=done+' / 8 chapitres';
-  document.getElementById('done-count').textContent=done;
-}
 
-// Retour depuis un chapitre via ?done=N
-const params=new URLSearchParams(location.search);
-const doneParam=params.get('done');
-if(doneParam){
-  // Mapper les anciens numéros (done=1→ch3, done=2→ch4)
-  const map={'1':3,'2':4,'3':5,'4':6,'5':7,'6':8,'7':9,'8':10};
-  const chNum=map[doneParam]||parseInt(doneParam);
-  if(chNum>=3&&chNum<=10)markDone(chNum);
-  history.replaceState({},'',location.pathname);
-}
+    function toggleDone(btn) {
+      const card = btn.closest('.card');
+      const isChecked = btn.classList.contains('checked');
 
-renderProgress();
-</script>
+      if (isChecked) {
+        // Uncheck
+        btn.classList.remove('checked');
+        card.classList.remove('completed');
+        completed = Math.max(0, completed - 1);
+      } else {
+        // Check
+        btn.classList.add('checked');
+        card.classList.add('completed');
+        completed = Math.min(total, completed + 1);
+      }
+      updateProgress();
+    }
+
+    // Init progress bar animation on load
+    window.addEventListener('load', () => {
+      setTimeout(updateProgress, 100);
+    });
+  </script>
+
 </body>
 </html>
