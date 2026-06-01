@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSC1 — Chapitre 10 : Arrêt cardiaque</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --rouge:#c0392b;--rouge-clair:#fdecea;--rouge-bord:#e8a09a;--rouge-fonce:#8B0000;
+  --vert:#1a7a4a;--vert-clair:#e8f8ef;--vert-bord:#80cba0;
+  --bleu:#1a3a6b;--bleu-mid:#2558a8;--bleu-pale:#f0f6ff;
+  --orange:#e67e22;--orange-clair:#fdf3e3;--orange-bord:#f0b060;
+  --or:#d4a017;--or-clair:#fdf8e8;--or-bord:#f0d060;
+  --gris:#f4f5f7;--gris-bord:#d0d6e0;--texte:#1c2233;--texte-sec:#5a6382;
+}
+body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+#nav{background:#0d1525;display:flex;align-items:center;justify-content:space-between;padding:8px 18px;border-bottom:1px solid #1e2d4a;flex-shrink:0;gap:12px}
+.logo{display:flex;align-items:center;gap:8px;color:#7fa8d4;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;white-space:nowrap}
+.logo span{color:white;font-size:14px}
+#nav-pills{display:flex;gap:3px;flex-wrap:wrap}
+.pill{font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid #2a3f5f;color:#7fa8d4;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;white-space:nowrap}
+.pill.active{background:var(--rouge);border-color:var(--rouge);color:white}
+.pill:hover:not(.active){background:#1e2d4a}
+#nav-btns{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nav-btn{background:#1e2d4a;border:1px solid #2a3f5f;color:#7fa8d4;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;transition:all .2s}
+.nav-btn:hover{background:var(--rouge);border-color:var(--rouge);color:white}
+#slide-counter{color:#7fa8d4;font-size:11px;font-family:'Outfit',sans-serif;white-space:nowrap}
+#stage{flex:1;display:flex;align-items:stretch;justify-content:center;padding:14px;overflow:hidden}
+.slide{display:none;background:white;border-radius:16px;width:100%;max-width:980px;position:relative;overflow:hidden}
+.slide.active{display:flex;flex-direction:column}
+.slide-header{background:var(--rouge);color:white;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:16px}
+.slide-header .left .sup{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.65;margin-bottom:3px}
+.slide-header h1{font-family:'Outfit',sans-serif;font-size:26px;font-weight:900;line-height:1.1}
+.slide-header h2{font-family:'Outfit',sans-serif;font-size:19px;font-weight:700;line-height:1.2}
+.slide-header .badge-dur{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:8px 14px;text-align:center;flex-shrink:0}
+.slide-header .badge-dur .v{font-family:'Outfit',sans-serif;font-size:24px;font-weight:800}
+.slide-header .badge-dur .l{font-size:10px;opacity:.7;display:block}
+.slide-body{flex:1;padding:14px 28px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.slide-footer{padding:7px 28px;border-top:1px solid var(--gris-bord);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--texte-sec);flex-shrink:0;background:var(--gris)}
+.progress-dots{display:flex;gap:5px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--gris-bord);transition:all .3s}
+.dot.active{background:var(--rouge)}
+.dot.done{background:#e8a09a}
+
+.objectif-box{background:var(--rouge-clair);border-left:4px solid var(--rouge);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;color:var(--rouge)}
+.objectif-box strong{font-family:'Outfit',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:3px;opacity:.7}
+.section-label{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--texte-sec);margin-bottom:6px}
+.alerte-box{background:var(--rouge-clair);border:2px solid var(--rouge);border-radius:10px;padding:9px 14px;display:flex;align-items:flex-start;gap:10px}
+.alerte-icon{font-size:20px;flex-shrink:0}
+.alerte-box h3{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:var(--rouge);margin-bottom:2px}
+.alerte-box p{font-size:11.5px;color:#7a1a10;line-height:1.4}
+.info-box{background:var(--bleu-pale);border:1px solid #a0c0ea;border-radius:10px;padding:9px 14px;font-size:12.5px;color:var(--bleu);line-height:1.5}
+.vert-box{background:var(--vert-clair);border:1px solid var(--vert-bord);border-radius:10px;padding:9px 14px;font-size:12.5px;color:var(--vert);line-height:1.5}
+
+/* TITRE */
+.titre-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:28px;background:linear-gradient(160deg,#1a0505 0%,#2d0808 100%)}
+.titre-number{font-family:'Outfit',sans-serif;font-size:110px;font-weight:900;color:rgba(192,57,43,.25);line-height:1;user-select:none}
+.titre-main{font-family:'Outfit',sans-serif;font-size:32px;font-weight:900;color:white;text-align:center;line-height:1.15}
+.titre-main span{color:#ff8080}
+.titre-sub{font-size:14px;color:rgba(255,255,255,.55);text-align:center;max-width:560px;line-height:1.65}
+.timing-row{display:flex;gap:16px}
+.timing-box{text-align:center;padding:10px 18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px}
+.timing-box .tv{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:white}
+.timing-box .tl{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px}
+.chips-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);border-radius:20px;padding:5px 14px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600}
+
+/* CHAÎNE DE SURVIE */
+.chaine{display:flex;align-items:center;gap:4px}
+.chaine-link{flex:1;border-radius:10px;padding:10px 8px;text-align:center;border:2px solid}
+.chaine-link .ic{font-size:24px;margin-bottom:4px}
+.chaine-link h3{font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;margin-bottom:3px}
+.chaine-link p{font-size:10px;line-height:1.3}
+.chaine-link.appel{background:#fff0f0;border-color:var(--rouge-bord);color:var(--rouge)}
+.chaine-link.appel p{color:#7a1a10}
+.chaine-link.rcp{background:#fff5f0;border-color:var(--orange-bord);color:var(--orange)}
+.chaine-link.rcp p{color:#7a4000}
+.chaine-link.dae{background:var(--or-clair);border-color:var(--or-bord);color:var(--or)}
+.chaine-link.dae p{color:#7a5a00}
+.chaine-link.secours{background:var(--vert-clair);border-color:var(--vert-bord);color:var(--vert)}
+.chaine-link.secours p{color:#1a5a3a}
+.chaine-arrow{font-size:18px;color:var(--gris-bord);flex-shrink:0}
+
+/* COMPRESSIONS */
+.comp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.comp-card{background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:10px;text-align:center}
+.comp-num{width:24px;height:24px;border-radius:50%;background:var(--rouge);color:white;font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 6px}
+.comp-ic{font-size:22px;margin-bottom:5px}
+.comp-title{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:var(--texte);margin-bottom:3px}
+.comp-desc{font-size:10.5px;color:var(--texte-sec);line-height:1.4}
+.comp-val{font-family:'Outfit',sans-serif;font-size:16px;font-weight:900;color:var(--rouge);margin-bottom:2px}
+
+/* DAE */
+.dae-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.dae-card{background:var(--or-clair);border:1.5px solid var(--or-bord);border-radius:10px;padding:9px;text-align:center}
+.dae-num{width:22px;height:22px;border-radius:50%;background:var(--or);color:white;font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 5px}
+.dae-ic{font-size:20px;margin-bottom:4px}
+.dae-title{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:#7a5a00;margin-bottom:2px}
+.dae-desc{font-size:9.5px;color:#9a7020;line-height:1.35}
+
+/* SIMULATION INTERACTIVE */
+.sim-wrap{background:#0d1525;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px;flex:1}
+.sim-scene{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 16px;font-size:13px;color:rgba(255,255,255,.8);line-height:1.5}
+.sim-scene strong{color:#ff8080}
+.sim-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sim-btn{
+  background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.18);
+  border-radius:10px;padding:11px 14px;cursor:pointer;
+  font-family:'Outfit',sans-serif;font-size:12.5px;font-weight:700;color:white;
+  text-align:left;display:flex;align-items:center;gap:10px;
+  transition:all .2s;
+}
+.sim-btn:hover:not(.done):not(.wrong-pick){background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4)}
+.sim-btn.done{background:#1a5a3a;border-color:#40c080;color:#80ffb8;cursor:default}
+.sim-btn.wrong-pick{background:#5a1a1a;border-color:#c04040;color:#ffb0b0;cursor:default;animation:shake .3s}
+.sim-btn.next-hint{border-color:rgba(255,200,0,.6);box-shadow:0 0 0 2px rgba(255,200,0,.15)}
+.sim-ic{font-size:18px;flex-shrink:0}
+.sim-progress{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.4);font-family:'Outfit',sans-serif}
+.sim-bar-track{height:4px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;margin-top:4px}
+.sim-bar-fill{height:100%;background:var(--vert);border-radius:4px;transition:width .4s ease}
+.sim-feedback{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,.7);line-height:1.5;display:none}
+.sim-feedback.show{display:block}
+.sim-feedback.good{border-color:#40c080;background:rgba(64,192,128,.1);color:#80ffb8}
+.sim-feedback.bad{border-color:#c04040;background:rgba(192,64,64,.1);color:#ffb0b0}
+.sim-end{text-align:center;padding:20px;display:none;flex-direction:column;align-items:center;gap:12px}
+.sim-end.show{display:flex}
+.sim-end-ic{font-size:50px}
+.sim-end-title{font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:white}
+.sim-end-score{font-family:'Outfit',sans-serif;font-size:16px;color:#80ffb8}
+.sim-restart{background:var(--rouge);color:white;border:none;padding:9px 22px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* CC */
+.cc-tabs{display:flex;gap:8px;margin-bottom:12px}
+.cc-tab{padding:8px 16px;border-radius:8px;border:1.5px solid var(--gris-bord);background:var(--gris);font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:var(--texte-sec);cursor:pointer;transition:all .2s}
+.cc-tab.active{background:var(--rouge);border-color:var(--rouge);color:white}
+.cc-panel{display:none}
+.cc-panel.active{display:block}
+.cc-header{color:white;padding:13px 18px;border-radius:10px;margin-bottom:10px}
+.cc-tag{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:3px}
+.cc-header h3{font-family:'Outfit',sans-serif;font-size:15px;font-weight:800}
+.cc-scene{background:#f0f6ff;border:1.5px solid #a0c0ea;border-radius:10px;padding:12px 16px;font-size:13px;color:var(--texte);line-height:1.6;margin-bottom:8px}
+.cc-scene strong{color:var(--bleu)}
+.cc-step{background:var(--gris);border:1.5px solid var(--gris-bord);border-radius:10px;overflow:hidden;margin-bottom:5px}
+.cc-step-hd{padding:9px 14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:var(--texte);transition:background .2s;user-select:none}
+.cc-step-hd:hover{background:#e8eaf0}
+.chevron{font-size:12px;color:var(--texte-sec);transition:transform .2s}
+.cc-step.open .chevron{transform:rotate(90deg)}
+.cc-step-body{display:none;padding:9px 14px;font-size:11.5px;color:var(--texte-sec);line-height:1.6;border-top:1px solid var(--gris-bord)}
+.cc-step.open .cc-step-body{display:block}
+.cc-step.ok .cc-step-hd{background:var(--vert-clair);color:var(--vert)}
+.cc-step.ok .cc-step-body{background:#f5fdf9;border-color:var(--vert-bord)}
+.debrief-box{background:linear-gradient(135deg,#1a3a6b,#0d1f3c);color:white;border-radius:10px;padding:12px 16px;font-size:12px;line-height:1.6;margin-top:8px}
+.debrief-box h4{font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:5px}
+</style>
+</head>
+<body>
+
+<div id="nav">
+  <div class="logo">❤️ <span>PSC1</span> · Arrêt cardiaque</div>
+  <div id="nav-pills">
+    <div class="pill" onclick="goToDashboard()" style="border-color:#1a5a35;color:#80cba0;">← Dashboard</div>
+    <div class="pill active" onclick="goSlide(0)">Titre</div>
+    <div class="pill" onclick="goSlide(1)">Reconnaissance</div>
+    <div class="pill" onclick="goSlide(2)">Chaîne de survie</div>
+    <div class="pill" onclick="goSlide(3)">RCP — Compressions</div>
+    <div class="pill" onclick="goSlide(4)">RCP — Insufflations</div>
+    <div class="pill" onclick="goSlide(5)">DAE</div>
+    <div class="pill" onclick="goSlide(6)">🎮 Simulation</div>
+    <div class="pill" onclick="goSlide(7)">Cas Concrets</div>
+  </div>
+  <div id="nav-btns">
+    <div id="slide-counter">1 / 8</div>
+    <button class="nav-btn" onclick="prevSlide()">← Préc.</button>
+    <button class="nav-btn" onclick="nextSlide()">Suiv. →</button>
+  </div>
+</div>
+
+<div id="stage">
+
+  <!-- SLIDE 0 : TITRE -->
+  <div class="slide active">
+    <div class="titre-body">
+      <div class="titre-number">10</div>
+      <div class="titre-main">❤️ <span>Arrêt cardiaque</span></div>
+      <div class="titre-sub">Reconnaître · RCP immédiate (30 compressions + 2 insufflations) · DAE le plus tôt possible · Ne jamais interrompre jusqu'aux secours</div>
+      <div class="timing-row">
+        <div class="timing-box"><div class="tv">105'</div><div class="tl">Durée estimée</div></div>
+        <div class="timing-box"><div class="tv">2</div><div class="tl">Cas concrets</div></div>
+        <div class="timing-box"><div class="tv">10%</div><div class="tl">Survie / min gagnée</div></div>
+      </div>
+      <div class="chips-row">
+        <span class="chip">RCP</span><span class="chip">DAE</span><span class="chip">Compétence K</span><span class="chip">30+2</span>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Scénario 5 — Collège Yves du Manoir · Vaucresson</span>
+      <div class="progress-dots" id="dots0"></div>
+      <span>Chapitre 10 / 10 — Chapitre final</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 1 : RECONNAISSANCE -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left"><div class="sup">Chapitre 10 · Reconnaître</div><h1>Comment reconnaître un arrêt cardiaque ?</h1></div>
+      <div class="badge-dur"><div class="v">🔍</div><div class="l">Signes</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="objectif-box">
+        <strong>Définition</strong>
+        Une personne est en arrêt cardiaque lorsque son cœur ne fonctionne plus (ou de façon anarchique), ne permettant plus d'oxygéner le cerveau.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="background:var(--rouge-clair);border:2px solid var(--rouge);border-radius:10px;padding:13px">
+          <div style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:var(--rouge);margin-bottom:8px">🚨 Signes d'arrêt cardiaque</div>
+          <div style="font-size:12.5px;color:#7a1a10;margin-bottom:6px">La victime ne répond pas, ne réagit pas ET :</div>
+          <div style="background:white;border-radius:8px;padding:8px 12px;margin-bottom:6px;font-size:12px;color:var(--texte)">
+            <strong>Ne respire pas</strong> — aucun mouvement de la poitrine, aucun bruit ou souffle perçu
+          </div>
+          <div style="background:white;border-radius:8px;padding:8px 12px;font-size:12px;color:var(--texte)">
+            <strong>Respiration anormale (agonique)</strong> — mouvements lents, bruyants, difficiles et inefficaces
+          </div>
+        </div>
+        <div style="background:var(--rouge-clair);border:1.5px solid var(--rouge-bord);border-radius:10px;padding:13px">
+          <div style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:var(--rouge);margin-bottom:8px">⏱️ Chaque minute compte</div>
+          <div style="font-size:12px;color:#7a1a10;line-height:1.55">
+            Les lésions cérébrales surviennent <strong>dès la 1ère minute</strong> sans oxygène.<br><br>
+            Chaque minute de RCP précoce augmente les chances de survie de <strong>10%</strong>.<br><br>
+            Sans intervention, les chances de survie diminuent de <strong>10% par minute</strong>.
+          </div>
+        </div>
+      </div>
+      <div class="alerte-box">
+        <div class="alerte-icon">⚠️</div>
+        <div>
+          <h3>Respiration agonique = arrêt cardiaque</h3>
+          <p>Des mouvements respiratoires bruyants, lents et inefficaces (gasps) peuvent tromper le sauveteur. Ils doivent être considérés comme un <strong>arrêt cardiaque</strong> → débuter la RCP immédiatement.</p>
+        </div>
+      </div>
+      <div class="info-box">
+        📱 <strong>Applications citoyennes :</strong> Staying Alive, SAUV Life, Permis de sauver… Elles permettent d'être alerté en cas d'arrêt cardiaque à proximité et signalent les DAE les plus proches.
+      </div>
+    </div>
+    <div class="slide-footer"><span>Reconnaissance de l'arrêt cardiaque</span><div class="progress-dots" id="dots1"></div><span>Slide 2/8</span></div>
+  </div>
+
+  <!-- SLIDE 2 : CHAÎNE DE SURVIE -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left"><div class="sup">Chapitre 10 · Principe d'action</div><h2>🔗 La chaîne de survie</h2></div>
+      <div class="badge-dur"><div class="v">🔗</div><div class="l">Survie</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="objectif-box">
+        <strong>Principe</strong>
+        Ces 4 actions enchaînées peuvent faire passer le taux de survie de 4% à 40%. Chaque maillon est indispensable.
+      </div>
+      <div class="chaine">
+        <div class="chaine-link appel">
+          <div class="ic">📞</div>
+          <h3>1. Alerter</h3>
+          <p>15 · 18 · 112<br>Demander un DAE</p>
+        </div>
+        <div class="chaine-arrow">→</div>
+        <div class="chaine-link rcp">
+          <div class="ic">🫀</div>
+          <h3>2. RCP précoce</h3>
+          <p>30 compressions<br>+ 2 insufflations</p>
+        </div>
+        <div class="chaine-arrow">→</div>
+        <div class="chaine-link dae">
+          <div class="ic">⚡</div>
+          <h3>3. DAE précoce</h3>
+          <p>Le plus tôt possible<br>Suivre les consignes</p>
+        </div>
+        <div class="chaine-arrow">→</div>
+        <div class="chaine-link secours">
+          <div class="ic">🚑</div>
+          <h3>4. Secours médicaux</h3>
+          <p>SMUR · Pompiers<br>Relais de la RCP</p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:12px">
+          <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:var(--texte);margin-bottom:6px">👥 Si un témoin est présent</div>
+          <ul style="list-style:none;font-size:12px;color:var(--texte-sec);display:flex;flex-direction:column;gap:4px">
+            <li>→ Demander au témoin d'alerter et chercher un DAE</li>
+            <li>→ Débuter immédiatement la RCP</li>
+            <li>→ Mettre en œuvre le DAE dès qu'il arrive</li>
+          </ul>
+        </div>
+        <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:12px">
+          <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:var(--texte);margin-bottom:6px">🧍 Si tu es seul</div>
+          <ul style="list-style:none;font-size:12px;color:var(--texte-sec);display:flex;flex-direction:column;gap:4px">
+            <li>→ Appeler avec haut-parleur + RCP en même temps</li>
+            <li>→ Si pas de réseau : aller alerter puis revenir</li>
+            <li>→ Si DAE à moins de 10 secondes : le chercher</li>
+          </ul>
+        </div>
+      </div>
+      <div class="alerte-box">
+        <div class="alerte-icon">🔑</div>
+        <div>
+          <h3>Ne jamais interrompre la RCP</h3>
+          <p>Continuer sans s'arrêter jusqu'à l'arrivée des secours, jusqu'à ce que la victime respire normalement, ou jusqu'à épuisement complet. <strong>Chaque interruption coûte des chances de survie.</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span>La chaîne de survie</span><div class="progress-dots" id="dots2"></div><span>Slide 3/8</span></div>
+  </div>
+
+  <!-- SLIDE 3 : COMPRESSIONS -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left"><div class="sup">Chapitre 10 · RCP</div><h2>🫀 Compressions thoraciques — 30 par cycle</h2></div>
+      <div class="badge-dur"><div class="v">30</div><div class="l">CT / cycle</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="comp-grid">
+        <div class="comp-card">
+          <div class="comp-num">1</div>
+          <div class="comp-ic">📍</div>
+          <div class="comp-title">Où appuyer ?</div>
+          <div class="comp-val">Centre du sternum</div>
+          <div class="comp-desc">Milieu de la poitrine, sur la moitié inférieure du sternum. Jamais sur le ventre ni les côtes.</div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-num">2</div>
+          <div class="comp-ic">✋</div>
+          <div class="comp-title">Comment ?</div>
+          <div class="comp-desc">Talon d'une main sur le sternum · 2ème main par-dessus · Doigts relevés · Bras tendus · Se laisser peser verticalement</div>
+        </div>
+        <div class="comp-card" style="background:var(--rouge-clair);border-color:var(--rouge-bord)">
+          <div class="comp-num">3</div>
+          <div class="comp-ic">📏</div>
+          <div class="comp-title">Profondeur</div>
+          <div class="comp-val" style="color:var(--rouge)">5 à 6 cm</div>
+          <div class="comp-desc">Comprimer fort — environ 1/3 de l'épaisseur du thorax. Relâcher complètement entre chaque compression.</div>
+        </div>
+        <div class="comp-card" style="background:var(--rouge-clair);border-color:var(--rouge-bord)">
+          <div class="comp-num">4</div>
+          <div class="comp-ic">⏱️</div>
+          <div class="comp-title">Fréquence</div>
+          <div class="comp-val" style="color:var(--rouge)">100 à 120 /min</div>
+          <div class="comp-desc">Rythme régulier · Compter à voix haute · Comme le rythme de <em>Stayin' Alive</em> des Bee Gees !</div>
+        </div>
+      </div>
+      <div class="vert-box">
+        🔄 <strong>Un cycle RCP = 30 compressions + 2 insufflations</strong><br>
+        Répéter les cycles sans interruption jusqu'aux secours. Si 2 sauveteurs : alterner toutes les 2 minutes pour ne pas s'épuiser.
+      </div>
+      <div class="alerte-box">
+        <div class="alerte-icon">🦴</div>
+        <div>
+          <h3>Et si les côtes craquent ?</h3>
+          <p>C'est possible mais sans danger pour la victime en arrêt cardiaque. Ne pas s'arrêter — les côtes cassées se soignent, l'arrêt cardiaque non traité est mortel.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span>Compressions thoraciques</span><div class="progress-dots" id="dots3"></div><span>Slide 4/8</span></div>
+  </div>
+
+  <!-- SLIDE 4 : INSUFFLATIONS -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left"><div class="sup">Chapitre 10 · RCP</div><h2>😮‍💨 Insufflations — 2 par cycle</h2></div>
+      <div class="badge-dur"><div class="v">2</div><div class="l">Insuf. / cycle</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="comp-grid">
+        <div class="comp-card">
+          <div class="comp-num">1</div>
+          <div class="comp-ic">🫁</div>
+          <div class="comp-title">LVA d'abord</div>
+          <div class="comp-desc">Basculer la tête en arrière, élever le menton pour libérer les voies aériennes.</div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-num">2</div>
+          <div class="comp-ic">👃</div>
+          <div class="comp-title">Pincer le nez</div>
+          <div class="comp-desc">Pincer les deux narines avec le pouce et l'index tout en maintenant la tête basculée en arrière.</div>
+        </div>
+        <div class="comp-card" style="background:var(--rouge-clair);border-color:var(--rouge-bord)">
+          <div class="comp-num">3</div>
+          <div class="comp-ic">💨</div>
+          <div class="comp-title">Insuffler progressivement</div>
+          <div class="comp-val" style="color:var(--rouge)">1 seconde</div>
+          <div class="comp-desc">Bouche grande ouverte autour de la bouche de la victime · Souffler jusqu'au début du soulèvement de la poitrine.</div>
+        </div>
+        <div class="comp-card" style="background:var(--rouge-clair);border-color:var(--rouge-bord)">
+          <div class="comp-num">4</div>
+          <div class="comp-ic">⏱️</div>
+          <div class="comp-title">2 insufflations en 5 sec</div>
+          <div class="comp-val" style="color:var(--rouge)">≤ 5 secondes</div>
+          <div class="comp-desc">Les 2 insufflations successives en 5 secondes max · Puis reprendre immédiatement les 30 compressions.</div>
+        </div>
+      </div>
+      <div class="info-box">
+        💡 <strong>Si les insufflations ne passent pas :</strong> vérifier la position de la tête et du menton · s'assurer de l'étanchéité · rechercher un corps étranger dans la bouche. Faire 2 tentatives maximum puis reprendre les compressions.
+      </div>
+      <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:12px">
+        <div class="section-label">Chez le nourrisson — différences</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;font-size:12px;color:var(--texte-sec)">
+          <div>· Tête en <strong>position neutre</strong> (pas de bascule excessive)</div>
+          <div>· Englober bouche ET nez avec la bouche</div>
+          <div>· Compressions : <strong>2 doigts</strong> sur le sternum · profondeur 4 cm</div>
+          <div>· Cycles : <strong>15 compressions + 2 insufflations</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span>Insufflations</span><div class="progress-dots" id="dots4"></div><span>Slide 5/8</span></div>
+  </div>
+
+  <!-- SLIDE 5 : DAE -->
+  <div class="slide">
+    <div class="slide-header" style="background:#9a7a00">
+      <div class="left"><div class="sup">Chapitre 10 · Défibrillation</div><h2>⚡ Utiliser le DAE</h2></div>
+      <div class="badge-dur"><div class="v">⚡</div><div class="l">DAE</div></div>
+    </div>
+    <div class="slide-body">
+      <div style="background:var(--or-clair);border-left:4px solid var(--or);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;color:#7a5a00">
+        Le DAE est <strong>sûr, simple et sans risque</strong>. Il analyse le cœur et délivre un choc électrique uniquement si nécessaire. Il guide vocalement le sauveteur étape par étape.
+      </div>
+      <div class="dae-steps">
+        <div class="dae-card">
+          <div class="dae-num">1</div>
+          <div class="dae-ic">🔌</div>
+          <div class="dae-title">Mettre en marche</div>
+          <div class="dae-desc">Ouvrir le boîtier et allumer · Suivre les instructions vocales</div>
+        </div>
+        <div class="dae-card">
+          <div class="dae-num">2</div>
+          <div class="dae-ic">👕</div>
+          <div class="dae-title">Dénuder le thorax</div>
+          <div class="dae-desc">Enlever ou couper les vêtements · Sécher si humide</div>
+        </div>
+        <div class="dae-card">
+          <div class="dae-num">3</div>
+          <div class="dae-ic">📋</div>
+          <div class="dae-title">Poser les électrodes</div>
+          <div class="dae-desc">Coller comme indiqué sur le schéma · Brancher au DAE si nécessaire</div>
+        </div>
+        <div class="dae-card">
+          <div class="dae-num">4</div>
+          <div class="dae-ic">🙅</div>
+          <div class="dae-title">Ne plus toucher</div>
+          <div class="dae-desc">Quand le DAE analyse · S'écarter · Dire « Écartez-vous ! »</div>
+        </div>
+        <div class="dae-card">
+          <div class="dae-num">5</div>
+          <div class="dae-ic">▶️</div>
+          <div class="dae-title">Reprendre la RCP</div>
+          <div class="dae-desc">Immédiatement après le choc (ou si pas de choc) · Continuer les cycles</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="background:var(--vert-clair);border:1.5px solid var(--vert-bord);border-radius:10px;padding:10px">
+          <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:var(--vert);margin-bottom:5px">✅ Si choc conseillé</div>
+          <div style="font-size:11.5px;color:#1a5a3a">S'écarter · laisser le DAE délivrer le choc (ou appuyer sur « Choc » si semi-automatique) · Reprendre immédiatement la RCP</div>
+        </div>
+        <div style="background:var(--or-clair);border:1.5px solid var(--or-bord);border-radius:10px;padding:10px">
+          <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:#7a5a00;margin-bottom:5px">⚡ Si choc non conseillé</div>
+          <div style="font-size:11.5px;color:#9a7020">Reprendre immédiatement les compressions · Le DAE demandera une nouvelle analyse après 2 min de RCP</div>
+        </div>
+      </div>
+      <div class="alerte-box">
+        <div class="alerte-icon">⚡</div>
+        <div>
+          <h3>Le DAE — interrompre le moins possible</h3>
+          <p>Si 2 sauveteurs : l'un continue la RCP pendant que l'autre installe le DAE. Interrompre les compressions <strong>seulement quand le DAE le demande</strong> pour l'analyse.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span>Utilisation du DAE</span><div class="progress-dots" id="dots5"></div><span>Slide 6/8</span></div>
+  </div>
+
+  <!-- SLIDE 6 : SIMULATION -->
+  <div class="slide">
+    <div class="slide-header" style="background:linear-gradient(135deg,#1a0505,#3d0a0a)">
+      <div class="left"><div class="sup">Chapitre 10 · Simulation interactive</div><h2>🎮 Clique sur les bonnes étapes dans l'ordre</h2></div>
+      <div class="badge-dur"><div class="v">🎮</div><div class="l">Simulation</div></div>
+    </div>
+    <div class="slide-body" style="padding:10px 14px">
+      <div class="sim-wrap">
+        <div class="sim-scene" id="sim-scene">
+          Tu es dans la rue. Un homme d'environ 50 ans s'effondre devant toi. <strong>Clique sur les actions dans le bon ordre.</strong>
+        </div>
+        <div class="sim-progress">
+          <span id="sim-step-label">Étape 0 / 8</span>
+          <span id="sim-score-label">Score : 0</span>
+        </div>
+        <div class="sim-bar-track"><div class="sim-bar-fill" id="sim-bar" style="width:0%"></div></div>
+        <div class="sim-buttons" id="sim-btns"></div>
+        <div class="sim-feedback" id="sim-feedback"></div>
+        <div class="sim-end" id="sim-end">
+          <div class="sim-end-ic" id="sim-end-ic">🏆</div>
+          <div class="sim-end-title" id="sim-end-title">Bravo !</div>
+          <div class="sim-end-score" id="sim-end-score"></div>
+          <button class="sim-restart" onclick="startSim()">↺ Recommencer</button>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span>Simulation — CAT arrêt cardiaque</span><div class="progress-dots" id="dots6"></div><span>Slide 7/8</span></div>
+  </div>
+
+  <!-- SLIDE 7 : CAS CONCRETS -->
+  <div class="slide">
+    <div class="slide-header" style="background:linear-gradient(135deg,var(--rouge-fonce),var(--rouge))">
+      <div class="left"><div class="sup">Chapitre 10 · Activité d'application · Compétence K</div><h2>Cas Concrets — 2 scénarios</h2></div>
+      <div class="badge-dur"><div class="v">2</div><div class="l">CC</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="cc-tabs">
+        <button class="cc-tab active" onclick="switchTab('cc1')">CC 1 — Sans DAE</button>
+        <button class="cc-tab" onclick="switchTab('cc2')">CC 2 — Avec DAE</button>
+      </div>
+
+      <!-- CC1 SANS DAE -->
+      <div class="cc-panel active" id="cc1">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
+          <button id="t1-btn" onclick="toggleCC('cc1')" style="background:var(--rouge);color:white;border:none;padding:7px 16px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer">Temps 2 : Correction →</button>
+        </div>
+        <div id="cc1-t1">
+          <div class="cc-header" style="background:linear-gradient(135deg,#5a0a0a,#8B1a1a)">
+            <div class="cc-tag">🏠 Domicile — Sans DAE</div>
+            <h3>Ton père s'effondre dans le salon — pas de DAE disponible</h3>
+          </div>
+          <div class="cc-scene">
+            Tu es chez toi. Ton père (52 ans) s'effondre brutalement dans le salon. Il ne répond plus à tes appels, tu ne vois aucun mouvement de sa poitrine. <strong>Il n'y a pas de DAE dans la maison.</strong><br><br>
+            Tu es seul avec lui. Ton téléphone est dans ta poche.<br><br>
+            <strong>Que fais-tu, dans quel ordre ?</strong>
+          </div>
+          <div class="info-box" style="font-size:12px">💬 Points attendus : stimuler · LVA · apprécier la respiration · alerter avec haut-parleur · RCP 30+2 sans interruption</div>
+        </div>
+        <div id="cc1-t2" style="display:none">
+          <div class="section-label">Correction CC1 — Sans DAE</div>
+          <div class="cc-step ok" id="a1"><div class="cc-step-hd" onclick="ts(this)"><span>🗣️ 1. Stimuler</span><span class="chevron">›</span></div><div class="cc-step-body">« Papa, tu m'entends ? » en secouant les épaules. Pas de réponse → inconscience confirmée.</div></div>
+          <div class="cc-step ok" id="a2"><div class="cc-step-hd" onclick="ts(this)"><span>🛏️ 2. Allonger + LVA</span><span class="chevron">›</span></div><div class="cc-step-body">Il est au sol. LVA : main sur le front, 2 doigts sous le menton, basculer la tête en arrière, élever le menton.</div></div>
+          <div class="cc-step ok" id="a3"><div class="cc-step-hd" onclick="ts(this)"><span>👂 3. Apprécier la respiration (10 sec max)</span><span class="chevron">›</span></div><div class="cc-step-body">Joue et oreille au-dessus de la bouche/nez : regarder · écouter · sentir. Aucun mouvement → arrêt cardiaque.</div></div>
+          <div class="cc-step ok" id="a4"><div class="cc-step-hd" onclick="ts(this)"><span>📞 4. Alerter le 15 (haut-parleur) + demander un DAE</span><span class="chevron">›</span></div><div class="cc-step-body">Activer le haut-parleur du téléphone → appeler le 15 ou le 112 → signaler arrêt cardiaque → demander si DAE proche → commencer la RCP en même temps.</div></div>
+          <div class="cc-step ok" id="a5"><div class="cc-step-hd" onclick="ts(this)"><span>🫀 5. RCP — 30 compressions thoraciques</span><span class="chevron">›</span></div><div class="cc-step-body">Milieu du sternum · talons des mains · bras tendus · 5 à 6 cm de profondeur · 100 à 120/min · relâcher entre chaque compression.</div></div>
+          <div class="cc-step ok" id="a6"><div class="cc-step-hd" onclick="ts(this)"><span>😮‍💨 6. 2 insufflations</span><span class="chevron">›</span></div><div class="cc-step-body">LVA · pincer le nez · bouche contre bouche · souffler 1 seconde jusqu'au soulèvement de la poitrine · 2 insufflations en 5 secondes max.</div></div>
+          <div class="cc-step ok" id="a7"><div class="cc-step-hd" onclick="ts(this)"><span>🔄 7. Répéter les cycles sans interruption</span><span class="chevron">›</span></div><div class="cc-step-body">30 CT + 2 insufflations · En continu jusqu'à l'arrivée des secours, ou jusqu'à ce qu'il respire normalement.</div></div>
+          <div class="debrief-box">
+            <h4>💬 Débriefing formateur</h4>
+            <p>Points clés : la RCP a-t-elle été démarrée immédiatement après la confirmation de l'absence de respiration ? L'alerte a-t-elle été donnée avec le haut-parleur pour ne pas interrompre la RCP ? Les compressions ont-elles été suffisamment profondes (5-6 cm) et au bon rythme ?</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CC2 AVEC DAE -->
+      <div class="cc-panel" id="cc2">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
+          <button id="t2-btn" onclick="toggleCC('cc2')" style="background:var(--rouge);color:white;border:none;padding:7px 16px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer">Temps 2 : Correction →</button>
+        </div>
+        <div id="cc2-t1">
+          <div class="cc-header" style="background:linear-gradient(135deg,#7a5a00,#c09000)">
+            <div class="cc-tag">🏪 Lieu public — Avec DAE</div>
+            <h3>Une femme s'effondre dans un centre commercial — un DAE est disponible</h3>
+          </div>
+          <div class="cc-scene">
+            Tu es dans un centre commercial. Une femme (environ 60 ans) s'effondre devant toi. Elle ne réagit plus, aucun mouvement de respiration.<br><br>
+            Un témoin est à côté de toi. Tu aperçois une <strong>borne DAE sur le mur à 20 mètres</strong>. <strong>Tu as ton téléphone.</strong><br><br>
+            <strong>Comment organises-tu les secours avec le témoin ?</strong>
+          </div>
+          <div class="info-box" style="font-size:12px">💬 Points attendus : répartition des rôles, RCP immédiate, DAE installé pendant la RCP, ne pas interrompre inutilement</div>
+        </div>
+        <div id="cc2-t2" style="display:none">
+          <div class="section-label">Correction CC2 — Avec DAE</div>
+          <div class="cc-step ok" id="b1"><div class="cc-step-hd" onclick="ts(this)"><span>🗣️ 1. Stimuler + confirmer l'arrêt cardiaque</span><span class="chevron">›</span></div><div class="cc-step-body">Stimuler verbalement et physiquement. LVA. Apprécier la respiration 10 sec. Pas de respiration → arrêt cardiaque.</div></div>
+          <div class="cc-step ok" id="b2"><div class="cc-step-hd" onclick="ts(this)"><span>📋 2. Répartir les rôles immédiatement</span><span class="chevron">›</span></div><div class="cc-step-body">Désigner le témoin : « Vous, allez chercher le DAE là-bas et appelez le 15 ! » · Toi : commencer la RCP immédiatement.</div></div>
+          <div class="cc-step ok" id="b3"><div class="cc-step-hd" onclick="ts(this)"><span>🫀 3. Débuter la RCP sans attendre</span><span class="chevron">›</span></div><div class="cc-step-body">30 compressions + 2 insufflations · En continu pendant que le témoin va chercher le DAE · Ne pas attendre le DAE pour commencer.</div></div>
+          <div class="cc-step ok" id="b4"><div class="cc-step-hd" onclick="ts(this)"><span>⚡ 4. Installer le DAE pendant la RCP</span><span class="chevron">›</span></div><div class="cc-step-body">Quand le témoin revient avec le DAE : il l'installe pendant que tu continues la RCP. Dénuder le thorax · Coller les électrodes · Brancher · Mettre en marche.</div></div>
+          <div class="cc-step ok" id="b5"><div class="cc-step-hd" onclick="ts(this)"><span>🙅 5. S'écarter quand le DAE analyse</span><span class="chevron">›</span></div><div class="cc-step-body">Quand le DAE dit « N'approchez pas » : s'écarter · Ne plus toucher la victime · Dire « Écartez-vous ! » aux témoins autour.</div></div>
+          <div class="cc-step ok" id="b6"><div class="cc-step-hd" onclick="ts(this)"><span>▶️ 6. Reprendre la RCP immédiatement après le choc</span><span class="chevron">›</span></div><div class="cc-step-body">Dès que le DAE a délivré le choc (ou dit qu'il n'est pas nécessaire) : reprendre immédiatement les compressions thoraciques. Le DAE demandera une nouvelle analyse après 2 min.</div></div>
+          <div class="cc-step ok" id="b7"><div class="cc-step-hd" onclick="ts(this)"><span>🔄 7. Continuer sans interruption jusqu'aux secours</span><span class="chevron">›</span></div><div class="cc-step-body">Alterner avec le témoin toutes les 2 minutes si possible. Ne jamais laisser la victime sans RCP. Jusqu'à l'arrivée des secours.</div></div>
+          <div class="debrief-box">
+            <h4>💬 Débriefing formateur</h4>
+            <p>Points clés : les rôles ont-ils été répartis clairement ? La RCP a-t-elle démarré avant l'arrivée du DAE ? Le DAE a-t-il été installé pendant la RCP ? Les interruptions ont-elles été minimales ?</p>
+            <p style="margin-top:5px"><strong>Rappel final :</strong> la défibrillation doit être le plus précoce possible · interrompre le moins possible la pratique des compressions thoraciques.</p>
+          </div>
+          <div style="margin-top:12px;text-align:center">
+            <div style="background:linear-gradient(135deg,#1a5a3a,#0d3a22);border-radius:12px;padding:18px;margin-bottom:12px">
+              <div style="font-size:32px;margin-bottom:8px">🎓</div>
+              <div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:900;color:white;margin-bottom:6px">Formation PSC1 terminée !</div>
+              <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.5;max-width:400px;margin:0 auto">Tu as parcouru les 10 chapitres du parcours citoyen. Tu es maintenant capable d'agir en situation d'urgence.</div>
+            </div>
+            <a href="index.html?done=8" onclick="goToDashboard(event)"
+               style="display:inline-block;background:var(--vert);color:white;padding:12px 28px;border-radius:10px;font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;text-decoration:none;">
+              ✅ Parcours terminé — Retour au dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span>Cas Concrets — Sans DAE et Avec DAE</span><div class="progress-dots" id="dots7"></div><span>Slide 8/8</span></div>
+  </div>
+
+</div><!-- /stage -->
+
+<script>
+// ── NAV ──
+let current=0; const total=8;
+const slidePills=document.querySelectorAll('.pill[onclick^="goSlide"]');
+function goSlide(n){
+  document.querySelectorAll('.slide')[current].classList.remove('active');
+  slidePills[current+1].classList.remove('active');
+  current=n;
+  document.querySelectorAll('.slide')[current].classList.add('active');
+  slidePills[current+1].classList.add('active');
+  document.getElementById('slide-counter').textContent=(current+1)+' / '+total;
+  renderDots();
+  if(n===6&&!simInited) startSim();
+}
+function nextSlide(){if(current<total-1)goSlide(current+1);}
+function prevSlide(){if(current>0)goSlide(current-1);}
+function renderDots(){
+  for(let i=0;i<total;i++){
+    const el=document.getElementById('dots'+i);if(!el)continue;
+    let h='';for(let j=0;j<total;j++) h+=`<div class="dot${j===i?' active':j<i?' done':''}"></div>`;
+    el.innerHTML=h;
+  }
+}
+renderDots();
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextSlide();if(e.key==='ArrowLeft')prevSlide();});
+
+// ── SIMULATION ──
+const SIM_STEPS = [
+  {id:'s1', text:'🗣️ Stimuler — secouer les épaules, appeler', feedback:'✅ Premier réflexe : stimuler verbalement et physiquement pour confirmer l\'inconscience.'},
+  {id:'s2', text:'🆘 Crier « Au secours ! » pour alerter les témoins', feedback:'✅ Demander de l\'aide immédiatement. Un témoin peut alerter pendant que tu agis.'},
+  {id:'s3', text:'🛏️ Allonger la victime sur le dos', feedback:'✅ La victime doit être sur le dos, sur une surface dure pour les compressions.'},
+  {id:'s4', text:'🫁 LVA — basculer la tête, élever le menton', feedback:'✅ Libérer les voies aériennes avant d\'apprécier la respiration.'},
+  {id:'s5', text:'👂 Apprécier la respiration — 10 secondes', feedback:'✅ Regarder · écouter · sentir. Aucun signe de respiration → arrêt cardiaque.'},
+  {id:'s6', text:'📞 Alerter le 15 et demander un DAE', feedback:'✅ Alerter le plus tôt possible. Avec haut-parleur pour ne pas interrompre la RCP.'},
+  {id:'s7', text:'🫀 30 compressions thoraciques — sternum, 5-6 cm', feedback:'✅ 30 compressions : milieu du sternum, 5-6 cm, 100-120/min, bras tendus.'},
+  {id:'s8', text:'😮‍💨 2 insufflations et répéter les cycles', feedback:'✅ 2 insufflations de 1 seconde chacune, puis reprendre les 30 compressions. Sans interruption !'},
+];
+
+const WRONG_ACTIONS = [
+  {id:'w1', text:'💊 Chercher ses médicaments dans son sac', feedback:'❌ En arrêt cardiaque, aucun médicament ne peut remplacer la RCP. Agir immédiatement !'},
+  {id:'w2', text:'💧 Lui mettre de l\'eau sur le visage', feedback:'❌ L\'eau sur le visage ne peut pas relancer un cœur. La RCP est le seul geste efficace.'},
+  {id:'w3', text:'🔄 Le mettre en PLS', feedback:'❌ La PLS est pour une victime qui RESPIRE. Ici, pas de respiration → RCP immédiate.'},
+  {id:'w4', text:'⏳ Attendre l\'arrivée des secours pour agir', feedback:'❌ CHAQUE MINUTE COMPTE. Sans RCP, les lésions cérébrales surviennent dès la 1ère minute !'},
+];
+
+let simInited=false;
+let simStep=0;
+let simScore=0;
+let simUsed=new Set();
+
+function startSim(){
+  simInited=true;
+  simStep=0; simScore=0; simUsed=new Set();
+  document.getElementById('sim-end').classList.remove('show');
+  document.getElementById('sim-feedback').classList.remove('show','good','bad');
+  document.getElementById('sim-scene').style.display='block';
+  document.getElementById('sim-btns').style.display='grid';
+  renderSimBtns();
+  updateSimProgress();
+}
+
+function renderSimBtns(){
+  const container=document.getElementById('sim-btns');
+  container.innerHTML='';
+  // Always show current correct + 3 wrong distractors shuffled
+  const correct=SIM_STEPS[simStep];
+  const wrongs=[...WRONG_ACTIONS].sort(()=>Math.random()-.5).slice(0,3);
+  const all=[correct,...wrongs].sort(()=>Math.random()-.5);
+  all.forEach(item=>{
+    const btn=document.createElement('button');
+    btn.className='sim-btn';
+    btn.dataset.id=item.id;
+    btn.innerHTML=`<span class="sim-ic">${item.text.split(' ')[0]}</span><span>${item.text.substring(item.text.indexOf(' ')+1)}</span>`;
+    const isCorrect=item.id===correct.id;
+    btn.onclick=()=>handleSimClick(btn, isCorrect, item.feedback);
+    container.appendChild(btn);
+  });
+}
+
+function handleSimClick(btn, isCorrect, feedback){
+  const fb=document.getElementById('sim-feedback');
+  if(isCorrect){
+    btn.classList.add('done');
+    btn.onclick=null;
+    simScore++;
+    simStep++;
+    fb.className='sim-feedback show good';
+    fb.textContent=feedback;
+    updateSimProgress();
+    setTimeout(()=>{
+      fb.classList.remove('show');
+      if(simStep>=SIM_STEPS.length){
+        endSim();
+      } else {
+        renderSimBtns();
+      }
+    },1800);
+  } else {
+    btn.classList.add('wrong-pick');
+    fb.className='sim-feedback show bad';
+    fb.textContent=feedback;
+    setTimeout(()=>{
+      btn.classList.remove('wrong-pick');
+      fb.classList.remove('show');
+    },2000);
+  }
+}
+
+function updateSimProgress(){
+  document.getElementById('sim-step-label').textContent=`Étape ${simStep} / ${SIM_STEPS.length}`;
+  document.getElementById('sim-score-label').textContent=`Score : ${simScore}`;
+  document.getElementById('sim-bar').style.width=(simStep/SIM_STEPS.length*100)+'%';
+}
+
+function endSim(){
+  document.getElementById('sim-btns').style.display='none';
+  document.getElementById('sim-scene').style.display='none';
+  document.getElementById('sim-feedback').classList.remove('show');
+  const end=document.getElementById('sim-end');
+  end.classList.add('show');
+  const perfect=simScore===SIM_STEPS.length;
+  document.getElementById('sim-end-ic').textContent=perfect?'🏆':'❤️';
+  document.getElementById('sim-end-title').textContent=perfect?'Parfait ! Tu as sauvé une vie !':'Bien joué !';
+  document.getElementById('sim-end-score').textContent=`${simScore} / ${SIM_STEPS.length} étapes correctes du premier coup`;
+}
+
+// ── CC TABS ──
+const ccState={cc1:false,cc2:false};
+function switchTab(id){
+  document.querySelectorAll('.cc-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.cc-tab').forEach((t,i)=>{
+    t.classList.toggle('active',['cc1','cc2'][i]===id);
+  });
+  document.getElementById(id).classList.add('active');
+}
+function toggleCC(id){
+  ccState[id]=!ccState[id];
+  const t2=ccState[id];
+  document.getElementById(id+'-t1').style.display=t2?'none':'block';
+  document.getElementById(id+'-t2').style.display=t2?'block':'none';
+  const btn=document.getElementById(id==='cc1'?'t1-btn':'t2-btn');
+  btn.textContent=t2?'← Retour temps 1':'Temps 2 : Correction →';
+}
+function ts(hd){hd.closest('.cc-step').classList.toggle('open');}
+function goToDashboard(e){if(e)e.preventDefault();window.location.href='index.html?done=8';}
+</script>
+</body>
+</html>
