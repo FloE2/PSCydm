@@ -22,8 +22,6 @@
       --green-light: #e8f5ef;
       --blue: #2d7dd2;
       --blue-light: #eef4fb;
-      --red: #D94F3D;
-      --red-light: #fdf1ef;
       --font: 'DM Sans', sans-serif;
       --mono: 'DM Mono', monospace;
     }
@@ -39,13 +37,12 @@
     /* ── HEADER ── */
     .header {
       max-width: 960px;
-      margin: 0 auto 2.5rem;
+      margin: 0 auto 2rem;
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
       gap: 1rem;
     }
-    .header-left {}
     .header-badge {
       font-family: var(--mono);
       font-size: 10px;
@@ -80,7 +77,7 @@
       height: 100%;
       background: var(--green);
       border-radius: 3px;
-      transition: width 1s ease;
+      transition: width 0.6s ease;
     }
     .prog-label {
       font-family: var(--mono);
@@ -91,7 +88,7 @@
     /* ── ALERT ── */
     .alert {
       max-width: 960px;
-      margin: 0 auto 2rem;
+      margin: 0 auto 1.75rem;
       background: var(--surface);
       border: 0.5px solid var(--border);
       border-left: 3px solid var(--green);
@@ -107,6 +104,7 @@
       margin: 0 auto 2rem;
       display: flex;
       gap: 20px;
+      align-items: center;
     }
     .leg-item {
       display: flex;
@@ -120,21 +118,25 @@
       border-radius: 50%;
       flex-shrink: 0;
     }
+    .leg-hint {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
 
-    /* ── SNAKE CONTAINER ── */
+    /* ── SNAKE ── */
     .snake {
       max-width: 960px;
       margin: 0 auto;
     }
 
-    /* ── PHASE LABEL ── */
     .phase-lbl {
       font-family: var(--mono);
       font-size: 10px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--text-muted);
-      font-weight: 500;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -147,12 +149,10 @@
       background: var(--border);
     }
 
-    /* ── ROW ── */
     .s-row {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 12px;
-      position: relative;
     }
 
     /* ── CARD ── */
@@ -161,28 +161,30 @@
       border: 0.5px solid var(--border);
       border-radius: 12px;
       padding: 14px 14px 12px;
-      cursor: default;
-      transition: box-shadow 0.2s, transform 0.2s;
+      cursor: pointer;
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
       position: relative;
-      overflow: hidden;
       user-select: none;
     }
     .card:hover {
       box-shadow: 0 6px 20px rgba(0,0,0,0.06);
       transform: translateY(-2px);
     }
-    .card.done {
+    .card.done-foad {
       border-color: var(--green);
       background: var(--green-light);
+      cursor: default;
     }
-    .card.key {
-      border: 1.5px solid var(--red);
-      background: var(--red-light);
+    .card.done-foad:hover { transform: none; box-shadow: none; }
+
+    /* checked by click */
+    .card.checked {
+      border-color: var(--green);
+      background: var(--green-light);
+      opacity: 0.75;
     }
-    .card.completed {
-      opacity: 0.6;
-    }
-    .card.completed .card-title { text-decoration: line-through; color: var(--text-muted); }
+    .card.checked .card-title { text-decoration: line-through; color: var(--text-muted); }
+    .card.checked .card-dot { border-color: var(--green) !important; }
 
     .card-dot {
       width: 9px; height: 9px;
@@ -193,8 +195,28 @@
       transition: transform 0.2s;
     }
     .card:hover .card-dot { transform: scale(1.3); }
-    .card.done .card-dot { background: var(--green-light); }
-    .card.key .card-dot { background: var(--red-light); }
+    .card.done-foad .card-dot { background: var(--green-light); }
+    .card.checked .card-dot { background: var(--green-light); }
+
+    /* check icon top right */
+    .card-check-icon {
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+      color: transparent;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      pointer-events: none;
+    }
+    .card.done-foad .card-check-icon,
+    .card.checked .card-check-icon {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff;
+    }
 
     .card-num {
       font-family: var(--mono);
@@ -204,17 +226,15 @@
       color: var(--text-muted);
       margin-bottom: 5px;
     }
-    .card.key .card-num { color: var(--red); }
-
     .card-title {
       font-size: 13px;
       font-weight: 500;
       color: var(--text-primary);
       line-height: 1.35;
+      padding-right: 24px; /* space for check icon */
     }
-    .card.key .card-title { color: var(--red); }
 
-    /* Hover reveal */
+    /* hover detail */
     .card-detail {
       max-height: 0;
       overflow: hidden;
@@ -256,32 +276,10 @@
       margin-top: 8px;
     }
 
-    /* Checkbox to mark done */
-    .card-check {
-      position: absolute;
-      top: 10px; right: 10px;
-      width: 18px; height: 18px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border);
-      background: transparent;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 10px;
-      color: transparent;
-      transition: border-color 0.2s, background 0.2s, color 0.2s;
-      flex-shrink: 0;
-    }
-    .card-check:hover { border-color: var(--green); }
-    .card-check.checked {
-      background: var(--green);
-      border-color: var(--green);
-      color: #fff;
-    }
-
-    /* ── CONNECTOR SVG ── */
+    /* ── CONNECTOR — simple dashed line, no arrow ── */
     .s-connector {
       position: relative;
-      height: 52px;
+      height: 48px;
       pointer-events: none;
     }
     .s-connector svg {
@@ -291,29 +289,28 @@
       overflow: visible;
     }
 
-    /* ── TODAY MARKER ── */
+    /* ── TODAY marker ── */
     .now-sep {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin: 10px 0 16px;
+      margin: 8px 0 16px;
       font-family: var(--mono);
       font-size: 10px;
-      color: var(--red);
+      color: #888;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      font-weight: 500;
     }
     .now-sep::before {
       content: '';
       width: 32px;
       height: 1px;
-      background: var(--red);
+      background: #ccc;
       display: block;
       flex-shrink: 0;
     }
 
-    /* ── SPACER CARD ── */
+    /* ── spacer ── */
     .card-empty {
       background: transparent;
       border: 0.5px dashed var(--border-light);
@@ -326,11 +323,9 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 10px;
       padding-top: 1.5rem;
-      margin-top: 1.75rem;
+      margin: 1.75rem auto 0;
       border-top: 0.5px solid var(--border);
       max-width: 960px;
-      margin-left: auto;
-      margin-right: auto;
     }
     .stat {
       background: var(--surface);
@@ -352,12 +347,14 @@
       margin-top: 3px;
     }
 
-    /* Fade-in animation */
+    /* ── fade in ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .card { animation: fadeUp 0.4s ease both; }
+    .card { animation: fadeUp 0.35s ease both; }
+    .s-row:nth-child(1) .card:nth-child(1) { animation-delay: 0.05s; }
+    .s-row:nth-child(1) .card:nth-child(2) { animation-delay: 0.10s; }
     .s-row .card:nth-child(1) { animation-delay: 0.05s; }
     .s-row .card:nth-child(2) { animation-delay: 0.10s; }
     .s-row .card:nth-child(3) { animation-delay: 0.15s; }
@@ -368,14 +365,14 @@
 
   <!-- HEADER -->
   <div class="header">
-    <div class="header-left">
+    <div>
       <div class="header-badge">PSC1 · Scénario 5 · Collège de Vaucresson</div>
       <div class="header-title">Devenir <span>citoyen·ne sauveteur·se</span></div>
       <div class="header-sub">Hybride FOAD (3h) + Présentiel (4h30)</div>
     </div>
     <div class="header-progress">
       <div class="prog-bar">
-        <div class="prog-fill" id="progFill" style="width: 20%"></div>
+        <div class="prog-fill" id="progFill"></div>
       </div>
       <div class="prog-label" id="progLabel">2 / 10 chapitres</div>
     </div>
@@ -390,56 +387,50 @@
   <div class="legend">
     <div class="leg-item"><div class="leg-dot" style="background:#1D9E75"></div> FOAD — terminé</div>
     <div class="leg-item"><div class="leg-dot" style="background:#2d7dd2"></div> Présentiel</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#D94F3D"></div> Prioritaire</div>
-    <div class="leg-item" style="margin-left:auto; font-size:11px; color:#b0b0aa; font-style:italic;">Survoler une carte pour voir les détails · Cocher pour marquer terminé</div>
+    <div class="leg-hint">Survoler pour les détails · Cliquer pour cocher</div>
   </div>
 
   <!-- SNAKE -->
   <div class="snake">
 
-    <!-- ROW 1 : LTR — FOAD -->
+    <!-- ROW 1 LTR : Ch1 Ch2 -->
     <div class="phase-lbl">FOAD — en autonomie avant la formation</div>
-    <div class="s-row" id="row1">
-
-      <div class="card done" data-id="1">
-        <button class="card-check checked" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+    <div class="s-row">
+      <div class="card done-foad">
+        <div class="card-check-icon">✓</div>
         <div class="card-dot" style="border-color:#1D9E75"></div>
         <div class="card-num">Chapitre 1</div>
         <div class="card-title">🔊 Alerte et protection des populations</div>
         <div class="card-detail">Signal national d'alerte · mesures de confinement et d'évacuation · comportements à adopter. Compétence A1.</div>
         <div class="done-badge">✓ Vu en FOAD · 10 min</div>
       </div>
-
-      <div class="card done" data-id="2">
-        <button class="card-check checked" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+      <div class="card done-foad">
+        <div class="card-check-icon">✓</div>
         <div class="card-dot" style="border-color:#1D9E75"></div>
         <div class="card-num">Chapitre 2</div>
-        <div class="card-title">🛡️ Protection & Alerte</div>
+        <div class="card-title">🛡️ Protection &amp; Alerte</div>
         <div class="card-detail">Analyser · protéger soi-même, la victime et les autres · transmettre l'alerte (15 · 18 · 112 · 114). Compétences B & C.</div>
         <div class="done-badge">✓ Vu en FOAD · 20 min</div>
       </div>
-
       <div class="card-empty"></div>
       <div class="card-empty"></div>
-
     </div>
 
-    <!-- CONNECTOR 1 → 2 : vire à droite -->
+    <!-- CONNECTOR 1 → 2 : vire à droite sans flèche -->
     <div class="s-connector">
-      <svg viewBox="0 0 960 52" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M 696 0 Q 944 0 944 26 Q 944 52 696 52 L 16 52"
+      <svg viewBox="0 0 960 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 696 0 Q 944 0 944 24 Q 944 48 696 48 L 16 48"
               fill="none" stroke="#d0cfc9" stroke-width="1.5" stroke-dasharray="5 5"/>
-        <polygon points="10,48 20,52 10,56" fill="#d0cfc9" transform="translate(0,-4)"/>
       </svg>
     </div>
 
-    <!-- ROW 2 : RTL — Ch6 Ch5 Ch4 Ch3 -->
+    <!-- ROW 2 RTL : Ch3 Ch4 Ch5 Ch6 (affichés droite→gauche visuellement) -->
     <div class="now-sep">Aujourd'hui — présentiel · à votre rythme</div>
     <div class="phase-lbl">Présentiel — 1ère partie</div>
-    <div class="s-row" style="direction:rtl" id="row2">
+    <div class="s-row" style="direction:rtl">
 
-      <div class="card" data-id="3" style="direction:ltr">
-        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+      <div class="card" data-id="3" style="direction:ltr" onclick="toggleCard(this)">
+        <div class="card-check-icon">✓</div>
         <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 3</div>
         <div class="card-title">🦴 Traumatisme</div>
@@ -447,8 +438,8 @@
         <div class="chips"><span class="chip">REFOR</span><span class="chip">APG(M)</span><span class="chip">1 CC</span></div>
       </div>
 
-      <div class="card" data-id="4" style="direction:ltr">
-        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+      <div class="card" data-id="4" style="direction:ltr" onclick="toggleCard(this)">
+        <div class="card-check-icon">✓</div>
         <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 4</div>
         <div class="card-title">💨 Obstruction des voies aériennes</div>
@@ -456,8 +447,8 @@
         <div class="chips"><span class="chip">REFOR</span><span class="chip">APG(M)</span><span class="chip">1 CC</span></div>
       </div>
 
-      <div class="card" data-id="5" style="direction:ltr">
-        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+      <div class="card" data-id="5" style="direction:ltr" onclick="toggleCard(this)">
+        <div class="card-check-icon">✓</div>
         <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 5</div>
         <div class="card-title">🩸 Hémorragies externes</div>
@@ -465,8 +456,8 @@
         <div class="chips"><span class="chip">DCJIM</span><span class="chip">2 CC</span></div>
       </div>
 
-      <div class="card" data-id="6" style="direction:ltr">
-        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+      <div class="card" data-id="6" style="direction:ltr" onclick="toggleCard(this)">
+        <div class="card-check-icon">✓</div>
         <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 6</div>
         <div class="card-title">🩹 Plaies</div>
@@ -476,21 +467,20 @@
 
     </div>
 
-    <!-- CONNECTOR 2 → 3 : vire à gauche -->
+    <!-- CONNECTOR 2 → 3 : vire à gauche sans flèche -->
     <div class="s-connector">
-      <svg viewBox="0 0 960 52" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M 264 0 Q 16 0 16 26 Q 16 52 264 52 L 944 52"
+      <svg viewBox="0 0 960 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 264 0 Q 16 0 16 24 Q 16 48 264 48 L 944 48"
               fill="none" stroke="#d0cfc9" stroke-width="1.5" stroke-dasharray="5 5"/>
-        <polygon points="950,48 940,52 950,56" fill="#d0cfc9" transform="translate(0,-4)"/>
       </svg>
     </div>
 
-    <!-- ROW 3 : LTR — Ch7 Ch8 Ch9 Ch10 -->
+    <!-- ROW 3 LTR : Ch7 Ch8 Ch9 Ch10 -->
     <div class="phase-lbl">Présentiel — 2ème partie</div>
-    <div class="s-row" id="row3">
+    <div class="s-row">
 
-      <div class="card" data-id="7">
-        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+      <div class="card" data-id="7" onclick="toggleCard(this)">
+        <div class="card-check-icon">✓</div>
         <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 7</div>
         <div class="card-title">🔥 Brûlures</div>
@@ -498,8 +488,8 @@
         <div class="chips"><span class="chip">REFOR CAT</span><span class="chip">1 CC</span></div>
       </div>
 
-      <div class="card" data-id="8">
-        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+      <div class="card" data-id="8" onclick="toggleCard(this)">
+        <div class="card-check-icon">✓</div>
         <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 8</div>
         <div class="card-title">😮 Malaise</div>
@@ -507,19 +497,19 @@
         <div class="chips"><span class="chip">REFOR CAT</span><span class="chip">APG(M)</span><span class="chip">1 CC</span></div>
       </div>
 
-      <div class="card" data-id="9">
-        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé">✓</button>
+      <div class="card" data-id="9" onclick="toggleCard(this)">
+        <div class="card-check-icon">✓</div>
         <div class="card-dot" style="border-color:#2d7dd2"></div>
         <div class="card-num">Chapitre 9</div>
         <div class="card-title">💤 Perte de connaissance</div>
         <div class="card-detail">Stimulation · LVA · ventilation · PLS adulte et nourrisson · surveillance jusqu'aux secours.</div>
-        <div class="chips"><span class="chip">REFOR</span><span class="chip">APG LVA & PLS</span><span class="chip">1 CC</span></div>
+        <div class="chips"><span class="chip">REFOR</span><span class="chip">APG LVA &amp; PLS</span><span class="chip">1 CC</span></div>
       </div>
 
-      <div class="card key" data-id="10">
-        <button class="card-check" onclick="toggleDone(this)" aria-label="Marquer terminé" style="border-color:#D94F3D;">✓</button>
-        <div class="card-dot" style="border-color:#D94F3D; background:var(--red-light)"></div>
-        <div class="card-num">Chapitre 10 · Prioritaire</div>
+      <div class="card" data-id="10" onclick="toggleCard(this)">
+        <div class="card-check-icon">✓</div>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
+        <div class="card-num">Chapitre 10</div>
         <div class="card-title">❤️ Arrêt cardiaque</div>
         <div class="card-detail">Reconnaissance · RCP adulte/nourrisson · utilisation du DAE · chaîne de survie · ne pas interrompre jusqu'aux secours.</div>
         <div class="chips"><span class="chip">REFOR</span><span class="chip">APG(M)</span><span class="chip">2 CC</span></div>
@@ -550,36 +540,30 @@
   </div>
 
   <script>
-    // Count of completed chapters
+    const TOTAL = 10;
+    // Ch1 et Ch2 déjà cochés (FOAD)
     let completed = 2;
-    const total = 10;
 
     function updateProgress() {
-      const pct = (completed / total) * 100;
+      const pct = (completed / TOTAL) * 100;
       document.getElementById('progFill').style.width = pct + '%';
-      document.getElementById('progLabel').textContent = completed + ' / ' + total + ' chapitres';
+      document.getElementById('progLabel').textContent = completed + ' / ' + TOTAL + ' chapitres';
       document.getElementById('statDone').textContent = completed;
     }
 
-    function toggleDone(btn) {
-      const card = btn.closest('.card');
-      const isChecked = btn.classList.contains('checked');
-
+    function toggleCard(card) {
+      const isChecked = card.classList.contains('checked');
       if (isChecked) {
-        // Uncheck
-        btn.classList.remove('checked');
-        card.classList.remove('completed');
-        completed = Math.max(0, completed - 1);
+        card.classList.remove('checked');
+        completed = Math.max(2, completed - 1); // min 2 (FOAD toujours cochés)
       } else {
-        // Check
-        btn.classList.add('checked');
-        card.classList.add('completed');
-        completed = Math.min(total, completed + 1);
+        card.classList.add('checked');
+        completed = Math.min(TOTAL, completed + 1);
       }
       updateProgress();
     }
 
-    // Init progress bar animation on load
+    // Init
     window.addEventListener('load', () => {
       setTimeout(updateProgress, 100);
     });
