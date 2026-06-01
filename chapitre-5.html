@@ -116,8 +116,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
   flex:1;
   min-height:0;
 }
-.millionaire-top{display:flex;gap:12px;align-items:stretch}
-.millionaire-question-zone{flex:1;display:flex;flex-direction:column;gap:10px}
+.millionaire-top{display:flex;gap:12px;align-items:flex-start;flex:1}
+.millionaire-question-zone{flex:1;display:flex;flex-direction:column;gap:10px;min-width:0}
 .q-header{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .q-level-badge{
   font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;
@@ -536,7 +536,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
       </div>
 
       <!-- ÉCRAN JEU -->
-      <div id="game-playing" style="display:none;flex:1;flex-direction:column;gap:10px">
+      <div id="game-playing" style="display:none;flex:1;flex-direction:column;gap:10px;min-height:0;background:linear-gradient(160deg,#0a0a1a,#0d1a3a);border-radius:12px;padding:14px">
         <div class="millionaire-top">
           <div class="millionaire-question-zone">
             <div class="q-header">
@@ -568,7 +568,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
       </div>
 
       <!-- ÉCRAN FIN -->
-      <div id="game-end" style="display:none;flex:1">
+      <div id="game-end" style="display:none;flex:1;background:linear-gradient(160deg,#0a0a1a,#0d1a3a);border-radius:12px;padding:14px">
         <div class="end-screen">
           <div class="end-icon" id="end-icon">🏆</div>
           <div class="end-title" id="end-title">Bravo !</div>
