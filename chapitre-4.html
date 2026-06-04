@@ -601,7 +601,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="slide-header" style="background:linear-gradient(135deg,var(--accent),#5a2d0c)">
       <div class="left">
         <div class="sup">Chapitre 6 · Activité d'application · Compétence F</div>
-        <h2 id="cc-title">🏠 Cas Concret — Temps 1 : La situation</h2>
+        <h2 id="cc-title">🌙 Cas Concret — Temps 1 : La situation</h2>
       </div>
       <button id="cc-switch-btn" onclick="switchCC()" style="background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.4);color:white;padding:7px 16px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;">Temps 2 : Correction →</button>
     </div>
@@ -609,18 +609,58 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 
       <!-- TEMPS 1 -->
       <div id="cc-t1">
-        <div class="cc-header">
-          <div class="cc-tag">🏠 Bris de verre — plaie grave avec corps étranger</div>
-          <h3>Emma (14 ans) a un éclat de verre planté dans le bras</h3>
+        <div class="cc-header" style="background:linear-gradient(135deg,#1a0a2e,#4a1942)">
+          <div class="cc-tag">🌙 Agression — plaie pénétrante thoracique avec corps étranger</div>
+          <h3>Kévin (17 ans) a reçu un coup de couteau dans la poitrine dans une ruelle</h3>
         </div>
         <div class="cc-scene">
-          Tu es chez ton ami Hugo. Sa petite sœur <strong>Emma, 14 ans</strong>, a renversé un grand bocal en verre sur le plan de travail en voulant l'attraper. En tombant, un gros éclat de verre s'est planté dans son <strong>avant-bras gauche</strong>. L'éclat est encore en place. Le sang coule autour mais ne jaillit pas.<br><br>
-          Emma pleure, elle est assise par terre. Hugo est à côté, paniqué. <strong>Tu as un téléphone.</strong><br><br>
+          Il est <strong>21h30</strong>. Tu rentres chez toi à pied par la <strong>rue des Acacias</strong>, dans ta ville. Dans une ruelle peu éclairée, tu découvres <strong>Kévin, 17 ans</strong>, affalé contre un mur. Il a visiblement reçu un coup de couteau dans la <strong>poitrine côté gauche</strong>. La lame n'est <strong>plus visible</strong> mais la plaie est profonde et saigne. Il a du mal à respirer et grimace de douleur. Il est pâle, conscient.<br><br>
+          Plusieurs <strong>passants</strong> sont présents autour de toi. <strong>Tu as ton téléphone dans ta poche.</strong><br><br>
           <strong>Que fais-tu ? Dans quel ordre ?</strong>
         </div>
         <div class="info-box" style="font-size:12px;margin-top:6px">
           💬 <strong>À l'élève :</strong> décris ou mime les gestes dans l'ordre. Le formateur observe et note.
         </div>
+
+        <!-- IMAGE ANNOTÉE -->
+        <div style="position:relative;margin-top:12px;display:inline-block;width:100%;">
+          <img src="images/plaies.jpg" alt="Scène de la ruelle — Kévin blessé"
+               style="width:100%;max-height:220px;object-fit:cover;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,0.4);border:2px solid #4a1942;display:block;">
+
+          <!-- Badge LIEU -->
+          <div style="position:absolute;top:12px;left:14px;background:rgba(10,10,30,0.82);border:1.5px solid #a78bfa;border-radius:8px;padding:6px 12px;display:flex;align-items:center;gap:7px;backdrop-filter:blur(4px);">
+            <span style="font-size:15px;">📍</span>
+            <div>
+              <div style="font-family:'Outfit',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#c4b5fd;opacity:.8;">Lieu de l'accident</div>
+              <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;color:white;">Rue des Acacias — Ruelle latérale</div>
+            </div>
+          </div>
+
+          <!-- Badge HEURE -->
+          <div style="position:absolute;top:12px;right:14px;background:rgba(10,10,30,0.82);border:1.5px solid #fbbf24;border-radius:8px;padding:6px 12px;display:flex;align-items:center;gap:7px;backdrop-filter:blur(4px);">
+            <span style="font-size:15px;">🌙</span>
+            <div>
+              <div style="font-family:'Outfit',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#fde68a;opacity:.8;">Heure</div>
+              <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;color:white;">21 h 30</div>
+            </div>
+          </div>
+
+          <!-- Badge TÉLÉPHONE -->
+          <div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(10,10,30,0.88);border:2px solid #34d399;border-radius:10px;padding:7px 18px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(4px);white-space:nowrap;">
+            <span style="font-size:17px;">📞</span>
+            <div>
+              <div style="font-family:'Outfit',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#6ee7b7;opacity:.85;">Appel en cours</div>
+              <div style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:900;color:white;letter-spacing:2px;">15 — SAMU · 06 72 34 88 12</div>
+            </div>
+            <div style="width:8px;height:8px;border-radius:50%;background:#34d399;animation:pulse-dot 1.2s infinite;"></div>
+          </div>
+        </div>
+        <style>
+          @keyframes pulse-dot {
+            0%,100%{opacity:1;transform:scale(1)}
+            50%{opacity:.4;transform:scale(1.4)}
+          }
+        </style>
       </div>
 
       <!-- TEMPS 2 : CORRECTION -->
@@ -630,52 +670,59 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 
           <div class="cc-step ok" id="cs1">
             <div class="cc-step-header" onclick="toggleStep('cs1')">
-              <span>🛡️ 1. Protéger la zone</span><span class="chevron">›</span>
+              <span>🛡️ 1. Sécuriser la zone et s'assurer de sa propre sécurité</span><span class="chevron">›</span>
             </div>
-            <div class="cc-step-body">Éloigner les morceaux de verre pour éviter d'autres blessures. Ne pas marcher dedans. Se protéger soi-même.</div>
+            <div class="cc-step-body">Vérifier que l'agresseur n'est plus là. Ne pas s'exposer soi-même au danger. Demander aux passants de reculer et de garder une distance de sécurité.</div>
           </div>
 
           <div class="cc-step ok" id="cs2">
             <div class="cc-step-header" onclick="toggleStep('cs2')">
-              <span>🚫 2. Ne PAS retirer l'éclat de verre</span><span class="chevron">›</span>
+              <span>🚫 2. Ne PAS retirer le couteau (s'il était encore en place)</span><span class="chevron">›</span>
             </div>
-            <div class="cc-step-body">C'est la règle absolue. L'éclat comprime peut-être un vaisseau. Le retirer risquerait de provoquer une hémorragie grave.</div>
+            <div class="cc-step-body">Règle absolue pour tout corps étranger pénétrant. Le retirer risquerait de provoquer une hémorragie cataclysmique. Ici la lame est absente mais la plaie thoracique reste à ne pas obstruer.</div>
           </div>
 
           <div class="cc-step ok" id="cs3">
             <div class="cc-step-header" onclick="toggleStep('cs3')">
-              <span>✊ 3. Comprimer autour de l'éclat si ça saigne</span><span class="chevron">›</span>
+              <span>📞 3. Alerter les secours immédiatement (15 ou 18 ou 112)</span><span class="chevron">›</span>
             </div>
-            <div class="cc-step-body">Appuyer avec un tissu propre autour de la plaie (pas sur l'éclat). Demander à Emma de comprimer elle-même si elle peut.</div>
+            <div class="cc-step-body">Demander à un passant d'appeler pendant que tu t'occupes de Kévin, ou appeler toi-même. Préciser : <strong>ruelle rue des Acacias</strong>, victime de 17 ans, plaie pénétrante thoracique gauche, difficultés respiratoires, conscient. Rester en ligne et appliquer les consignes.</div>
           </div>
 
           <div class="cc-step ok" id="cs4">
             <div class="cc-step-header" onclick="toggleStep('cs4')">
-              <span>🛏️ 4. Allonger Emma</span><span class="chevron">›</span>
+              <span>🪑 4. Installer Kévin en position assise (demi-assise)</span><span class="chevron">›</span>
             </div>
-            <div class="cc-step-body">Plaie au bras → position allongée sur le sol ou le canapé. Cela prévient les complications et une éventuelle détresse.</div>
+            <div class="cc-step-body">Plaie au thorax → <strong>position assise ou demi-assise</strong>, en appui contre le mur. Ne pas l'allonger à plat. Laisser la plaie à l'air libre, ne pas appuyer dessus avec un tissu. Cela facilite sa respiration.</div>
           </div>
 
           <div class="cc-step ok" id="cs5">
             <div class="cc-step-header" onclick="toggleStep('cs5')">
-              <span>📞 5. Demander à Hugo d'appeler les secours</span><span class="chevron">›</span>
+              <span>💬 5. Rassurer et surveiller en permanence</span><span class="chevron">›</span>
             </div>
-            <div class="cc-step-body">15 (SAMU) ou 18 (Pompiers) ou 112. Hugo peut appeler pendant que tu maintiens la compression. Indiquer l'adresse, l'âge de la victime, l'éclat de verre planté.</div>
+            <div class="cc-step-body">Parler à Kévin, lui dire que les secours arrivent. Surveiller sa respiration, son état de conscience et la plaie. En cas d'aggravation (perte de connaissance, arrêt respiratoire) → informer immédiatement les secours et être prêt à intervenir.</div>
           </div>
 
           <div class="cc-step ok" id="cs6">
             <div class="cc-step-header" onclick="toggleStep('cs6')">
-              <span>💬 6. Rassurer &amp; surveiller</span><span class="chevron">›</span>
+              <span>🌡️ 6. Protéger contre le froid</span><span class="chevron">›</span>
             </div>
-            <div class="cc-step-body">Parler à Emma, lui expliquer ce qui se passe. Surveiller sa respiration et son état de conscience jusqu'à l'arrivée des secours. Protéger du froid si nécessaire.</div>
+            <div class="cc-step-body">Il fait nuit, la victime est en état de choc. Demander à un passant de trouver une veste ou une couverture pour couvrir Kévin. Ne jamais laisser la victime seule.</div>
           </div>
 
         </div>
 
+        <!-- Image Temps 2 -->
+        <div style="text-align:center;margin-top:12px;">
+          <img src="images/plaies2.jpg" alt="Position d'attente plaie thoracique"
+               style="max-height:180px;max-width:100%;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.25);border:2px solid #80cba0;display:inline-block;">
+          <p style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:#1a7a4a;margin-top:6px;text-transform:uppercase;letter-spacing:1px;">🪑 Position d'attente — Plaie thoracique</p>
+        </div>
+
         <div class="debrief-box" style="margin-top:10px">
           <h4>💬 Débriefing formateur</h4>
-          <p>Points clés : l'éclat a-t-il été laissé en place ? La compression a-t-elle été faite <em>autour</em> (pas dessus) ? Emma a-t-elle été allongée ? Hugo a-t-il été mis à contribution pour alerter ? La victime a-t-elle été rassurée ?</p>
-          <p style="margin-top:6px"><strong>Question de prévention :</strong> Comment éviter ce type d'accident ? (ne pas attraper un objet qui tombe s'il est fragile, ranger les bocaux en verre hors de portée)</p>
+          <p>Points clés : la zone a-t-elle été sécurisée avant d'approcher ? Le couteau n'a-t-il pas été retiré ? L'alerte a-t-elle été donnée rapidement avec les bonnes informations (lieu, âge, nature de la plaie) ? La position assise a-t-elle été respectée (pas d'allongement à plat) ? Kévin a-t-il été surveillé et rassuré ?</p>
+          <p style="margin-top:6px"><strong>Question de prévention :</strong> Que faire pour éviter de se retrouver seul dans une ruelle isolée la nuit ? Quels réflexes adopter dans un lieu public en cas de danger ?</p>
         </div>
 
         <div style="margin-top:10px;text-align:center">
@@ -754,7 +801,7 @@ function switchCC(){
   document.getElementById('cc-t1').style.display=ccTime2?'none':'block';
   document.getElementById('cc-t2').style.display=ccTime2?'block':'none';
   document.getElementById('cc-switch-btn').textContent=ccTime2?'← Retour temps 1':'Temps 2 : Correction →';
-  document.getElementById('cc-title').textContent=ccTime2?'Cas Concret — ✅ Temps 2 : Correction':'🏠 Cas Concret — Temps 1 : La situation';
+  document.getElementById('cc-title').textContent=ccTime2?'Cas Concret — ✅ Temps 2 : Correction':'🌙 Cas Concret — Temps 1 : La situation';
   document.getElementById('cc-footer').querySelector('span').textContent=ccTime2?'Temps 2 — Correction':'Temps 1 — Situation soumise aux élèves';
 }
 function toggleStep(id){document.getElementById(id).classList.toggle('open');}
