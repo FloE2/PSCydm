@@ -607,10 +607,10 @@ let current=0; const total=8;
 const slidePills=document.querySelectorAll('.pill[onclick^="goSlide"]');
 function goSlide(n){
   document.querySelectorAll('.slide')[current].classList.remove('active');
-  slidePills[current+1].classList.remove('active');
+  slidePills[current].classList.remove('active');
   current=n;
   document.querySelectorAll('.slide')[current].classList.add('active');
-  slidePills[current+1].classList.add('active');
+  slidePills[current].classList.add('active');
   document.getElementById('slide-counter').textContent=(current+1)+' / '+total;
   renderDots();
   if(n===6&&!simInited) startSim();
