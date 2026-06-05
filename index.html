@@ -27,11 +27,25 @@
 
     body {
       font-family: var(--font);
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--text-primary);
       min-height: 100vh;
       padding: 2rem 1.5rem 4rem;
+      position: relative;
     }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url('images/PSC.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 340px;
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body > * { position: relative; z-index: 1; }
 
     /* ── SCHOOL NAME ── */
     .school-name {
@@ -243,6 +257,21 @@
       transition: border-color 0.2s, background 0.2s, color 0.2s;
       pointer-events: none;
     }
+    /* Rendre la coche cliquable sur les cartes terminées (hors FOAD) */
+    .card.checked .card-check-icon {
+      pointer-events: auto;
+      cursor: pointer;
+    }
+    .card.checked .card-check-icon:hover {
+      background: #c0392b !important;
+      border-color: #c0392b !important;
+    }
+    .card.checked .card-check-icon::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+    }
     .card.done-foad .card-check-icon,
     .card.checked .card-check-icon {
       background: var(--green);
@@ -268,14 +297,14 @@
 
     .card-num {
       font-family: var(--mono);
-      font-size: 10px;
+      font-size: 11px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--text-muted);
       margin-bottom: 5px;
     }
     .card-title {
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 500;
       color: var(--text-primary);
       line-height: 1.35;
@@ -287,7 +316,7 @@
       overflow: hidden;
       transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.2s;
       opacity: 0;
-      font-size: 11.5px;
+      font-size: 13px;
       color: var(--text-secondary);
       line-height: 1.6;
     }
@@ -296,7 +325,7 @@
     .chips { display: flex; gap: 4px; margin-top: 9px; flex-wrap: wrap; }
     .chip {
       font-family: var(--mono);
-      font-size: 9.5px;
+      font-size: 11px;
       padding: 2px 7px;
       border-radius: 20px;
       background: var(--bg);
@@ -643,7 +672,31 @@
       card.removeAttribute('onclick');
       const dot = card.querySelector('.card-dot');
       if (dot) dot.style.borderColor = 'var(--green)';
+      // Wire the check icon to allow unchecking
+      const checkIcon = card.querySelector('.card-check-icon');
+      if (checkIcon) checkIcon.setAttribute('onclick', `unmarkDone('${chapId}', event)`);
       if (save) { state[chapId] = true; saveState(state); }
+    }
+
+    function unmarkDone(chapId, event) {
+      if (event) event.stopPropagation();
+      const card = document.getElementById('card-' + chapId);
+      if (!card || card.classList.contains('done-foad')) return;
+      // Restore card to "available" state
+      card.classList.remove('checked');
+      card.classList.add('has-link');
+      const hrefs = {'3':'chapitre-1.html','4':'chapitre-2.html','5':'chapitre-3.html','6':'chapitre-4.html','7':'chapitre-5.html','8':'chapitre-6.html','9':'chapitre-7.html','10':'chapitre-8.html'};
+      card.setAttribute('onclick', 'openChapter(this)');
+      card.setAttribute('data-href', hrefs[chapId] || '');
+      const dot = card.querySelector('.card-dot');
+      if (dot) dot.style.borderColor = '#2d7dd2';
+      const checkIcon = card.querySelector('.card-check-icon');
+      if (checkIcon) checkIcon.removeAttribute('onclick');
+      // Update state
+      delete state[chapId];
+      saveState(state);
+      updateProgress();
+      showToast('↩ Chapitre ' + chapId + ' remis à faire');
     }
 
     function openChapter(card) {
@@ -702,7 +755,7 @@
           if (dot) dot.style.borderColor = '#ccc';
         }
         const checkIcon = card.querySelector('.card-check-icon');
-        if (checkIcon) { checkIcon.style.background = ''; checkIcon.style.borderColor = ''; checkIcon.style.color = 'transparent'; }
+        if (checkIcon) { checkIcon.style.background = ''; checkIcon.style.borderColor = ''; checkIcon.style.color = 'transparent'; checkIcon.removeAttribute('onclick'); }
         const title = card.querySelector('.card-title');
         if (title) title.style.textDecoration = '';
       });
