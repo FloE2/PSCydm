@@ -726,7 +726,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
         </div>
 
         <div style="margin-top:10px;text-align:center">
-          <a href="index.html?done=4" onclick="goToDashboard(event)"
+          <a href="index.html?done=6" onclick="goToDashboard(event)"
              style="display:inline-block;background:var(--vert);color:white;padding:10px 24px;border-radius:10px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;text-decoration:none;">
             ✅ Chapitre terminé — Retour au dashboard
           </a>
@@ -808,7 +808,7 @@ function toggleStep(id){document.getElementById(id).classList.toggle('open');}
 
 function goToDashboard(e){
   if(e) e.preventDefault();
-  window.location.href='index.html?done=4';
+  window.location.href='index.html?done=6';
 }
 
 document.addEventListener('keydown',e=>{
