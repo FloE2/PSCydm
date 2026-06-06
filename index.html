@@ -229,7 +229,6 @@
     }
     .card.checked .card-title { text-decoration: line-through; color: var(--text-muted); }
     .card.checked .card-dot { border-color: var(--green) !important; background: var(--green-light); }
-    .card.checked .card-open { display: none !important; }
 
     .card.soon { opacity: 0.4; cursor: not-allowed; }
     .card.soon:hover { transform: none; box-shadow: none; }
@@ -279,21 +278,7 @@
       color: #fff;
     }
 
-    .card-open {
-      display: none;
-      position: absolute;
-      bottom: 10px; right: 10px;
-      font-size: 11px;
-      color: var(--blue);
-      font-family: var(--mono);
-      align-items: center;
-      gap: 3px;
-      opacity: 0.6;
-      transition: opacity 0.2s;
-      pointer-events: none;
-    }
-    .card.has-link .card-open { display: flex; }
-    .card.has-link:hover .card-open { opacity: 1; }
+
 
     .card-num {
       font-family: var(--mono);
@@ -517,7 +502,6 @@
         <div class="card-title">🦴 Traumatisme</div>
         <div class="card-detail">Os, articulations et organes · CAT membre · rachis cervical · maintien de tête à 2 mains.</div>
         <div class="chips"><span class="chip">REFOR</span><span class="chip">APG(M)</span><span class="chip">1 CC</span></div>
-        <div class="card-open">Ouvrir →</div>
       </div>
 
       <div class="card has-link" id="card-4" data-href="chapitre-2.html" onclick="openChapter(this)">
@@ -527,7 +511,6 @@
         <div class="card-title">💨 Obstruction des voies aériennes</div>
         <div class="card-detail">Partielle · complète adulte/enfant · claques + compressions abdominales · nourrisson · compressions thoraciques.</div>
         <div class="chips"><span class="chip">REFOR</span><span class="chip">APG(M)</span><span class="chip">1 CC</span></div>
-        <div class="card-open">Ouvrir →</div>
       </div>
 
       <div class="card has-link" id="card-5" data-href="chapitre-3.html" onclick="openChapter(this)">
@@ -537,7 +520,6 @@
         <div class="card-title">🩸 Hémorragies externes</div>
         <div class="card-detail">Compression directe · pansement compressif · garrot d'urgence · saignements par le nez, la bouche ou autre.</div>
         <div class="chips"><span class="chip">DCJIM</span><span class="chip">1 CC</span></div>
-        <div class="card-open">Ouvrir →</div>
       </div>
 
       <div class="card has-link" id="card-6" data-href="chapitre-4.html" onclick="openChapter(this)">
@@ -547,7 +529,6 @@
         <div class="card-title">🩹 Plaies</div>
         <div class="card-detail">Plaies simples · plaies graves · ne pas retirer le corps étranger · position allongée · alerte et surveillance.</div>
         <div class="chips"><span class="chip">REFOR CAT</span><span class="chip">1 CC</span></div>
-        <div class="card-open">Ouvrir →</div>
       </div>
 
     </div>
@@ -563,7 +544,6 @@
         <div class="card-title">🔥 Brûlures</div>
         <div class="card-detail">Refroidissement à l'eau tempérée 15 min · protection stérile · brûlures chimiques/électriques · brûlures graves.</div>
         <div class="chips"><span class="chip">REFOR CAT</span><span class="chip">1 CC</span></div>
-        <div class="card-open">Ouvrir →</div>
       </div>
 
       <div class="card has-link" id="card-8" data-href="chapitre-6.html" onclick="openChapter(this)">
@@ -573,7 +553,6 @@
         <div class="card-title">😮 Malaise</div>
         <div class="card-detail">Reconnaître le malaise · position adaptée · ne pas laisser seul · alerte · manœuvres physiques spécifiques.</div>
         <div class="chips"><span class="chip">REFOR CAT</span><span class="chip">APG(M)</span><span class="chip">1 CC</span></div>
-        <div class="card-open">Ouvrir →</div>
       </div>
 
       <div class="card has-link" id="card-9" data-href="chapitre-7.html" onclick="openChapter(this)">
@@ -583,7 +562,6 @@
         <div class="card-title">💤 Perte de connaissance</div>
         <div class="card-detail">Stimulation · LVA · ventilation · PLS adulte et nourrisson · surveillance jusqu'aux secours.</div>
         <div class="chips"><span class="chip">REFOR</span><span class="chip">APG LVA &amp; PLS</span><span class="chip">1 CC</span></div>
-        <div class="card-open">Ouvrir →</div>
       </div>
 
       <div class="card has-link" id="card-10" data-href="chapitre-8.html" onclick="openChapter(this)">
@@ -593,7 +571,6 @@
         <div class="card-title">❤️ Arrêt cardiaque</div>
         <div class="card-detail">Reconnaissance · RCP adulte/nourrisson · utilisation du DAE · chaîne de survie · ne pas interrompre jusqu'aux secours.</div>
         <div class="chips"><span class="chip">REFOR</span><span class="chip">APG(M)</span><span class="chip">2 CC</span></div>
-        <div class="card-open">Ouvrir →</div>
       </div>
 
     </div>
@@ -640,13 +617,16 @@
     const FOAD_IDS = ['1', '2'];
     const PRESENTIEL_IDS = ['3','4','5','6','7','8','9','10'];
 
-    // State
+    // State — v2 (clés = card-id direct)
+    const STATE_KEY = 'psc1_done_v2';
     function loadState() {
-      try { const r = localStorage.getItem('psc1_done'); return r ? JSON.parse(r) : {}; }
+      // Purge l'ancien état v1 si présent
+      try { localStorage.removeItem('psc1_done'); } catch(e) {}
+      try { const r = localStorage.getItem(STATE_KEY); return r ? JSON.parse(r) : {}; }
       catch(e) { return {}; }
     }
     function saveState(s) {
-      try { localStorage.setItem('psc1_done', JSON.stringify(s)); } catch(e) {}
+      try { localStorage.setItem(STATE_KEY, JSON.stringify(s)); } catch(e) {}
     }
 
     let state = loadState();
