@@ -80,7 +80,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 .chip{background:var(--bleu-clair);border:1px solid #a0c0ea;color:var(--bleu);border-radius:20px;padding:5px 14px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600}
 
 /* ===== SLIDE 2 : DEFINITIONS ===== */
-.def-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.def-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 .def-card{background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:12px}
 .def-card .ic{font-size:20px;margin-bottom:5px}
 .def-card h3{font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;color:var(--bleu);margin-bottom:3px}
@@ -197,24 +197,17 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 .c-btn.stop{background:var(--rouge);border-color:var(--rouge)}
 
     /* FCC */
-    .fcc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
-    .fcc-wrap.single{grid-template-columns:1fr}
-    .fcc-box{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.2);border-radius:9px;padding:9px 11px}
+    .fcc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+    .fcc-box{background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:8px 10px}
     .fcc-box.span2{grid-column:1/-1}
-    .fcc-lbl{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);margin-bottom:3px;font-family:'Outfit',sans-serif}
-    .fcc-val{font-size:11.5px;color:rgba(255,255,255,.9);line-height:1.45}
-    .fcc-row{display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;font-size:11px;color:rgba(255,255,255,.85);line-height:1.4}
+    .fcc-lbl{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);margin-bottom:3px;font-family:'Outfit',sans-serif}
+    .fcc-val{font-size:11px;color:rgba(255,255,255,.9);line-height:1.4}
+    .fcc-row{display:flex;gap:5px;align-items:flex-start;margin-bottom:3px;font-size:10.5px;color:rgba(255,255,255,.85);line-height:1.35}
     .fcc-row:last-child{margin-bottom:0}
-    .fcc-ico{font-size:13px;flex-shrink:0}
-    .fcc-row b{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);font-weight:700;margin-bottom:1px}
-    .fcc-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
-    .fcc-chip{background:rgba(255,255,255,.11);border:.5px solid rgba(255,255,255,.22);border-radius:5px;padding:1px 7px;font-size:10px;color:rgba(255,255,255,.82)}
-    .fcc-sep{height:1px;background:rgba(255,255,255,.1);margin:7px 0}
-
-    /* CC slide - use full height to avoid scroll */
-    .slide-body { overflow-y: auto; }
-    #cc-t1, [id$="-t1"] { overflow-y: visible; }
-    .fcc-wrap { font-size: 11px; }
+    .fcc-ico{font-size:12px;flex-shrink:0}
+    .fcc-row b{display:block;font-size:7.5px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.38);font-weight:700;margin-bottom:1px}
+    .fcc-chips{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px}
+    .fcc-chip{background:rgba(255,255,255,.1);border:.5px solid rgba(255,255,255,.2);border-radius:5px;padding:1px 6px;font-size:9.5px;color:rgba(255,255,255,.8)}
 </style>
 </head>
 <body>
@@ -803,33 +796,30 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <!-- ======= TEMPS 1 ======= -->
     <div id="cc-t1" style="display:flex;flex-direction:column;gap:10px;flex:1;">
 
-      <!-- ÉTAT 2 : scénario + photo + alerte complète -->
+      <!-- ÉTAT 0 : photo plein écran -->
       <div id="t1-state2" style="display:flex;flex-direction:column;gap:10px;">
-        <!-- FCC -->
-        <div class="fcc-wrap">
-          <div class="fcc-box span2">
-            <div class="fcc-lbl">📋 Scénario — FCC n° 2.01</div>
-            <div style="display:grid;grid-template-columns:1fr 2fr;gap:6px;margin-top:4px">
-              <div><div class="fcc-lbl">📍 Lieu</div><div class="fcc-val">Skate park — pendant la récréation</div></div>
-              <div><div class="fcc-lbl">📝 MSAS</div><div class="fcc-val">Lucas (13 ans) chute en arrière, tête heurte le sol. Conscient, allongé sur le dos, douleur vive à la nuque, peur de bouger.</div></div>
-            </div>
-          </div>
-          <div class="fcc-box">
-            <div class="fcc-lbl">🎭 Organisation — Acteurs</div>
-            <div class="fcc-row"><span class="fcc-ico">🤕</span><div><b>Victime</b>Allongé sur le dos, conscient. Douleur vive à la nuque. A peur de bouger. Ne pas mobiliser.</div></div>
-            <div class="fcc-row"><span class="fcc-ico">👥</span><div><b>Témoin</b>Camarades de classe aux alentours.</div></div>
-            <div class="fcc-row"><span class="fcc-ico">🦺</span><div><b>Sauveteur</b>Un camarade arrivant en premier sur les lieux.</div></div>
-          </div>
-          <div class="fcc-box">
-            <div class="fcc-lbl">🧰 Matériel disponible</div>
-            <div class="fcc-chips"><span class="fcc-chip">Téléphone</span><span class="fcc-chip">Adresse (établissement scolaire)</span></div>
-          </div>
-        </div>
-        <div class="fcc-sep"></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;">
           <!-- COL GAUCHE -->
           <div style="display:flex;flex-direction:column;gap:10px;">
-            
+            <div class="fcc-wrap" style="flex:0 0 auto;">
+              <div class="fcc-box span2">
+                <div class="fcc-lbl">📋 Scénario — FCC n° 2.01</div>
+                <div style="display:grid;grid-template-columns:1fr 2fr;gap:5px;margin-top:3px">
+                  <div><div class="fcc-lbl">📍 Lieu</div><div class="fcc-val">Skate park — pendant la récréation</div></div>
+                  <div><div class="fcc-lbl">📝 MSAS</div><div class="fcc-val">Lucas (13 ans) chute en arrière, tête heurte le sol. Conscient, allongé sur le dos, douleur vive à la nuque, peur de bouger.</div></div>
+                </div>
+              </div>
+              <div class="fcc-box">
+                <div class="fcc-lbl">🎭 Acteurs</div>
+                <div class="fcc-row"><span class="fcc-ico">🤕</span><div><b>Victime</b>Allongé sur le dos, conscient. Douleur vive à la nuque. Ne pas mobiliser.</div></div>
+                <div class="fcc-row"><span class="fcc-ico">👥</span><div><b>Témoin</b>Camarades de classe aux alentours.</div></div>
+                <div class="fcc-row"><span class="fcc-ico">🦺</span><div><b>Sauveteur</b>Un camarade arrivant en premier sur les lieux.</div></div>
+              </div>
+              <div class="fcc-box">
+                <div class="fcc-lbl">🧰 Matériel</div>
+                <div class="fcc-chips"><span class="fcc-chip">Téléphone</span><span class="fcc-chip">Adresse (établissement scolaire)</span></div>
+              </div>
+            </div>
             <div style="background:#f0f6ff;border-radius:12px;border:1.5px solid #a0c0ea;overflow:hidden;flex:1;display:flex;flex-direction:column;">
               <div style="flex:1;position:relative;min-height:0;">
                 <img src="images/scenario5_skatepark2.jpg"
@@ -888,10 +878,6 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
                 <div id="chrono-display2" style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:white;">0:00</div>
                 <button class="c-btn start" onclick="toggleC()" style="font-size:11px;padding:5px 12px;">▶/⏸</button>
                 <button class="c-btn" onclick="resetC2()" style="font-size:11px;padding:5px 10px;">↺</button>
-              </div>
-            </div>
-          
-            </div>
               </div>
             </div>
           </div>
@@ -1276,6 +1262,18 @@ function resetAlerteItems(){
 }
 
 // ===== REVEAL PROGRESSIF TEMPS 1 =====
+function t1Reveal(state) {
+  document.getElementById('t1-state0').style.display = 'none';
+  document.getElementById('t1-state1').style.display = 'none';
+  document.getElementById('t1-state2').style.display = 'none';
+  if (state === 1) {
+    document.getElementById('t1-state1').style.display = 'flex';
+  } else if (state === 2) {
+    document.getElementById('t1-state2').style.display = 'flex';
+    resetAlerteItems();
+  }
+}
+
 // ===== CC 2 TEMPS =====
 let ccPhase=1;
 function switchCC() {
@@ -1284,18 +1282,15 @@ function switchCC() {
   const btn = document.getElementById('cc-switch-btn');
   const footer = document.getElementById('cc-footer');
   if (t2.style.display === 'none') {
-    t1.style.display = 'none';
-    t2.style.display = 'flex';
+    t1.style.display = 'none'; t2.style.display = 'flex';
     btn.textContent = '← Temps 1 : Situation';
     if (footer) footer.querySelector('span').textContent = 'Temps 2 — Correction';
   } else {
-    t1.style.display = 'flex';
-    t2.style.display = 'none';
+    t1.style.display = 'flex'; t2.style.display = 'none';
     btn.textContent = 'Temps 2 : Correction →';
     if (footer) footer.querySelector('span').textContent = 'Temps 1 — Situation soumise aux élèves';
   }
 }
-
 
 // ===== CHRONO =====
 let cInt=null,cSecs=0,cRun=false;
