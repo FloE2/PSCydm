@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PSC1 — Chapitre 8 : Malaise</title>
+<title>PSC1 — Chapitre 6 : Plaies</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -12,9 +12,9 @@
   --rouge:#c0392b;--rouge-clair:#fdecea;--rouge-bord:#e8a09a;
   --vert:#1a7a4a;--vert-clair:#e8f8ef;--vert-bord:#80cba0;
   --orange:#e67e22;--orange-clair:#fdf3e3;--orange-bord:#f0b060;
-  --violet:#7d3c98;--violet-clair:#f5eef8;--violet-bord:#c39bd3;
-  --teal:#117a65;--teal-clair:#e8f8f5;--teal-bord:#76d7c4;
+  --violet:#6c3483;--violet-clair:#f5eef8;--violet-bord:#c39bd3;
   --gris:#f4f5f7;--gris-bord:#d0d6e0;--texte:#1c2233;--texte-sec:#5a6382;
+  --accent:#8B4513;--accent-clair:#fdf5f0;--accent-bord:#d4956a;
 }
 body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height:100vh;overflow:hidden;display:flex;flex-direction:column}
 
@@ -26,7 +26,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 .pill.active{background:var(--bleu-mid);border-color:var(--bleu-mid);color:white}
 .pill:hover:not(.active){background:#1e2d4a}
 #nav-btns{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.nav-btn{background:#1e2d4a;border:1px solid #2a3f5f;color:#7fa8d4;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;transition:all .2s}
+.nav-btn{background:#1e2d4a;border:1px solid #2a3f5f;color:#7fa8d4;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;transition:all .2s;display:flex;align-items:center;gap:5px}
 .nav-btn:hover{background:var(--bleu-mid);border-color:var(--bleu-mid);color:white}
 #slide-counter{color:#7fa8d4;font-size:11px;font-family:'Outfit',sans-serif;white-space:nowrap}
 
@@ -34,22 +34,24 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 .slide{display:none;background:white;border-radius:16px;width:100%;max-width:980px;position:relative;overflow:hidden}
 .slide.active{display:flex;flex-direction:column}
 
-.slide-header{background:var(--violet);color:white;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:16px}
+.slide-header{background:var(--accent);color:white;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:16px}
 .slide-header .left .sup{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.65;margin-bottom:3px}
 .slide-header h1{font-family:'Outfit',sans-serif;font-size:26px;font-weight:900;line-height:1.1}
 .slide-header h2{font-family:'Outfit',sans-serif;font-size:19px;font-weight:700;line-height:1.2}
 .slide-header .badge-dur{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:8px 14px;text-align:center;flex-shrink:0}
 .slide-header .badge-dur .v{font-family:'Outfit',sans-serif;font-size:24px;font-weight:800}
 .slide-header .badge-dur .l{font-size:10px;opacity:.7;display:block}
+
 .slide-body{flex:1;padding:14px 28px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+
 .slide-footer{padding:7px 28px;border-top:1px solid var(--gris-bord);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--texte-sec);flex-shrink:0;background:var(--gris)}
 .progress-dots{display:flex;gap:5px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--gris-bord);transition:all .3s}
-.dot.active{background:var(--violet)}
-.dot.done{background:#c39bd3}
+.dot.active{background:var(--accent)}
+.dot.done{background:#d4956a}
 
 /* COMMUN */
-.objectif-box{background:var(--violet-clair);border-left:4px solid var(--violet);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;color:var(--violet)}
+.objectif-box{background:var(--accent-clair);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;color:var(--accent)}
 .objectif-box strong{font-family:'Outfit',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:3px;opacity:.7}
 .section-label{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--texte-sec);margin-bottom:6px}
 .alerte-box{background:var(--rouge-clair);border:2px solid var(--rouge);border-radius:10px;padding:9px 14px;display:flex;align-items:flex-start;gap:10px}
@@ -58,133 +60,151 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 .alerte-box p{font-size:11.5px;color:#7a1a10;line-height:1.4}
 .info-box{background:var(--bleu-pale);border:1px solid #a0c0ea;border-radius:10px;padding:9px 14px;font-size:12.5px;color:var(--bleu);line-height:1.5}
 .vert-box{background:var(--vert-clair);border:1px solid var(--vert-bord);border-radius:10px;padding:9px 14px;font-size:12.5px;color:var(--vert);line-height:1.5}
-.violet-box{background:var(--violet-clair);border:1px solid var(--violet-bord);border-radius:10px;padding:9px 14px;font-size:12.5px;color:var(--violet);line-height:1.5}
 
 /* TITRE */
-.titre-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:28px;background:linear-gradient(160deg,#fdf8ff 0%,#f5eef8 100%)}
-.titre-number{font-family:'Outfit',sans-serif;font-size:110px;font-weight:900;color:#e0c8f0;line-height:1;user-select:none}
-.titre-main{font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;color:var(--violet);text-align:center;line-height:1.15}
+.titre-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:28px;background:linear-gradient(160deg,#fdf8f5 0%,#f5e8de 100%)}
+.titre-number{font-family:'Outfit',sans-serif;font-size:110px;font-weight:900;color:#e8d0be;line-height:1;user-select:none}
+.titre-main{font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;color:var(--accent);text-align:center;line-height:1.15}
 .titre-sub{font-size:14px;color:var(--texte-sec);text-align:center;max-width:560px;line-height:1.65}
 .timing-row{display:flex;gap:16px}
 .timing-box{text-align:center;padding:10px 18px;background:white;border:1px solid var(--gris-bord);border-radius:10px}
-.timing-box .tv{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:var(--violet)}
+.timing-box .tv{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:var(--accent)}
 .timing-box .tl{font-size:10px;color:var(--texte-sec);text-transform:uppercase;letter-spacing:1px}
 .chips-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.chip{background:var(--violet-clair);border:1px solid var(--violet-bord);color:var(--violet);border-radius:20px;padding:5px 14px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600}
+.chip{background:var(--accent-clair);border:1px solid var(--accent-bord);color:var(--accent);border-radius:20px;padding:5px 14px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600}
 
-/* SIGNES CARDS */
-.signes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.signe-card{border-radius:12px;padding:12px;border:2px solid;position:relative}
-.signe-card h3{font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.signe-card ul{list-style:none;display:flex;flex-direction:column;gap:3px}
-.signe-card ul li{font-size:11.5px;padding-left:12px;position:relative;line-height:1.4;color:var(--texte-sec)}
-.signe-card ul li::before{content:'·';position:absolute;left:0;font-weight:800}
-.signe-card.urgence{background:#fff0f0;border-color:var(--rouge-bord)}
-.signe-card.urgence h3{color:var(--rouge)}
-.signe-card.urgence .urgence-badge{position:absolute;top:8px;right:8px;background:var(--rouge);color:white;font-family:'Outfit',sans-serif;font-size:9px;font-weight:800;padding:2px 7px;border-radius:20px;letter-spacing:.5px}
-.signe-card.infectieux{background:#fff8e8;border-color:var(--orange-bord)}
-.signe-card.infectieux h3{color:var(--orange)}
-.signe-card.autre{background:var(--gris);border-color:var(--gris-bord)}
-.signe-card.autre h3{color:var(--texte)}
+/* GRILLE PLAIES */
+.plaie-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.plaie-col{border-radius:12px;padding:14px;border:2px solid}
+.plaie-col.simple{background:#f0fdf4;border-color:var(--vert-bord)}
+.plaie-col.grave{background:#fff5f5;border-color:var(--rouge-bord)}
+.plaie-col-title{font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;margin-bottom:8px}
+.plaie-col.simple .plaie-col-title{color:var(--vert)}
+.plaie-col.grave .plaie-col-title{color:var(--rouge)}
+.plaie-col ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.plaie-col ul li{font-size:12px;color:var(--texte-sec);padding-left:14px;position:relative;line-height:1.4}
+.plaie-col ul li::before{position:absolute;left:0;font-size:10px}
+.plaie-col.simple ul li::before{content:'✓';color:var(--vert)}
+.plaie-col.grave ul li::before{content:'⚠';color:var(--rouge)}
 
-/* POSITIONS */
-.pos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.pos-card{border-radius:10px;padding:12px;border:1.5px solid;text-align:center}
-.pos-card .ic{font-size:28px;margin-bottom:6px}
-.pos-card h3{font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;margin-bottom:4px}
-.pos-card p{font-size:11px;line-height:1.4}
-.pos-card.allonge{background:#f0f4ff;border-color:#a0c0ea;color:var(--bleu)}
-.pos-card.allonge p{color:#3a5a9a}
-.pos-card.assise{background:var(--orange-clair);border-color:var(--orange-bord);color:var(--orange)}
-.pos-card.assise p{color:#7a4400}
-.pos-card.mieux{background:var(--vert-clair);border-color:var(--vert-bord);color:var(--vert)}
-.pos-card.mieux p{color:#1a5a3a}
+/* STEPS */
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.step-card{background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:10px;text-align:center}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:white;font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 6px}
+.step-ic{font-size:22px;margin-bottom:5px}
+.step-title{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:var(--texte);margin-bottom:3px}
+.step-desc{font-size:10.5px;color:var(--texte-sec);line-height:1.4}
 
-/* MANŒUVRES */
-.mano-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.mano-card{background:var(--teal-clair);border:1.5px solid var(--teal-bord);border-radius:10px;padding:12px;text-align:center}
-.mano-card .ic{font-size:30px;margin-bottom:6px}
-.mano-card h3{font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:var(--teal);margin-bottom:5px}
-.mano-card p{font-size:11px;color:#1a5a4a;line-height:1.4}
-.mano-card .best{background:var(--teal);color:white;font-family:'Outfit',sans-serif;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;display:inline-block;margin-top:5px}
+/* POSITIONS GRID */
+.pos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pos-card{border-radius:10px;padding:10px;text-align:center;border:1.5px solid}
+.pos-card .ic{font-size:26px;margin-bottom:6px}
+.pos-card h3{font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;margin-bottom:4px}
+.pos-card p{font-size:10.5px;line-height:1.4}
+.pos-card.bras{background:#fff5f5;border-color:var(--rouge-bord);color:var(--rouge)}
+.pos-card.bras p{color:#7a1a10}
+.pos-card.thorax{background:var(--bleu-pale);border-color:#a0c0ea;color:var(--bleu)}
+.pos-card.thorax p{color:#2a4a8a}
+.pos-card.abdo{background:var(--orange-clair);border-color:var(--orange-bord);color:var(--orange)}
+.pos-card.abdo p{color:#7a4400}
+.pos-card.oeil{background:var(--violet-clair);border-color:var(--violet-bord);color:var(--violet)}
+.pos-card.oeil p{color:#4a1a6a}
 
-/* DRAG & DROP */
-.dd-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.dd-pool-label{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--texte-sec);margin-bottom:8px}
-.dd-pool{display:flex;flex-wrap:wrap;gap:6px;min-height:80px;padding:10px;background:var(--gris);border:2px dashed var(--gris-bord);border-radius:10px;align-content:flex-start}
-.dd-item{background:white;border:1.5px solid var(--gris-bord);border-radius:8px;padding:6px 12px;font-size:12px;color:var(--texte);cursor:grab;user-select:none;transition:all .2s;font-family:'Outfit',sans-serif;font-weight:600}
-.dd-item:hover{border-color:var(--violet);color:var(--violet);transform:translateY(-1px)}
-.dd-item.dragging{opacity:.4;cursor:grabbing}
-.dd-item.placed-correct{background:var(--vert-clair);border-color:var(--vert);color:var(--vert);cursor:default}
-.dd-item.placed-wrong{background:var(--rouge-clair);border-color:var(--rouge);color:var(--rouge)}
-.dd-zones{display:flex;flex-direction:column;gap:8px}
-.dd-zone{border-radius:10px;padding:10px;border:2px dashed;min-height:64px;transition:background .2s}
-.dd-zone h4{font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.dd-zone.avc{border-color:var(--rouge-bord);background:#fff8f8}
-.dd-zone.avc h4{color:var(--rouge)}
-.dd-zone.cardiaque{border-color:var(--orange-bord);background:#fff8f0}
-.dd-zone.cardiaque h4{color:var(--orange)}
-.dd-zone.vagal{border-color:var(--teal-bord);background:var(--teal-clair)}
-.dd-zone.vagal h4{color:var(--teal)}
-.dd-zone.infectieux{border-color:var(--gris-bord);background:var(--gris)}
-.dd-zone.infectieux h4{color:var(--texte-sec)}
-.dd-zone.dragover{background:var(--violet-clair);border-color:var(--violet)}
-.dd-zone-items{display:flex;flex-wrap:wrap;gap:4px;min-height:28px}
-.dd-check-btn{background:var(--violet);color:white;border:none;padding:8px 20px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s}
-.dd-check-btn:hover{background:#6c2d8a}
-.dd-reset-btn{background:white;color:var(--texte-sec);border:1.5px solid var(--gris-bord);padding:8px 16px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-left:6px}
-.dd-score{padding:8px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;display:none;margin-top:4px}
+/* CORPS ÉTRANGER */
+.ce-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ce-card{border-radius:10px;padding:12px;border:2px solid}
+.ce-card h3{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;margin-bottom:6px}
+.ce-card ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.ce-card ul li{font-size:12px;padding-left:14px;position:relative;line-height:1.4}
+.ce-card ul li::before{position:absolute;left:0}
+.ce-card.non{background:#fff5f5;border-color:var(--rouge-bord)}
+.ce-card.non h3{color:var(--rouge)}
+.ce-card.non ul li::before{content:'🚫';font-size:10px}
+.ce-card.non ul li{color:#7a1a10}
+.ce-card.oui{background:var(--vert-clair);border-color:var(--vert-bord)}
+.ce-card.oui h3{color:var(--vert)}
+.ce-card.oui ul li::before{content:'✓';color:var(--vert);font-size:11px}
+.ce-card.oui ul li{color:#1a5a3a}
 
-/* CAT STEPS */
-.steps-h{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.step-c{background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:9px;text-align:center}
-.step-n{width:22px;height:22px;border-radius:50%;background:var(--violet);color:white;font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 5px}
-.step-i{font-size:20px;margin-bottom:4px}
-.step-t{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:var(--texte);margin-bottom:2px}
-.step-d{font-size:10px;color:var(--texte-sec);line-height:1.35}
+/* VRAI/FAUX */
+.vf-grid{display:flex;flex-direction:column;gap:8px}
+.vf-item{background:var(--gris);border:1.5px solid var(--gris-bord);border-radius:10px;padding:10px 14px;transition:all .2s}
+.vf-statement{font-size:13px;color:var(--texte);margin-bottom:8px;line-height:1.4}
+.vf-btns{display:flex;gap:8px}
+.vf-btn{flex:1;padding:6px;border-radius:6px;border:1.5px solid var(--gris-bord);background:white;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s}
+.vf-btn:hover:not(:disabled){border-color:#999}
+.vf-btn.selected-v{background:var(--vert-clair);border-color:var(--vert);color:var(--vert)}
+.vf-btn.selected-f{background:var(--rouge-clair);border-color:var(--rouge);color:var(--rouge)}
+.vf-explication{display:none;margin-top:8px;font-size:11.5px;padding:8px 12px;border-radius:6px;line-height:1.5}
+.vf-explication.correct{background:var(--vert-clair);color:var(--vert);border:1px solid var(--vert-bord)}
+.vf-explication.incorrect{background:var(--rouge-clair);color:var(--rouge);border:1px solid var(--rouge-bord)}
+.vf-item.revealed .vf-explication{display:block}
+.score-box{padding:8px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;display:none;margin-top:4px}
 
-/* CC TABS */
-.cc-tabs{display:flex;gap:8px;margin-bottom:12px}
-.cc-tab{padding:8px 16px;border-radius:8px;border:1.5px solid var(--gris-bord);background:var(--gris);font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:var(--texte-sec);cursor:pointer;transition:all .2s}
-.cc-tab.active{background:var(--violet);border-color:var(--violet);color:white}
-.cc-panel{display:none}
-.cc-panel.active{display:block}
+/* PLAIE SIMPLE CAT */
+.simple-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.ss-card{background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:10px;text-align:center}
+.ss-num{width:22px;height:22px;border-radius:50%;background:var(--vert);color:white;font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 5px}
+.ss-ic{font-size:20px;margin-bottom:4px}
+.ss-title{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:var(--texte);margin-bottom:2px}
+.ss-desc{font-size:10px;color:var(--texte-sec);line-height:1.35}
 
-.cc-header{color:white;padding:13px 18px;border-radius:10px;margin-bottom:10px}
-.cc-tag{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:3px}
-.cc-header h3{font-family:'Outfit',sans-serif;font-size:15px;font-weight:800}
-.cc-scene{background:#f0f6ff;border:1.5px solid #a0c0ea;border-radius:10px;padding:12px 16px;font-size:13px;color:var(--texte);line-height:1.6;margin-bottom:8px}
+/* CAS CONCRET */
+.cc-header{background:linear-gradient(135deg,#5a2d0c,#8B4513);color:white;padding:14px 20px;border-radius:12px;margin-bottom:10px}
+.cc-tag{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:4px}
+.cc-header h3{font-family:'Outfit',sans-serif;font-size:16px;font-weight:800}
+.cc-scene{background:#f0f6ff;border:1.5px solid #a0c0ea;border-radius:10px;padding:13px 16px;font-size:13px;color:var(--texte);line-height:1.6}
 .cc-scene strong{color:var(--bleu)}
-.cc-step{background:var(--gris);border:1.5px solid var(--gris-bord);border-radius:10px;overflow:hidden;margin-bottom:6px}
-.cc-step-hd{padding:9px 14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-family:'Outfit',sans-serif;font-size:12.5px;font-weight:700;color:var(--texte);transition:background .2s;user-select:none}
-.cc-step-hd:hover{background:#e8eaf0}
-.chevron{font-size:12px;color:var(--texte-sec);transition:transform .2s}
+.cc-step{background:var(--gris);border:1.5px solid var(--gris-bord);border-radius:10px;overflow:hidden}
+.cc-step-header{padding:10px 14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;color:var(--texte);transition:background .2s;user-select:none}
+.cc-step-header:hover{background:#e8eaf0}
+.cc-step-header .chevron{font-size:12px;color:var(--texte-sec);transition:transform .2s}
 .cc-step.open .chevron{transform:rotate(90deg)}
-.cc-step-body{display:none;padding:9px 14px;font-size:12px;color:var(--texte-sec);line-height:1.6;border-top:1px solid var(--gris-bord)}
+.cc-step-body{display:none;padding:10px 14px;font-size:12.5px;color:var(--texte-sec);line-height:1.6;border-top:1px solid var(--gris-bord)}
 .cc-step.open .cc-step-body{display:block}
-.cc-step.ok .cc-step-hd{background:var(--vert-clair);color:var(--vert)}
+.cc-step.ok .cc-step-header{background:var(--vert-clair);color:var(--vert)}
 .cc-step.ok .cc-step-body{background:#f5fdf9;border-color:var(--vert-bord)}
-.debrief-box{background:linear-gradient(135deg,#1a3a6b,#0d1f3c);color:white;border-radius:10px;padding:12px 16px;font-size:12px;line-height:1.6;margin-top:8px}
-.debrief-box h4{font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:5px}
-.cc-t2-toggle{background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.4);color:white;padding:6px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.debrief-box{background:linear-gradient(135deg,#1a3a6b,#0d1f3c);color:white;border-radius:10px;padding:14px 16px;font-size:12.5px;line-height:1.6}
+.debrief-box h4{font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+
+    /* FCC */
+    .fcc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
+    .fcc-wrap.single{grid-template-columns:1fr}
+    .fcc-box{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.2);border-radius:9px;padding:9px 11px}
+    .fcc-box.span2{grid-column:1/-1}
+    .fcc-lbl{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);margin-bottom:3px;font-family:'Outfit',sans-serif}
+    .fcc-val{font-size:11.5px;color:rgba(255,255,255,.9);line-height:1.45}
+    .fcc-row{display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;font-size:11px;color:rgba(255,255,255,.85);line-height:1.4}
+    .fcc-row:last-child{margin-bottom:0}
+    .fcc-ico{font-size:13px;flex-shrink:0}
+    .fcc-row b{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);font-weight:700;margin-bottom:1px}
+    .fcc-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+    .fcc-chip{background:rgba(255,255,255,.11);border:.5px solid rgba(255,255,255,.22);border-radius:5px;padding:1px 7px;font-size:10px;color:rgba(255,255,255,.82)}
+    .fcc-sep{height:1px;background:rgba(255,255,255,.1);margin:7px 0}
+
+    /* CC slide - use full height to avoid scroll */
+    .slide-body { overflow-y: auto; }
+    #cc-t1, [id$="-t1"] { overflow-y: visible; }
+    .fcc-wrap { font-size: 11px; }
 </style>
 </head>
 <body>
 
 <div id="nav">
-  <div class="logo">😮 <span>PSC1</span> · Malaise</div>
+  <div class="logo">🩹 <span>PSC1</span> · Plaies</div>
   <div id="nav-pills">
     <div class="pill" onclick="goToDashboard()" style="border-color:#1a5a35;color:#80cba0;">← Dashboard</div>
     <div class="pill active" onclick="goSlide(0)">Titre</div>
-    <div class="pill" onclick="goSlide(1)">Signes à reconnaître</div>
-    <div class="pill" onclick="goSlide(2)">CAT générale</div>
+    <div class="pill" onclick="goSlide(1)">Plaie simple / grave</div>
+    <div class="pill" onclick="goSlide(2)">Corps étranger</div>
     <div class="pill" onclick="goSlide(3)">Positions d'attente</div>
-    <div class="pill" onclick="goSlide(4)">Manœuvres vagales</div>
-    <div class="pill" onclick="goSlide(5)">🎯 Associer malaise → signes</div>
-    <div class="pill" onclick="goSlide(6)">Cas Concrets</div>
+    <div class="pill" onclick="goSlide(4)">CAT plaie simple</div>
+    <div class="pill" onclick="goSlide(5)">Vrai / Faux</div>
+    <div class="pill" onclick="goSlide(6)">🛡️ Protection &amp; Alerte</div>
+    <div class="pill" onclick="goSlide(7)">Cas Concret</div>
   </div>
   <div id="nav-btns">
-    <div id="slide-counter">1 / 7</div>
+    <div id="slide-counter">1 / 8</div>
     <button class="nav-btn" onclick="prevSlide()">← Préc.</button>
     <button class="nav-btn" onclick="nextSlide()">Suiv. →</button>
   </div>
@@ -195,584 +215,647 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
   <!-- SLIDE 0 : TITRE -->
   <div class="slide active">
     <div class="titre-body">
-      <div class="titre-number">8</div>
-      <div class="titre-main">😮 Malaise</div>
-      <div class="titre-sub">Reconnaître les signes · Mettre au repos en position adaptée · Questionner · Avis médical · Manœuvres vagales</div>
+      <div class="titre-number">6</div>
+      <div class="titre-main">🩹 Plaies</div>
+      <div class="titre-sub">Évaluer la gravité · Ne jamais retirer un corps étranger · Installer en position d'attente · Alerter et surveiller</div>
       <div class="timing-row">
-        <div class="timing-box"><div class="tv">25'</div><div class="tl">Durée estimée</div></div>
-        <div class="timing-box"><div class="tv">2</div><div class="tl">Cas concrets</div></div>
+        <div class="timing-box"><div class="tv">20'</div><div class="tl">Durée estimée</div></div>
+        <div class="timing-box"><div class="tv">1</div><div class="tl">Cas concret</div></div>
         <div class="timing-box"><div class="tv">5e</div><div class="tl">Classe</div></div>
       </div>
       <div class="chips-row">
         <span class="chip">REFOR CAT</span>
-        <span class="chip">APG(M)</span>
-        <span class="chip">Compétence I</span>
-        <span class="chip">AVC · Diabète</span>
+        <span class="chip">Compétence F</span>
+        <span class="chip">Corps étranger</span>
+        <span class="chip">Position allongée</span>
       </div>
     </div>
     <div class="slide-footer">
       <span>Scénario 5 — Collège Yves du Manoir · Vaucresson</span>
       <div class="progress-dots" id="dots0"></div>
-      <span>Chapitre 8 / 10</span>
+      <span>Chapitre 6 / 10</span>
     </div>
   </div>
 
-  <!-- SLIDE 1 : SIGNES -->
+  <!-- SLIDE 1 : PLAIE SIMPLE VS GRAVE -->
   <div class="slide">
     <div class="slide-header">
       <div class="left">
-        <div class="sup">Chapitre 8 · Reconnaître</div>
-        <h1>Quels signes observer ?</h1>
+        <div class="sup">Chapitre 6 · Définition</div>
+        <h1>Plaie simple ou grave ?</h1>
       </div>
-      <div class="badge-dur"><div class="v">👁️</div><div class="l">Observer</div></div>
+      <div class="badge-dur"><div class="v">🔍</div><div class="l">Évaluer</div></div>
     </div>
     <div class="slide-body">
       <div class="objectif-box">
         <strong>Objectif</strong>
-        Identifier les signes d'un malaise pour reconnaître les urgences absolues (AVC, accident cardiaque) et transmettre les bonnes informations aux secours.
+        Savoir distinguer une plaie simple d'une plaie grave pour adapter sa conduite à tenir.
       </div>
-      <div class="signes-grid">
-        <div class="signe-card urgence">
-          <div class="urgence-badge">⚡ ALERTE IMMÉDIATE</div>
-          <h3>❤️ Accident cardiaque</h3>
+      <div class="plaie-compare">
+        <div class="plaie-col simple">
+          <div class="plaie-col-title">✅ Plaie simple</div>
           <ul>
-            <li>Douleur dans la poitrine (serre, oppresse)</li>
-            <li>Irradiation vers le bras gauche, la mâchoire</li>
-            <li>Pâleur, sueurs, sensation de malaise intense</li>
+            <li>Petite coupure superficielle</li>
+            <li>Éraflure saignant peu</li>
+            <li>Pas de corps étranger</li>
+            <li>Localisation sans risque (bras, jambe, surface)</li>
+            <li>Saignement qui s'arrête facilement</li>
           </ul>
+          <div style="margin-top:8px;font-size:11px;color:var(--vert);font-weight:600">→ Je soigne moi-même avec un antiseptique</div>
         </div>
-        <div class="signe-card urgence">
-          <div class="urgence-badge">⚡ ALERTE IMMÉDIATE</div>
-          <h3>🧠 AVC</h3>
+        <div class="plaie-col grave">
+          <div class="plaie-col-title">⚠️ Plaie grave</div>
           <ul>
-            <li>Faiblesse ou paralysie d'un bras</li>
-            <li>Déformation du visage (bouche tordue)</li>
-            <li>Perte de vision d'un œil ou des deux</li>
-            <li>Difficulté à parler ou à comprendre</li>
-            <li>Mal de tête sévère et inhabituel</li>
-            <li>Perte d'équilibre, chute inexpliquée</li>
+            <li>Hémorragie associée (saignement abondant)</li>
+            <li>Corps étranger planté (verre, couteau, clou…)</li>
+            <li>Mécanisme pénétrant (objet tranchant, morsure)</li>
+            <li>Localisation dangereuse : thorax, abdomen, œil, près d'un orifice naturel</li>
+            <li>Aspect déchiqueté ou écrasé</li>
           </ul>
+          <div style="margin-top:8px;font-size:11px;color:var(--rouge);font-weight:600">→ Alerter les secours immédiatement</div>
         </div>
-        <div class="signe-card infectieux">
-          <h3>🦠 Maladie infectieuse</h3>
-          <ul>
-            <li>Fièvre (&gt;37,8°C) ou sensation de fièvre</li>
-            <li>Frissons, sueurs abondantes</li>
-            <li>Courbatures, fatigue intense</li>
-          </ul>
+      </div>
+      <div class="alerte-box">
+        <div class="alerte-icon">🦠</div>
+        <div>
+          <h3>Risque d'infection — pensez au tétanos</h3>
+          <p>Toute plaie, même simple, peut s'infecter. Le tétanos est une maladie grave, parfois mortelle. Seule la <strong>vaccination antitétanique</strong> protège. Conseiller de vérifier la validité du vaccin.</p>
         </div>
-        <div class="signe-card autre" style="grid-column:1/-1">
-          <h3>😣 Autres signes possibles</h3>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:4px">
-            <div style="font-size:11.5px;color:var(--texte-sec)">· Douleur abdominale intense</div>
-            <div style="font-size:11.5px;color:var(--texte-sec)">· Difficulté à respirer ou à parler</div>
-            <div style="font-size:11.5px;color:var(--texte-sec)">· Sensation de froid · sueurs · pâleur</div>
-            <div style="font-size:11.5px;color:var(--texte-sec)">· Étourdissements · nausées · points noirs</div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Plaie simple vs grave</span>
+      <div class="progress-dots" id="dots1"></div>
+      <span>Slide 2/8</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 : CORPS ÉTRANGER -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left">
+        <div class="sup">Chapitre 6 · Règle absolue</div>
+        <h2>🚫 Ne jamais retirer un corps étranger</h2>
+      </div>
+      <div class="badge-dur"><div class="v">🔒</div><div class="l">Règle n°1</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="alerte-box" style="border-width:3px">
+        <div class="alerte-icon">🚫</div>
+        <div>
+          <h3>RÈGLE ABSOLUE : ne jamais retirer le corps étranger</h3>
+          <p>Qu'il s'agisse d'un éclat de verre, d'un couteau, d'un clou ou d'une branche — <strong>retirer un corps étranger planté peut provoquer une hémorragie grave</strong> en libérant les vaisseaux qu'il comprimait.</p>
+        </div>
+      </div>
+
+      <div style="background:#fff8f0;border:2px solid var(--accent-bord);border-radius:12px;padding:14px 18px">
+        <div class="section-label" style="color:var(--accent)">🍷 Cas concret : éclat de verre dans le bras</div>
+        <div style="font-size:13px;color:var(--texte);line-height:1.65">
+          Ton ami a trébuché sur une bouteille cassée. Un gros éclat de verre est planté dans son avant-bras. Il saigne autour, mais l'éclat tient bien en place.
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+          <div style="background:var(--rouge-clair);border:1.5px solid var(--rouge-bord);border-radius:8px;padding:10px">
+            <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:var(--rouge);margin-bottom:4px">❌ Ce qu'il NE faut PAS faire</div>
+            <ul style="list-style:none;font-size:11.5px;color:#7a1a10;display:flex;flex-direction:column;gap:3px">
+              <li>🚫 Retirer l'éclat de verre</li>
+              <li>🚫 Appuyer dessus</li>
+              <li>🚫 Tenter de l'enfoncer davantage</li>
+              <li>🚫 Nettoyer autour avec des cotons</li>
+            </ul>
+          </div>
+          <div style="background:var(--vert-clair);border:1.5px solid var(--vert-bord);border-radius:8px;padding:10px">
+            <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:var(--vert);margin-bottom:4px">✅ Ce qu'il faut faire</div>
+            <ul style="list-style:none;font-size:11.5px;color:#1a5a3a;display:flex;flex-direction:column;gap:3px">
+              <li>✓ Laisser le verre en place</li>
+              <li>✓ Comprimer autour si ça saigne (pas sur l'éclat)</li>
+              <li>✓ Allonger la victime</li>
+              <li>✓ Alerter les secours (15 / 18 / 112)</li>
+              <li>✓ Surveiller et rassurer</li>
+            </ul>
           </div>
         </div>
       </div>
-      <div class="alerte-box">
-        <div class="alerte-icon">⚡</div>
-        <div>
-          <h3>AVC et accident cardiaque = urgences absolues</h3>
-          <p>L'apparition d'un seul de ces signes impose une <strong>alerte immédiate au 15</strong>. Chaque minute compte : pour l'AVC, le cerveau perd des millions de neurones par minute sans traitement.</p>
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer">
-      <span>Signes à reconnaître</span>
-      <div class="progress-dots" id="dots1"></div>
-      <span>Slide 2/7</span>
-    </div>
-  </div>
 
-  <!-- SLIDE 2 : CAT GÉNÉRALE -->
-  <div class="slide">
-    <div class="slide-header">
-      <div class="left">
-        <div class="sup">Chapitre 8 · Conduite à tenir</div>
-        <h2>CAT face à un malaise — étapes clés</h2>
-      </div>
-      <div class="badge-dur"><div class="v">📋</div><div class="l">CAT</div></div>
-    </div>
-    <div class="slide-body">
-      <div class="steps-h">
-        <div class="step-c">
-          <div class="step-n">1</div>
-          <div class="step-i">👁️</div>
-          <div class="step-t">Observer les signes</div>
-          <div class="step-d">AVC ? Cardiaque ? Autre ? Identifier pour orienter les secours.</div>
+      <div class="ce-grid">
+        <div class="ce-card non">
+          <h3>🚫 Jamais retiré par le sauveteur</h3>
+          <ul>
+            <li>Éclat de verre planté</li>
+            <li>Couteau ou lame</li>
+            <li>Clou, branche, objet pointu</li>
+            <li>Tout objet pénétrant profond</li>
+          </ul>
         </div>
-        <div class="step-c">
-          <div class="step-n">2</div>
-          <div class="step-i">🛏️</div>
-          <div class="step-t">Mettre au repos</div>
-          <div class="step-d">Position adaptée (allongée, assise ou celle où elle se sent le mieux). Desserrer les vêtements.</div>
-        </div>
-        <div class="step-c">
-          <div class="step-n">3</div>
-          <div class="step-i">❓</div>
-          <div class="step-t">Questionner</div>
-          <div class="step-d">Âge · durée du malaise · antécédents · traitements · hospitalisations récentes.</div>
-        </div>
-        <div class="step-c">
-          <div class="step-n">4</div>
-          <div class="step-i">📞</div>
-          <div class="step-t">Avis médical</div>
-          <div class="step-d">15, 18 ou 112. Transmettre les infos recueillies. Le médecin peut parler directement à la victime.</div>
-        </div>
-        <div class="step-c">
-          <div class="step-n">5</div>
-          <div class="step-i">💊</div>
-          <div class="step-t">Aider à la prise de traitement</div>
-          <div class="step-d">À sa demande ou sur conseil médical : traitement habituel ou sucre en morceaux.</div>
-        </div>
-      </div>
-      <div class="vert-box">
-        💊 <strong>Aider à la prise de traitement</strong> : on aide uniquement si la victime le demande ou si les secours le prescrivent. Pour un diabétique : donner du <strong>sucre en morceaux</strong> si la victime est consciente et peut avaler.
-      </div>
-      <div class="info-box">
-        🔁 <strong>En cas d'aggravation</strong> : si la victime perd connaissance → appliquer la CAT perte de connaissance (Ch.9) et recontacter les secours pour signaler l'aggravation.
-      </div>
-      <div class="alerte-box">
-        <div class="alerte-icon">🌡️</div>
-        <div>
-          <h3>Maladie infectieuse — mesures barrières</h3>
-          <p>En période épidémique : appliquer les mesures barrières, proposer un masque à la victime (le retirer si cela gêne sa respiration). Respecter la distance physique autant que possible.</p>
+        <div class="ce-card oui">
+          <h3>✅ Le corps étranger est retiré uniquement par</h3>
+          <ul>
+            <li>Les secours médicaux (SAMU, pompiers)</li>
+            <li>Un médecin, aux urgences</li>
+            <li>Jamais sur le terrain par un sauveteur non formé</li>
+          </ul>
         </div>
       </div>
     </div>
     <div class="slide-footer">
-      <span>CAT face à un malaise</span>
+      <span>Corps étranger — ne jamais retirer</span>
       <div class="progress-dots" id="dots2"></div>
-      <span>Slide 3/7</span>
+      <span>Slide 3/8</span>
     </div>
   </div>
 
-  <!-- SLIDE 3 : POSITIONS -->
+  <!-- SLIDE 3 : POSITIONS D'ATTENTE -->
   <div class="slide">
     <div class="slide-header">
       <div class="left">
-        <div class="sup">Chapitre 8 · Position d'attente</div>
-        <h2>Quelle position selon le malaise ?</h2>
+        <div class="sup">Chapitre 6 · Plaie grave — CAT</div>
+        <h2>Quelle position d'attente selon la plaie ?</h2>
       </div>
       <div class="badge-dur"><div class="v">🛏️</div><div class="l">Position</div></div>
     </div>
     <div class="slide-body">
+      <div class="info-box">
+        📍 La position d'attente dépend de la <strong>localisation</strong> de la plaie. Elle vise à prévenir les complications et à faciliter la respiration ou la circulation.
+      </div>
       <div class="pos-grid">
-        <div class="pos-card allonge">
-          <div class="ic">🛏️</div>
-          <h3>Allongée confortablement</h3>
-          <p>Position par défaut · Lit, canapé ou sol · Prévient les détresses circulatoires · Permet de récupérer</p>
-          <div style="margin-top:6px;font-size:10px;font-weight:600;color:var(--bleu-mid)">→ Malaise général, douleur poitrine</div>
+        <div class="pos-card bras">
+          <div class="ic">💪</div>
+          <h3>Membre, tronc (général)</h3>
+          <p><strong>Allongée</strong><br>sur le sol ou canapé<br>Position la plus fréquente</p>
         </div>
-        <div class="pos-card assise">
-          <div class="ic">🪑</div>
-          <h3>Assise</h3>
-          <p>Si difficultés à respirer · Facilite la ventilation · Laisser la victime choisir son appui</p>
-          <div style="margin-top:6px;font-size:10px;font-weight:600;color:#7a4400">→ Gêne respiratoire, essoufflement</div>
+        <div class="pos-card thorax">
+          <div class="ic">🫁</div>
+          <h3>Plaie au thorax</h3>
+          <p><strong>Assise</strong><br>en laissant la plaie à l'air libre<br>Facilite la respiration</p>
         </div>
-        <div class="pos-card mieux">
-          <div class="ic">🤷</div>
-          <h3>Où elle se sent le mieux</h3>
-          <p>Si aucune contre-indication · Respecter le choix de la victime · Ne pas forcer une position</p>
-          <div style="margin-top:6px;font-size:10px;font-weight:600;color:#1a5a3a">→ Malaise de confort, nausées</div>
+        <div class="pos-card abdo">
+          <div class="ic">🤰</div>
+          <h3>Plaie à l'abdomen</h3>
+          <p><strong>Allongée</strong><br>jambes <strong>fléchies</strong><br>Relâche les muscles abdominaux → diminue la douleur</p>
+        </div>
+        <div class="pos-card oeil">
+          <div class="ic">👁️</div>
+          <h3>Plaie à l'œil</h3>
+          <p><strong>Allongée</strong>, yeux fermés<br>Ne pas bouger la tête<br>Maintenir tête à 2 mains si possible</p>
         </div>
       </div>
-      <div class="violet-box">
-        💡 <strong>Règle générale :</strong> ne jamais laisser la victime debout ou seule. Même si elle dit "ça va", l'installer et rester avec elle jusqu'à l'avis médical.
-      </div>
-      <div class="section-label" style="margin-top:4px">Ce qu'il faut recueillir pour les secours</div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
-        <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:8px;padding:9px;text-align:center;font-size:11px;color:var(--texte-sec)">
-          <div style="font-size:18px;margin-bottom:4px">🎂</div><strong style="color:var(--texte)">Âge</strong>
+      <div class="steps-grid" style="grid-template-columns:repeat(4,1fr)">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-ic">🛡️</div>
+          <div class="step-title">Protéger</div>
+          <div class="step-desc">Sécuriser la zone, écarter les dangers (verre, objet tranchant…)</div>
         </div>
-        <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:8px;padding:9px;text-align:center;font-size:11px;color:var(--texte-sec)">
-          <div style="font-size:18px;margin-bottom:4px">⏱️</div><strong style="color:var(--texte)">Durée du malaise</strong>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-ic">🚫</div>
+          <div class="step-title">Ne pas retirer</div>
+          <div class="step-desc">Laisser tout corps étranger en place. Comprimer autour si saignement.</div>
         </div>
-        <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:8px;padding:9px;text-align:center;font-size:11px;color:var(--texte-sec)">
-          <div style="font-size:18px;margin-bottom:4px">📋</div><strong style="color:var(--texte)">Antécédents &amp; traitements</strong>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-ic">🛏️</div>
+          <div class="step-title">Installer</div>
+          <div class="step-desc">Choisir la bonne position selon localisation de la plaie.</div>
         </div>
-        <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:8px;padding:9px;text-align:center;font-size:11px;color:var(--texte-sec)">
-          <div style="font-size:18px;margin-bottom:4px">🏥</div><strong style="color:var(--texte)">Hospitalisations récentes</strong>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-ic">📞</div>
+          <div class="step-title">Alerter &amp; surveiller</div>
+          <div class="step-desc">15 / 18 / 112 · Rassurer · Protéger du froid · Surveiller jusqu'aux secours.</div>
         </div>
       </div>
     </div>
     <div class="slide-footer">
-      <span>Positions d'attente</span>
+      <span>Positions d'attente selon la localisation</span>
       <div class="progress-dots" id="dots3"></div>
-      <span>Slide 4/7</span>
+      <span>Slide 4/8</span>
     </div>
   </div>
 
-  <!-- SLIDE 4 : MANŒUVRES VAGALES -->
+  <!-- SLIDE 4 : CAT PLAIE SIMPLE -->
   <div class="slide">
-    <div class="slide-header" style="background:var(--teal)">
+    <div class="slide-header">
       <div class="left">
-        <div class="sup">Chapitre 8 · Cas particulier</div>
-        <h2>🔄 Manœuvres physiques — malaise vagal</h2>
+        <div class="sup">Chapitre 6 · Plaie simple</div>
+        <h2>Je soigne une plaie simple — étape par étape</h2>
       </div>
-      <div class="badge-dur"><div class="v">🤸</div><div class="l">Vagal</div></div>
+      <div class="badge-dur"><div class="v">🩹</div><div class="l">Geste simple</div></div>
     </div>
     <div class="slide-body">
-      <div class="info-box">
-        Le malaise vagal est une perte de connaissance imminente due à une chute de la pression artérielle. La victime ressent : <strong>étourdissements · nausées · sueurs · points noirs · sentiment de "tomber"</strong>. Elle sait souvent qu'elle fait des malaises vagaux.
-      </div>
-      <div class="section-label">3 manœuvres physiques — à faire réaliser par la victime elle-même</div>
-      <div class="mano-grid">
-        <div class="mano-card">
-          <div class="ic">🙇</div>
-          <h3>Accroupissement</h3>
-          <p>Se placer en position accroupie · Baisser la tête entre les deux genoux · Peut précéder la mise en position allongée</p>
-        </div>
-        <div class="mano-card">
-          <div class="ic">🦵</div>
-          <h3>Croisement des membres inférieurs</h3>
-          <p>Croiser les jambes · Contracter les muscles en essayant de tendre les jambes · Serrer les fesses · Contracter l'abdomen</p>
-          <div class="best">⭐ Efficacité supérieure</div>
-        </div>
-        <div class="mano-card">
-          <div class="ic">🤝</div>
-          <h3>Crochetage des doigts</h3>
-          <p>Agripper les deux mains par les doigts en crochet · Écarter les coudes · Tirer comme pour séparer les mains · Contracter les bras</p>
-        </div>
-      </div>
       <div class="vert-box">
-        ✅ Ces manœuvres agissent sur la circulation pour éviter la perte de connaissance. Elles sont <strong>complémentaires</strong> à la mise en position allongée — pas un remplacement. Les poursuivre même après s'être allongé.
+        ✅ Une plaie simple (petite coupure, éraflure) peut être soignée directement. Pas besoin d'appeler les secours si le saignement s'arrête rapidement.
+      </div>
+      <div class="simple-steps">
+        <div class="ss-card">
+          <div class="ss-num">1</div>
+          <div class="ss-ic">🤲</div>
+          <div class="ss-title">Se laver les mains</div>
+          <div class="ss-desc">À l'eau et au savon avant de toucher la plaie.</div>
+        </div>
+        <div class="ss-card">
+          <div class="ss-num">2</div>
+          <div class="ss-ic">🚿</div>
+          <div class="ss-title">Rincer abondamment</div>
+          <div class="ss-desc">À l'eau courante, avec ou sans savon. Utiliser une compresse si besoin pour enlever les souillures.</div>
+        </div>
+        <div class="ss-card">
+          <div class="ss-num">3</div>
+          <div class="ss-ic">🧴</div>
+          <div class="ss-title">Désinfecter</div>
+          <div class="ss-desc">Appliquer un antiseptique (facultatif si eau disponible).</div>
+        </div>
+        <div class="ss-card">
+          <div class="ss-num">4</div>
+          <div class="ss-ic">🩹</div>
+          <div class="ss-title">Protéger</div>
+          <div class="ss-desc">Couvrir avec un pansement adhésif propre.</div>
+        </div>
+        <div class="ss-card">
+          <div class="ss-num">5</div>
+          <div class="ss-ic">⚕️</div>
+          <div class="ss-title">Conseiller un médecin</div>
+          <div class="ss-desc">Pour vérifier le vaccin antitétanique · Si fièvre ou rougeur apparaissent dans les jours suivants.</div>
+        </div>
       </div>
       <div class="alerte-box">
         <div class="alerte-icon">⚠️</div>
         <div>
-          <h3>Si impossible d'allonger immédiatement</h3>
-          <p>Dans un bus, un avion, un couloir étroit : les manœuvres <strong>peuvent précéder</strong> la mise en position allongée. Dès que possible, allonger la victime.</p>
+          <h3>Quand la plaie simple devient grave…</h3>
+          <p>Si le saignement ne s'arrête pas · Si la plaie est profonde ou très large · Si un corps étranger est présent → appliquer la <strong>conduite à tenir plaie grave</strong> et alerter les secours.</p>
         </div>
       </div>
     </div>
     <div class="slide-footer">
-      <span>Manœuvres physiques — malaise vagal</span>
+      <span>CAT plaie simple</span>
       <div class="progress-dots" id="dots4"></div>
-      <span>Slide 5/7</span>
+      <span>Slide 5/8</span>
     </div>
   </div>
 
-  <!-- SLIDE 5 : DRAG & DROP -->
+  <!-- SLIDE 5 : VRAI/FAUX -->
   <div class="slide">
     <div class="slide-header">
       <div class="left">
-        <div class="sup">Chapitre 8 · Activité interactive</div>
-        <h2>🎯 Associe chaque signe au bon malaise</h2>
+        <div class="sup">Chapitre 6 · Idées reçues</div>
+        <h2>Plaies — Vrai ou Faux ?</h2>
       </div>
-      <div class="badge-dur"><div class="v">🎯</div><div class="l">Exercice</div></div>
+      <div class="badge-dur"><div class="v">🧠</div><div class="l">Idées reçues</div></div>
     </div>
-    <div class="slide-body" style="padding:10px 14px">
-      <div class="info-box" style="margin-bottom:8px;font-size:12px">
-        👇 Fais glisser chaque signe vers le malaise correspondant. Un signe peut appartenir à une seule catégorie.
+    <div class="slide-body">
+      <div class="info-box" style="margin-bottom:4px">
+        👇 Clique sur <strong>VRAI</strong> ou <strong>FAUX</strong> pour chaque affirmation.
       </div>
-      <div class="dd-wrap">
-        <div>
-          <div class="dd-pool-label">Signes à placer</div>
-          <div class="dd-pool" id="dd-pool">
-            <div class="dd-item" draggable="true" data-id="s1" data-correct="avc">Bouche déformée</div>
-            <div class="dd-item" draggable="true" data-id="s2" data-correct="cardiaque">Douleur qui serre la poitrine</div>
-            <div class="dd-item" draggable="true" data-id="s3" data-correct="avc">Bras paralysé</div>
-            <div class="dd-item" draggable="true" data-id="s4" data-correct="vagal">Points noirs devant les yeux</div>
-            <div class="dd-item" draggable="true" data-id="s5" data-correct="infectieux">Fièvre + frissons</div>
-            <div class="dd-item" draggable="true" data-id="s6" data-correct="avc">Difficulté à parler</div>
-            <div class="dd-item" draggable="true" data-id="s7" data-correct="cardiaque">Sueurs + pâleur intense</div>
-            <div class="dd-item" draggable="true" data-id="s8" data-correct="vagal">Sensation de tomber imminente</div>
-            <div class="dd-item" draggable="true" data-id="s9" data-correct="infectieux">Courbatures + fatigue intense</div>
-            <div class="dd-item" draggable="true" data-id="s10" data-correct="avc">Mal de tête sévère inhabituel</div>
+      <div class="vf-grid">
+
+        <div class="vf-item" id="vf1">
+          <div class="vf-statement">💬 « Si un éclat de verre est planté dans le bras, il faut l'enlever doucement pour nettoyer la plaie. »</div>
+          <div class="vf-btns">
+            <button class="vf-btn" onclick="answerVF('vf1',true,false)">✅ VRAI</button>
+            <button class="vf-btn" onclick="answerVF('vf1',false,false)">❌ FAUX</button>
           </div>
+          <div class="vf-explication incorrect">❌ FAUX. Il ne faut <strong>jamais retirer un corps étranger planté</strong>. Le retirer pourrait provoquer une hémorragie grave en libérant les vaisseaux sanguins qu'il comprime.</div>
         </div>
-        <div class="dd-zones">
-          <div class="dd-zone avc" data-zone="avc" ondragover="allowDrop(event)" ondrop="dropItem(event)">
-            <h4>🧠 AVC</h4>
-            <div class="dd-zone-items" id="zone-avc"></div>
+
+        <div class="vf-item" id="vf2">
+          <div class="vf-statement">💬 « Pour une plaie au thorax, on allonge la victime à plat. »</div>
+          <div class="vf-btns">
+            <button class="vf-btn" onclick="answerVF('vf2',true,false)">✅ VRAI</button>
+            <button class="vf-btn" onclick="answerVF('vf2',false,true)">❌ FAUX</button>
           </div>
-          <div class="dd-zone cardiaque" data-zone="cardiaque" ondragover="allowDrop(event)" ondrop="dropItem(event)">
-            <h4>❤️ Accident cardiaque</h4>
-            <div class="dd-zone-items" id="zone-cardiaque"></div>
-          </div>
-          <div class="dd-zone vagal" data-zone="vagal" ondragover="allowDrop(event)" ondrop="dropItem(event)">
-            <h4>😵 Malaise vagal</h4>
-            <div class="dd-zone-items" id="zone-vagal"></div>
-          </div>
-          <div class="dd-zone infectieux" data-zone="infectieux" ondragover="allowDrop(event)" ondrop="dropItem(event)">
-            <h4>🦠 Maladie infectieuse</h4>
-            <div class="dd-zone-items" id="zone-infectieux"></div>
-          </div>
+          <div class="vf-explication correct">✅ FAUX. Pour une plaie au thorax, on installe la victime en position <strong>assise</strong>, en laissant la plaie à l'air libre. Cela facilite la respiration.</div>
         </div>
+
+        <div class="vf-item" id="vf3">
+          <div class="vf-statement">💬 « Une simple éraflure qui s'arrête de saigner seule n'est pas une hémorragie. »</div>
+          <div class="vf-btns">
+            <button class="vf-btn" onclick="answerVF('vf3',true,true)">✅ VRAI</button>
+            <button class="vf-btn" onclick="answerVF('vf3',false,false)">❌ FAUX</button>
+          </div>
+          <div class="vf-explication correct">✅ VRAI. Une hémorragie ne s'arrête pas spontanément et imprègne un mouchoir en quelques secondes. Une éraflure qui s'arrête seule est une <strong>plaie simple</strong>, pas une hémorragie.</div>
+        </div>
+
+        <div class="vf-item" id="vf4">
+          <div class="vf-statement">💬 « Pour une plaie à l'abdomen, on allonge la victime les jambes fléchies. »</div>
+          <div class="vf-btns">
+            <button class="vf-btn" onclick="answerVF('vf4',true,true)">✅ VRAI</button>
+            <button class="vf-btn" onclick="answerVF('vf4',false,false)">❌ FAUX</button>
+          </div>
+          <div class="vf-explication correct">✅ VRAI. Les jambes fléchies permettent de <strong>relâcher les muscles abdominaux</strong>, ce qui diminue la douleur et les risques de complications.</div>
+        </div>
+
+        <div class="vf-item" id="vf5">
+          <div class="vf-statement">💬 « Pour une plaie à l'œil, on ferme les deux yeux et on évite de bouger la tête. »</div>
+          <div class="vf-btns">
+            <button class="vf-btn" onclick="answerVF('vf5',true,true)">✅ VRAI</button>
+            <button class="vf-btn" onclick="answerVF('vf5',false,false)">❌ FAUX</button>
+          </div>
+          <div class="vf-explication correct">✅ VRAI. Fermer les yeux et immobiliser la tête <strong>limite le risque d'aggravation de la lésion oculaire</strong>. Maintenir la tête à deux mains si possible.</div>
+        </div>
+
       </div>
-      <div style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap">
-        <button class="dd-check-btn" onclick="checkDD()">✓ Vérifier</button>
-        <button class="dd-reset-btn" onclick="resetDD()">↺ Recommencer</button>
-        <div class="dd-score" id="dd-score"></div>
-      </div>
+      <div class="score-box" id="vf-score"></div>
     </div>
     <div class="slide-footer">
-      <span>Exercice — Associer malaise et signes</span>
+      <span>Vrai / Faux — Plaies</span>
       <div class="progress-dots" id="dots5"></div>
-      <span>Slide 6/7</span>
+      <span>Slide 6/8</span>
     </div>
   </div>
 
-  <!-- SLIDE 6 : CAS CONCRETS -->
+  <!-- SLIDE 6 : PROTECTION & ALERTE -->
   <div class="slide">
-    <div class="slide-header" style="background:linear-gradient(135deg,var(--violet),#4a1a6a)">
+    <div class="slide-header" style="background:#2558a8">
       <div class="left">
-        <div class="sup">Chapitre 8 · Activité d'application · Compétence I</div>
-        <h2>Cas Concrets</h2>
+        <div class="sup">Chapitre 6 · Rappel transversal</div>
+        <h2>🛡️ Protéger · Alerter · Surveiller</h2>
       </div>
-      <div class="badge-dur"><div class="v">2</div><div class="l">CC</div></div>
+      <div class="badge-dur"><div class="v">📞</div><div class="l">Rappel</div></div>
     </div>
     <div class="slide-body">
-      <div class="cc-tabs">
-        <button class="cc-tab active" onclick="switchTab('cc1')">CC 1 — AVC</button>
-        <button class="cc-tab" onclick="switchTab('cc2')">CC 2 — Diabète grand-mère</button>
-      </div>
-
-      <!-- CC1 : AVC -->
-      <div class="cc-panel active" id="cc1">
-        <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
-          <button class="cc-t2-toggle" id="t1-btn" onclick="toggleCC('cc1')" style="background:var(--violet);border-color:var(--violet)">Temps 2 : Correction →</button>
+      <div class="steps-grid">
+        <div class="step-card" style="background:var(--rouge-clair);border-color:var(--rouge-bord)">
+          <div class="step-num" style="background:var(--rouge)">P</div>
+          <div class="step-ic">🛡️</div>
+          <div class="step-title" style="color:var(--rouge)">Protéger</div>
+          <div class="step-desc">Sécuriser la zone · Éloigner les dangers · Se protéger soi-même du contact avec le sang.</div>
         </div>
-        <div id="cc1-t1">
-          <div class="cc-header" style="background:linear-gradient(135deg,#8B0000,#c0392b)">
-            <div class="cc-tag">🧠 AVC — Urgence absolue</div>
-            <h3>Ta voisine Mme Dupont présente des signes inquiétants</h3>
-          </div>
-          
-        <!-- FICHE CC OFFICIELLE -->
-        <div class="fcc-grid">
-          <div class="fcc-block full">
-            <div class="fcc-label">📋 Scénario du cas — FCC n° 8.02</div>
-            <div class="fcc-grid" style="margin:0;gap:6px">
-              <div class="fcc-block" style="background:rgba(255,255,255,0.04)">
-                <div class="fcc-label">📍 Lieu de l'événement</div>
-                <div class="fcc-value">🏠 Domicile — entrée de l'appartement</div>
-              </div>
-              <div class="fcc-block" style="background:rgba(255,255,255,0.04);grid-column:1/-1">
-                <div class="fcc-label">📝 Description de la MSAS</div>
-                <div class="fcc-value">Mme Dupont (68 ans) présente des signes d'AVC : bouche tordue, bras droit tombant, difficultés à parler, confusion. Elle est debout, appuyée contre la porte.</div>
-              </div>
-            </div>
-          </div>
-          <div class="fcc-block">
-            <div class="fcc-label">🎭 Organisation — Consignes aux acteurs</div>
-            <div class="fcc-actors">
-              <div class="fcc-actor"><span class="fcc-actor-icon">🤕</span><div><strong>Victime</strong>Debout, appuyée sur la porte d'entrée. Bouche tordue, bras droit inerte, discours incohérent. Ne comprend pas bien ce qu'on lui dit.</div></div>
-              <div class="fcc-actor"><span class="fcc-actor-icon">👥</span><div><strong>Témoin</strong>Aucun.</div></div>
-              <div class="fcc-actor"><span class="fcc-actor-icon">🦺</span><div><strong>Sauveteur</strong>Son voisin, venu lui remettre un colis.</div></div>
-            </div>
-          </div>
-          <div class="fcc-block">
-            <div class="fcc-label">🧰 Matériel disponible</div>
-            <div class="fcc-materiel"><span class="fcc-mat-item">Téléphone (dans poche)</span><span class="fcc-mat-item">Adresse</span></div>
-          </div>
+        <div class="step-card" style="background:var(--orange-clair);border-color:var(--orange-bord)">
+          <div class="step-num" style="background:var(--orange)">A</div>
+          <div class="step-ic">📞</div>
+          <div class="step-title" style="color:var(--orange)">Alerter</div>
+          <div class="step-desc"><strong>15</strong> (SAMU) · <strong>18</strong> (Pompiers) · <strong>112</strong> (Urgences européen)<br>Qui ? Où ? Quoi ? Combien ?</div>
         </div>
-        <div class="fcc-divider"></div><div class="cc-scene">
-            Tu sonnes chez ta voisine <strong>Mme Dupont (68 ans)</strong> pour lui rendre un colis. Elle ouvre la porte mais tu remarques que sa <strong>bouche est tordue</strong>, qu'elle a du mal à parler et que son <strong>bras droit tombe</strong> le long du corps sans qu'elle puisse le lever. Elle semble confuse et ne comprend pas bien ce que tu lui dis. Elle est debout, appuyée sur la porte.<br><br>
-            Elle ne t'a pas dit qu'elle avait des antécédents cardiaques. <strong>Tu as ton téléphone.</strong><br><br>
-            <strong>Que fais-tu ?</strong>
-          </div>
-          <div class="info-box" style="font-size:12px">💬 À l'élève : décris les gestes dans l'ordre. Rappel : un seul signe d'AVC = alerte immédiate.</div>
+        <div class="step-card" style="background:var(--bleu-pale);border-color:#a0c0ea">
+          <div class="step-num" style="background:var(--bleu-mid)">S</div>
+          <div class="step-ic">👀</div>
+          <div class="step-title" style="color:var(--bleu)">Secourir</div>
+          <div class="step-desc">Appliquer la CAT adaptée (plaie simple ou grave) · Ne pas retirer le corps étranger.</div>
         </div>
-        <div id="cc1-t2" style="display:none">
-          <div class="section-label">Correction CC1 — AVC</div>
-          <div class="cc-step ok" id="a1"><div class="cc-step-hd" onclick="ts(this)"><span>🛡️ 1. Assurer la sécurité</span><span class="chevron">›</span></div><div class="cc-step-body">Éviter que Mme Dupont ne tombe. La soutenir si nécessaire. Rester calme pour ne pas l'affoler.</div></div>
-          <div class="cc-step ok" id="a2"><div class="cc-step-hd" onclick="ts(this)"><span>📞 2. Alerter le 15 IMMÉDIATEMENT</span><span class="chevron">›</span></div><div class="cc-step-body">Un seul signe d'AVC = alerte immédiate. Ne pas attendre de voir si ça passe. Indiquer : l'adresse, les signes observés (bouche tordue, bras tombant, difficultés à parler), l'âge.</div></div>
-          <div class="cc-step ok" id="a3"><div class="cc-step-hd" onclick="ts(this)"><span>🛏️ 3. Installer Mme Dupont</span><span class="chevron">›</span></div><div class="cc-step-body">L'aider à s'asseoir ou à s'allonger selon ce qui est possible et confortable. Ne pas la laisser debout. Lui parler régulièrement pour la rassurer.</div></div>
-          <div class="cc-step ok" id="a4"><div class="cc-step-hd" onclick="ts(this)"><span>❓ 4. Questionner</span><span class="chevron">›</span></div><div class="cc-step-body">Lui poser des questions simples (âge, traitements, antécédents) même si elle répond mal. Les informations recueillies seront transmises au médecin régulateur.</div></div>
-          <div class="cc-step ok" id="a5"><div class="cc-step-hd" onclick="ts(this)"><span>👀 5. Surveiller jusqu'aux secours</span><span class="chevron">›</span></div><div class="cc-step-body">Rester avec elle. Ne pas lui donner à boire ni à manger. Si elle perd connaissance → CAT perte de connaissance. Recontacter le 15 si aggravation.</div></div>
-          <div class="debrief-box">
-            <h4>💬 Débriefing formateur</h4>
-            <p>Points clés : l'alerte a-t-elle été immédiate (sans attendre) ? Les signes d'AVC ont-ils été reconnus ? La victime a-t-elle été installée ? A-t-on évité de lui donner à manger/boire ?</p>
-            <p style="margin-top:5px"><strong>Moyen mnémotechnique AVC :</strong> VITE — Visage déformé · bras qui tombe · Trouble de la parole → Estafette (appeler le 15)</p>
-          </div>
+        <div class="step-card" style="background:var(--vert-clair);border-color:var(--vert-bord)">
+          <div class="step-num" style="background:var(--vert)">S</div>
+          <div class="step-ic">💬</div>
+          <div class="step-title" style="color:var(--vert)">Surveiller</div>
+          <div class="step-desc">Rassurer en parlant régulièrement · Surveiller la respiration et l'état de conscience jusqu'aux secours.</div>
         </div>
       </div>
+      <div class="info-box">
+        🔔 <strong>Si la victime s'aggrave</strong> (pâleur intense, perte de connaissance, difficultés à respirer) → recontacter les secours immédiatement pour signaler l'aggravation.
+      </div>
+      <div class="alerte-box">
+        <div class="alerte-icon">🌡️</div>
+        <div>
+          <h3>Protéger contre les intempéries</h3>
+          <p>Couvrir la victime contre le froid, la chaleur ou la pluie — surtout en cas d'attente prolongée des secours. Glisser une couverture sous et au-dessus d'elle si possible.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Protéger · Alerter · Surveiller</span>
+      <div class="progress-dots" id="dots6"></div>
+      <span>Slide 7/8</span>
+    </div>
+  </div>
 
-      <!-- CC2 : Diabète -->
-      <div class="cc-panel" id="cc2">
-        <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
-          <button class="cc-t2-toggle" id="t2-btn" onclick="toggleCC('cc2')" style="background:var(--violet);border-color:var(--violet)">Temps 2 : Correction →</button>
+  <!-- SLIDE 7 : CAS CONCRET -->
+  <div class="slide">
+    <div class="slide-header" style="background:linear-gradient(135deg,var(--accent),#5a2d0c)">
+      <div class="left">
+        <div class="sup">Chapitre 6 · Activité d'application · Compétence F</div>
+        <h2 id="cc-title">🌙 Cas Concret — Temps 1 : La situation</h2>
+      </div>
+      <button id="cc-switch-btn" onclick="switchCC()" style="background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.4);color:white;padding:7px 16px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;">Temps 2 : Correction →</button>
+    </div>
+    <div class="slide-body">
+
+      <!-- TEMPS 1 -->
+      <div id="cc-t1">
+        <div class="cc-header" style="background:linear-gradient(135deg,#1a0a2e,#4a1942)">
+          <div class="cc-tag">🌙 Agression — plaie pénétrante thoracique avec corps étranger</div>
+          <h3>Kévin (17 ans) a reçu un coup de couteau dans la poitrine dans une ruelle</h3>
         </div>
-        <div id="cc2-t1">
-          <div class="cc-header" style="background:linear-gradient(135deg,var(--teal),#0a5040)">
-            <div class="cc-tag">🍬 Malaise diabétique — aide à la prise de traitement</div>
-            <h3>Ta grand-mère se sent "toute bizarre" et tremble</h3>
-          </div>
-          
-        <!-- FICHE CC OFFICIELLE -->
-        <div class="fcc-grid">
-          <div class="fcc-block full">
-            <div class="fcc-label">📋 Scénario du cas — FCC n° 8.03</div>
-            <div class="fcc-grid" style="margin:0;gap:6px">
-              <div class="fcc-block" style="background:rgba(255,255,255,0.04)">
-                <div class="fcc-label">📍 Lieu de l'événement</div>
-                <div class="fcc-value">🏠 Domicile — salon</div>
-              </div>
-              <div class="fcc-block" style="background:rgba(255,255,255,0.04);grid-column:1/-1">
-                <div class="fcc-label">📝 Description de la MSAS</div>
-                <div class="fcc-value">Grand-mère (72 ans) présente un malaise hypoglycémique : pâleur, tremblements, confusion, transpiration. Elle est assise dans son fauteuil, ne répond plus normalement.</div>
-              </div>
+        
+        <!-- FCC -->
+        <div class="fcc-wrap">
+          <div class="fcc-box span2">
+            <div class="fcc-lbl">📋 Scénario — FCC n° 6.01</div>
+            <div style="display:grid;grid-template-columns:1fr 2fr;gap:6px;margin-top:4px">
+              <div><div class="fcc-lbl">📍 Lieu</div><div class="fcc-val">Rue — ruelle peu éclairée, 21h30</div></div>
+              <div><div class="fcc-lbl">📝 MSAS</div><div class="fcc-val">Kévin (17 ans) — coup de couteau poitrine gauche. Plaie pénétrante. Difficultés respiratoires. Conscient, pâle.</div></div>
             </div>
           </div>
-          <div class="fcc-block">
-            <div class="fcc-label">🎭 Organisation — Consignes aux acteurs</div>
-            <div class="fcc-actors">
-              <div class="fcc-actor"><span class="fcc-actor-icon">🤕</span><div><strong>Victime</strong>Assise dans son fauteuil. Pâle, tremblante, transpire, confuse. Répond difficilement aux questions.</div></div>
-              <div class="fcc-actor"><span class="fcc-actor-icon">👥</span><div><strong>Témoin</strong>Aucun.</div></div>
-              <div class="fcc-actor"><span class="fcc-actor-icon">🦺</span><div><strong>Sauveteur</strong>Son petit-enfant, présent à la maison.</div></div>
+          <div class="fcc-box">
+            <div class="fcc-lbl">🎭 Organisation — Acteurs</div>
+            <div class="fcc-row"><span class="fcc-ico">🤕</span><div><b>Victime</b>Affalé contre un mur, conscient, pâle, grimace. Difficultés respiratoires. Plaie thoracique pénétrante.</div></div>
+            <div class="fcc-row"><span class="fcc-ico">👥</span><div><b>Témoin</b>Plusieurs passants aux alentours.</div></div>
+            <div class="fcc-row"><span class="fcc-ico">🦺</span><div><b>Sauveteur</b>Un passant rentrant chez lui à pied.</div></div>
+          </div>
+          <div class="fcc-box">
+            <div class="fcc-lbl">🧰 Matériel disponible</div>
+            <div class="fcc-chips"><span class="fcc-chip">Téléphone (dans poche)</span><span class="fcc-chip">Adresse</span></div>
+          </div>
+        </div>
+        <div class="fcc-sep"></div><div class="cc-scene">
+          Il est <strong>21h30</strong>. Tu rentres chez toi à pied par la <strong>rue des Acacias</strong>, dans ta ville. Dans une ruelle peu éclairée, tu découvres <strong>Kévin, 17 ans</strong>, affalé contre un mur. Il a visiblement reçu un coup de couteau dans la <strong>poitrine côté gauche</strong>. La lame n'est <strong>plus visible</strong> mais la plaie est profonde et saigne. Il a du mal à respirer et grimace de douleur. Il est pâle, conscient.<br><br>
+          Plusieurs <strong>passants</strong> sont présents autour de toi. <strong>Tu as ton téléphone dans ta poche.</strong><br><br>
+          <strong>Que fais-tu ? Dans quel ordre ?</strong>
+        </div>
+        <div class="info-box" style="font-size:12px;margin-top:6px">
+          💬 <strong>À l'élève :</strong> décris ou mime les gestes dans l'ordre. Le formateur observe et note.
+        </div>
+
+        <!-- IMAGE ANNOTÉE -->
+        <div style="position:relative;margin-top:12px;display:inline-block;width:100%;">
+          <img src="images/plaies.jpg" alt="Scène de la ruelle — Kévin blessé"
+               style="width:100%;max-height:220px;object-fit:cover;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,0.4);border:2px solid #4a1942;display:block;">
+
+          <!-- Badge LIEU -->
+          <div style="position:absolute;top:12px;left:14px;background:rgba(10,10,30,0.82);border:1.5px solid #a78bfa;border-radius:8px;padding:6px 12px;display:flex;align-items:center;gap:7px;backdrop-filter:blur(4px);">
+            <span style="font-size:15px;">📍</span>
+            <div>
+              <div style="font-family:'Outfit',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#c4b5fd;opacity:.8;">Lieu de l'accident</div>
+              <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;color:white;">Rue des Acacias — Ruelle latérale</div>
             </div>
           </div>
-          <div class="fcc-block">
-            <div class="fcc-label">🧰 Matériel disponible</div>
-            <div class="fcc-materiel"><span class="fcc-mat-item">Sucre (morceaux ou jus)</span><span class="fcc-mat-item">Téléphone</span><span class="fcc-mat-item">Adresse</span><span class="fcc-mat-item">Traitement de la grand-mère (si visible)</span></div>
+
+          <!-- Badge HEURE -->
+          <div style="position:absolute;top:12px;right:14px;background:rgba(10,10,30,0.82);border:1.5px solid #fbbf24;border-radius:8px;padding:6px 12px;display:flex;align-items:center;gap:7px;backdrop-filter:blur(4px);">
+            <span style="font-size:15px;">🌙</span>
+            <div>
+              <div style="font-family:'Outfit',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#fde68a;opacity:.8;">Heure</div>
+              <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;color:white;">21 h 30</div>
+            </div>
+          </div>
+
+          <!-- Badge TÉLÉPHONE -->
+          <div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(10,10,30,0.88);border:2px solid #34d399;border-radius:10px;padding:7px 18px;display:flex;align-items:center;gap:10px;backdrop-filter:blur(4px);white-space:nowrap;">
+            <span style="font-size:17px;">📞</span>
+            <div>
+              <div style="font-family:'Outfit',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#6ee7b7;opacity:.85;">Appel en cours</div>
+              <div style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:900;color:white;letter-spacing:2px;">15 — SAMU · 06 72 34 88 12</div>
+            </div>
+            <div style="width:8px;height:8px;border-radius:50%;background:#34d399;animation:pulse-dot 1.2s infinite;"></div>
           </div>
         </div>
-        <div class="fcc-divider"></div><div class="cc-scene">
-            Tu es chez ta <strong>grand-mère (74 ans)</strong>, diabétique. Elle se plaint soudainement de tremblements, de sueurs et se sent "toute bizarre". Elle dit qu'elle a <strong>faim d'une façon étrange</strong> et est légèrement confuse. Elle est consciente et peut parler.<br><br>
-            Tu sais qu'elle est <strong>diabétique et n'a pas mangé depuis ce matin</strong>. Tu vois des morceaux de sucre sur la table. Elle a son téléphone sur elle.<br><br>
-            <strong>Que fais-tu ?</strong>
+        <style>
+          @keyframes pulse-dot {
+            0%,100%{opacity:1;transform:scale(1)}
+            50%{opacity:.4;transform:scale(1.4)}
+          }
+  </style>
+      </div>
+
+      <!-- TEMPS 2 : CORRECTION -->
+      <div id="cc-t2" style="display:none">
+        <div class="section-label">Correction — ce qu'il fallait faire</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+
+          <div class="cc-step ok" id="cs1">
+            <div class="cc-step-header" onclick="toggleStep('cs1')">
+              <span>🛡️ 1. Sécuriser la zone et s'assurer de sa propre sécurité</span><span class="chevron">›</span>
+            </div>
+            <div class="cc-step-body">Vérifier que l'agresseur n'est plus là. Ne pas s'exposer soi-même au danger. Demander aux passants de reculer et de garder une distance de sécurité.</div>
           </div>
-          <div class="info-box" style="font-size:12px">💬 À l'élève : décris les gestes dans l'ordre. Elle est consciente et peut avaler — c'est la clé.</div>
+
+          <div class="cc-step ok" id="cs2">
+            <div class="cc-step-header" onclick="toggleStep('cs2')">
+              <span>🚫 2. Ne PAS retirer le couteau (s'il était encore en place)</span><span class="chevron">›</span>
+            </div>
+            <div class="cc-step-body">Règle absolue pour tout corps étranger pénétrant. Le retirer risquerait de provoquer une hémorragie cataclysmique. Ici la lame est absente mais la plaie thoracique reste à ne pas obstruer.</div>
+          </div>
+
+          <div class="cc-step ok" id="cs3">
+            <div class="cc-step-header" onclick="toggleStep('cs3')">
+              <span>📞 3. Alerter les secours immédiatement (15 ou 18 ou 112)</span><span class="chevron">›</span>
+            </div>
+            <div class="cc-step-body">Demander à un passant d'appeler pendant que tu t'occupes de Kévin, ou appeler toi-même. Préciser : <strong>ruelle rue des Acacias</strong>, victime de 17 ans, plaie pénétrante thoracique gauche, difficultés respiratoires, conscient. Rester en ligne et appliquer les consignes.</div>
+          </div>
+
+          <div class="cc-step ok" id="cs4">
+            <div class="cc-step-header" onclick="toggleStep('cs4')">
+              <span>🪑 4. Installer Kévin en position assise (demi-assise)</span><span class="chevron">›</span>
+            </div>
+            <div class="cc-step-body">Plaie au thorax → <strong>position assise ou demi-assise</strong>, en appui contre le mur. Ne pas l'allonger à plat. Laisser la plaie à l'air libre, ne pas appuyer dessus avec un tissu. Cela facilite sa respiration.</div>
+          </div>
+
+          <div class="cc-step ok" id="cs5">
+            <div class="cc-step-header" onclick="toggleStep('cs5')">
+              <span>💬 5. Rassurer et surveiller en permanence</span><span class="chevron">›</span>
+            </div>
+            <div class="cc-step-body">Parler à Kévin, lui dire que les secours arrivent. Surveiller sa respiration, son état de conscience et la plaie. En cas d'aggravation (perte de connaissance, arrêt respiratoire) → informer immédiatement les secours et être prêt à intervenir.</div>
+          </div>
+
+          <div class="cc-step ok" id="cs6">
+            <div class="cc-step-header" onclick="toggleStep('cs6')">
+              <span>🌡️ 6. Protéger contre le froid</span><span class="chevron">›</span>
+            </div>
+            <div class="cc-step-body">Il fait nuit, la victime est en état de choc. Demander à un passant de trouver une veste ou une couverture pour couvrir Kévin. Ne jamais laisser la victime seule.</div>
+          </div>
+
         </div>
-        <div id="cc2-t2" style="display:none">
-          <div class="section-label">Correction CC2 — Diabète / hypoglycémie</div>
-          <div class="cc-step ok" id="b1"><div class="cc-step-hd" onclick="ts(this)"><span>🛏️ 1. Installer la grand-mère</span><span class="chevron">›</span></div><div class="cc-step-body">L'asseoir ou l'allonger confortablement. Ne pas la laisser debout. Desserrer les vêtements si nécessaire.</div></div>
-          <div class="cc-step ok" id="b2"><div class="cc-step-hd" onclick="ts(this)"><span>❓ 2. Recueillir les informations</span><span class="chevron">›</span></div><div class="cc-step-body">Elle est diabétique, n'a pas mangé depuis ce matin. Les signes (tremblements, sueurs, faim intense, confusion légère) évoquent une <strong>hypoglycémie</strong> (manque de sucre dans le sang).</div></div>
-          <div class="cc-step ok" id="b3"><div class="cc-step-hd" onclick="ts(this)"><span>🍬 3. Lui donner du sucre</span><span class="chevron">›</span></div><div class="cc-step-body">Elle est consciente et peut avaler → lui donner les morceaux de sucre. Attendre quelques minutes pour voir l'amélioration. Ne jamais donner à manger ou à boire à quelqu'un de semi-conscient (risque de fausse route).</div></div>
-          <div class="cc-step ok" id="b4"><div class="cc-step-hd" onclick="ts(this)"><span>📞 4. Demander un avis médical</span><span class="chevron">›</span></div><div class="cc-step-body">Appeler le 15 pour avis médical. Transmettre les infos : âge, diabétique, n'a pas mangé, signes observés, sucre donné. Appliquer les consignes.</div></div>
-          <div class="cc-step ok" id="b5"><div class="cc-step-hd" onclick="ts(this)"><span>👀 5. Surveiller l'évolution</span><span class="chevron">›</span></div><div class="cc-step-body">Rester avec elle. Si amélioration après le sucre → surveiller jusqu'à l'avis médical. Si aggravation (perte de connaissance) → CAT perte de connaissance + recontacter le 15.</div></div>
-          <div class="debrief-box">
-            <h4>💬 Débriefing formateur</h4>
-            <p>Points clés : le sucre a-t-il été donné seulement parce qu'elle est consciente et peut avaler ? L'avis médical a-t-il été demandé ? A-t-on évité de donner à boire si elle était semi-consciente ?</p>
-            <p style="margin-top:5px"><strong>Règle d'or :</strong> on aide à la prise de traitement (sucre, médicament) uniquement si la victime est consciente, peut avaler, et le demande ou si les secours le prescrivent.</p>
-          </div>
-          <div style="margin-top:10px;text-align:center">
-            <a href="index.html?done=8" onclick="goToDashboard(event)"
-               style="display:inline-block;background:var(--vert);color:white;padding:10px 24px;border-radius:10px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;text-decoration:none;">
-              ✅ Chapitre terminé — Retour au dashboard
-            </a>
-          </div>
+
+        <!-- Image Temps 2 -->
+        <div style="text-align:center;margin-top:12px;">
+          <img src="images/plaies2.jpg" alt="Position d'attente plaie thoracique"
+               style="max-height:180px;max-width:100%;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.25);border:2px solid #80cba0;display:inline-block;">
+          <p style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:#1a7a4a;margin-top:6px;text-transform:uppercase;letter-spacing:1px;">🪑 Position d'attente — Plaie thoracique</p>
+        </div>
+
+        <div class="debrief-box" style="margin-top:10px">
+          <h4>💬 Débriefing formateur</h4>
+          <p>Points clés : la zone a-t-elle été sécurisée avant d'approcher ? Le couteau n'a-t-il pas été retiré ? L'alerte a-t-elle été donnée rapidement avec les bonnes informations (lieu, âge, nature de la plaie) ? La position assise a-t-elle été respectée (pas d'allongement à plat) ? Kévin a-t-il été surveillé et rassuré ?</p>
+          <p style="margin-top:6px"><strong>Question de prévention :</strong> Que faire pour éviter de se retrouver seul dans une ruelle isolée la nuit ? Quels réflexes adopter dans un lieu public en cas de danger ?</p>
+        </div>
+
+        <div style="margin-top:10px;text-align:center">
+          <a href="index.html?done=6" onclick="goToDashboard(event)"
+             style="display:inline-block;background:var(--vert);color:white;padding:10px 24px;border-radius:10px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;text-decoration:none;">
+            ✅ Chapitre terminé — Retour au dashboard
+          </a>
         </div>
       </div>
 
     </div>
-    <div class="slide-footer">
-      <span>Cas Concrets — AVC et Diabète</span>
-      <div class="progress-dots" id="dots6"></div>
-      <span>Slide 7/7</span>
+    <div class="slide-footer" id="cc-footer">
+      <span>Temps 1 — Situation soumise aux élèves</span>
+      <div class="progress-dots" id="dots7"></div>
+      <span>Slide 8/8</span>
     </div>
   </div>
 
 </div><!-- /stage -->
 
 <script>
-// ── NAV ──
-let current=0; const total=7;
-const slidePills=document.querySelectorAll('.pill[onclick^="goSlide"]');
-function goSlide(n){
+let current = 0;
+const total = 8;
+const slidePills = document.querySelectorAll('.pill[onclick^="goSlide"]');
+
+function goSlide(n) {
   document.querySelectorAll('.slide')[current].classList.remove('active');
   slidePills[current].classList.remove('active');
-  current=n;
+  current = n;
   document.querySelectorAll('.slide')[current].classList.add('active');
   slidePills[current].classList.add('active');
-  document.getElementById('slide-counter').textContent=(current+1)+' / '+total;
+  document.getElementById('slide-counter').textContent = (current+1) + ' / ' + total;
   renderDots();
 }
 function nextSlide(){if(current<total-1)goSlide(current+1);}
 function prevSlide(){if(current>0)goSlide(current-1);}
-function renderDots(){
+
+function renderDots() {
   for(let i=0;i<total;i++){
-    const el=document.getElementById('dots'+i); if(!el)continue;
-    let h=''; for(let j=0;j<total;j++) h+=`<div class="dot${j===i?' active':j<i?' done':''}"></div>`;
-    el.innerHTML=h;
+    const el=document.getElementById('dots'+i);
+    if(!el) continue;
+    let html='';
+    for(let j=0;j<total;j++){
+      html+=`<div class="dot${j===i?' active':j<i?' done':''}"></div>`;
+    }
+    el.innerHTML=html;
   }
 }
 renderDots();
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextSlide();if(e.key==='ArrowLeft')prevSlide();});
 
-// ── DRAG & DROP ──
-let dragged=null;
-document.querySelectorAll('.dd-item').forEach(item=>{
-  item.addEventListener('dragstart',e=>{dragged=item;item.classList.add('dragging');e.dataTransfer.setData('text',item.dataset.id);});
-  item.addEventListener('dragend',()=>item.classList.remove('dragging'));
-});
-function allowDrop(e){e.preventDefault();e.currentTarget.classList.add('dragover');}
-document.querySelectorAll('.dd-zone').forEach(z=>{
-  z.addEventListener('dragleave',()=>z.classList.remove('dragover'));
-});
-function dropItem(e){
-  e.preventDefault();
-  const zone=e.currentTarget; zone.classList.remove('dragover');
-  if(!dragged)return;
-  const zoneItems=zone.querySelector('.dd-zone-items');
-  // return to pool if already placed
-  const pool=document.getElementById('dd-pool');
-  const existing=zoneItems.querySelector(`[data-id="${dragged.dataset.id}"]`);
-  if(existing) return;
-  dragged.classList.remove('placed-correct','placed-wrong');
-  zoneItems.appendChild(dragged);
-  dragged=null;
-}
-// Double-click to return to pool
-document.addEventListener('dblclick',e=>{
-  if(e.target.classList.contains('dd-item')&&!document.getElementById('dd-pool').contains(e.target)){
-    e.target.classList.remove('placed-correct','placed-wrong');
-    document.getElementById('dd-pool').appendChild(e.target);
+// VRAI/FAUX
+const vfCorrects={vf1:false,vf2:false,vf3:true,vf4:true,vf5:true};
+const vfAnswers={};
+function answerVF(id, userAnswer, correctAnswer){
+  if(vfAnswers[id]!==undefined) return;
+  const isCorrect = (userAnswer===correctAnswer);
+  vfAnswers[id]=isCorrect;
+  const item=document.getElementById(id);
+  item.classList.add('revealed');
+  item.querySelectorAll('.vf-btn').forEach(b=>b.disabled=true);
+  const expl=item.querySelector('.vf-explication');
+  expl.className='vf-explication '+(isCorrect?'correct':'incorrect');
+  if(Object.keys(vfAnswers).length===5){
+    const ok=Object.values(vfAnswers).filter(Boolean).length;
+    const sc=document.getElementById('vf-score');
+    sc.style.display='block';
+    sc.textContent=`Score : ${ok} / 5 bonne${ok>1?'s':''} réponse${ok>1?'s':''}`;
+    sc.style.cssText+=`;background:${ok>=4?'#e8f8ef':'#fdecea'};border:1.5px solid ${ok>=4?'#80cba0':'#e8a09a'};color:${ok>=4?'#1a7a4a':'#c0392b'}`;
   }
+}
+
+// CAS CONCRET
+let ccTime2=false;
+function switchCC(){
+  ccTime2=!ccTime2;
+  document.getElementById('cc-t1').style.display=ccTime2?'none':'block';
+  document.getElementById('cc-t2').style.display=ccTime2?'block':'none';
+  document.getElementById('cc-switch-btn').textContent=ccTime2?'← Retour temps 1':'Temps 2 : Correction →';
+  document.getElementById('cc-title').textContent=ccTime2?'Cas Concret — ✅ Temps 2 : Correction':'🌙 Cas Concret — Temps 1 : La situation';
+  document.getElementById('cc-footer').querySelector('span').textContent=ccTime2?'Temps 2 — Correction':'Temps 1 — Situation soumise aux élèves';
+}
+function toggleStep(id){document.getElementById(id).classList.toggle('open');}
+
+function goToDashboard(e){
+  if(e) e.preventDefault();
+  window.location.href='index.html?done=6';
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight') nextSlide();
+  if(e.key==='ArrowLeft') prevSlide();
 });
-function checkDD(){
-  let ok=0,total=0;
-  document.querySelectorAll('.dd-zone').forEach(zone=>{
-    const zid=zone.dataset.zone;
-    zone.querySelectorAll('.dd-item').forEach(item=>{
-      total++;
-      if(item.dataset.correct===zid){item.classList.add('placed-correct');item.classList.remove('placed-wrong');ok++;}
-      else{item.classList.add('placed-wrong');item.classList.remove('placed-correct');}
-    });
-  });
-  const sc=document.getElementById('dd-score');
-  sc.style.display='block';
-  sc.textContent=`Score : ${ok} / ${total} bonne${ok>1?'s':''} réponse${ok>1?'s':''}`;
-  const good=ok>=8; sc.style.cssText+=`;background:${good?'#e8f8ef':'#fdecea'};border:1.5px solid ${good?'#80cba0':'#e8a09a'};color:${good?'#1a7a4a':'#c0392b'};padding:8px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700`;
-}
-function resetDD(){
-  const pool=document.getElementById('dd-pool');
-  document.querySelectorAll('.dd-zone .dd-zone-items').forEach(zi=>{
-    zi.querySelectorAll('.dd-item').forEach(item=>{
-      item.classList.remove('placed-correct','placed-wrong');
-      pool.appendChild(item);
-    });
-  });
-  const sc=document.getElementById('dd-score'); sc.style.display='none';
-}
-
-// ── TABS CC ──
-function switchTab(id){
-  document.querySelectorAll('.cc-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.cc-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.cc-tab').forEach((t,i)=>{if(['cc1','cc2'][i]===id)t.classList.add('active');});
-}
-
-// ── CC TEMPS 1/2 ──
-const ccState={cc1:false,cc2:false};
-function toggleCC(id){
-  ccState[id]=!ccState[id];
-  const t2=ccState[id];
-  document.getElementById(id+'-t1').style.display=t2?'none':'block';
-  document.getElementById(id+'-t2').style.display=t2?'block':'none';
-  const btn=document.getElementById(id==='cc1'?'t1-btn':'t2-btn');
-  btn.textContent=t2?'← Retour temps 1':'Temps 2 : Correction →';
-}
-
-// Accordion steps
-function ts(hd){hd.closest('.cc-step').classList.toggle('open');}
-
-function goToDashboard(e){if(e)e.preventDefault();window.location.href='index.html?done=8';}
 </script>
 </body>
 </html>
