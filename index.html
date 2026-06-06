@@ -617,11 +617,12 @@
     const FOAD_IDS = ['1', '2'];
     const PRESENTIEL_IDS = ['3','4','5','6','7','8','9','10'];
 
-    // State — v2 (clés = card-id direct)
-    const STATE_KEY = 'psc1_done_v2';
+    // State — v3 (clés = card-id direct, nettoyage complet)
+    const STATE_KEY = 'psc1_done_v3';
     function loadState() {
-      // Purge l'ancien état v1 si présent
+      // Purge tous les anciens états
       try { localStorage.removeItem('psc1_done'); } catch(e) {}
+      try { localStorage.removeItem('psc1_done_v2'); } catch(e) {}
       try { const r = localStorage.getItem(STATE_KEY); return r ? JSON.parse(r) : {}; }
       catch(e) { return {}; }
     }

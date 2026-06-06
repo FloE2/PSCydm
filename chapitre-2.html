@@ -886,7 +886,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 
       <!-- ÉTAT 2 : scénario + photo + alerte complète -->
       <div id="t1-state2" style="display:none;flex:1;flex-direction:column;gap:10px;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;flex:1;">
           <div style="display:flex;flex-direction:column;gap:10px;">
             <div class="cc-box" style="flex:0 0 auto;">
               <div class="cc-badge">🎭 Scénario — À toi de jouer !</div>
@@ -959,6 +959,30 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
                 <div id="chrono-display2" style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:white;">0:00</div>
                 <button class="c-btn start" onclick="toggleC()" style="font-size:11px;padding:5px 12px;">▶/⏸</button>
                 <button class="c-btn" onclick="resetC2()" style="font-size:11px;padding:5px 10px;">↺</button>
+              </div>
+            </div>
+          
+            <!-- COLONNE FCC OFFICIELLE -->
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.22);border-radius:10px;padding:10px 12px;">
+                <div class="fcc-label">📋 Scénario — FCC n° 4.01</div>
+                <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:8px;margin-bottom:6px;">
+                  <div class="fcc-label">📍 Lieu</div>
+                  <div class="fcc-value">🍽️ Service de restauration scolaire — heure du déjeuner</div>
+                </div>
+                <div class="fcc-label">📝 MSAS</div>
+                <div class="fcc-value" style="font-size:11px;">Théo (14 ans) mange une pomme à la cantine. Soudain il garde la bouche ouverte, ne parle plus et ne respire plus. Son visage devient rouge. Il présente une obstruction complète des voies aériennes.</div>
+              </div>
+              <div style="background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.22);border-radius:10px;padding:10px 12px;flex:1;">
+                <div class="fcc-label">🎭 Organisation — Acteurs</div>
+                <div class="fcc-actors">
+                  <div class="fcc-actor"><span class="fcc-actor-icon">🤕</span><div><strong>Victime</strong>Se lève brusquement, garde la bouche ouverte, ne parle plus, ne respire plus (mimé). Visage rougissant. Toussera après 3 claques dans le dos (mimées).</div></div>
+                  <div class="fcc-actor"><span class="fcc-actor-icon">👥</span><div><strong>Témoin</strong>Un élève assis à la même table, affolé.</div></div>
+                  <div class="fcc-actor"><span class="fcc-actor-icon">🦺</span><div><strong>Sauveteur</strong>Un camarade installé à la même table.</div></div>
+                </div>
+                <div style="height:1px;background:rgba(255,255,255,0.12);margin:6px 0;"></div>
+                <div class="fcc-label">🧰 Matériel</div>
+                <div class="fcc-materiel"><span class="fcc-mat-item">Table et chaises</span><span class="fcc-mat-item">Assiettes, couverts</span><span class="fcc-mat-item">Corps étranger (imitation)</span><span class="fcc-mat-item">Téléphone</span><span class="fcc-mat-item">Adresse</span></div>
               </div>
             </div>
           </div>
