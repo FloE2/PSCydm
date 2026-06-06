@@ -180,6 +180,26 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 .interdiction-box{background:var(--rouge-clair);border:2px solid var(--rouge);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:14px}
 .inter-icon{width:44px;height:44px;background:var(--rouge);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:22px;flex-shrink:0}
 .interdiction-box p{font-size:13px;color:#7a1a10;line-height:1.5;font-family:'Outfit',sans-serif;font-weight:600}
+
+    /* FCC */
+    .fcc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
+    .fcc-wrap.single{grid-template-columns:1fr}
+    .fcc-box{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.2);border-radius:9px;padding:9px 11px}
+    .fcc-box.span2{grid-column:1/-1}
+    .fcc-lbl{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);margin-bottom:3px;font-family:'Outfit',sans-serif}
+    .fcc-val{font-size:11.5px;color:rgba(255,255,255,.9);line-height:1.45}
+    .fcc-row{display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;font-size:11px;color:rgba(255,255,255,.85);line-height:1.4}
+    .fcc-row:last-child{margin-bottom:0}
+    .fcc-ico{font-size:13px;flex-shrink:0}
+    .fcc-row b{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);font-weight:700;margin-bottom:1px}
+    .fcc-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+    .fcc-chip{background:rgba(255,255,255,.11);border:.5px solid rgba(255,255,255,.22);border-radius:5px;padding:1px 7px;font-size:10px;color:rgba(255,255,255,.82)}
+    .fcc-sep{height:1px;background:rgba(255,255,255,.1);margin:7px 0}
+
+    /* CC slide - use full height to avoid scroll */
+    .slide-body { overflow-y: auto; }
+    #cc-t1, [id$="-t1"] { overflow-y: visible; }
+    .fcc-wrap { font-size: 11px; }
 </style>
 </head>
 <body>
@@ -803,100 +823,32 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <!-- ======= TEMPS 1 ======= -->
     <div id="cc-t1" style="display:flex;flex-direction:column;gap:10px;flex:1;">
 
-      <!-- ÉTAT 0 : photo plein écran -->
-      <div id="t1-state0" style="flex:1;display:flex;flex-direction:column;">
-        <div style="background:#2a0a00;border-radius:12px;overflow:hidden;flex:1;display:flex;flex-direction:column;cursor:pointer;" onclick="t1Reveal(1)">
-          <div style="flex:1;position:relative;min-height:0;">
-            <img src="images/obva_scenario_t1.jpg"
-                 alt="Étouffement à la cantine"
-                 style="width:100%;height:100%;object-fit:cover;display:block;"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-            <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:linear-gradient(135deg,#2a0a00,#4a1500);flex-direction:column;gap:8px;">
-              <div style="font-size:50px;opacity:.4;">🍎</div>
-              <div style="font-size:12px;color:rgba(255,255,255,.3);">obva_scenario_t1.jpg</div>
-            </div>
-            <!-- Invite à cliquer -->
-            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:24px;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 60%);">
-              <div style="background:rgba(192,86,10,0.92);border:2px solid rgba(255,255,255,0.5);border-radius:30px;padding:10px 22px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:white;display:flex;align-items:center;gap:8px;animation:pulse 2s ease-in-out infinite;">
-                👆 Clique pour révéler le scénario
-              </div>
-            </div>
-          </div>
-          <div style="background:#4a1500;padding:6px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:8px;">
-            <span style="font-size:10px;color:#f0a070;font-family:'Inter',sans-serif;font-weight:600;">📍 Cantine — Collège de Vaucresson, 9 allée du Collège, 92420 Vaucresson</span>
-            <span style="font-size:10px;color:#80cba0;font-family:'Outfit',sans-serif;font-weight:700;white-space:nowrap;">📞 06 07 52 68 90</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ÉTAT 1 : scénario + photo (alerte masquée) -->
-      <div id="t1-state1" style="display:none;flex:1;flex-direction:column;gap:10px;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;">
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div class="cc-box" style="flex:0 0 auto;">
-              <div class="cc-badge">🎭 Scénario — À toi de jouer !</div>
-              <h3>« L'étouffement à la cantine »</h3>
-              <div class="stxt">
-                À la cantine, ton camarade <strong>Théo, 14 ans</strong>, mange une pomme. Soudain il garde la bouche ouverte, ne parle plus et ne respire plus.<br><br>
-                Il s'agite, son visage devient rouge. Il présente une <strong>obstruction complète des voies aériennes</strong>.<br><br>
-                Tu es à côté de lui. <strong>Que fais-tu ?</strong>
-              </div>
-            </div>
-            <div style="background:#2a0a00;border-radius:12px;overflow:hidden;flex:1;display:flex;flex-direction:column;cursor:pointer;" onclick="t1Reveal(2)">
-              <div style="flex:1;position:relative;min-height:0;">
-                <img src="images/obva_scenario_t1.jpg"
-                     alt="Étouffement à la cantine"
-                     style="width:100%;height:100%;object-fit:cover;display:block;"
-                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-                <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:linear-gradient(135deg,#2a0a00,#4a1500);">
-                  <div style="font-size:40px;opacity:.3;">🍎</div>
-                </div>
-                <div style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 60%);">
-                  <div style="background:rgba(14,74,43,0.92);border:2px solid rgba(255,255,255,.4);border-radius:30px;padding:8px 18px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:white;animation:pulse 2s ease-in-out infinite;">
-                    👆 Clique pour la fiche alerte
-                  </div>
-                </div>
-              </div>
-              <div style="background:#4a1500;padding:6px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:8px;">
-                <span style="font-size:10px;color:#f0a070;font-family:'Inter',sans-serif;font-weight:600;">📍 Cantine — Collège de Vaucresson, 9 allée du Collège, 92420 Vaucresson</span>
-                <span style="font-size:10px;color:#80cba0;font-family:'Outfit',sans-serif;font-weight:700;white-space:nowrap;">📞 06 07 52 68 90</span>
-              </div>
-            </div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="flex:1;display:flex;align-items:center;justify-content:center;background:#111e35;border-radius:12px;border:1.5px dashed #2a3f5f;">
-              <div style="text-align:center;padding:20px;">
-                <div style="font-size:36px;opacity:.3;margin-bottom:10px;">📞</div>
-                <div style="font-family:'Outfit',sans-serif;font-size:13px;color:#4a6a8a;font-weight:600;">Message d'alerte</div>
-                <div style="font-size:11px;color:#2a3f5f;margin-top:4px;">Clique sur la photo pour révéler</div>
-              </div>
-            </div>
-            <!-- Chrono dès l'état 1 -->
-            <div style="background:#7a2a00;border-radius:10px;padding:12px;color:white;flex-shrink:0;">
-              <div style="font-family:'Outfit',sans-serif;font-size:11px;opacity:.65;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">⏱ Chronomètre formateur</div>
-              <div style="display:flex;align-items:center;gap:14px;">
-                <div id="chrono-display" style="font-family:'Outfit',sans-serif;font-size:34px;font-weight:800;color:white;min-width:80px;">0:00</div>
-                <button class="c-btn start" id="c-btn" onclick="toggleC()">▶ Démarrer</button>
-                <button class="c-btn" onclick="resetC()">↺ Reset</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- ÉTAT 2 : scénario + photo + alerte complète -->
-      <div id="t1-state2" style="display:none;flex:1;flex-direction:column;gap:10px;">
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;flex:1;">
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div class="cc-box" style="flex:0 0 auto;">
-              <div class="cc-badge">🎭 Scénario — À toi de jouer !</div>
-              <h3>« L'étouffement à la cantine »</h3>
-              <div class="stxt">
-                À la cantine, ton camarade <strong>Théo, 14 ans</strong>, mange une pomme. Soudain il garde la bouche ouverte, ne parle plus et ne respire plus.<br><br>
-                Il s'agite, son visage devient rouge. Il présente une <strong>obstruction complète des voies aériennes</strong>.<br><br>
-                Tu es à côté de lui. <strong>Que fais-tu ?</strong>
-              </div>
+      <div id="t1-state2" style="display:flex;flex-direction:column;gap:10px;">
+        <!-- FCC -->
+        <div class="fcc-wrap">
+          <div class="fcc-box span2">
+            <div class="fcc-lbl">📋 Scénario — FCC n° 4.01</div>
+            <div style="display:grid;grid-template-columns:1fr 2fr;gap:6px;margin-top:4px">
+              <div><div class="fcc-lbl">📍 Lieu</div><div class="fcc-val">Service de restauration scolaire — déjeuner</div></div>
+              <div><div class="fcc-lbl">📝 MSAS</div><div class="fcc-val">Théo (14 ans) mange une pomme. Soudain bouche ouverte, ne parle plus, ne respire plus. Visage rougissant. Obstruction complète des VA.</div></div>
             </div>
+          </div>
+          <div class="fcc-box">
+            <div class="fcc-lbl">🎭 Organisation — Acteurs</div>
+            <div class="fcc-row"><span class="fcc-ico">🤕</span><div><b>Victime</b>Se lève brusquement. Bouche ouverte, ne parle plus, ne respire plus (mimé). Visage rougissant. Toussera après 3 claques dans le dos.</div></div>
+            <div class="fcc-row"><span class="fcc-ico">👥</span><div><b>Témoin</b>Un élève à la même table, affolé.</div></div>
+            <div class="fcc-row"><span class="fcc-ico">🦺</span><div><b>Sauveteur</b>Un camarade installé à la même table.</div></div>
+          </div>
+          <div class="fcc-box">
+            <div class="fcc-lbl">🧰 Matériel disponible</div>
+            <div class="fcc-chips"><span class="fcc-chip">Table et chaises</span><span class="fcc-chip">Assiettes, couverts</span><span class="fcc-chip">Corps étranger (imitation)</span><span class="fcc-chip">Téléphone</span><span class="fcc-chip">Adresse</span></div>
+          </div>
+        </div>
+        <div class="fcc-sep"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            
             <div style="background:#2a0a00;border-radius:12px;overflow:hidden;flex:1;display:flex;flex-direction:column;">
               <div style="flex:1;position:relative;min-height:0;">
                 <img src="images/obva_scenario_t1.jpg"
@@ -962,27 +914,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
               </div>
             </div>
           
-            <!-- COLONNE FCC OFFICIELLE -->
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.22);border-radius:10px;padding:10px 12px;">
-                <div class="fcc-label">📋 Scénario — FCC n° 4.01</div>
-                <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:8px;margin-bottom:6px;">
-                  <div class="fcc-label">📍 Lieu</div>
-                  <div class="fcc-value">🍽️ Service de restauration scolaire — heure du déjeuner</div>
-                </div>
-                <div class="fcc-label">📝 MSAS</div>
-                <div class="fcc-value" style="font-size:11px;">Théo (14 ans) mange une pomme à la cantine. Soudain il garde la bouche ouverte, ne parle plus et ne respire plus. Son visage devient rouge. Il présente une obstruction complète des voies aériennes.</div>
-              </div>
-              <div style="background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.22);border-radius:10px;padding:10px 12px;flex:1;">
-                <div class="fcc-label">🎭 Organisation — Acteurs</div>
-                <div class="fcc-actors">
-                  <div class="fcc-actor"><span class="fcc-actor-icon">🤕</span><div><strong>Victime</strong>Se lève brusquement, garde la bouche ouverte, ne parle plus, ne respire plus (mimé). Visage rougissant. Toussera après 3 claques dans le dos (mimées).</div></div>
-                  <div class="fcc-actor"><span class="fcc-actor-icon">👥</span><div><strong>Témoin</strong>Un élève assis à la même table, affolé.</div></div>
-                  <div class="fcc-actor"><span class="fcc-actor-icon">🦺</span><div><strong>Sauveteur</strong>Un camarade installé à la même table.</div></div>
-                </div>
-                <div style="height:1px;background:rgba(255,255,255,0.12);margin:6px 0;"></div>
-                <div class="fcc-label">🧰 Matériel</div>
-                <div class="fcc-materiel"><span class="fcc-mat-item">Table et chaises</span><span class="fcc-mat-item">Assiettes, couverts</span><span class="fcc-mat-item">Corps étranger (imitation)</span><span class="fcc-mat-item">Téléphone</span><span class="fcc-mat-item">Adresse</span></div>
+            </div>
               </div>
             </div>
           </div>
@@ -1281,30 +1213,26 @@ function resetAlerteItems(){
 }
 
 // ===== REVEAL PROGRESSIF TEMPS 1 =====
-function t1Reveal(state){
-  document.getElementById('t1-state0').style.display='none';
-  document.getElementById('t1-state1').style.display='none';
-  document.getElementById('t1-state2').style.display='none';
-  if(state===1){document.getElementById('t1-state1').style.display='flex';}
-  else if(state===2){document.getElementById('t1-state2').style.display='flex';resetAlerteItems();}
-}
-
 // ===== CC 2 TEMPS =====
 let ccPhase=1;
-function switchCC(){
-  const t1=document.getElementById('cc-t1'),t2=document.getElementById('cc-t2');
-  const btn=document.getElementById('cc-switch-btn'),title=document.getElementById('cc-title'),footer=document.getElementById('cc-footer');
-  if(ccPhase===1){
-    t1.style.display='none';t2.style.display='flex';
-    btn.textContent='← Retour temps 1';title.textContent='Cas Concret — ✅ Temps 2 : Correction';footer.textContent='Temps 2 — Correction avec claques et compressions';
-    ccPhase=2;
+function switchCC() {
+  const t1 = document.getElementById('cc-t1');
+  const t2 = document.getElementById('cc-t2');
+  const btn = document.getElementById('cc-switch-btn');
+  const footer = document.getElementById('cc-footer');
+  if (t2.style.display === 'none') {
+    t1.style.display = 'none';
+    t2.style.display = 'flex';
+    btn.textContent = '← Temps 1 : Situation';
+    if (footer) footer.querySelector('span').textContent = 'Temps 2 — Correction';
   } else {
-    t1.style.display='flex';t2.style.display='none';
-    btn.textContent='Temps 2 : Correction →';title.textContent='Cas Concret — ⏱ Temps 1 : La situation';footer.textContent='Temps 1 — Situation soumise aux élèves';
-    t1Reveal(0);document.getElementById('t1-state0').style.display='flex';
-    ccPhase=1;
+    t1.style.display = 'flex';
+    t2.style.display = 'none';
+    btn.textContent = 'Temps 2 : Correction →';
+    if (footer) footer.querySelector('span').textContent = 'Temps 1 — Situation soumise aux élèves';
   }
 }
+
 
 // ===== CHRONO =====
 let cInt=null,cSecs=0,cRun=false;
