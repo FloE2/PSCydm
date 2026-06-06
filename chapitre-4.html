@@ -613,7 +613,36 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
           <div class="cc-tag">🌙 Agression — plaie pénétrante thoracique avec corps étranger</div>
           <h3>Kévin (17 ans) a reçu un coup de couteau dans la poitrine dans une ruelle</h3>
         </div>
-        <div class="cc-scene">
+        
+        <!-- FICHE CC OFFICIELLE -->
+        <div class="fcc-grid">
+          <div class="fcc-block full">
+            <div class="fcc-label">📋 Scénario du cas — FCC n° 6.01</div>
+            <div class="fcc-grid" style="margin:0;gap:6px">
+              <div class="fcc-block" style="background:rgba(255,255,255,0.04)">
+                <div class="fcc-label">📍 Lieu de l'événement</div>
+                <div class="fcc-value">🌙 Rue des Acacias — 21h30</div>
+              </div>
+              <div class="fcc-block" style="background:rgba(255,255,255,0.04);grid-column:1/-1">
+                <div class="fcc-label">📝 Description de la MSAS</div>
+                <div class="fcc-value">Kévin (17 ans) a reçu un coup de couteau dans la poitrine côté gauche. La lame n'est plus visible mais la plaie est profonde et saigne. Il a du mal à respirer, est conscient et pâle, affalé contre un mur.</div>
+              </div>
+            </div>
+          </div>
+          <div class="fcc-block">
+            <div class="fcc-label">🎭 Organisation — Consignes aux acteurs</div>
+            <div class="fcc-actors">
+              <div class="fcc-actor"><span class="fcc-actor-icon">🤕</span><div><strong>Victime</strong>Affalé contre un mur, conscient, pâle, grimace de douleur. Difficultés respiratoires. Plaie thoracique pénétrante.</div></div>
+              <div class="fcc-actor"><span class="fcc-actor-icon">👥</span><div><strong>Témoin</strong>Plusieurs passants présents aux alentours.</div></div>
+              <div class="fcc-actor"><span class="fcc-actor-icon">🦺</span><div><strong>Sauveteur</strong>Un passant qui rentre chez lui à pied.</div></div>
+            </div>
+          </div>
+          <div class="fcc-block">
+            <div class="fcc-label">🧰 Matériel disponible</div>
+            <div class="fcc-materiel"><span class="fcc-mat-item">Téléphone (dans poche)</span><span class="fcc-mat-item">Adresse</span></div>
+          </div>
+        </div>
+        <div class="fcc-divider"></div><div class="cc-scene">
           Il est <strong>21h30</strong>. Tu rentres chez toi à pied par la <strong>rue des Acacias</strong>, dans ta ville. Dans une ruelle peu éclairée, tu découvres <strong>Kévin, 17 ans</strong>, affalé contre un mur. Il a visiblement reçu un coup de couteau dans la <strong>poitrine côté gauche</strong>. La lame n'est <strong>plus visible</strong> mais la plaie est profonde et saigne. Il a du mal à respirer et grimace de douleur. Il est pâle, conscient.<br><br>
           Plusieurs <strong>passants</strong> sont présents autour de toi. <strong>Tu as ton téléphone dans ta poche.</strong><br><br>
           <strong>Que fais-tu ? Dans quel ordre ?</strong>
@@ -660,7 +689,81 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
             0%,100%{opacity:1;transform:scale(1)}
             50%{opacity:.4;transform:scale(1.4)}
           }
-        </style>
+      
+    /* ── FICHE CC OFFICIELLE ── */
+    .fcc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .fcc-block {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .fcc-block.full { grid-column: 1 / -1; }
+    .fcc-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 4px;
+    }
+    .fcc-value {
+      font-size: 12px;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.5;
+    }
+    .fcc-actors {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .fcc-actor {
+      display: flex;
+      gap: 7px;
+      align-items: flex-start;
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.45;
+    }
+    .fcc-actor-icon {
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .fcc-actor strong {
+      color: rgba(255,255,255,0.5);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: block;
+      margin-bottom: 1px;
+    }
+    .fcc-materiel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 4px;
+    }
+    .fcc-mat-item {
+      background: rgba(255,255,255,0.1);
+      border: 0.5px solid rgba(255,255,255,0.2);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.8);
+    }
+    .fcc-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 8px 0;
+    }
+  </style>
       </div>
 
       <!-- TEMPS 2 : CORRECTION -->
