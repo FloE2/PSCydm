@@ -1,720 +1,792 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PSC1 — Chapitre 8 : Malaise</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bleu:#1a3a6b;--bleu-mid:#2558a8;--bleu-clair:#ddeeff;--bleu-pale:#f0f6ff;
-  --rouge:#c0392b;--rouge-clair:#fdecea;--rouge-bord:#e8a09a;
-  --vert:#1a7a4a;--vert-clair:#e8f8ef;--vert-bord:#80cba0;
-  --orange:#e67e22;--orange-clair:#fdf3e3;--orange-bord:#f0b060;
-  --violet:#7d3c98;--violet-clair:#f5eef8;--violet-bord:#c39bd3;
-  --teal:#117a65;--teal-clair:#e8f8f5;--teal-bord:#76d7c4;
-  --gris:#f4f5f7;--gris-bord:#d0d6e0;--texte:#1c2233;--texte-sec:#5a6382;
-}
-body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PSC1 · Parcours de formation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-#nav{background:#0d1525;display:flex;align-items:center;justify-content:space-between;padding:8px 18px;border-bottom:1px solid #1e2d4a;flex-shrink:0;gap:12px}
-.logo{display:flex;align-items:center;gap:8px;color:#7fa8d4;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;white-space:nowrap}
-.logo span{color:white;font-size:14px}
-#nav-pills{display:flex;gap:3px;flex-wrap:wrap}
-.pill{font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid #2a3f5f;color:#7fa8d4;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;white-space:nowrap}
-.pill.active{background:var(--bleu-mid);border-color:var(--bleu-mid);color:white}
-.pill:hover:not(.active){background:#1e2d4a}
-#nav-btns{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.nav-btn{background:#1e2d4a;border:1px solid #2a3f5f;color:#7fa8d4;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;transition:all .2s}
-.nav-btn:hover{background:var(--bleu-mid);border-color:var(--bleu-mid);color:white}
-#slide-counter{color:#7fa8d4;font-size:11px;font-family:'Outfit',sans-serif;white-space:nowrap}
+    :root {
+      --bg: #f2f1ee;
+      --surface: #ffffff;
+      --border: #e0dfd9;
+      --border-light: #ebebea;
+      --text-primary: #1a1a18;
+      --text-secondary: #6b6b65;
+      --text-muted: #b0b0aa;
+      --green: #1D9E75;
+      --green-light: #e8f5ef;
+      --blue: #2d7dd2;
+      --font: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
 
-#stage{flex:1;display:flex;align-items:stretch;justify-content:center;padding:14px;overflow:hidden}
-.slide{display:none;background:white;border-radius:16px;width:100%;max-width:980px;position:relative;overflow:hidden}
-.slide.active{display:flex;flex-direction:column}
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 2rem 1.5rem 4rem;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url('images/PSC.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 550px;
+      opacity: 0.28;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body > * { position: relative; z-index: 1; }
 
-.slide-header{background:var(--violet);color:white;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:16px}
-.slide-header .left .sup{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.65;margin-bottom:3px}
-.slide-header h1{font-family:'Outfit',sans-serif;font-size:26px;font-weight:900;line-height:1.1}
-.slide-header h2{font-family:'Outfit',sans-serif;font-size:19px;font-weight:700;line-height:1.2}
-.slide-header .badge-dur{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:8px 14px;text-align:center;flex-shrink:0}
-.slide-header .badge-dur .v{font-family:'Outfit',sans-serif;font-size:24px;font-weight:800}
-.slide-header .badge-dur .l{font-size:10px;opacity:.7;display:block}
-.slide-body{flex:1;padding:14px 28px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
-.slide-footer{padding:7px 28px;border-top:1px solid var(--gris-bord);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--texte-sec);flex-shrink:0;background:var(--gris)}
-.progress-dots{display:flex;gap:5px}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--gris-bord);transition:all .3s}
-.dot.active{background:var(--violet)}
-.dot.done{background:#c39bd3}
+    /* ── SCHOOL NAME ── */
+    .school-name {
+      max-width: 960px;
+      margin: 0 auto 1.5rem;
+      text-align: center;
+    }
+    .school-name h1 {
+      font-family: var(--font);
+      font-size: 32px;
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .school-name h1 span { color: var(--green); }
+    .school-name p {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
 
-/* COMMUN */
-.objectif-box{background:var(--violet-clair);border-left:4px solid var(--violet);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;color:var(--violet)}
-.objectif-box strong{font-family:'Outfit',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:3px;opacity:.7}
-.section-label{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--texte-sec);margin-bottom:6px}
-.alerte-box{background:var(--rouge-clair);border:2px solid var(--rouge);border-radius:10px;padding:9px 14px;display:flex;align-items:flex-start;gap:10px}
-.alerte-icon{font-size:20px;flex-shrink:0}
-.alerte-box h3{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:var(--rouge);margin-bottom:2px}
-.alerte-box p{font-size:11.5px;color:#7a1a10;line-height:1.4}
-.info-box{background:var(--bleu-pale);border:1px solid #a0c0ea;border-radius:10px;padding:9px 14px;font-size:12.5px;color:var(--bleu);line-height:1.5}
-.vert-box{background:var(--vert-clair);border:1px solid var(--vert-bord);border-radius:10px;padding:9px 14px;font-size:12.5px;color:var(--vert);line-height:1.5}
-.violet-box{background:var(--violet-clair);border:1px solid var(--violet-bord);border-radius:10px;padding:9px 14px;font-size:12.5px;color:var(--violet);line-height:1.5}
+    /* ── HEADER ── */
+    .header {
+      max-width: 960px;
+      margin: 0 auto 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+    }
+    .header-left {}
+    .header-badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .header-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    .prog-wrap { text-align: right; }
+    .prog-bar {
+      width: 130px;
+      height: 3px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-left: auto;
+      margin-bottom: 5px;
+    }
+    .prog-fill {
+      height: 100%;
+      background: var(--green);
+      border-radius: 3px;
+      transition: width 0.6s ease;
+    }
+    .prog-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
 
-/* TITRE */
-.titre-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:28px;background:linear-gradient(160deg,#fdf8ff 0%,#f5eef8 100%)}
-.titre-number{font-family:'Outfit',sans-serif;font-size:110px;font-weight:900;color:#e0c8f0;line-height:1;user-select:none}
-.titre-main{font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;color:var(--violet);text-align:center;line-height:1.15}
-.titre-sub{font-size:14px;color:var(--texte-sec);text-align:center;max-width:560px;line-height:1.65}
-.timing-row{display:flex;gap:16px}
-.timing-box{text-align:center;padding:10px 18px;background:white;border:1px solid var(--gris-bord);border-radius:10px}
-.timing-box .tv{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:var(--violet)}
-.timing-box .tl{font-size:10px;color:var(--texte-sec);text-transform:uppercase;letter-spacing:1px}
-.chips-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.chip{background:var(--violet-clair);border:1px solid var(--violet-bord);color:var(--violet);border-radius:20px;padding:5px 14px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600}
+    /* Reset button */
+    .btn-reset {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-reset:hover { color: #c0392b; border-color: #c0392b; }
 
-/* SIGNES CARDS */
-.signes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.signe-card{border-radius:12px;padding:12px;border:2px solid;position:relative}
-.signe-card h3{font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.signe-card ul{list-style:none;display:flex;flex-direction:column;gap:3px}
-.signe-card ul li{font-size:11.5px;padding-left:12px;position:relative;line-height:1.4;color:var(--texte-sec)}
-.signe-card ul li::before{content:'·';position:absolute;left:0;font-weight:800}
-.signe-card.urgence{background:#fff0f0;border-color:var(--rouge-bord)}
-.signe-card.urgence h3{color:var(--rouge)}
-.signe-card.urgence .urgence-badge{position:absolute;top:8px;right:8px;background:var(--rouge);color:white;font-family:'Outfit',sans-serif;font-size:9px;font-weight:800;padding:2px 7px;border-radius:20px;letter-spacing:.5px}
-.signe-card.infectieux{background:#fff8e8;border-color:var(--orange-bord)}
-.signe-card.infectieux h3{color:var(--orange)}
-.signe-card.autre{background:var(--gris);border-color:var(--gris-bord)}
-.signe-card.autre h3{color:var(--texte)}
+    /* ── ALERT ── */
+    .alert {
+      max-width: 960px;
+      margin: 0 auto 1.75rem;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+    }
 
-/* POSITIONS */
-.pos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.pos-card{border-radius:10px;padding:12px;border:1.5px solid;text-align:center}
-.pos-card .ic{font-size:28px;margin-bottom:6px}
-.pos-card h3{font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;margin-bottom:4px}
-.pos-card p{font-size:11px;line-height:1.4}
-.pos-card.allonge{background:#f0f4ff;border-color:#a0c0ea;color:var(--bleu)}
-.pos-card.allonge p{color:#3a5a9a}
-.pos-card.assise{background:var(--orange-clair);border-color:var(--orange-bord);color:var(--orange)}
-.pos-card.assise p{color:#7a4400}
-.pos-card.mieux{background:var(--vert-clair);border-color:var(--vert-bord);color:var(--vert)}
-.pos-card.mieux p{color:#1a5a3a}
+    /* ── LEGEND ── */
+    .legend {
+      max-width: 960px;
+      margin: 0 auto 2rem;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .leg-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+    .leg-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .leg-hint { margin-left: auto; font-size: 11px; color: var(--text-muted); font-style: italic; }
 
-/* MANŒUVRES */
-.mano-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.mano-card{background:var(--teal-clair);border:1.5px solid var(--teal-bord);border-radius:10px;padding:12px;text-align:center}
-.mano-card .ic{font-size:30px;margin-bottom:6px}
-.mano-card h3{font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:var(--teal);margin-bottom:5px}
-.mano-card p{font-size:11px;color:#1a5a4a;line-height:1.4}
-.mano-card .best{background:var(--teal);color:white;font-family:'Outfit',sans-serif;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;display:inline-block;margin-top:5px}
+    /* ── SNAKE ── */
+    .snake { max-width: 960px; margin: 0 auto; }
 
-/* DRAG & DROP */
-.dd-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.dd-pool-label{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--texte-sec);margin-bottom:8px}
-.dd-pool{display:flex;flex-wrap:wrap;gap:6px;min-height:80px;padding:10px;background:var(--gris);border:2px dashed var(--gris-bord);border-radius:10px;align-content:flex-start}
-.dd-item{background:white;border:1.5px solid var(--gris-bord);border-radius:8px;padding:6px 12px;font-size:12px;color:var(--texte);cursor:grab;user-select:none;transition:all .2s;font-family:'Outfit',sans-serif;font-weight:600}
-.dd-item:hover{border-color:var(--violet);color:var(--violet);transform:translateY(-1px)}
-.dd-item.dragging{opacity:.4;cursor:grabbing}
-.dd-item.placed-correct{background:var(--vert-clair);border-color:var(--vert);color:var(--vert);cursor:default}
-.dd-item.placed-wrong{background:var(--rouge-clair);border-color:var(--rouge);color:var(--rouge)}
-.dd-zones{display:flex;flex-direction:column;gap:8px}
-.dd-zone{border-radius:10px;padding:10px;border:2px dashed;min-height:64px;transition:background .2s}
-.dd-zone h4{font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.dd-zone.avc{border-color:var(--rouge-bord);background:#fff8f8}
-.dd-zone.avc h4{color:var(--rouge)}
-.dd-zone.cardiaque{border-color:var(--orange-bord);background:#fff8f0}
-.dd-zone.cardiaque h4{color:var(--orange)}
-.dd-zone.vagal{border-color:var(--teal-bord);background:var(--teal-clair)}
-.dd-zone.vagal h4{color:var(--teal)}
-.dd-zone.infectieux{border-color:var(--gris-bord);background:var(--gris)}
-.dd-zone.infectieux h4{color:var(--texte-sec)}
-.dd-zone.dragover{background:var(--violet-clair);border-color:var(--violet)}
-.dd-zone-items{display:flex;flex-wrap:wrap;gap:4px;min-height:28px}
-.dd-check-btn{background:var(--violet);color:white;border:none;padding:8px 20px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s}
-.dd-check-btn:hover{background:#6c2d8a}
-.dd-reset-btn{background:white;color:var(--texte-sec);border:1.5px solid var(--gris-bord);padding:8px 16px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-left:6px}
-.dd-score{padding:8px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;display:none;margin-top:4px}
+    .phase-lbl {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .phase-lbl::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
 
-/* CAT STEPS */
-.steps-h{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.step-c{background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:9px;text-align:center}
-.step-n{width:22px;height:22px;border-radius:50%;background:var(--violet);color:white;font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 5px}
-.step-i{font-size:20px;margin-bottom:4px}
-.step-t{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:var(--texte);margin-bottom:2px}
-.step-d{font-size:10px;color:var(--texte-sec);line-height:1.35}
+    .s-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 12px;
+    }
 
-/* CC TABS */
-.cc-tabs{display:flex;gap:8px;margin-bottom:12px}
-.cc-tab{padding:8px 16px;border-radius:8px;border:1.5px solid var(--gris-bord);background:var(--gris);font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:var(--texte-sec);cursor:pointer;transition:all .2s}
-.cc-tab.active{background:var(--violet);border-color:var(--violet);color:white}
-.cc-panel{display:none}
-.cc-panel.active{display:block}
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 14px 12px;
+      cursor: default;
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s, background 0.2s, opacity 0.3s;
+      position: relative;
+      user-select: none;
+    }
 
-.cc-header{color:white;padding:13px 18px;border-radius:10px;margin-bottom:10px}
-.cc-tag{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:3px}
-.cc-header h3{font-family:'Outfit',sans-serif;font-size:15px;font-weight:800}
-.cc-scene{background:#f0f6ff;border:1.5px solid #a0c0ea;border-radius:10px;padding:12px 16px;font-size:13px;color:var(--texte);line-height:1.6;margin-bottom:8px}
-.cc-scene strong{color:var(--bleu)}
-.cc-step{background:var(--gris);border:1.5px solid var(--gris-bord);border-radius:10px;overflow:hidden;margin-bottom:6px}
-.cc-step-hd{padding:9px 14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-family:'Outfit',sans-serif;font-size:12.5px;font-weight:700;color:var(--texte);transition:background .2s;user-select:none}
-.cc-step-hd:hover{background:#e8eaf0}
-.chevron{font-size:12px;color:var(--texte-sec);transition:transform .2s}
-.cc-step.open .chevron{transform:rotate(90deg)}
-.cc-step-body{display:none;padding:9px 14px;font-size:12px;color:var(--texte-sec);line-height:1.6;border-top:1px solid var(--gris-bord)}
-.cc-step.open .cc-step-body{display:block}
-.cc-step.ok .cc-step-hd{background:var(--vert-clair);color:var(--vert)}
-.cc-step.ok .cc-step-body{background:#f5fdf9;border-color:var(--vert-bord)}
-.debrief-box{background:linear-gradient(135deg,#1a3a6b,#0d1f3c);color:white;border-radius:10px;padding:12px 16px;font-size:12px;line-height:1.6;margin-top:8px}
-.debrief-box h4{font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:5px}
-.cc-t2-toggle{background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.4);color:white;padding:6px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
-</style>
+    .card.has-link { cursor: pointer; }
+    .card.has-link:hover:not(.checked):not(.done-foad) {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+
+    .card.done-foad {
+      border-color: var(--green);
+      background: var(--green-light);
+      opacity: 0.8;
+      cursor: default;
+    }
+
+    .card.checked {
+      border-color: var(--green);
+      background: var(--green-light);
+      opacity: 0.7;
+      cursor: default;
+    }
+    .card.checked .card-title { text-decoration: line-through; color: var(--text-muted); }
+    .card.checked .card-dot { border-color: var(--green) !important; background: var(--green-light); }
+    .card.checked .card-open { display: none !important; }
+
+    .card.soon { opacity: 0.4; cursor: not-allowed; }
+    .card.soon:hover { transform: none; box-shadow: none; }
+
+    .card-dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      border: 2px solid;
+      background: var(--surface);
+      margin-bottom: 10px;
+      transition: transform 0.2s;
+    }
+    .card.has-link:hover .card-dot { transform: scale(1.3); }
+    .card.done-foad .card-dot { background: var(--green-light); }
+
+    .card-check-icon {
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+      color: transparent;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      pointer-events: none;
+    }
+    /* Rendre la coche cliquable sur les cartes terminées (hors FOAD) */
+    .card.checked .card-check-icon {
+      pointer-events: auto;
+      cursor: pointer;
+    }
+    .card.checked .card-check-icon:hover {
+      background: #c0392b !important;
+      border-color: #c0392b !important;
+    }
+    .card.checked .card-check-icon::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+    }
+    .card.done-foad .card-check-icon,
+    .card.checked .card-check-icon {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff;
+    }
+
+    .card-open {
+      display: none;
+      position: absolute;
+      bottom: 10px; right: 10px;
+      font-size: 11px;
+      color: var(--blue);
+      font-family: var(--mono);
+      align-items: center;
+      gap: 3px;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+    .card.has-link .card-open { display: flex; }
+    .card.has-link:hover .card-open { opacity: 1; }
+
+    .card-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.35;
+      padding-right: 26px;
+    }
+
+    .card-detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.2s;
+      opacity: 0;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .card:hover .card-detail { max-height: 120px; opacity: 1; margin-top: 8px; }
+
+    .chips { display: flex; gap: 4px; margin-top: 9px; flex-wrap: wrap; }
+    .chip {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 20px;
+      background: var(--bg);
+      color: var(--text-muted);
+      border: 0.5px solid var(--border);
+    }
+    .done-badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 8px;
+    }
+
+    /* ── today marker ── */
+    .now-sep {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 4px 0 16px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: #999;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .now-sep::before { content: ''; width: 32px; height: 1px; background: #ccc; display: block; flex-shrink: 0; }
+
+    .card-empty {
+      background: transparent;
+      border: 0.5px dashed var(--border-light);
+      border-radius: 12px;
+    }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding-top: 1.5rem;
+      margin: 1.75rem auto 0;
+      border-top: 0.5px solid var(--border);
+      max-width: 960px;
+    }
+    .stat {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+    .stat-val { font-size: 22px; font-weight: 500; color: var(--text-primary); }
+    .stat-val.green { color: var(--green); }
+    .stat-lbl { font-family: var(--mono); font-size: 10px; color: var(--text-muted); margin-top: 3px; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: #1a1a18; color: #fff;
+      font-family: var(--mono); font-size: 12px;
+      padding: 10px 20px; border-radius: 30px;
+      white-space: nowrap; opacity: 0;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      z-index: 100; pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── CONFIRM MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.35);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 200;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .modal-overlay.show { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 24px 28px;
+      max-width: 340px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      transform: translateY(8px);
+      transition: transform 0.2s;
+    }
+    .modal-overlay.show .modal { transform: translateY(0); }
+    .modal h3 { font-size: 15px; font-weight: 500; margin-bottom: 8px; }
+    .modal p { font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px; }
+    .modal-btns { display: flex; gap: 8px; justify-content: flex-end; }
+    .modal-btn {
+      font-family: var(--font); font-size: 13px; padding: 8px 16px;
+      border-radius: 8px; border: 0.5px solid var(--border);
+      cursor: pointer; transition: background 0.15s;
+    }
+    .modal-btn.cancel { background: var(--bg); color: var(--text-secondary); }
+    .modal-btn.cancel:hover { background: var(--border); }
+    .modal-btn.confirm { background: #c0392b; color: #fff; border-color: #c0392b; }
+    .modal-btn.confirm:hover { background: #a93226; }
+
+    /* ── FADE IN ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .card { animation: fadeUp 0.35s ease both; }
+    .s-row .card:nth-child(1) { animation-delay: 0.05s; }
+    .s-row .card:nth-child(2) { animation-delay: 0.10s; }
+    .s-row .card:nth-child(3) { animation-delay: 0.15s; }
+    .s-row .card:nth-child(4) { animation-delay: 0.20s; }
+  </style>
 </head>
 <body>
 
-<div id="nav">
-  <div class="logo">😮 <span>PSC1</span> · Malaise</div>
-  <div id="nav-pills">
-    <div class="pill" onclick="goToDashboard()" style="border-color:#1a5a35;color:#80cba0;">← Dashboard</div>
-    <div class="pill active" onclick="goSlide(0)">Titre</div>
-    <div class="pill" onclick="goSlide(1)">Signes à reconnaître</div>
-    <div class="pill" onclick="goSlide(2)">CAT générale</div>
-    <div class="pill" onclick="goSlide(3)">Positions d'attente</div>
-    <div class="pill" onclick="goSlide(4)">Manœuvres vagales</div>
-    <div class="pill" onclick="goSlide(5)">🎯 Associer malaise → signes</div>
-    <div class="pill" onclick="goSlide(6)">Cas Concrets</div>
+  <!-- SCHOOL NAME -->
+  <div class="school-name">
+    <h1>PSC <span>Yves du Manoir</span> Vaucresson</h1>
+    <p>Prévention et Secours Civiques de niveau 1</p>
   </div>
-  <div id="nav-btns">
-    <div id="slide-counter">1 / 7</div>
-    <button class="nav-btn" onclick="prevSlide()">← Préc.</button>
-    <button class="nav-btn" onclick="nextSlide()">Suiv. →</button>
+
+  <!-- HEADER BAR -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-badge">Scénario 5 · Collège de Vaucresson</div>
+      <div class="header-sub">Hybride FOAD (3h) + Présentiel (4h30)</div>
+      <div style="font-family:var(--mono);font-size:9px;color:var(--text-muted);margin-top:5px;letter-spacing:0.05em">© 2026 Florian EUDE · Formateur PSC1 · Collège Yves du Manoir · Vaucresson</div>
+    </div>
+    <div class="header-right">
+      <div class="prog-wrap">
+        <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+        <div class="prog-label" id="progLabel">0 / 10 chapitres</div>
+      </div>
+      <button class="btn-reset" onclick="askReset()">↺ Réinitialiser</button>
+    </div>
   </div>
+
+  <!-- ALERT -->
+  <div class="alert">
+    À l'issue de la formation, tous les apprenants doivent avoir été <strong>au moins une fois sauveteur</strong> au cours d'un cas concret.
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:#1D9E75"></div> Terminé</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#2d7dd2"></div> Disponible</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#ccc"></div> À venir</div>
+    <div class="leg-hint">Survoler pour les détails · Cliquer pour ouvrir</div>
+  </div>
+
+  <!-- SNAKE -->
+  <div class="snake">
+
+    <!-- ROW 1 LTR : FOAD — Ch1 Ch2 -->
+    <div class="phase-lbl">FOAD — en autonomie avant la formation</div>
+    <div class="s-row">
+      <div class="card done-foad" id="card-1">
+        <div class="card-check-icon">✓</div>
+        <div class="card-dot" style="border-color:#1D9E75"></div>
+        <div class="card-num">Chapitre 1</div>
+        <div class="card-title">🔊 Alerte et protection des populations</div>
+        <div class="card-detail">Signal national d'alerte · mesures de confinement et d'évacuation · comportements à adopter. Compétence A1.</div>
+        <div class="done-badge">✓ Vu en FOAD · 10 min</div>
+      </div>
+      <div class="card done-foad" id="card-2">
+        <div class="card-check-icon">✓</div>
+        <div class="card-dot" style="border-color:#1D9E75"></div>
+        <div class="card-num">Chapitre 2</div>
+        <div class="card-title">🛡️ Protection &amp; Alerte</div>
+        <div class="card-detail">Analyser · protéger soi-même, la victime et les autres · transmettre l'alerte (15 · 18 · 112 · 114). Compétences B &amp; C.</div>
+        <div class="done-badge">✓ Vu en FOAD · 20 min</div>
+      </div>
+      <div class="card-empty"></div>
+      <div class="card-empty"></div>
+    </div>
+
+    <!-- ROW 2 LTR : Présentiel — Ch3 Ch4 Ch5 Ch6 -->
+    <div class="now-sep">Aujourd'hui — présentiel · à votre rythme</div>
+    <div class="phase-lbl">Présentiel — 1ère partie</div>
+    <div class="s-row">
+
+      <div class="card has-link" id="card-3" data-href="chapitre-1.html" onclick="openChapter(this)">
+        <div class="card-check-icon">✓</div>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
+        <div class="card-num">Chapitre 3</div>
+        <div class="card-title">🦴 Traumatisme</div>
+        <div class="card-detail">Os, articulations et organes · CAT membre · rachis cervical · maintien de tête à 2 mains.</div>
+        <div class="chips"><span class="chip">REFOR</span><span class="chip">APG(M)</span><span class="chip">1 CC</span></div>
+        <div class="card-open">Ouvrir →</div>
+      </div>
+
+      <div class="card has-link" id="card-4" data-href="chapitre-2.html" onclick="openChapter(this)">
+        <div class="card-check-icon">✓</div>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
+        <div class="card-num">Chapitre 4</div>
+        <div class="card-title">💨 Obstruction des voies aériennes</div>
+        <div class="card-detail">Partielle · complète adulte/enfant · claques + compressions abdominales · nourrisson · compressions thoraciques.</div>
+        <div class="chips"><span class="chip">REFOR</span><span class="chip">APG(M)</span><span class="chip">1 CC</span></div>
+        <div class="card-open">Ouvrir →</div>
+      </div>
+
+      <div class="card has-link" id="card-5" data-href="chapitre-3.html" onclick="openChapter(this)">
+        <div class="card-check-icon">✓</div>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
+        <div class="card-num">Chapitre 5</div>
+        <div class="card-title">🩸 Hémorragies externes</div>
+        <div class="card-detail">Compression directe · pansement compressif · garrot d'urgence · saignements par le nez, la bouche ou autre.</div>
+        <div class="chips"><span class="chip">DCJIM</span><span class="chip">1 CC</span></div>
+        <div class="card-open">Ouvrir →</div>
+      </div>
+
+      <div class="card has-link" id="card-6" data-href="chapitre-4.html" onclick="openChapter(this)">
+        <div class="card-check-icon">✓</div>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
+        <div class="card-num">Chapitre 6</div>
+        <div class="card-title">🩹 Plaies</div>
+        <div class="card-detail">Plaies simples · plaies graves · ne pas retirer le corps étranger · position allongée · alerte et surveillance.</div>
+        <div class="chips"><span class="chip">REFOR CAT</span><span class="chip">1 CC</span></div>
+        <div class="card-open">Ouvrir →</div>
+      </div>
+
+    </div>
+
+    <!-- ROW 3 LTR : Présentiel — Ch7 Ch8 Ch9 Ch10 -->
+    <div class="phase-lbl">Présentiel — 2ème partie</div>
+    <div class="s-row">
+
+      <div class="card has-link" id="card-7" data-href="chapitre-5.html" onclick="openChapter(this)">
+        <div class="card-check-icon">✓</div>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
+        <div class="card-num">Chapitre 7</div>
+        <div class="card-title">🔥 Brûlures</div>
+        <div class="card-detail">Refroidissement à l'eau tempérée 15 min · protection stérile · brûlures chimiques/électriques · brûlures graves.</div>
+        <div class="chips"><span class="chip">REFOR CAT</span><span class="chip">1 CC</span></div>
+        <div class="card-open">Ouvrir →</div>
+      </div>
+
+      <div class="card has-link" id="card-8" data-href="chapitre-6.html" onclick="openChapter(this)">
+        <div class="card-check-icon">✓</div>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
+        <div class="card-num">Chapitre 8</div>
+        <div class="card-title">😮 Malaise</div>
+        <div class="card-detail">Reconnaître le malaise · position adaptée · ne pas laisser seul · alerte · manœuvres physiques spécifiques.</div>
+        <div class="chips"><span class="chip">REFOR CAT</span><span class="chip">APG(M)</span><span class="chip">1 CC</span></div>
+        <div class="card-open">Ouvrir →</div>
+      </div>
+
+      <div class="card has-link" id="card-9" data-href="chapitre-7.html" onclick="openChapter(this)">
+        <div class="card-check-icon">✓</div>
+        <div class="card-dot" style="border-color:#2d7dd2"></div>
+        <div class="card-num">Chapitre 9</div>
+        <div class="card-title">💤 Perte de connaissance</div>
+        <div class="card-detail">Stimulation · LVA · ventilation · PLS adulte et nourrisson · surveillance jusqu'aux secours.</div>
+        <div class="chips"><span class="chip">REFOR</span><span class="chip">APG LVA &amp; PLS</span><span class="chip">1 CC</span></div>
+        <div class="card-open">Ouvrir →</div>
+      </div>
+
+      <div class="card has-link" id="card-10" data-href="chapitre-8.html" onclick="openChapter(this)">
+        <div class="card-check-icon">✓</div>
+        <div class="card-dot" style="border-color:#c0392b"></div>
+        <div class="card-num">Chapitre 10</div>
+        <div class="card-title">❤️ Arrêt cardiaque</div>
+        <div class="card-detail">Reconnaissance · RCP adulte/nourrisson · utilisation du DAE · chaîne de survie · ne pas interrompre jusqu'aux secours.</div>
+        <div class="chips"><span class="chip">REFOR</span><span class="chip">APG(M)</span><span class="chip">2 CC</span></div>
+        <div class="card-open">Ouvrir →</div>
+      </div>
+
+    </div>
+
+  </div><!-- /snake -->
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-val">4h30</div>
+      <div class="stat-lbl">Durée présentiel</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">10</div>
+      <div class="stat-lbl">Cas concrets</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">10</div>
+      <div class="stat-lbl">Chapitres</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val green" id="statDone">0</div>
+      <div class="stat-lbl">Complétés</div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- CONFIRM MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h3>Réinitialiser le parcours ?</h3>
+      <p>Cette action effacera toute la progression enregistrée. Les chapitres FOAD resteront cochés.</p>
+      <div class="modal-btns">
+        <button class="modal-btn cancel" onclick="closeModal()">Annuler</button>
+        <button class="modal-btn confirm" onclick="confirmReset()">Réinitialiser</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DONE_MAP = { '1': '3', '2': '4', '3': '5', '4': '6', '5': '7', '6': '8', '7': '9', '8': '10' };
+    const FOAD_IDS = ['1', '2'];
+    const PRESENTIEL_IDS = ['3','4','5','6','7','8','9','10'];
+
+    // State
+    function loadState() {
+      try { const r = localStorage.getItem('psc1_done'); return r ? JSON.parse(r) : {}; }
+      catch(e) { return {}; }
+    }
+    function saveState(s) {
+      try { localStorage.setItem('psc1_done', JSON.stringify(s)); } catch(e) {}
+    }
+
+    let state = loadState();
+
+    function countDone() {
+      let n = FOAD_IDS.length;
+      for (let id in state) { if (state[id]) n++; }
+      return n;
+    }
+
+    function updateProgress() {
+      const done = countDone();
+      document.getElementById('progFill').style.width = (done / 10 * 100) + '%';
+      document.getElementById('progLabel').textContent = done + ' / 10 chapitres';
+      document.getElementById('statDone').textContent = done;
+    }
+
+    function markDone(chapId, save = true) {
+      const card = document.getElementById('card-' + chapId);
+      if (!card) return;
+      card.classList.remove('soon', 'has-link');
+      card.classList.add('checked');
+      card.removeAttribute('onclick');
+      const dot = card.querySelector('.card-dot');
+      if (dot) dot.style.borderColor = 'var(--green)';
+      // Wire the check icon to allow unchecking
+      const checkIcon = card.querySelector('.card-check-icon');
+      if (checkIcon) checkIcon.setAttribute('onclick', `unmarkDone('${chapId}', event)`);
+      if (save) { state[chapId] = true; saveState(state); }
+    }
+
+    function unmarkDone(chapId, event) {
+      if (event) event.stopPropagation();
+      const card = document.getElementById('card-' + chapId);
+      if (!card || card.classList.contains('done-foad')) return;
+      // Restore card to "available" state
+      card.classList.remove('checked');
+      card.classList.add('has-link');
+      const hrefs = {'3':'chapitre-1.html','4':'chapitre-2.html','5':'chapitre-3.html','6':'chapitre-4.html','7':'chapitre-5.html','8':'chapitre-6.html','9':'chapitre-7.html','10':'chapitre-8.html'};
+      card.setAttribute('onclick', 'openChapter(this)');
+      card.setAttribute('data-href', hrefs[chapId] || '');
+      const dot = card.querySelector('.card-dot');
+      if (dot) dot.style.borderColor = '#2d7dd2';
+      const checkIcon = card.querySelector('.card-check-icon');
+      if (checkIcon) checkIcon.removeAttribute('onclick');
+      // Update state
+      delete state[chapId];
+      saveState(state);
+      updateProgress();
+      showToast('↩ Chapitre ' + chapId + ' remis à faire');
+    }
+
+    function openChapter(card) {
+      if (card.classList.contains('checked') || card.classList.contains('done-foad') || card.classList.contains('soon')) return;
+      const href = card.getAttribute('data-href');
+      if (href) window.location.href = href;
+    }
+
+    function checkReturnParam() {
+      const params = new URLSearchParams(window.location.search);
+      const done = params.get('done');
+      if (done && DONE_MAP[done]) {
+        const chapId = DONE_MAP[done];
+        if (!state[chapId]) {
+          markDone(chapId, true);
+          showToast('✓ Chapitre ' + chapId + ' terminé !');
+        }
+        const url = new URL(window.location);
+        url.searchParams.delete('done');
+        history.replaceState({}, '', url);
+      }
+    }
+
+    function renderAll() {
+      // restore state
+      for (let id in state) { if (state[id]) markDone(id, false); }
+      updateProgress();
+    }
+
+    // Reset
+    function askReset() {
+      document.getElementById('modalOverlay').classList.add('show');
+    }
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('show');
+    }
+    function confirmReset() {
+      state = {};
+      saveState(state);
+      closeModal();
+      // Restore presentiel cards
+      PRESENTIEL_IDS.forEach(id => {
+        const card = document.getElementById('card-' + id);
+        if (!card) return;
+        card.classList.remove('checked');
+        const dot = card.querySelector('.card-dot');
+        // Ch3 + Ch4 get blue dot + link back
+        if (id === '3' || id === '4' || id === '5' || id === '6' || id === '7' || id === '8' || id === '9' || id === '10') {
+          const hrefs = {'3':'chapitre-1.html','4':'chapitre-2.html','5':'chapitre-3.html','6':'chapitre-4.html','7':'chapitre-5.html','8':'chapitre-6.html','9':'chapitre-7.html','10':'chapitre-8.html'};
+          card.classList.add('has-link');
+          card.setAttribute('onclick', 'openChapter(this)');
+          card.setAttribute('data-href', hrefs[id]);
+          if (dot) dot.style.borderColor = '#2d7dd2';
+        } else {
+          card.classList.add('soon');
+          if (dot) dot.style.borderColor = '#ccc';
+        }
+        const checkIcon = card.querySelector('.card-check-icon');
+        if (checkIcon) { checkIcon.style.background = ''; checkIcon.style.borderColor = ''; checkIcon.style.color = 'transparent'; checkIcon.removeAttribute('onclick'); }
+        const title = card.querySelector('.card-title');
+        if (title) title.style.textDecoration = '';
+      });
+      updateProgress();
+      showToast('Parcours réinitialisé');
+    }
+
+    // Toast
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // Click outside modal
+    document.getElementById('modalOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    window.addEventListener('load', () => {
+      checkReturnParam();
+      renderAll();
+    });
+  </script>
+
+
+<div style="text-align:center;padding:1.5rem 0 0.5rem;font-family:'DM Mono',monospace;font-size:10px;color:#b0b0aa;letter-spacing:0.06em">
+  © 2026 Florian EUDE — Formateur PSC1 · Collège Yves du Manoir · Vaucresson<br>
+  Tous droits réservés · Contenu basé sur le référentiel PSC1 — Ministère de l'Éducation nationale
 </div>
 
-<div id="stage">
-
-  <!-- SLIDE 0 : TITRE -->
-  <div class="slide active">
-    <div class="titre-body">
-      <div class="titre-number">8</div>
-      <div class="titre-main">😮 Malaise</div>
-      <div class="titre-sub">Reconnaître les signes · Mettre au repos en position adaptée · Questionner · Avis médical · Manœuvres vagales</div>
-      <div class="timing-row">
-        <div class="timing-box"><div class="tv">25'</div><div class="tl">Durée estimée</div></div>
-        <div class="timing-box"><div class="tv">2</div><div class="tl">Cas concrets</div></div>
-        <div class="timing-box"><div class="tv">5e</div><div class="tl">Classe</div></div>
-      </div>
-      <div class="chips-row">
-        <span class="chip">REFOR CAT</span>
-        <span class="chip">APG(M)</span>
-        <span class="chip">Compétence I</span>
-        <span class="chip">AVC · Diabète</span>
-      </div>
-    </div>
-    <div class="slide-footer">
-      <span>Scénario 5 — Collège Yves du Manoir · Vaucresson</span>
-      <div class="progress-dots" id="dots0"></div>
-      <span>Chapitre 8 / 10</span>
-    </div>
-  </div>
-
-  <!-- SLIDE 1 : SIGNES -->
-  <div class="slide">
-    <div class="slide-header">
-      <div class="left">
-        <div class="sup">Chapitre 8 · Reconnaître</div>
-        <h1>Quels signes observer ?</h1>
-      </div>
-      <div class="badge-dur"><div class="v">👁️</div><div class="l">Observer</div></div>
-    </div>
-    <div class="slide-body">
-      <div class="objectif-box">
-        <strong>Objectif</strong>
-        Identifier les signes d'un malaise pour reconnaître les urgences absolues (AVC, accident cardiaque) et transmettre les bonnes informations aux secours.
-      </div>
-      <div class="signes-grid">
-        <div class="signe-card urgence">
-          <div class="urgence-badge">⚡ ALERTE IMMÉDIATE</div>
-          <h3>❤️ Accident cardiaque</h3>
-          <ul>
-            <li>Douleur dans la poitrine (serre, oppresse)</li>
-            <li>Irradiation vers le bras gauche, la mâchoire</li>
-            <li>Pâleur, sueurs, sensation de malaise intense</li>
-          </ul>
-        </div>
-        <div class="signe-card urgence">
-          <div class="urgence-badge">⚡ ALERTE IMMÉDIATE</div>
-          <h3>🧠 AVC</h3>
-          <ul>
-            <li>Faiblesse ou paralysie d'un bras</li>
-            <li>Déformation du visage (bouche tordue)</li>
-            <li>Perte de vision d'un œil ou des deux</li>
-            <li>Difficulté à parler ou à comprendre</li>
-            <li>Mal de tête sévère et inhabituel</li>
-            <li>Perte d'équilibre, chute inexpliquée</li>
-          </ul>
-        </div>
-        <div class="signe-card infectieux">
-          <h3>🦠 Maladie infectieuse</h3>
-          <ul>
-            <li>Fièvre (&gt;37,8°C) ou sensation de fièvre</li>
-            <li>Frissons, sueurs abondantes</li>
-            <li>Courbatures, fatigue intense</li>
-          </ul>
-        </div>
-        <div class="signe-card autre" style="grid-column:1/-1">
-          <h3>😣 Autres signes possibles</h3>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:4px">
-            <div style="font-size:11.5px;color:var(--texte-sec)">· Douleur abdominale intense</div>
-            <div style="font-size:11.5px;color:var(--texte-sec)">· Difficulté à respirer ou à parler</div>
-            <div style="font-size:11.5px;color:var(--texte-sec)">· Sensation de froid · sueurs · pâleur</div>
-            <div style="font-size:11.5px;color:var(--texte-sec)">· Étourdissements · nausées · points noirs</div>
-          </div>
-        </div>
-      </div>
-      <div class="alerte-box">
-        <div class="alerte-icon">⚡</div>
-        <div>
-          <h3>AVC et accident cardiaque = urgences absolues</h3>
-          <p>L'apparition d'un seul de ces signes impose une <strong>alerte immédiate au 15</strong>. Chaque minute compte : pour l'AVC, le cerveau perd des millions de neurones par minute sans traitement.</p>
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer">
-      <span>Signes à reconnaître</span>
-      <div class="progress-dots" id="dots1"></div>
-      <span>Slide 2/7</span>
-    </div>
-  </div>
-
-  <!-- SLIDE 2 : CAT GÉNÉRALE -->
-  <div class="slide">
-    <div class="slide-header">
-      <div class="left">
-        <div class="sup">Chapitre 8 · Conduite à tenir</div>
-        <h2>CAT face à un malaise — étapes clés</h2>
-      </div>
-      <div class="badge-dur"><div class="v">📋</div><div class="l">CAT</div></div>
-    </div>
-    <div class="slide-body">
-      <div class="steps-h">
-        <div class="step-c">
-          <div class="step-n">1</div>
-          <div class="step-i">👁️</div>
-          <div class="step-t">Observer les signes</div>
-          <div class="step-d">AVC ? Cardiaque ? Autre ? Identifier pour orienter les secours.</div>
-        </div>
-        <div class="step-c">
-          <div class="step-n">2</div>
-          <div class="step-i">🛏️</div>
-          <div class="step-t">Mettre au repos</div>
-          <div class="step-d">Position adaptée (allongée, assise ou celle où elle se sent le mieux). Desserrer les vêtements.</div>
-        </div>
-        <div class="step-c">
-          <div class="step-n">3</div>
-          <div class="step-i">❓</div>
-          <div class="step-t">Questionner</div>
-          <div class="step-d">Âge · durée du malaise · antécédents · traitements · hospitalisations récentes.</div>
-        </div>
-        <div class="step-c">
-          <div class="step-n">4</div>
-          <div class="step-i">📞</div>
-          <div class="step-t">Avis médical</div>
-          <div class="step-d">15, 18 ou 112. Transmettre les infos recueillies. Le médecin peut parler directement à la victime.</div>
-        </div>
-        <div class="step-c">
-          <div class="step-n">5</div>
-          <div class="step-i">💊</div>
-          <div class="step-t">Aider à la prise de traitement</div>
-          <div class="step-d">À sa demande ou sur conseil médical : traitement habituel ou sucre en morceaux.</div>
-        </div>
-      </div>
-      <div class="vert-box">
-        💊 <strong>Aider à la prise de traitement</strong> : on aide uniquement si la victime le demande ou si les secours le prescrivent. Pour un diabétique : donner du <strong>sucre en morceaux</strong> si la victime est consciente et peut avaler.
-      </div>
-      <div class="info-box">
-        🔁 <strong>En cas d'aggravation</strong> : si la victime perd connaissance → appliquer la CAT perte de connaissance (Ch.9) et recontacter les secours pour signaler l'aggravation.
-      </div>
-      <div class="alerte-box">
-        <div class="alerte-icon">🌡️</div>
-        <div>
-          <h3>Maladie infectieuse — mesures barrières</h3>
-          <p>En période épidémique : appliquer les mesures barrières, proposer un masque à la victime (le retirer si cela gêne sa respiration). Respecter la distance physique autant que possible.</p>
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer">
-      <span>CAT face à un malaise</span>
-      <div class="progress-dots" id="dots2"></div>
-      <span>Slide 3/7</span>
-    </div>
-  </div>
-
-  <!-- SLIDE 3 : POSITIONS -->
-  <div class="slide">
-    <div class="slide-header">
-      <div class="left">
-        <div class="sup">Chapitre 8 · Position d'attente</div>
-        <h2>Quelle position selon le malaise ?</h2>
-      </div>
-      <div class="badge-dur"><div class="v">🛏️</div><div class="l">Position</div></div>
-    </div>
-    <div class="slide-body">
-      <div class="pos-grid">
-        <div class="pos-card allonge">
-          <div class="ic">🛏️</div>
-          <h3>Allongée confortablement</h3>
-          <p>Position par défaut · Lit, canapé ou sol · Prévient les détresses circulatoires · Permet de récupérer</p>
-          <div style="margin-top:6px;font-size:10px;font-weight:600;color:var(--bleu-mid)">→ Malaise général, douleur poitrine</div>
-        </div>
-        <div class="pos-card assise">
-          <div class="ic">🪑</div>
-          <h3>Assise</h3>
-          <p>Si difficultés à respirer · Facilite la ventilation · Laisser la victime choisir son appui</p>
-          <div style="margin-top:6px;font-size:10px;font-weight:600;color:#7a4400">→ Gêne respiratoire, essoufflement</div>
-        </div>
-        <div class="pos-card mieux">
-          <div class="ic">🤷</div>
-          <h3>Où elle se sent le mieux</h3>
-          <p>Si aucune contre-indication · Respecter le choix de la victime · Ne pas forcer une position</p>
-          <div style="margin-top:6px;font-size:10px;font-weight:600;color:#1a5a3a">→ Malaise de confort, nausées</div>
-        </div>
-      </div>
-      <div class="violet-box">
-        💡 <strong>Règle générale :</strong> ne jamais laisser la victime debout ou seule. Même si elle dit "ça va", l'installer et rester avec elle jusqu'à l'avis médical.
-      </div>
-      <div class="section-label" style="margin-top:4px">Ce qu'il faut recueillir pour les secours</div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
-        <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:8px;padding:9px;text-align:center;font-size:11px;color:var(--texte-sec)">
-          <div style="font-size:18px;margin-bottom:4px">🎂</div><strong style="color:var(--texte)">Âge</strong>
-        </div>
-        <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:8px;padding:9px;text-align:center;font-size:11px;color:var(--texte-sec)">
-          <div style="font-size:18px;margin-bottom:4px">⏱️</div><strong style="color:var(--texte)">Durée du malaise</strong>
-        </div>
-        <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:8px;padding:9px;text-align:center;font-size:11px;color:var(--texte-sec)">
-          <div style="font-size:18px;margin-bottom:4px">📋</div><strong style="color:var(--texte)">Antécédents &amp; traitements</strong>
-        </div>
-        <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:8px;padding:9px;text-align:center;font-size:11px;color:var(--texte-sec)">
-          <div style="font-size:18px;margin-bottom:4px">🏥</div><strong style="color:var(--texte)">Hospitalisations récentes</strong>
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer">
-      <span>Positions d'attente</span>
-      <div class="progress-dots" id="dots3"></div>
-      <span>Slide 4/7</span>
-    </div>
-  </div>
-
-  <!-- SLIDE 4 : MANŒUVRES VAGALES -->
-  <div class="slide">
-    <div class="slide-header" style="background:var(--teal)">
-      <div class="left">
-        <div class="sup">Chapitre 8 · Cas particulier</div>
-        <h2>🔄 Manœuvres physiques — malaise vagal</h2>
-      </div>
-      <div class="badge-dur"><div class="v">🤸</div><div class="l">Vagal</div></div>
-    </div>
-    <div class="slide-body">
-      <div class="info-box">
-        Le malaise vagal est une perte de connaissance imminente due à une chute de la pression artérielle. La victime ressent : <strong>étourdissements · nausées · sueurs · points noirs · sentiment de "tomber"</strong>. Elle sait souvent qu'elle fait des malaises vagaux.
-      </div>
-      <div class="section-label">3 manœuvres physiques — à faire réaliser par la victime elle-même</div>
-      <div class="mano-grid">
-        <div class="mano-card">
-          <div class="ic">🙇</div>
-          <h3>Accroupissement</h3>
-          <p>Se placer en position accroupie · Baisser la tête entre les deux genoux · Peut précéder la mise en position allongée</p>
-        </div>
-        <div class="mano-card">
-          <div class="ic">🦵</div>
-          <h3>Croisement des membres inférieurs</h3>
-          <p>Croiser les jambes · Contracter les muscles en essayant de tendre les jambes · Serrer les fesses · Contracter l'abdomen</p>
-          <div class="best">⭐ Efficacité supérieure</div>
-        </div>
-        <div class="mano-card">
-          <div class="ic">🤝</div>
-          <h3>Crochetage des doigts</h3>
-          <p>Agripper les deux mains par les doigts en crochet · Écarter les coudes · Tirer comme pour séparer les mains · Contracter les bras</p>
-        </div>
-      </div>
-      <div class="vert-box">
-        ✅ Ces manœuvres agissent sur la circulation pour éviter la perte de connaissance. Elles sont <strong>complémentaires</strong> à la mise en position allongée — pas un remplacement. Les poursuivre même après s'être allongé.
-      </div>
-      <div class="alerte-box">
-        <div class="alerte-icon">⚠️</div>
-        <div>
-          <h3>Si impossible d'allonger immédiatement</h3>
-          <p>Dans un bus, un avion, un couloir étroit : les manœuvres <strong>peuvent précéder</strong> la mise en position allongée. Dès que possible, allonger la victime.</p>
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer">
-      <span>Manœuvres physiques — malaise vagal</span>
-      <div class="progress-dots" id="dots4"></div>
-      <span>Slide 5/7</span>
-    </div>
-  </div>
-
-  <!-- SLIDE 5 : DRAG & DROP -->
-  <div class="slide">
-    <div class="slide-header">
-      <div class="left">
-        <div class="sup">Chapitre 8 · Activité interactive</div>
-        <h2>🎯 Associe chaque signe au bon malaise</h2>
-      </div>
-      <div class="badge-dur"><div class="v">🎯</div><div class="l">Exercice</div></div>
-    </div>
-    <div class="slide-body" style="padding:10px 14px">
-      <div class="info-box" style="margin-bottom:8px;font-size:12px">
-        👇 Fais glisser chaque signe vers le malaise correspondant. Un signe peut appartenir à une seule catégorie.
-      </div>
-      <div class="dd-wrap">
-        <div>
-          <div class="dd-pool-label">Signes à placer</div>
-          <div class="dd-pool" id="dd-pool">
-            <div class="dd-item" draggable="true" data-id="s1" data-correct="avc">Bouche déformée</div>
-            <div class="dd-item" draggable="true" data-id="s2" data-correct="cardiaque">Douleur qui serre la poitrine</div>
-            <div class="dd-item" draggable="true" data-id="s3" data-correct="avc">Bras paralysé</div>
-            <div class="dd-item" draggable="true" data-id="s4" data-correct="vagal">Points noirs devant les yeux</div>
-            <div class="dd-item" draggable="true" data-id="s5" data-correct="infectieux">Fièvre + frissons</div>
-            <div class="dd-item" draggable="true" data-id="s6" data-correct="avc">Difficulté à parler</div>
-            <div class="dd-item" draggable="true" data-id="s7" data-correct="cardiaque">Sueurs + pâleur intense</div>
-            <div class="dd-item" draggable="true" data-id="s8" data-correct="vagal">Sensation de tomber imminente</div>
-            <div class="dd-item" draggable="true" data-id="s9" data-correct="infectieux">Courbatures + fatigue intense</div>
-            <div class="dd-item" draggable="true" data-id="s10" data-correct="avc">Mal de tête sévère inhabituel</div>
-          </div>
-        </div>
-        <div class="dd-zones">
-          <div class="dd-zone avc" data-zone="avc" ondragover="allowDrop(event)" ondrop="dropItem(event)">
-            <h4>🧠 AVC</h4>
-            <div class="dd-zone-items" id="zone-avc"></div>
-          </div>
-          <div class="dd-zone cardiaque" data-zone="cardiaque" ondragover="allowDrop(event)" ondrop="dropItem(event)">
-            <h4>❤️ Accident cardiaque</h4>
-            <div class="dd-zone-items" id="zone-cardiaque"></div>
-          </div>
-          <div class="dd-zone vagal" data-zone="vagal" ondragover="allowDrop(event)" ondrop="dropItem(event)">
-            <h4>😵 Malaise vagal</h4>
-            <div class="dd-zone-items" id="zone-vagal"></div>
-          </div>
-          <div class="dd-zone infectieux" data-zone="infectieux" ondragover="allowDrop(event)" ondrop="dropItem(event)">
-            <h4>🦠 Maladie infectieuse</h4>
-            <div class="dd-zone-items" id="zone-infectieux"></div>
-          </div>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap">
-        <button class="dd-check-btn" onclick="checkDD()">✓ Vérifier</button>
-        <button class="dd-reset-btn" onclick="resetDD()">↺ Recommencer</button>
-        <div class="dd-score" id="dd-score"></div>
-      </div>
-    </div>
-    <div class="slide-footer">
-      <span>Exercice — Associer malaise et signes</span>
-      <div class="progress-dots" id="dots5"></div>
-      <span>Slide 6/7</span>
-    </div>
-  </div>
-
-  <!-- SLIDE 6 : CAS CONCRETS -->
-  <div class="slide">
-    <div class="slide-header" style="background:linear-gradient(135deg,var(--violet),#4a1a6a)">
-      <div class="left">
-        <div class="sup">Chapitre 8 · Activité d'application · Compétence I</div>
-        <h2>Cas Concrets</h2>
-      </div>
-      <div class="badge-dur"><div class="v">2</div><div class="l">CC</div></div>
-    </div>
-    <div class="slide-body">
-      <div class="cc-tabs">
-        <button class="cc-tab active" onclick="switchTab('cc1')">CC 1 — AVC</button>
-        <button class="cc-tab" onclick="switchTab('cc2')">CC 2 — Diabète grand-mère</button>
-      </div>
-
-      <!-- CC1 : AVC -->
-      <div class="cc-panel active" id="cc1">
-        <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
-          <button class="cc-t2-toggle" id="t1-btn" onclick="toggleCC('cc1')" style="background:var(--violet);border-color:var(--violet)">Temps 2 : Correction →</button>
-        </div>
-        <div id="cc1-t1">
-          <div class="cc-header" style="background:linear-gradient(135deg,#8B0000,#c0392b)">
-            <div class="cc-tag">🧠 AVC — Urgence absolue</div>
-            <h3>Ta voisine Mme Dupont présente des signes inquiétants</h3>
-          </div>
-          <div class="cc-scene">
-            Tu sonnes chez ta voisine <strong>Mme Dupont (68 ans)</strong> pour lui rendre un colis. Elle ouvre la porte mais tu remarques que sa <strong>bouche est tordue</strong>, qu'elle a du mal à parler et que son <strong>bras droit tombe</strong> le long du corps sans qu'elle puisse le lever. Elle semble confuse et ne comprend pas bien ce que tu lui dis. Elle est debout, appuyée sur la porte.<br><br>
-            Elle ne t'a pas dit qu'elle avait des antécédents cardiaques. <strong>Tu as ton téléphone.</strong><br><br>
-            <strong>Que fais-tu ?</strong>
-          </div>
-          <div class="info-box" style="font-size:12px">💬 À l'élève : décris les gestes dans l'ordre. Rappel : un seul signe d'AVC = alerte immédiate.</div>
-        </div>
-        <div id="cc1-t2" style="display:none">
-          <div class="section-label">Correction CC1 — AVC</div>
-          <div class="cc-step ok" id="a1"><div class="cc-step-hd" onclick="ts(this)"><span>🛡️ 1. Assurer la sécurité</span><span class="chevron">›</span></div><div class="cc-step-body">Éviter que Mme Dupont ne tombe. La soutenir si nécessaire. Rester calme pour ne pas l'affoler.</div></div>
-          <div class="cc-step ok" id="a2"><div class="cc-step-hd" onclick="ts(this)"><span>📞 2. Alerter le 15 IMMÉDIATEMENT</span><span class="chevron">›</span></div><div class="cc-step-body">Un seul signe d'AVC = alerte immédiate. Ne pas attendre de voir si ça passe. Indiquer : l'adresse, les signes observés (bouche tordue, bras tombant, difficultés à parler), l'âge.</div></div>
-          <div class="cc-step ok" id="a3"><div class="cc-step-hd" onclick="ts(this)"><span>🛏️ 3. Installer Mme Dupont</span><span class="chevron">›</span></div><div class="cc-step-body">L'aider à s'asseoir ou à s'allonger selon ce qui est possible et confortable. Ne pas la laisser debout. Lui parler régulièrement pour la rassurer.</div></div>
-          <div class="cc-step ok" id="a4"><div class="cc-step-hd" onclick="ts(this)"><span>❓ 4. Questionner</span><span class="chevron">›</span></div><div class="cc-step-body">Lui poser des questions simples (âge, traitements, antécédents) même si elle répond mal. Les informations recueillies seront transmises au médecin régulateur.</div></div>
-          <div class="cc-step ok" id="a5"><div class="cc-step-hd" onclick="ts(this)"><span>👀 5. Surveiller jusqu'aux secours</span><span class="chevron">›</span></div><div class="cc-step-body">Rester avec elle. Ne pas lui donner à boire ni à manger. Si elle perd connaissance → CAT perte de connaissance. Recontacter le 15 si aggravation.</div></div>
-          <div class="debrief-box">
-            <h4>💬 Débriefing formateur</h4>
-            <p>Points clés : l'alerte a-t-elle été immédiate (sans attendre) ? Les signes d'AVC ont-ils été reconnus ? La victime a-t-elle été installée ? A-t-on évité de lui donner à manger/boire ?</p>
-            <p style="margin-top:5px"><strong>Moyen mnémotechnique AVC :</strong> VITE — Visage déformé · bras qui tombe · Trouble de la parole → Estafette (appeler le 15)</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- CC2 : Diabète -->
-      <div class="cc-panel" id="cc2">
-        <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
-          <button class="cc-t2-toggle" id="t2-btn" onclick="toggleCC('cc2')" style="background:var(--violet);border-color:var(--violet)">Temps 2 : Correction →</button>
-        </div>
-        <div id="cc2-t1">
-          <div class="cc-header" style="background:linear-gradient(135deg,var(--teal),#0a5040)">
-            <div class="cc-tag">🍬 Malaise diabétique — aide à la prise de traitement</div>
-            <h3>Ta grand-mère se sent "toute bizarre" et tremble</h3>
-          </div>
-          <div class="cc-scene">
-            Tu es chez ta <strong>grand-mère (74 ans)</strong>, diabétique. Elle se plaint soudainement de tremblements, de sueurs et se sent "toute bizarre". Elle dit qu'elle a <strong>faim d'une façon étrange</strong> et est légèrement confuse. Elle est consciente et peut parler.<br><br>
-            Tu sais qu'elle est <strong>diabétique et n'a pas mangé depuis ce matin</strong>. Tu vois des morceaux de sucre sur la table. Elle a son téléphone sur elle.<br><br>
-            <strong>Que fais-tu ?</strong>
-          </div>
-          <div class="info-box" style="font-size:12px">💬 À l'élève : décris les gestes dans l'ordre. Elle est consciente et peut avaler — c'est la clé.</div>
-        </div>
-        <div id="cc2-t2" style="display:none">
-          <div class="section-label">Correction CC2 — Diabète / hypoglycémie</div>
-          <div class="cc-step ok" id="b1"><div class="cc-step-hd" onclick="ts(this)"><span>🛏️ 1. Installer la grand-mère</span><span class="chevron">›</span></div><div class="cc-step-body">L'asseoir ou l'allonger confortablement. Ne pas la laisser debout. Desserrer les vêtements si nécessaire.</div></div>
-          <div class="cc-step ok" id="b2"><div class="cc-step-hd" onclick="ts(this)"><span>❓ 2. Recueillir les informations</span><span class="chevron">›</span></div><div class="cc-step-body">Elle est diabétique, n'a pas mangé depuis ce matin. Les signes (tremblements, sueurs, faim intense, confusion légère) évoquent une <strong>hypoglycémie</strong> (manque de sucre dans le sang).</div></div>
-          <div class="cc-step ok" id="b3"><div class="cc-step-hd" onclick="ts(this)"><span>🍬 3. Lui donner du sucre</span><span class="chevron">›</span></div><div class="cc-step-body">Elle est consciente et peut avaler → lui donner les morceaux de sucre. Attendre quelques minutes pour voir l'amélioration. Ne jamais donner à manger ou à boire à quelqu'un de semi-conscient (risque de fausse route).</div></div>
-          <div class="cc-step ok" id="b4"><div class="cc-step-hd" onclick="ts(this)"><span>📞 4. Demander un avis médical</span><span class="chevron">›</span></div><div class="cc-step-body">Appeler le 15 pour avis médical. Transmettre les infos : âge, diabétique, n'a pas mangé, signes observés, sucre donné. Appliquer les consignes.</div></div>
-          <div class="cc-step ok" id="b5"><div class="cc-step-hd" onclick="ts(this)"><span>👀 5. Surveiller l'évolution</span><span class="chevron">›</span></div><div class="cc-step-body">Rester avec elle. Si amélioration après le sucre → surveiller jusqu'à l'avis médical. Si aggravation (perte de connaissance) → CAT perte de connaissance + recontacter le 15.</div></div>
-          <div class="debrief-box">
-            <h4>💬 Débriefing formateur</h4>
-            <p>Points clés : le sucre a-t-il été donné seulement parce qu'elle est consciente et peut avaler ? L'avis médical a-t-il été demandé ? A-t-on évité de donner à boire si elle était semi-consciente ?</p>
-            <p style="margin-top:5px"><strong>Règle d'or :</strong> on aide à la prise de traitement (sucre, médicament) uniquement si la victime est consciente, peut avaler, et le demande ou si les secours le prescrivent.</p>
-          </div>
-          <div style="margin-top:10px;text-align:center">
-            <a href="index.html?done=6" onclick="goToDashboard(event)"
-               style="display:inline-block;background:var(--vert);color:white;padding:10px 24px;border-radius:10px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;text-decoration:none;">
-              ✅ Chapitre terminé — Retour au dashboard
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <div class="slide-footer">
-      <span>Cas Concrets — AVC et Diabète</span>
-      <div class="progress-dots" id="dots6"></div>
-      <span>Slide 7/7</span>
-    </div>
-  </div>
-
-</div><!-- /stage -->
-
-<script>
-// ── NAV ──
-let current=0; const total=7;
-const slidePills=document.querySelectorAll('.pill[onclick^="goSlide"]');
-function goSlide(n){
-  document.querySelectorAll('.slide')[current].classList.remove('active');
-  slidePills[current].classList.remove('active');
-  current=n;
-  document.querySelectorAll('.slide')[current].classList.add('active');
-  slidePills[current].classList.add('active');
-  document.getElementById('slide-counter').textContent=(current+1)+' / '+total;
-  renderDots();
-}
-function nextSlide(){if(current<total-1)goSlide(current+1);}
-function prevSlide(){if(current>0)goSlide(current-1);}
-function renderDots(){
-  for(let i=0;i<total;i++){
-    const el=document.getElementById('dots'+i); if(!el)continue;
-    let h=''; for(let j=0;j<total;j++) h+=`<div class="dot${j===i?' active':j<i?' done':''}"></div>`;
-    el.innerHTML=h;
-  }
-}
-renderDots();
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextSlide();if(e.key==='ArrowLeft')prevSlide();});
-
-// ── DRAG & DROP ──
-let dragged=null;
-document.querySelectorAll('.dd-item').forEach(item=>{
-  item.addEventListener('dragstart',e=>{dragged=item;item.classList.add('dragging');e.dataTransfer.setData('text',item.dataset.id);});
-  item.addEventListener('dragend',()=>item.classList.remove('dragging'));
-});
-function allowDrop(e){e.preventDefault();e.currentTarget.classList.add('dragover');}
-document.querySelectorAll('.dd-zone').forEach(z=>{
-  z.addEventListener('dragleave',()=>z.classList.remove('dragover'));
-});
-function dropItem(e){
-  e.preventDefault();
-  const zone=e.currentTarget; zone.classList.remove('dragover');
-  if(!dragged)return;
-  const zoneItems=zone.querySelector('.dd-zone-items');
-  // return to pool if already placed
-  const pool=document.getElementById('dd-pool');
-  const existing=zoneItems.querySelector(`[data-id="${dragged.dataset.id}"]`);
-  if(existing) return;
-  dragged.classList.remove('placed-correct','placed-wrong');
-  zoneItems.appendChild(dragged);
-  dragged=null;
-}
-// Double-click to return to pool
-document.addEventListener('dblclick',e=>{
-  if(e.target.classList.contains('dd-item')&&!document.getElementById('dd-pool').contains(e.target)){
-    e.target.classList.remove('placed-correct','placed-wrong');
-    document.getElementById('dd-pool').appendChild(e.target);
-  }
-});
-function checkDD(){
-  let ok=0,total=0;
-  document.querySelectorAll('.dd-zone').forEach(zone=>{
-    const zid=zone.dataset.zone;
-    zone.querySelectorAll('.dd-item').forEach(item=>{
-      total++;
-      if(item.dataset.correct===zid){item.classList.add('placed-correct');item.classList.remove('placed-wrong');ok++;}
-      else{item.classList.add('placed-wrong');item.classList.remove('placed-correct');}
-    });
-  });
-  const sc=document.getElementById('dd-score');
-  sc.style.display='block';
-  sc.textContent=`Score : ${ok} / ${total} bonne${ok>1?'s':''} réponse${ok>1?'s':''}`;
-  const good=ok>=8; sc.style.cssText+=`;background:${good?'#e8f8ef':'#fdecea'};border:1.5px solid ${good?'#80cba0':'#e8a09a'};color:${good?'#1a7a4a':'#c0392b'};padding:8px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700`;
-}
-function resetDD(){
-  const pool=document.getElementById('dd-pool');
-  document.querySelectorAll('.dd-zone .dd-zone-items').forEach(zi=>{
-    zi.querySelectorAll('.dd-item').forEach(item=>{
-      item.classList.remove('placed-correct','placed-wrong');
-      pool.appendChild(item);
-    });
-  });
-  const sc=document.getElementById('dd-score'); sc.style.display='none';
-}
-
-// ── TABS CC ──
-function switchTab(id){
-  document.querySelectorAll('.cc-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.cc-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.cc-tab').forEach((t,i)=>{if(['cc1','cc2'][i]===id)t.classList.add('active');});
-}
-
-// ── CC TEMPS 1/2 ──
-const ccState={cc1:false,cc2:false};
-function toggleCC(id){
-  ccState[id]=!ccState[id];
-  const t2=ccState[id];
-  document.getElementById(id+'-t1').style.display=t2?'none':'block';
-  document.getElementById(id+'-t2').style.display=t2?'block':'none';
-  const btn=document.getElementById(id==='cc1'?'t1-btn':'t2-btn');
-  btn.textContent=t2?'← Retour temps 1':'Temps 2 : Correction →';
-}
-
-// Accordion steps
-function ts(hd){hd.closest('.cc-step').classList.toggle('open');}
-
-function goToDashboard(e){if(e)e.preventDefault();window.location.href='index.html?done=6';}
-</script>
 </body>
 </html>
