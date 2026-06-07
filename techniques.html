@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Techniques Pédagogiques — PSC1</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --bg2: #13161e;
+    --bg3: #1a1e28;
+    --border: rgba(255,255,255,0.07);
+    --text: #e8eaf0;
+    --text2: #9ea3b5;
+    --text3: #5a6075;
+    --accent: #1D9E75;
+    --accent2: #25c492;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Outfit', sans-serif;
+    --gold: #f5c842;
+    --blue: #5b8df8;
+    --red: #e85b5b;
+    --orange: #f08a30;
+    --purple: #9b7fe8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .site-header .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent2);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    padding: 6px 14px;
+    background: rgba(29,158,117,0.12);
+    border: 1px solid rgba(29,158,117,0.25);
+    border-radius: 8px;
+    transition: all .2s;
+  }
+  .site-header .back-btn:hover { background: rgba(29,158,117,0.22); }
+  .site-header .page-title {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text2);
+  }
+  .site-header .badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 4px 10px;
+    background: rgba(91,141,248,0.12);
+    border: 1px solid rgba(91,141,248,0.25);
+    border-radius: 20px;
+    color: var(--blue);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 48px 24px 32px;
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(29,158,117,0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .hero p {
+    font-size: 14px;
+    color: var(--text2);
+    max-width: 560px;
+    margin: 0 auto 28px;
+  }
+
+  /* ── FILTRE TABS ── */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .filter-btn {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    color: var(--text2);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent2); }
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .filter-btn[data-cat="decouverte"].active { background: var(--gold); border-color: var(--gold); color: #1a1200; }
+  .filter-btn[data-cat="apprentissage"].active { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .filter-btn[data-cat="application"].active { background: var(--purple); border-color: var(--purple); color: #fff; }
+  .filter-btn[data-cat="foad"].active { background: var(--orange); border-color: var(--orange); color: #fff; }
+
+  /* ── GRILLE TECHNIQUES ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255,255,255,0.15);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+  .card.hidden { display: none; }
+
+  .card-top {
+    padding: 18px 20px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .card-sigle {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 5px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .card-header-text { flex: 1; }
+  .card-name {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  .card-cats {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 20px;
+  }
+  .cat-decouverte { background: rgba(245,200,66,0.15); color: var(--gold); }
+  .cat-apprentissage { background: rgba(91,141,248,0.15); color: var(--blue); }
+  .cat-application { background: rgba(155,127,232,0.15); color: var(--purple); }
+  .cat-foad { background: rgba(240,138,48,0.15); color: var(--orange); }
+
+  .card-body {
+    padding: 0 20px 16px;
+    flex: 1;
+  }
+  .card-def {
+    font-size: 12.5px;
+    color: var(--text2);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  /* ── EXPAND ── */
+  .card-expand {
+    display: none;
+    padding: 14px 20px;
+    border-top: 1px solid var(--border);
+    background: var(--bg3);
+  }
+  .card.open .card-expand { display: block; }
+  .card.open { border-color: rgba(255,255,255,0.18); }
+
+  .expand-section { margin-bottom: 12px; }
+  .expand-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 6px;
+  }
+  .expand-text {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.65;
+  }
+  .expand-text ul { list-style: none; padding: 0; }
+  .expand-text ul li { padding: 2px 0 2px 14px; position: relative; }
+  .expand-text ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 10px;
+    top: 3px;
+  }
+
+  .example-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .example-box strong { color: var(--accent2); font-style: normal; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+  .role-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .role-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .role-title {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 5px;
+  }
+  .role-content {
+    font-size: 11px;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+
+  .toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text3);
+    padding: 8px 16px 4px;
+    cursor: pointer;
+    transition: color .2s;
+    border: none;
+    background: none;
+    width: 100%;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .toggle-btn:hover { color: var(--accent2); }
+  .toggle-arrow { transition: transform .2s; display: inline-block; font-size: 8px; }
+  .card.open .toggle-arrow { transform: rotate(180deg); }
+
+  /* ── FOAD BANNER ── */
+  .foad-banner {
+    max-width: 1100px;
+    margin: 0 auto 24px;
+    padding: 0 24px;
+  }
+  .foad-inner {
+    background: linear-gradient(135deg, rgba(240,138,48,0.12), rgba(240,138,48,0.05));
+    border: 1px solid rgba(240,138,48,0.3);
+    border-radius: 12px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .foad-icon { font-size: 24px; flex-shrink: 0; }
+  .foad-text { font-size: 12.5px; color: var(--text2); line-height: 1.6; }
+  .foad-text strong { color: var(--orange); }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    max-width: 1100px;
+    margin: 0 auto 16px;
+    padding: 0 24px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Color accents per sigle */
+  .sigle-tt { background: rgba(245,200,66,0.12); color: var(--gold); }
+  .sigle-dcjip { background: rgba(29,158,117,0.15); color: var(--accent2); }
+  .sigle-ei { background: rgba(91,141,248,0.12); color: var(--blue); }
+  .sigle-dtr { background: rgba(91,141,248,0.1); color: #7aaaff; }
+  .sigle-dtrp { background: rgba(91,141,248,0.1); color: #7aaaff; }
+  .sigle-dcji { background: rgba(29,158,117,0.12); color: #40dba0; }
+  .sigle-dcjim { background: rgba(29,158,117,0.1); color: #40dba0; }
+  .sigle-refor { background: rgba(240,138,48,0.15); color: var(--orange); }
+  .sigle-apg { background: rgba(232,91,91,0.12); color: var(--red); }
+  .sigle-apgm { background: rgba(232,91,91,0.1); color: #ff8888; }
+  .sigle-cc { background: rgba(155,127,232,0.15); color: var(--purple); }
+  .sigle-msas { background: rgba(245,200,66,0.08); color: #c8a820; }
+
+  /* accentColor per card */
+  .card[data-sigle="TT"] { --card-accent: var(--gold); }
+  .card[data-sigle="DCJIP"] { --card-accent: var(--accent2); }
+  .card[data-sigle="EI"] { --card-accent: var(--blue); }
+  .card[data-sigle="DTR"] { --card-accent: #7aaaff; }
+  .card[data-sigle="DTRP"] { --card-accent: #7aaaff; }
+  .card[data-sigle="DCJI"] { --card-accent: #40dba0; }
+  .card[data-sigle="DCJIM"] { --card-accent: #40dba0; }
+  .card[data-sigle="REFOR"] { --card-accent: var(--orange); }
+  .card[data-sigle="APG"] { --card-accent: var(--red); }
+  .card[data-sigle="APGM"] { --card-accent: #ff8888; }
+  .card[data-sigle="CC"] { --card-accent: var(--purple); }
+  .card[data-sigle="MSAS"] { --card-accent: #c8a820; }
+  .card-top { border-top: 3px solid var(--card-accent, var(--border)); }
+
+  /* anchor */
+  .card[id] { scroll-margin-top: 80px; }
+
+  @media (max-width: 640px) {
+    .role-row { grid-template-columns: 1fr; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="index.html" class="back-btn">← Dashboard</a>
+  <span class="page-title">🎓 Techniques Pédagogiques</span>
+  <span class="badge">Ch1 × Scénario 5 FOAD</span>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Référentiel EPN · PSC1 · 2022</div>
+  <h1>Techniques Pédagogiques</h1>
+  <p>Toutes les techniques retenues pour l'animation PSC1 — définitions, rôles formateur/apprenant et exemples issus du Scénario 5 FOAD.</p>
+  <div class="filter-bar">
+    <button class="filter-btn active" data-cat="all" onclick="filterCards('all',this)">Toutes</button>
+    <button class="filter-btn" data-cat="decouverte" onclick="filterCards('decouverte',this)">🔍 Découverte</button>
+    <button class="filter-btn" data-cat="apprentissage" onclick="filterCards('apprentissage',this)">📚 Apprentissage</button>
+    <button class="filter-btn" data-cat="application" onclick="filterCards('application',this)">⚡ Application</button>
+    <button class="filter-btn" data-cat="foad" onclick="filterCards('foad',this)">💻 FOAD / Hybride</button>
+  </div>
+</div>
+
+<!-- FOAD BANNER -->
+<div class="foad-banner">
+  <div class="foad-inner">
+    <div class="foad-icon">💡</div>
+    <div class="foad-text">
+      <strong>Spécificité Scénario 5 FOAD :</strong> les apprenants arrivent avec 3h de FOAD déjà effectuées (Open-Badge Dgesco &lt; 1 an). En présentiel (4h30), les activités d'apprentissage et d'application <em>s'imbriquent</em> : la <strong>REFOR CAT</strong> réactive les connaissances FOAD, puis l'<strong>APG(M)</strong> ou la <strong>DCJIM</strong> permet la mise en pratique immédiate. Les parties 1, 2 et certaines de 3 sont vues uniquement en FOAD.
+    </div>
+  </div>
+</div>
+
+<!-- SECTION : ACTIVITÉS POLYVALENTES -->
+<div class="section-title">Activités polyvalentes</div>
+
+<div class="grid">
+
+  <!-- TT -->
+  <div class="card" id="TT" data-sigle="TT" data-cats="decouverte apprentissage application">
+    <div class="card-top">
+      <span class="card-sigle sigle-tt">TT</span>
+      <div class="card-header-text">
+        <div class="card-name">Tour de Table</div>
+        <div class="card-cats">
+          <span class="cat-pill cat-decouverte">Découverte</span>
+          <span class="cat-pill cat-apprentissage">Apprentissage</span>
+          <span class="cat-pill cat-application">Application</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-def">Le formateur questionne le groupe sur ses connaissances. Chacun s'exprime librement, sans critique. Selon le moment, il permet une évaluation diagnostique ou formative.</div>
+    </div>
+    <button class="toggle-btn" onclick="toggleCard(this)">Voir détails <span class="toggle-arrow">▼</span></button>
+    <div class="card-expand">
+      <div class="expand-section">
+        <div class="expand-label">Intérêts</div>
+        <div class="expand-text"><ul>
+          <li>Faire réfléchir le groupe sur un thème donné</li>
+          <li>Mesurer les connaissances initiales</li>
+          <li>Permettre à l'apprenant de prendre confiance</li>
+          <li>Dynamique de groupe : les interventions s'additionnent</li>
+        </ul></div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Exemple — Scénario 5</div>
+        <div class="example-box">
+          <strong>🎓 En pratique</strong>
+          Utilisé après une REFOR (ex. OBVA) pour vérifier que tous ont retenu les étapes. Le formateur pose : "Et vous, que feriez-vous en premier ?" — chaque élève contribue sans être noté.
+        </div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Rôles</div>
+        <div class="role-row">
+          <div class="role-box">
+            <div class="role-title">🧑‍🏫 Formateur</div>
+            <div class="role-content">Pose la question · Récolte toutes les réponses sans critiquer · Synthétise et précise le résultat attendu</div>
+          </div>
+          <div class="role-box">
+            <div class="role-title">👩‍🎓 Apprenant</div>
+            <div class="role-content">Écoute · Répond · Énonce des idées librement</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DCJIP -->
+  <div class="card" id="DCJIP" data-sigle="DCJIP" data-cats="decouverte apprentissage">
+    <div class="card-top">
+      <span class="card-sigle sigle-dcjip">DCJIP</span>
+      <div class="card-header-text">
+        <div class="card-name">Démonstration Commentée Justifiée Interactive Participative</div>
+        <div class="card-cats">
+          <span class="cat-pill cat-decouverte">Découverte</span>
+          <span class="cat-pill cat-apprentissage">Apprentissage</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-def">Technique reine du PSC1. Le formateur met en scène une MSAS, questionne le groupe (méthode interrogative) et invite les apprenants à réaliser les gestes qu'ils proposent. Les savoirs <em>émergent du groupe</em>.</div>
+    </div>
+    <button class="toggle-btn" onclick="toggleCard(this)">Voir détails <span class="toggle-arrow">▼</span></button>
+    <div class="card-expand">
+      <div class="expand-section">
+        <div class="expand-label">Intérêts</div>
+        <div class="expand-text"><ul>
+          <li>Positionner l'apprenant comme acteur de sa formation</li>
+          <li>Favoriser la confrontation des idées</li>
+          <li>Dynamique participative et collaborative</li>
+          <li>Évaluation diagnostique en temps réel</li>
+        </ul></div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Exemple — Scénario 5</div>
+        <div class="example-box">
+          <strong>🎓 En pratique</strong>
+          Ch.3 Traumatisme (scénario 4 e-éducation) : le formateur joue une victime avec douleur au cou. Il demande : "Que voyez-vous ? Y a-t-il un danger ? Que faut-il faire ?" — l'élève propose, le formateur valide et fait démontrer.
+        </div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Rôles</div>
+        <div class="role-row">
+          <div class="role-box">
+            <div class="role-title">🧑‍🏫 Formateur</div>
+            <div class="role-content">Prépare la MSAS · Questionne selon la CAT · Valide / rectifie · Sollicite l'apprenant pour réaliser les gestes</div>
+          </div>
+          <div class="role-box">
+            <div class="role-title">👩‍🎓 Apprenant</div>
+            <div class="role-content">Observe · Propose des réponses · Réalise les gestes sur invitation · Interroge le formateur</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EI -->
+  <div class="card" id="EI" data-sigle="EI" data-cats="decouverte apprentissage">
+    <div class="card-top">
+      <span class="card-sigle sigle-ei">EI</span>
+      <div class="card-header-text">
+        <div class="card-name">Exposé Interactif</div>
+        <div class="card-cats">
+          <span class="cat-pill cat-decouverte">Découverte</span>
+          <span class="cat-pill cat-apprentissage">Apprentissage</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-def">Technique à dominante théorique. Le formateur structure un exposé en parties, chaque partie centrée sur une question clé. <em>À utiliser avec parcimonie</em> dans le PSC1 (savoir-pratique prédominant).</div>
+    </div>
+    <button class="toggle-btn" onclick="toggleCard(this)">Voir détails <span class="toggle-arrow">▼</span></button>
+    <div class="card-expand">
+      <div class="expand-section">
+        <div class="expand-label">Intérêts</div>
+        <div class="expand-text"><ul>
+          <li>Explorer les connaissances sur un thème théorique</li>
+          <li>Apport de connaissances participatif via l'interactivité</li>
+          <li>Dynamiser un contenu abstrait</li>
+        </ul></div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Exemple — Scénario 5</div>
+        <div class="example-box">
+          <strong>🎓 En pratique</strong>
+          Ch. Protection / Alerte (B3) : exposé sur la conduite à tenir devant une attaque terroriste — contenu essentiellement théorique, sans geste pratique à démontrer.
+        </div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Rôles</div>
+        <div class="role-row">
+          <div class="role-box">
+            <div class="role-title">🧑‍🏫 Formateur</div>
+            <div class="role-content">Énonce l'objectif · Présente le plan · Lance la discussion par questions clés · Valide et synthétise</div>
+          </div>
+          <div class="role-box">
+            <div class="role-title">👩‍🎓 Apprenant</div>
+            <div class="role-content">Écoute · Énonce des idées · Développe ses réponses</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end grid polyvalent -->
+
+<!-- SECTION : DÉMONSTRATION PRATIQUE -->
+<div class="section-title">Démonstration pratique (DP)</div>
+
+<div class="grid">
+
+  <!-- DTR -->
+  <div class="card" id="DTR" data-sigle="DTR" data-cats="apprentissage">
+    <div class="card-top">
+      <span class="card-sigle sigle-dtr">DTR</span>
+      <div class="card-header-text">
+        <div class="card-name">Démonstration en Temps Réel</div>
+        <div class="card-cats">
+          <span class="cat-pill cat-apprentissage">Apprentissage</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-def">Le formateur réalise <em>sans commentaire</em> la totalité de la CAT face à une détresse. Les apprenants observent en silence — impression globale avant l'analyse.</div>
+    </div>
+    <button class="toggle-btn" onclick="toggleCard(this)">Voir détails <span class="toggle-arrow">▼</span></button>
+    <div class="card-expand">
+      <div class="expand-section">
+        <div class="expand-label">Rôles</div>
+        <div class="role-row">
+          <div class="role-box">
+            <div class="role-title">🧑‍🏫 Formateur</div>
+            <div class="role-content">Réalise toute la CAT sans commentaire</div>
+          </div>
+          <div class="role-box">
+            <div class="role-title">👩‍🎓 Apprenant</div>
+            <div class="role-content">Observe et écoute en silence</div>
+          </div>
+        </div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Exemple</div>
+        <div class="example-box">
+          <strong>🎓 En pratique</strong>
+          Scénario 2 (tout présentiel) — perte de connaissance : le formateur joue la CAT complète (LVA + PLS) sans un mot. Les élèves regardent, mémorisent visuellement, puis la DCJI prend le relais pour décomposer les gestes.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DTRP -->
+  <div class="card" id="DTRP" data-sigle="DTRP" data-cats="apprentissage">
+    <div class="card-top">
+      <span class="card-sigle sigle-dtrp">DTRP</span>
+      <div class="card-header-text">
+        <div class="card-name">Démonstration en Temps Réel Participative</div>
+        <div class="card-cats">
+          <span class="cat-pill cat-apprentissage">Apprentissage</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-def">Le formateur réalise la CAT en faisant participer un apprenant volontaire comme sauveteur — il guide l'élève <em>comme si c'était la vraie vie</em>.</div>
+    </div>
+    <button class="toggle-btn" onclick="toggleCard(this)">Voir détails <span class="toggle-arrow">▼</span></button>
+    <div class="card-expand">
+      <div class="expand-section">
+        <div class="expand-label">Rôles</div>
+        <div class="role-row">
+          <div class="role-box">
+            <div class="role-title">🧑‍🏫 Formateur</div>
+            <div class="role-content">Présente et réalise la CAT · Guide le volontaire · Dirige toute l'action</div>
+          </div>
+          <div class="role-box">
+            <div class="role-title">👩‍🎓 Apprenant</div>
+            <div class="role-content">Observe · Participe (volontaire) en tant que sauveteur dirigé</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DCJI -->
+  <div class="card" id="DCJI" data-sigle="DCJI" data-cats="apprentissage">
+    <div class="card-top">
+      <span class="card-sigle sigle-dcji">DCJI</span>
+      <div class="card-header-text">
+        <div class="card-name">Démonstration Commentée Justifiée Interactive</div>
+        <div class="card-cats">
+          <span class="cat-pill cat-apprentissage">Apprentissage</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-def">Le formateur montre lentement les gestes en indiquant le <em>quand, comment et pourquoi</em>, centrés sur les points clés. L'interactivité porte sur les éléments déjà connus.</div>
+    </div>
+    <button class="toggle-btn" onclick="toggleCard(this)">Voir détails <span class="toggle-arrow">▼</span></button>
+    <div class="card-expand">
+      <div class="expand-section">
+        <div class="expand-label">Exemple — Scénario 5</div>
+        <div class="example-box">
+          <strong>🎓 En pratique</strong>
+          Ch.3 Traumatisme (scénario e-éducation) : DCJI douleur du cou — le formateur montre lentement chaque étape de l'immobilisation en expliquant POURQUOI on maintient la tête, et demande aux élèves d'identifier les étapes au fur et à mesure.
+        </div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Rôles</div>
+        <div class="role-row">
+          <div class="role-box">
+            <div class="role-title">🧑‍🏫 Formateur</div>
+            <div class="role-content">Montre lentement les gestes · Explique quand / comment / pourquoi · Questionne l'interactivité</div>
+          </div>
+          <div class="role-box">
+            <div class="role-title">👩‍🎓 Apprenant</div>
+            <div class="role-content">Indique la CAT réalisée · Interroge le formateur</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DCJIM -->
+  <div class="card" id="DCJIM" data-sigle="DCJIM" data-cats="apprentissage foad">
+    <div class="card-top">
+      <span class="card-sigle sigle-dcjim">DCJIM</span>
+      <div class="card-header-text">
+        <div class="card-name">Démonstration Commentée Justifiée Interactive en Miroir</div>
+        <div class="card-cats">
+          <span class="cat-pill cat-apprentissage">Apprentissage</span>
+          <span class="cat-pill cat-foad">FOAD / Hybride</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-def">Le formateur montre les gestes et les apprenants les réalisent <em>en même temps</em> que lui, en binôme. Technique de choix pour le scénario 5 FOAD car elle combine démonstration et pratique simultanée.</div>
+    </div>
+    <button class="toggle-btn" onclick="toggleCard(this)">Voir détails <span class="toggle-arrow">▼</span></button>
+    <div class="card-expand">
+      <div class="expand-section">
+        <div class="expand-label">Pourquoi "en miroir" ?</div>
+        <div class="expand-text">Les apprenants sont face au formateur. Quand le formateur utilise sa main droite, l'apprenant utilise sa main gauche — comme un reflet. Cela permet un guidage visuel simultané sans délai de mémorisation.</div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Exemple — Scénario 5</div>
+        <div class="example-box">
+          <strong>🎓 En pratique (Ch.3 Traumatisme)</strong>
+          "REFOR CAT traumatisme suivie de DCJIM (douleur du cou)" — après la reformulation verbale, le formateur montre le maintien de tête, les élèves reproduisent simultanément sur leur partenaire, en binôme.
+        </div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Rôles</div>
+        <div class="role-row">
+          <div class="role-box">
+            <div class="role-title">🧑‍🏫 Formateur</div>
+            <div class="role-content">Montre les gestes · Demande aux apprenants de les effectuer en même temps · Évalue la réalisation</div>
+          </div>
+          <div class="role-box">
+            <div class="role-title">👩‍🎓 Apprenant</div>
+            <div class="role-content">Réalise les gestes en même temps que le formateur · Passe sauveteur / victime / observateur</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end grid DP -->
+
+<!-- SECTION : REFORMULATION -->
+<div class="section-title">Reformulation & Ateliers pratiques</div>
+
+<div class="grid">
+
+  <!-- REFOR -->
+  <div class="card" id="REFOR" data-sigle="REFOR" data-cats="apprentissage application foad">
+    <div class="card-top">
+      <span class="card-sigle sigle-refor">REFOR</span>
+      <div class="card-header-text">
+        <div class="card-name">Reformulation</div>
+        <div class="card-cats">
+          <span class="cat-pill cat-apprentissage">Apprentissage</span>
+          <span class="cat-pill cat-application">Application</span>
+          <span class="cat-pill cat-foad">FOAD / Hybride</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-def">Le formateur reformule (avec ou sans gestuelle) la conduite à tenir. En contexte FOAD, c'est la technique clé de <em>réactivation mémorielle</em> : l'apprenant guide le formateur et peut l'interroger.</div>
+    </div>
+    <button class="toggle-btn" onclick="toggleCard(this)">Voir détails <span class="toggle-arrow">▼</span></button>
+    <div class="card-expand">
+      <div class="expand-section">
+        <div class="expand-label">Deux contextes d'utilisation</div>
+        <div class="expand-text"><ul>
+          <li><strong>Post-FOAD (Scénario 5) :</strong> le formateur demande à l'apprenant de reformuler la CAT qu'il a vue en FOAD → réactivation mémorielle avant la pratique. L'apprenant guide le formateur.</li>
+          <li><strong>Présentiel classique :</strong> le formateur refait les gestes guidé par les élèves et répond aux questions.</li>
+        </ul></div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Exemple — Scénario 5 (REFOR CAT)</div>
+        <div class="example-box">
+          <strong>🎓 Ch.3 Traumatisme</strong>
+          "REFOR CAT traumatisme suivie de APG(M) douleur du cou" — le formateur demande : "Qui peut me décrire ce qu'il faut faire face à une douleur du cou ?" → l'élève liste les étapes (ou les mime) → puis on passe à l'APG(M).
+        </div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Rôles</div>
+        <div class="role-row">
+          <div class="role-box">
+            <div class="role-title">🧑‍🏫 Formateur</div>
+            <div class="role-content"><em>Post-FOAD :</em> reformule la CAT avec ou sans gestes · Répond aux questions · <em>Présentiel :</em> refait les gestes guidé par les élèves</div>
+          </div>
+          <div class="role-box">
+            <div class="role-title">👩‍🎓 Apprenant</div>
+            <div class="role-content">Guide le formateur · Interroge · Propose les étapes de la CAT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APG -->
+  <div class="card" id="APG" data-sigle="APG" data-cats="apprentissage foad">
+    <div class="card-top">
+      <span class="card-sigle sigle-apg">APG</span>
+      <div class="card-header-text">
+        <div class="card-name">Atelier Pratique du Geste</div>
+        <div class="card-cats">
+          <span class="cat-pill cat-apprentissage">Apprentissage</span>
+          <span class="cat-pill cat-foad">FOAD / Hybride</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-def">Les apprenants s'entraînent en binômes ou trinômes. Chacun joue successivement le rôle de sauveteur, de victime et d'observateur. La CAT complète doit être réalisée au moins une fois.</div>
+    </div>
+    <button class="toggle-btn" onclick="toggleCard(this)">Voir détails <span class="toggle-arrow">▼</span></button>
+    <div class="card-expand">
+      <div class="expand-section">
+        <div class="expand-label">Intérêts</div>
+        <div class="expand-text"><ul>
+          <li>Acquérir un ou plusieurs savoir-faire</li>
+          <li>Montrer que l'apprenant maîtrise les gestes et la CAT</li>
+          <li>Favoriser la participation active du groupe</li>
+        </ul></div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Exemple — Scénario 5</div>
+        <div class="example-box">
+          <strong>🎓 Ch.10 Arrêt cardiaque</strong>
+          Après REFOR CAT adulte : "APG — compressions thoraciques + DAE". Les élèves s'entraînent en binôme sur le mannequin, en alternant sauveteur et observateur. Le formateur circule et évalue.
+        </div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Rôles</div>
+        <div class="role-row">
+          <div class="role-box">
+            <div class="role-title">🧑‍🏫 Formateur</div>
+            <div class="role-content">Constitue binômes / trinômes · Demande de réaliser les gestes · Évalue la maîtrise</div>
+          </div>
+          <div class="role-box">
+            <div class="role-title">👩‍🎓 Apprenant</div>
+            <div class="role-content">Écoute · Joue successivement sauveteur / victime / observateur</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APGM -->
+  <div class="card" id="APGM" data-sigle="APGM" data-cats="apprentissage foad">
+    <div class="card-top">
+      <span class="card-sigle sigle-apgm">APGM</span>
+      <div class="card-header-text">
+        <div class="card-name">Atelier Pratique du Geste en Miroir</div>
+        <div class="card-cats">
+          <span class="cat-pill cat-apprentissage">Apprentissage</span>
+          <span class="cat-pill cat-foad">FOAD / Hybride</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-def">Variante de l'APG : le formateur réalise 2 à 3 fois les gestes <em>en même temps</em> que les apprenants (technique miroir), avant de les laisser pratiquer la CAT complète en autonomie.</div>
+    </div>
+    <button class="toggle-btn" onclick="toggleCard(this)">Voir détails <span class="toggle-arrow">▼</span></button>
+    <div class="card-expand">
+      <div class="expand-section">
+        <div class="expand-label">APG vs APGM</div>
+        <div class="expand-text"><ul>
+          <li><strong>APG :</strong> les apprenants pratiquent seuls après la démo — plus d'autonomie</li>
+          <li><strong>APGM :</strong> le formateur fait avec eux 2-3 fois en miroir — plus de guidage, adapté au post-FOAD</li>
+        </ul></div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Exemple — Scénario 5</div>
+        <div class="example-box">
+          <strong>🎓 Ch.3 Traumatisme</strong>
+          "REFOR CAT traumatisme suivie de <strong>APG(M)</strong> douleur du cou" — le (M) entre parenthèses signifie que le formateur <em>choisit</em> APG ou APGM selon le niveau d'autonomie du groupe.
+        </div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Rôles</div>
+        <div class="role-row">
+          <div class="role-box">
+            <div class="role-title">🧑‍🏫 Formateur</div>
+            <div class="role-content">Constitue les binômes · Réalise 2-3× les gestes en miroir · Demande la CAT complète · Évalue</div>
+          </div>
+          <div class="role-box">
+            <div class="role-title">👩‍🎓 Apprenant</div>
+            <div class="role-content">Réalise les gestes en même temps que le formateur · Puis refait la CAT complète · Passe sauveteur / victime</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end grid refor/atelier -->
+
+<!-- SECTION : APPLICATION -->
+<div class="section-title">Activité d'application</div>
+
+<div class="grid">
+
+  <!-- CC -->
+  <div class="card" id="CC" data-sigle="CC" data-cats="application">
+    <div class="card-top">
+      <span class="card-sigle sigle-cc">CC</span>
+      <div class="card-header-text">
+        <div class="card-name">Cas Concret</div>
+        <div class="card-cats">
+          <span class="cat-pill cat-application">Application</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-def">L'apprenant, seul ou avec un témoin, restitue l'ensemble de ses savoirs face à une MSAS. C'est l'évaluation formative finale de chaque partie. Durée max : 10 minutes.</div>
+    </div>
+    <button class="toggle-btn" onclick="toggleCard(this)">Voir détails <span class="toggle-arrow">▼</span></button>
+    <div class="card-expand">
+      <div class="expand-section">
+        <div class="expand-label">Règles</div>
+        <div class="expand-text"><ul>
+          <li>Une seule victime, une seule détresse non évolutive</li>
+          <li>Durée totale (lancement + action + synthèse) ≤ 10 min</li>
+          <li>Danger simulé de nature variée (électrique, chimique, mécanique…)</li>
+          <li>Tous les apprenants doivent être sauveteur au moins une fois en fin de formation</li>
+        </ul></div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Exemple — Scénario 5</div>
+        <div class="example-box">
+          <strong>🎓 Ch.10 Arrêt cardiaque</strong>
+          Obligation : 2 CC dont 1 sans DAE. Le formateur prépare une MSAS (ex. "Lucas s'est effondré au gymnase") — l'élève sauveteur prend en charge, alerte, commence la RCP, utilise le DAE.
+        </div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Rôles</div>
+        <div class="role-row">
+          <div class="role-box">
+            <div class="role-title">🧑‍🏫 Formateur</div>
+            <div class="role-content">Prépare la MSAS · Lance le CC · Évalue (FCC) · Analyse avec le groupe · Rappelle les points clés</div>
+          </div>
+          <div class="role-box">
+            <div class="role-title">👩‍🎓 Apprenant</div>
+            <div class="role-content">Joue sauveteur, victime ou témoin · Évalue ses pairs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MSAS -->
+  <div class="card" id="MSAS" data-sigle="MSAS" data-cats="decouverte apprentissage application">
+    <div class="card-top">
+      <span class="card-sigle sigle-msas">MSAS</span>
+      <div class="card-header-text">
+        <div class="card-name">Mise en Situation d'Accident Simulé</div>
+        <div class="card-cats">
+          <span class="cat-pill cat-decouverte">Découverte</span>
+          <span class="cat-pill cat-apprentissage">Apprentissage</span>
+          <span class="cat-pill cat-application">Application</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-def"><em>Outil</em> (pas une technique) : reconstitution factice d'un accident, simple, précise, crédible, sans danger réel, adaptée au public. Supporte les DCJIP, DTR, DTRP, DCJI et les CC.</div>
+    </div>
+    <button class="toggle-btn" onclick="toggleCard(this)">Voir détails <span class="toggle-arrow">▼</span></button>
+    <div class="card-expand">
+      <div class="expand-section">
+        <div class="expand-label">Critères de construction</div>
+        <div class="expand-text"><ul>
+          <li>Simple, précise, crédible, sans danger réel</li>
+          <li>Adaptée au public (âge, lieu, rôles sociaux plausibles)</li>
+          <li>Rapidement mise en place et mise en œuvre</li>
+          <li>Consignes SAMU cohérentes avec la détresse simulée</li>
+        </ul></div>
+      </div>
+      <div class="expand-section">
+        <div class="expand-label">Exemple</div>
+        <div class="example-box">
+          <strong>🎓 Collège — Skate park</strong>
+          "Lucas, 14 ans, a chuté de son skateboard dans la cour. Il porte son casque mais se plaint d'une vive douleur au cou. Il ne s'est pas évanoui." → MSAS pour la douleur du cou (Ch.3 Traumatisme).
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end grid application -->
+
+<script>
+function toggleCard(btn) {
+  const card = btn.closest('.card');
+  card.classList.toggle('open');
+}
+
+function filterCards(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  document.querySelectorAll('.card').forEach(card => {
+    if (cat === 'all') {
+      card.classList.remove('hidden');
+    } else {
+      const cats = (card.dataset.cats || '').split(' ');
+      card.classList.toggle('hidden', !cats.includes(cat));
+    }
+  });
+}
+
+// Smooth scroll for anchor links from chapters
+if (location.hash) {
+  setTimeout(() => {
+    const el = document.querySelector(location.hash);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 200);
+}
+</script>
+
+</body>
+</html>
