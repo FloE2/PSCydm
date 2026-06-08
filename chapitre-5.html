@@ -225,7 +225,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 
     .triage-pool{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:rgba(255,255,255,.04);border:2px dashed rgba(255,255,255,.15);border-radius:10px;padding:8px}
     .triage-zones{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-    .triage-zone{min-height:90px;border:2px dashed rgba(255,255,255,.2);border-radius:10px;padding:6px;display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:flex-start}
+    .triage-zone{min-height:90px;border:2px dashed rgba(255,255,255,.2);border-radius:10px;padding:6px;display:flex;flex-direction:column;gap:4px;align-items:stretch;justify-content:flex-start}
     .triage-zone.over{border-color:#f0c040;background:rgba(240,192,64,.08)}
     .triage-zone-label{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-align:center;color:rgba(255,255,255,.6);margin-bottom:4px}
     .triage-card{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);border-radius:8px;padding:7px;cursor:grab;font-family:'Outfit',sans-serif;font-size:11px;color:white;text-align:center;user-select:none;width:100%}
@@ -1006,27 +1006,33 @@ const TRIAGE_ITEMS = [
   { id:'t5', label:'Éraflure au genou qui arrête de saigner seule', answer:'rien', expl:'Éraflure = plaie simple. Pas d\'hémorragie, pas de compression nécessaire.' },
   { id:'t6', label:'Plaie par balle à la cuisse, saignement massif', answer:'garrot', expl:'Garrot immédiat : plaie par balle au membre = garrot d\'emblée.' },
 ];
-let triageDragging=null, triageFrom=null, triagePlaced={};
+
+// triagePlaced = { zone: [id1, id2, ...] } — plusieurs cartes par zone
+let triageDragging=null, triageFrom=null, triagePlaced={compression:[],garrot:[],pansement:[],rien:[]};
+
+function triageAllPlaced(){
+  // returns flat list of all placed ids
+  return Object.values(triagePlaced).flat();
+}
+
 function triageBuild(){
-  const pool=document.getElementById('triage-pool'); pool.innerHTML='';
+  const pool=document.getElementById('triage-pool');
+  pool.innerHTML='';
+  const placed=triageAllPlaced();
   TRIAGE_ITEMS.forEach(item=>{
-    if(!Object.values(triagePlaced).includes(item.id)){
-      pool.appendChild(triageMakeCard(item,'pool'));
-    }
+    if(!placed.includes(item.id)) pool.appendChild(triageMakeCard(item,'pool'));
   });
   ['compression','garrot','pansement','rien'].forEach(z=>{
     const el=document.getElementById('tz-'+z);
-    // keep label
     const lbl=el.querySelector('.triage-zone-label');
     el.innerHTML=''; el.appendChild(lbl);
-    Object.entries(triagePlaced).forEach(([zone,id])=>{
-      if(zone===z){
-        const item=TRIAGE_ITEMS.find(i=>i.id===id);
-        el.appendChild(triageMakeCard(item,z));
-      }
+    (triagePlaced[z]||[]).forEach(id=>{
+      const item=TRIAGE_ITEMS.find(i=>i.id===id);
+      if(item) el.appendChild(triageMakeCard(item,z));
     });
   });
 }
+
 function triageMakeCard(item,from){
   const d=document.createElement('div'); d.className='triage-card'; d.textContent=item.label;
   d.draggable=true; d.dataset.id=item.id;
@@ -1034,44 +1040,71 @@ function triageMakeCard(item,from){
   d.addEventListener('dragend',()=>{d.style.opacity='1';});
   return d;
 }
+
+function triageRemoveFromZone(id){
+  // Remove id from whichever zone contains it
+  Object.keys(triagePlaced).forEach(z=>{
+    triagePlaced[z]=triagePlaced[z].filter(i=>i!==id);
+  });
+}
+
 function triagePoolDrop(e){
   e.preventDefault();
   if(triageDragging && triageFrom!=='pool'){
-    delete triagePlaced[triageFrom]; triageBuild();
+    triageRemoveFromZone(triageDragging);
+    triageBuild();
   }
   triageDragging=null;
 }
+
 function tzOver(e,z){e.preventDefault();document.getElementById('tz-'+z).classList.add('over');}
 function tzLeave(z){document.getElementById('tz-'+z).classList.remove('over');}
+
 function tzDrop(e,z){
   e.preventDefault(); document.getElementById('tz-'+z).classList.remove('over');
   if(!triageDragging)return;
-  // Remove from old zone if placed
-  if(triageFrom!=='pool'){delete triagePlaced[triageFrom];}
-  triagePlaced[z]=triageDragging;
+  // Remove from previous zone (or pool)
+  triageRemoveFromZone(triageDragging);
+  // Add to new zone
+  if(!triagePlaced[z]) triagePlaced[z]=[];
+  triagePlaced[z].push(triageDragging);
   triageDragging=null; triageFrom=null;
   triageBuild();
   document.getElementById('triage-fb').className='game-fb';
   document.getElementById('triage-corrections').style.display='none';
 }
+
 function triageCheck(){
   let ok=0, corrections=[];
   TRIAGE_ITEMS.forEach(item=>{
-    const placed=Object.entries(triagePlaced).find(([z,id])=>id===item.id);
-    if(placed && placed[0]===item.answer) ok++;
+    const inZone=(triagePlaced[item.answer]||[]).includes(item.id);
+    if(inZone) ok++;
     else corrections.push('<strong>'+item.label+'</strong> → '+item.expl);
   });
   const fb=document.getElementById('triage-fb');
   const total=TRIAGE_ITEMS.length;
+  // Colour the cards in zones
+  ['compression','garrot','pansement','rien'].forEach(z=>{
+    const el=document.getElementById('tz-'+z);
+    el.querySelectorAll('.triage-card').forEach(card=>{
+      const item=TRIAGE_ITEMS.find(i=>i.id===card.dataset.id);
+      if(item && item.answer===z){card.style.borderColor='#40c080';card.style.background='rgba(64,192,128,.15)';}
+      else{card.style.borderColor='#c04040';card.style.background='rgba(192,64,64,.15)';}
+    });
+  });
   if(ok===total){fb.className='game-fb ok';fb.textContent='🎯 Parfait ! Toutes les situations bien classées !';}
-  else{fb.className='game-fb ko';fb.textContent='❌ '+ok+'/'+total+' corrects. Voir les corrections ci-dessous.';
+  else{
+    fb.className='game-fb ko';
+    fb.textContent='❌ '+ok+'/'+total+' corrects. Voir les corrections ci-dessous.';
     const corr=document.getElementById('triage-corrections');
     corr.style.display='block';
     corr.innerHTML='<strong style="color:#f0c040">Corrections :</strong><br>'+corrections.join('<br>');
   }
 }
+
 function triageReset(){
-  triagePlaced={};triageDragging=null;
+  triagePlaced={compression:[],garrot:[],pansement:[],rien:[]};
+  triageDragging=null;
   document.getElementById('triage-fb').className='game-fb';
   document.getElementById('triage-corrections').style.display='none';
   triageBuild();
