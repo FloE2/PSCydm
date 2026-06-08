@@ -199,7 +199,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="pill" onclick="goSlide(2)">Corps étranger</div>
     <div class="pill" onclick="goSlide(3)">Positions d'attente</div>
     <div class="pill" onclick="goSlide(4)">CAT plaie simple</div>
-    <div class="pill" onclick="goSlide(5)">Vrai / Faux</div>
+    <div class="pill" onclick="goSlide(5)">⚔️ Duel Champions</div>
     <div class="pill" onclick="goSlide(6)">🛡️ Protection &amp; Alerte</div>
     <div class="pill" onclick="goSlide(7)">Cas Concret</div>
   </div>
@@ -492,73 +492,97 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
   </div>
 
-  <!-- SLIDE 5 : VRAI/FAUX -->
+  <!-- SLIDE 5 : JEU CHAMPION — 4 À LA SUITE -->
   <div class="slide">
-    <div class="slide-header">
+    <div class="slide-header" style="background:linear-gradient(135deg,#1a0a2e,#3a1060)">
       <div class="left">
-        <div class="sup">Chapitre 6 · Idées reçues</div>
-        <h2>Plaies — Vrai ou Faux ?</h2>
+        <div class="sup">Chapitre 6 · Duel de champions</div>
+        <h2>🏆 4 à la Suite — Qui connaît les Plaies ?</h2>
       </div>
-      <div class="badge-dur"><div class="v">🧠</div><div class="l">Idées reçues</div></div>
+      <div class="badge-dur"><div class="v">⚔️</div><div class="l">Duel</div></div>
     </div>
-    <div class="slide-body">
-      <div class="info-box" style="margin-bottom:4px">
-        👇 Clique sur <strong>VRAI</strong> ou <strong>FAUX</strong> pour chaque affirmation.
+    <div class="slide-body" style="padding:10px 16px;gap:8px;background:#0d0820">
+
+      <!-- ÉCRAN CONFIG -->
+      <div id="duel-config" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:20px">
+        <div style="font-size:48px">⚔️</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:white;text-align:center">Duel de Champions — Plaies</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.6);text-align:center;max-width:440px;line-height:1.6">
+          Le premier à enchaîner <strong style="color:#f0c040">4 bonnes réponses d'affilée</strong> gagne la manche !<br>
+          Questions Vrai/Faux + réponses courtes · Les deux équipes jouent en alternance.
+        </div>
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;width:100%;max-width:500px">
+          <div style="background:rgba(255,80,80,.12);border:2px solid rgba(255,80,80,.4);border-radius:12px;padding:12px;text-align:center">
+            <div style="font-size:22px">🔴</div>
+            <input id="team-a-name" type="text" value="Équipe Rouge" maxlength="20"
+              style="background:transparent;border:none;border-bottom:1px solid rgba(255,80,80,.5);color:#ff8080;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;text-align:center;width:100%;outline:none;padding:4px 0;margin-top:6px">
+          </div>
+          <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:#f0c040">VS</div>
+          <div style="background:rgba(80,120,255,.12);border:2px solid rgba(80,120,255,.4);border-radius:12px;padding:12px;text-align:center">
+            <div style="font-size:22px">🔵</div>
+            <input id="team-b-name" type="text" value="Équipe Bleue" maxlength="20"
+              style="background:transparent;border:none;border-bottom:1px solid rgba(80,120,255,.5);color:#80a8ff;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;text-align:center;width:100%;outline:none;padding:4px 0;margin-top:6px">
+          </div>
+        </div>
+        <button onclick="startDuel()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 32px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;cursor:pointer">▶ Lancer le duel !</button>
       </div>
-      <div class="vf-grid">
 
-        <div class="vf-item" id="vf1">
-          <div class="vf-statement">💬 « Si un éclat de verre est planté dans le bras, il faut l'enlever doucement pour nettoyer la plaie. »</div>
-          <div class="vf-btns">
-            <button class="vf-btn" onclick="answerVF('vf1',true,false)">✅ VRAI</button>
-            <button class="vf-btn" onclick="answerVF('vf1',false,false)">❌ FAUX</button>
+      <!-- ÉCRAN JEU -->
+      <div id="duel-game" style="display:none;flex:1;flex-direction:column;gap:8px">
+
+        <!-- Scores + tour -->
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center">
+          <div id="score-a-box" style="background:rgba(255,80,80,.12);border:2px solid rgba(255,80,80,.3);border-radius:10px;padding:10px;text-align:center;transition:all .3s">
+            <div id="score-a-name" style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:#ff8080">Équipe Rouge</div>
+            <div style="display:flex;gap:4px;justify-content:center;margin-top:6px" id="chain-a"></div>
+            <div id="score-a-pts" style="font-family:'Outfit',sans-serif;font-size:10px;color:rgba(255,128,128,.6);margin-top:4px">0 manche(s)</div>
           </div>
-          <div class="vf-explication incorrect">❌ FAUX. Il ne faut <strong>jamais retirer un corps étranger planté</strong>. Le retirer pourrait provoquer une hémorragie grave en libérant les vaisseaux sanguins qu'il comprime.</div>
+          <div style="text-align:center">
+            <div id="turn-badge" style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:#f0c040;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">Tour</div>
+            <div id="q-num-badge" style="background:rgba(255,200,0,.15);border:1px solid rgba(255,200,0,.3);border-radius:8px;padding:6px 12px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:#f0c040">Q 1/12</div>
+          </div>
+          <div id="score-b-box" style="background:rgba(80,120,255,.12);border:2px solid rgba(80,120,255,.3);border-radius:10px;padding:10px;text-align:center;transition:all .3s">
+            <div id="score-b-name" style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:#80a8ff">Équipe Bleue</div>
+            <div style="display:flex;gap:4px;justify-content:center;margin-top:6px" id="chain-b"></div>
+            <div id="score-b-pts" style="font-family:'Outfit',sans-serif;font-size:10px;color:rgba(128,168,255,.6);margin-top:4px">0 manche(s)</div>
+          </div>
         </div>
 
-        <div class="vf-item" id="vf2">
-          <div class="vf-statement">💬 « Pour une plaie au thorax, on allonge la victime à plat. »</div>
-          <div class="vf-btns">
-            <button class="vf-btn" onclick="answerVF('vf2',true,false)">✅ VRAI</button>
-            <button class="vf-btn" onclick="answerVF('vf2',false,true)">❌ FAUX</button>
-          </div>
-          <div class="vf-explication correct">✅ FAUX. Pour une plaie au thorax, on installe la victime en position <strong>assise</strong>, en laissant la plaie à l'air libre. Cela facilite la respiration.</div>
+        <!-- Question -->
+        <div id="duel-q-box" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;text-align:center">
+          <div id="duel-q-type" style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:6px"></div>
+          <div id="duel-q-text" style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;color:white;line-height:1.4"></div>
         </div>
 
-        <div class="vf-item" id="vf3">
-          <div class="vf-statement">💬 « Une simple éraflure qui s'arrête de saigner seule n'est pas une hémorragie. »</div>
-          <div class="vf-btns">
-            <button class="vf-btn" onclick="answerVF('vf3',true,true)">✅ VRAI</button>
-            <button class="vf-btn" onclick="answerVF('vf3',false,false)">❌ FAUX</button>
-          </div>
-          <div class="vf-explication correct">✅ VRAI. Une hémorragie ne s'arrête pas spontanément et imprègne un mouchoir en quelques secondes. Une éraflure qui s'arrête seule est une <strong>plaie simple</strong>, pas une hémorragie.</div>
-        </div>
+        <!-- Réponses -->
+        <div id="duel-opts" style="display:grid;gap:8px"></div>
 
-        <div class="vf-item" id="vf4">
-          <div class="vf-statement">💬 « Pour une plaie à l'abdomen, on allonge la victime les jambes fléchies. »</div>
-          <div class="vf-btns">
-            <button class="vf-btn" onclick="answerVF('vf4',true,true)">✅ VRAI</button>
-            <button class="vf-btn" onclick="answerVF('vf4',false,false)">❌ FAUX</button>
-          </div>
-          <div class="vf-explication correct">✅ VRAI. Les jambes fléchies permettent de <strong>relâcher les muscles abdominaux</strong>, ce qui diminue la douleur et les risques de complications.</div>
-        </div>
+        <!-- Feedback -->
+        <div id="duel-fb" style="display:none;border-radius:8px;padding:10px 14px;font-size:13px;text-align:center;font-family:'Outfit',sans-serif;font-weight:600"></div>
 
-        <div class="vf-item" id="vf5">
-          <div class="vf-statement">💬 « Pour une plaie à l'œil, on ferme les deux yeux et on évite de bouger la tête. »</div>
-          <div class="vf-btns">
-            <button class="vf-btn" onclick="answerVF('vf5',true,true)">✅ VRAI</button>
-            <button class="vf-btn" onclick="answerVF('vf5',false,false)">❌ FAUX</button>
-          </div>
-          <div class="vf-explication correct">✅ VRAI. Fermer les yeux et immobiliser la tête <strong>limite le risque d'aggravation de la lésion oculaire</strong>. Maintenir la tête à deux mains si possible.</div>
+        <!-- Bouton suivant -->
+        <div style="text-align:center">
+          <button id="duel-next-btn" onclick="duelNext()" style="display:none;background:#f0c040;color:#1a0a2e;border:none;border-radius:8px;padding:9px 24px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;cursor:pointer">Question suivante →</button>
         </div>
 
       </div>
-      <div class="score-box" id="vf-score"></div>
+
+      <!-- ÉCRAN FIN DE MANCHE -->
+      <div id="duel-round-end" style="display:none;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:20px;text-align:center">
+        <div id="round-trophy" style="font-size:56px"></div>
+        <div id="round-title" style="font-family:'Outfit',sans-serif;font-size:24px;font-weight:900;color:white"></div>
+        <div id="round-sub" style="font-size:13px;color:rgba(255,255,255,.6);max-width:400px;line-height:1.6"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+          <button onclick="duelNextRound()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:8px;padding:10px 24px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer">↺ Rejouer</button>
+          <button onclick="duelRestart()" style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);color:white;border-radius:8px;padding:10px 18px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer">↺ Recommencer</button>
+        </div>
+      </div>
+
     </div>
-    <div class="slide-footer">
-      <span>Vrai / Faux — Plaies</span>
+    <div class="slide-footer" style="background:#0d0820;border-color:#2a1a4a">
+      <span style="color:rgba(255,255,255,.4)">Duel de Champions — Plaies</span>
       <div class="progress-dots" id="dots5"></div>
-      <span>Slide 6/8</span>
+      <span style="color:rgba(255,255,255,.4)">Slide 6/8</span>
     </div>
   </div>
 
@@ -814,26 +838,343 @@ function renderDots() {
 }
 renderDots();
 
-// VRAI/FAUX
-const vfCorrects={vf1:false,vf2:false,vf3:true,vf4:true,vf5:true};
-const vfAnswers={};
-function answerVF(id, userAnswer, correctAnswer){
-  if(vfAnswers[id]!==undefined) return;
-  const isCorrect = (userAnswer===correctAnswer);
-  vfAnswers[id]=isCorrect;
-  const item=document.getElementById(id);
-  item.classList.add('revealed');
-  item.querySelectorAll('.vf-btn').forEach(b=>b.disabled=true);
-  const expl=item.querySelector('.vf-explication');
-  expl.className='vf-explication '+(isCorrect?'correct':'incorrect');
-  if(Object.keys(vfAnswers).length===5){
-    const ok=Object.values(vfAnswers).filter(Boolean).length;
-    const sc=document.getElementById('vf-score');
-    sc.style.display='block';
-    sc.textContent=`Score : ${ok} / 5 bonne${ok>1?'s':''} réponse${ok>1?'s':''}`;
-    sc.style.cssText+=`;background:${ok>=4?'#e8f8ef':'#fdecea'};border:1.5px solid ${ok>=4?'#80cba0':'#e8a09a'};color:${ok>=4?'#1a7a4a':'#c0392b'}`;
+// ── DUEL DE CHAMPIONS — PREMIER À 4 POINTS ──
+// Questions ordonnées du plus facile (niveau 1) au plus difficile (niveau 4)
+const DUEL_QUESTIONS = [
+  // ── NIVEAU 1 — Très facile : notions de base ──
+  {
+    niveau:1, type:'vf',
+    q:'Pour une plaie simple (petite coupure), il faut appeler le 15 immédiatement.',
+    answer:'FAUX',
+    expl:'❌ FAUX — Une plaie simple se traite soi-même : rincer à l\'eau courante et protéger. On appelle les secours uniquement si la plaie est grave.'
+  },
+  {
+    niveau:1, type:'vf',
+    q:'Une éraflure qui arrête de saigner seule est une plaie simple.',
+    answer:'VRAI',
+    expl:'✅ VRAI — Une plaie simple, c\'est une petite coupure ou éraflure qui saigne peu et s\'arrête seule. Pas d\'hémorragie associée.'
+  },
+  {
+    niveau:1, type:'court',
+    q:'Pour nettoyer une plaie simple, on la rince avec…',
+    opts:['De l\'alcool','De l\'eau oxygénée','De l\'eau courante','Du sérum physiologique chaud'],
+    answer:'De l\'eau courante',
+    expl:'✅ <strong>Eau courante</strong> — On rince abondamment à l\'eau courante (du robinet), du centre vers l\'extérieur, pendant plusieurs secondes.'
+  },
+  // ── NIVEAU 2 — Facile : CAT de base ──
+  {
+    niveau:2, type:'vf',
+    q:'Si un éclat de verre est planté dans le bras, il faut l\'enlever doucement pour nettoyer la plaie.',
+    answer:'FAUX',
+    expl:'❌ FAUX — On ne retire <strong>jamais</strong> un corps étranger planté. Il comprime les vaisseaux ; le retirer pourrait provoquer une hémorragie grave.'
+  },
+  {
+    niveau:2, type:'vf',
+    q:'Une plaie provoquée par une morsure est une plaie grave.',
+    answer:'VRAI',
+    expl:'✅ VRAI — La morsure est un mécanisme pénétrant. Elle est classée <strong>plaie grave</strong> car elle peut provoquer une infection profonde (tétanos, rage…).'
+  },
+  {
+    niveau:2, type:'court',
+    q:'Quelle maladie grave justifie de vérifier le carnet de vaccination après une plaie ?',
+    opts:['La grippe','Le tétanos','L\'hépatite B','La varicelle'],
+    answer:'Le tétanos',
+    expl:'✅ <strong>Tétanos</strong> — Maladie grave parfois mortelle. Seule la vaccination protège. Toujours vérifier le carnet après une plaie souillée ou profonde.'
+  },
+  // ── NIVEAU 3 — Difficile : positions et localisations ──
+  {
+    niveau:3, type:'vf',
+    q:'Pour une plaie au thorax, on allonge la victime à plat.',
+    answer:'FAUX',
+    expl:'❌ FAUX — Position <strong>assise</strong>, laissant la plaie à l\'air libre. La position allongée gênerait la respiration.'
+  },
+  {
+    niveau:3, type:'vf',
+    q:'Pour une plaie à l\'abdomen, on installe la victime allongée, jambes fléchies.',
+    answer:'VRAI',
+    expl:'✅ VRAI — Les jambes fléchies <strong>relâchent les muscles abdominaux</strong>, réduisant douleur et risques de complications.'
+  },
+  {
+    niveau:3, type:'court',
+    q:'Pour une plaie à l\'œil, on ferme…',
+    opts:['Seulement l\'œil atteint','Les deux yeux','Aucun des deux yeux','L\'œil valide uniquement'],
+    answer:'Les deux yeux',
+    expl:'✅ <strong>Les deux yeux</strong> — Fermer les deux yeux limite les mouvements oculaires solidaires et réduit le risque d\'aggravation de la lésion.'
+  },
+  // ── NIVEAU 4 — Expert : situations complexes et nuances ──
+  {
+    niveau:4, type:'vf',
+    q:'Devant une plaie abdominale avec viscères apparentes, on les recouvre d\'un linge humide en attendant les secours.',
+    answer:'VRAI',
+    expl:'✅ VRAI — On couvre d\'un linge propre humide pour éviter le dessèchement, sans jamais tenter de remettre les viscères en place. On alerte immédiatement.'
+  },
+  {
+    niveau:4, type:'court',
+    q:'Une plaie est qualifiée de grave si elle est localisée à… (plusieurs zones possibles — laquelle n\'est PAS un critère de gravité automatique ?)',
+    opts:['Le thorax','L\'avant-bras (coupure superficielle)','La face/cou','Près d\'un orifice naturel'],
+    answer:'L\'avant-bras (coupure superficielle)',
+    expl:'✅ <strong>L\'avant-bras superficiel</strong> — Une coupure superficielle sur l\'avant-bras peut être une plaie simple. Ce sont la localisation (thorax, abdomen, œil, orifices), le mécanisme (pénétrant, morsure) et l\'aspect (déchiqueté) qui définissent la gravité.'
+  },
+  {
+    niveau:4, type:'court',
+    q:'Vous voyez une victime avec un couteau planté dans l\'abdomen. Vous devez…',
+    opts:['Retirer le couteau rapidement','Laisser le couteau en place et alerter','Comprimer autour du couteau avec un bandage serré','Allonger la victime jambes tendues'],
+    answer:'Laisser le couteau en place et alerter',
+    expl:'✅ <strong>Laisser en place et alerter</strong> — Ne jamais retirer le corps étranger. Alerter le 15 ou 18, installer la victime en position d\'attente (allongée, jambes fléchies) et surveiller.'
+  }
+];
+
+let duelTeamA='Équipe Rouge', duelTeamB='Équipe Bleue';
+let duelScoreA=0, duelScoreB=0;
+let duelCurrentTeam='A';
+let duelQIndex=0;
+let duelAnswered=false;
+const SCORE_TARGET=4;
+
+function startDuel(){
+  duelTeamA=document.getElementById('team-a-name').value.trim()||'Équipe Rouge';
+  duelTeamB=document.getElementById('team-b-name').value.trim()||'Équipe Bleue';
+  duelScoreA=0; duelScoreB=0;
+  duelCurrentTeam='A';
+  duelQIndex=0;
+  duelAnswered=false;
+  document.getElementById('duel-config').style.display='none';
+  document.getElementById('duel-round-end').style.display='none';
+  document.getElementById('duel-game').style.display='flex';
+  document.getElementById('score-a-name').textContent=duelTeamA;
+  document.getElementById('score-b-name').textContent=duelTeamB;
+  duelRenderScores();
+  duelRenderQ();
+}
+
+function duelRenderScores(){
+  // Score dots: filled = points scored
+  duelRenderDots('chain-a', duelScoreA, '#ff5050');
+  duelRenderDots('chain-b', duelScoreB, '#5080ff');
+  document.getElementById('score-a-pts').textContent=`${duelScoreA} / ${SCORE_TARGET} pts`;
+  document.getElementById('score-b-pts').textContent=`${duelScoreB} / ${SCORE_TARGET} pts`;
+  const isA=duelCurrentTeam==='A';
+  document.getElementById('score-a-box').style.opacity=isA?'1':'0.45';
+  document.getElementById('score-b-box').style.opacity=isA?'0.45':'1';
+  document.getElementById('score-a-box').style.transform=isA?'scale(1.04)':'scale(1)';
+  document.getElementById('score-b-box').style.transform=isA?'scale(1)':'scale(1.04)';
+}
+
+function duelRenderDots(elId, count, color){
+  const el=document.getElementById(elId);
+  el.innerHTML='';
+  for(let i=0;i<SCORE_TARGET;i++){
+    const d=document.createElement('div');
+    const filled=i<count;
+    d.style.cssText=`width:22px;height:22px;border-radius:50%;transition:all .35s;font-size:13px;display:flex;align-items:center;justify-content:center;`
+      +(filled?`background:${color};box-shadow:0 0 8px ${color}80;`:'background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);');
+    d.textContent=filled?'★':'';
+    el.appendChild(d);
   }
 }
+
+function duelRenderQ(){
+  duelAnswered=false;
+  document.getElementById('duel-next-btn').style.display='none';
+  document.getElementById('duel-fb').style.display='none';
+
+  const q=DUEL_QUESTIONS[Math.min(duelQIndex, DUEL_QUESTIONS.length-1)];
+  const isA=duelCurrentTeam==='A';
+  const teamName=isA?duelTeamA:duelTeamB;
+  const teamColor=isA?'#ff8080':'#80a8ff';
+  const niveauLabel=['','⭐ Niveau 1 — Facile','⭐⭐ Niveau 2','⭐⭐⭐ Niveau 3 — Difficile','⭐⭐⭐⭐ Niveau 4 — Expert'];
+
+  document.getElementById('turn-badge').innerHTML=`<span style="color:${teamColor}">▶ Tour de ${teamName}</span>`;
+  document.getElementById('q-num-badge').innerHTML=`<span style="font-size:10px;opacity:.7">${niveauLabel[q.niveau]||''}</span><br>Q ${duelQIndex+1}/${DUEL_QUESTIONS.length}`;
+  document.getElementById('duel-q-type').textContent=q.type==='vf'?'🔘 VRAI ou FAUX ?':'💬 BONNE RÉPONSE ?';
+  document.getElementById('duel-q-text').textContent=q.q;
+
+  duelRenderScores();
+
+  const opts=document.getElementById('duel-opts');
+  opts.innerHTML='';
+  opts.style.gridTemplateColumns='1fr 1fr';
+
+  const choices=q.type==='vf'?['VRAI','FAUX']:q.opts;
+  choices.forEach(v=>{
+    const b=document.createElement('button');
+    b.textContent=q.type==='vf'?(v==='VRAI'?'✅ VRAI':'❌ FAUX'):v;
+    b.style.cssText=`background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:12px 10px;color:white;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center`;
+    b.onmouseover=()=>{if(!duelAnswered)b.style.background='rgba(255,255,255,.15)';};
+    b.onmouseout=()=>{if(!duelAnswered)b.style.background='rgba(255,255,255,.07)';};
+    b.onclick=()=>duelAnswer(v, q);
+    opts.appendChild(b);
+  });
+}
+
+function duelAnswer(chosen, q){
+  if(duelAnswered) return;
+  duelAnswered=true;
+  const correct=(chosen===q.answer);
+  const isA=duelCurrentTeam==='A';
+
+  // Colour buttons
+  document.getElementById('duel-opts').querySelectorAll('button').forEach(b=>{
+    b.disabled=true;
+    const raw=b.textContent.replace(/^[✅❌]\s*/,'');
+    const matchChosen=raw===chosen||b.textContent===chosen||b.textContent.includes(chosen);
+    const matchCorrect=raw===q.answer||b.textContent===q.answer||b.textContent.includes(q.answer);
+    if(matchCorrect) b.style.cssText=b.style.cssText+';background:#1a5a3a !important;border-color:#40c080;color:#80ffb8';
+    else if(matchChosen&&!correct) b.style.cssText=b.style.cssText+';background:#5a1a1a !important;border-color:#c04040;color:#ffb0b0';
+  });
+
+  const fb=document.getElementById('duel-fb');
+  fb.style.display='block';
+
+  if(correct){
+    if(isA) duelScoreA++; else duelScoreB++;
+    fb.style.cssText='display:block;border-radius:8px;padding:10px 14px;font-size:13px;text-align:center;font-family:Outfit,sans-serif;font-weight:600;background:#1a5a3a;border:1px solid #40c080;color:#80ffb8;margin-top:4px';
+    fb.innerHTML=`🎯 +1 point pour <strong>${isA?duelTeamA:duelTeamB}</strong> ! &nbsp;${q.expl}`;
+    duelRenderScores();
+    // Check win
+    if(duelScoreA>=SCORE_TARGET||duelScoreB>=SCORE_TARGET){
+      setTimeout(()=>duelGameOver(isA),1400);
+      return;
+    }
+  } else {
+    fb.style.cssText='display:block;border-radius:8px;padding:10px 14px;font-size:13px;text-align:center;font-family:Outfit,sans-serif;font-weight:600;background:#3a1a1a;border:1px solid #c04040;color:#ffb0b0;margin-top:4px';
+    fb.innerHTML=`💥 Raté ! &nbsp;${q.expl}`;
+  }
+
+  // Always alternate teams
+  duelCurrentTeam=isA?'B':'A';
+  duelQIndex++;
+  document.getElementById('duel-next-btn').style.display='inline-block';
+}
+
+function duelNext(){
+  if(duelQIndex>=DUEL_QUESTIONS.length){
+    // All questions used — tie, show draw screen
+    duelGameOver(null);
+    return;
+  }
+  duelRenderQ();
+}
+
+function duelGameOver(winnerIsA){
+  document.getElementById('duel-game').style.display='none';
+  const re=document.getElementById('duel-round-end');
+  re.style.display='flex';
+
+  if(winnerIsA===null){
+    document.getElementById('round-trophy').textContent='🤝';
+    document.getElementById('round-title').innerHTML=`<span style="color:#f0c040">Égalité !</span>`;
+    document.getElementById('round-sub').innerHTML=`Toutes les questions ont été jouées sans vainqueur.<br>
+      <strong style="color:#ff8080">${duelTeamA}</strong> : ${duelScoreA} pts &nbsp;·&nbsp;
+      <strong style="color:#80a8ff">${duelTeamB}</strong> : ${duelScoreB} pts`;
+  } else {
+    const winner=winnerIsA?duelTeamA:duelTeamB;
+    const color=winnerIsA?'#ff5050':'#5080ff';
+    const emoji=winnerIsA?'🔴':'🔵';
+    document.getElementById('round-trophy').textContent='🏆';
+    document.getElementById('round-title').innerHTML=`${emoji} <span style="color:${color}">${winner}</span> remporte le duel !`;
+    document.getElementById('round-sub').innerHTML=`Premier à atteindre ${SCORE_TARGET} points ! 🥇<br><br>
+      <strong style="color:#ff8080">${duelTeamA}</strong> : ${duelScoreA} pts &nbsp;·&nbsp;
+      <strong style="color:#80a8ff">${duelTeamB}</strong> : ${duelScoreB} pts`;
+  }
+}
+
+function duelNextRound(){
+  // "Rejouer" = reset but keep names
+  duelScoreA=0; duelScoreB=0; duelQIndex=0; duelAnswered=false;
+  duelCurrentTeam='A';
+  document.getElementById('duel-round-end').style.display='none';
+  document.getElementById('duel-game').style.display='flex';
+  duelRenderScores();
+  duelRenderQ();
+}
+
+function duelRestart(){
+  document.getElementById('duel-round-end').style.display='none';
+  document.getElementById('duel-game').style.display='none';
+  document.getElementById('duel-config').style.display='flex';
+}
+
+
+  // VRAI / FAUX (type:'vf')
+  {
+    type:'vf',
+    q:'« Si un éclat de verre est planté dans le bras, il faut l\'enlever doucement pour nettoyer la plaie. »',
+    answer:'FAUX',
+    expl:'❌ FAUX — Il ne faut <strong>jamais retirer un corps étranger planté</strong>. Le retirer pourrait déclencher une hémorragie grave.'
+  },
+  {
+    type:'vf',
+    q:'« Pour une plaie au thorax, on allonge la victime à plat. »',
+    answer:'FAUX',
+    expl:'❌ FAUX — Pour une plaie au thorax, on installe la victime en position <strong>assise</strong>, laissant la plaie à l\'air libre pour faciliter la respiration.'
+  },
+  {
+    type:'vf',
+    q:'« Une simple éraflure qui s\'arrête de saigner seule n\'est pas une hémorragie. »',
+    answer:'VRAI',
+    expl:'✅ VRAI — Une hémorragie ne s\'arrête pas seule. Une éraflure qui cesse de saigner est une <strong>plaie simple</strong>.'
+  },
+  {
+    type:'vf',
+    q:'« Pour une plaie à l\'abdomen, on allonge la victime les jambes fléchies. »',
+    answer:'VRAI',
+    expl:'✅ VRAI — Les jambes fléchies <strong>relâchent les muscles abdominaux</strong>, réduisant la douleur et les risques de complications.'
+  },
+  {
+    type:'vf',
+    q:'« Pour une plaie à l\'œil, on ferme les deux yeux et on évite de bouger la tête. »',
+    answer:'VRAI',
+    expl:'✅ VRAI — Fermer les deux yeux <strong>limite les mouvements oculaires</strong> et réduit le risque d\'aggravation de la lésion.'
+  },
+  {
+    type:'vf',
+    q:'« Pour une plaie grave à l\'abdomen, on peut appliquer un pansement serré sur la plaie. »',
+    answer:'FAUX',
+    expl:'❌ FAUX — Pour une plaie abdominale, on ne met rien sur la plaie sans avis médical. On installe la victime jambes fléchies et on alerte les secours.'
+  },
+  {
+    type:'vf',
+    q:'« Une plaie provoquée par une morsure est considérée comme une plaie grave. »',
+    answer:'VRAI',
+    expl:'✅ VRAI — Une morsure est un mécanisme pénétrant : elle est classée <strong>plaie grave</strong>, car elle peut entraîner une infection profonde (tétanos, rage…).'
+  },
+  {
+    type:'vf',
+    q:'« On peut protéger une plaie simple avec un pansement adhésif après lavage. »',
+    answer:'VRAI',
+    expl:'✅ VRAI — Pour une plaie simple : rincer à l\'eau courante, puis protéger avec un <strong>pansement stérile</strong>. C\'est la CAT adaptée.'
+  },
+  // RÉPONSE COURTE (type:'court')
+  {
+    type:'court',
+    q:'Pour une plaie au thorax, quelle est la position d\'attente à adopter ?',
+    opts:['Allongée','Assise','Demi-assise jambes fléchies','Debout'],
+    answer:'Assise',
+    expl:'✅ <strong>Assise</strong> — La position assise facilite la respiration et laisse la plaie à l\'air libre.'
+  },
+  {
+    type:'court',
+    q:'Quel est le premier geste face à un corps étranger planté dans une plaie ?',
+    opts:['L\'enlever proprement','Ne jamais le retirer','Le couper en deux','Comprimer fort autour'],
+    answer:'Ne jamais le retirer',
+    expl:'✅ <strong>Ne jamais le retirer</strong> — Il comprime les vaisseaux. Le retirer pourrait provoquer une hémorragie grave.'
+  },
+  {
+    type:'court',
+    q:'Pour une plaie à l\'abdomen, on installe la victime allongée avec les jambes dans quelle position ?',
+    opts:['Tendues','Fléchies','Surélevées','Croisées'],
+    answer:'Fléchies',
+    expl:'✅ <strong>Fléchies</strong> — Elles relâchent les muscles abdominaux et réduisent la douleur et les risques de complications.'
+  },
+  {
+    type:'court',
+    q:'En France, quelle maladie grave justifie de vérifier la vaccination après une plaie ?',
+    opts:['Grippe','Hépatite','Tétanos','Méningite'],
+    answer:'Tétanos',
+    expl:'✅ <strong>Tétanos</strong> — Seule la vaccination antitétanique protège. Il faut toujours vérifier le carnet de vaccination après une plaie.'
+  }
+];
 
 // CAS CONCRET
 let ccTime2=false;
