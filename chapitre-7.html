@@ -275,11 +275,13 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     .dd-box.over{background:#fde0cc;border-color:var(--feu)}
     .dd-box.filled{border-style:solid;border-color:var(--feu)}
     .dd-hint{font-size:11px;color:#ccc;text-align:center}
-    .dd-card{background:white;border:1.5px solid var(--feu);border-radius:9px;padding:8px;cursor:grab;width:100%;text-align:center;user-select:none;transition:transform .1s}
+    .dd-card{background:white;border:1.5px solid var(--feu);border-radius:9px;padding:8px 6px;cursor:grab;width:100%;min-height:95px;text-align:center;user-select:none;transition:transform .1s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
     .dd-card:active{cursor:grabbing;transform:scale(1.02)}
     .dd-card.dragging{opacity:.35}
-    .dd-card-ic{font-size:20px;color:var(--feu);margin-bottom:4px}
-    .dd-card-title{font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:var(--texte);margin-bottom:3px}
+    .dd-pool-slot{min-height:105px;display:flex;align-items:stretch}
+    .dd-pool-empty{min-height:105px;display:flex;align-items:center;justify-content:center;border:2px dashed transparent}
+    .dd-card-ic{font-size:20px;color:var(--feu)}
+    .dd-card-title{font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:var(--texte)}
     .dd-card-desc{font-size:10.5px;color:var(--texte-sec);line-height:1.35}
 </style>
 </head>
@@ -291,15 +293,14 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="pill" onclick="goToDashboard()" style="border-color:#1a5a35;color:#80cba0;">← Dashboard</div>
     <div class="pill active" onclick="goSlide(0)">Titre</div>
     <div class="pill" onclick="goSlide(1)">Définition &amp; gravité</div>
-    <div class="pill" onclick="goSlide(2)">CAT — Refroidir</div>
-    <div class="pill" onclick="goSlide(3)">🎯 Remettre en ordre</div>
-    <div class="pill" onclick="goSlide(4)">Brûlures simples / graves</div>
-    <div class="pill" onclick="goSlide(5)">Brûlures particulières</div>
-    <div class="pill" onclick="goSlide(6)">🎮 Qui veut gagner des millions ?</div>
-    <div class="pill" onclick="goSlide(7)">Cas Concret</div>
+    <div class="pill" onclick="goSlide(2)">🎯 Remettre en ordre</div>
+    <div class="pill" onclick="goSlide(3)">Brûlures simples / graves</div>
+    <div class="pill" onclick="goSlide(4)">Brûlures particulières</div>
+    <div class="pill" onclick="goSlide(5)">🎮 Qui veut gagner des millions ?</div>
+    <div class="pill" onclick="goSlide(6)">Cas Concret</div>
   </div>
   <div id="nav-btns">
-    <div id="slide-counter">1 / 8</div>
+    <div id="slide-counter">1 / 7</div>
     <button class="nav-btn" onclick="prevSlide()">← Préc.</button>
     <button class="nav-btn" onclick="nextSlide()">Suiv. →</button>
   </div>
@@ -382,69 +383,12 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="slide-footer">
       <span>Définition et gravité</span>
       <div class="progress-dots" id="dots1"></div>
-      <span>Slide 2/8</span>
+      <span>Slide 2/7</span>
     </div>
   </div>
 
   <!-- SLIDE 2 : CAT REFROIDIR -->
-  <div class="slide">
-    <div class="slide-header">
-      <div class="left">
-        <div class="sup">Chapitre 7 · Geste clé</div>
-        <h2>🚿 Refroidir immédiatement — toujours en premier</h2>
-      </div>
-      <div class="badge-dur"><div class="v">💧</div><div class="l">Geste n°1</div></div>
-    </div>
-    <div class="slide-body">
-      <div class="alerte-box" style="border-color:var(--feu);background:var(--feu-clair)">
-        <div class="alerte-icon">⏱️</div>
-        <div>
-          <h3 style="color:var(--feu)">Commencer avant 30 minutes — sinon inutile !</h3>
-          <p style="color:#7a3a00">Débuter l'arrosage après 30 minutes n'a <strong>aucun intérêt</strong>. Plus c'est rapide, moins les dommages sont profonds.</p>
-        </div>
-      </div>
-      <div class="steps-grid">
-        <div class="step-card">
-          <div class="step-num">1</div>
-          <div class="step-ic">🚿</div>
-          <div class="step-title">Refroidir</div>
-          <div class="step-desc"><strong>Eau courante tempérée</strong> (ni froide ni chaude), à <strong>faible pression</strong>, pendant <strong>10 à 20 minutes</strong>. En parallèle : retirer vêtements et bijoux s'ils n'adhèrent pas.</div>
-        </div>
-        <div class="step-card">
-          <div class="step-num">2</div>
-          <div class="step-ic">🔍</div>
-          <div class="step-title">Évaluer la gravité</div>
-          <div class="step-desc">Observer : surface, profondeur, aspect, localisation. Simple ou grave ?</div>
-        </div>
-        <div class="step-card" style="background:var(--rouge-clair);border-color:var(--rouge-bord)">
-          <div class="step-num" style="background:var(--rouge)">3</div>
-          <div class="step-ic">📞</div>
-          <div class="step-title" style="color:var(--rouge)">Si grave : alerter</div>
-          <div class="step-desc">Appeler le 15, 18 ou 112 <strong>dès le début de l'arrosage</strong>. Poursuivre le refroidissement selon les consignes.</div>
-        </div>
-        <div class="step-card" style="background:var(--vert-clair);border-color:var(--vert-bord)">
-          <div class="step-num" style="background:var(--vert)">4</div>
-          <div class="step-ic">🛏️</div>
-          <div class="step-title" style="color:var(--vert)">Installer &amp; surveiller</div>
-          <div class="step-desc">Après refroidissement : allonger (ou asseoir si gêne respiratoire). Laisser la brûlure visible. Surveiller.</div>
-        </div>
-      </div>
-      <div class="alerte-box">
-        <div class="alerte-icon">🚫</div>
-        <div>
-          <h3>Ce qu'il ne faut JAMAIS faire</h3>
-          <p>Ne jamais utiliser d'eau <strong>glacée</strong> · Ne jamais percer les <strong>cloques</strong> · Ne jamais appliquer de <strong>beurre, dentifrice, huile</strong> ou autre produit sur une brûlure grave sans avis médical.</p>
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer">
-      <span>CAT — Refroidir immédiatement</span>
-      <div class="progress-dots" id="dots2"></div>
-      <span>Slide 3/8</span>
-    </div>
-  </div>
-
-  <!-- SLIDE 3 : DRAG & DROP CAT REFROIDIR -->
+  <!-- SLIDE 2 : DRAG & DROP CAT REFROIDIR -->
   <div class="slide">
     <div class="slide-header">
       <div class="left">
@@ -464,7 +408,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
       </div>
 
       <div class="section-label">Cartes à placer — glissez-les dans le bon ordre ↓</div>
-      <div id="dd-pool" style="display:flex;gap:8px;min-height:72px;background:var(--gris);border:2px dashed var(--gris-bord);border-radius:10px;padding:8px;flex-wrap:wrap;align-items:center;"
+      <div id="dd-pool" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;background:var(--gris);border:2px dashed var(--gris-bord);border-radius:10px;padding:8px;"
         ondragover="ddPoolDragOver(event)" ondrop="ddPoolDrop(event)"></div>
 
       <div class="section-label">Ordre correct de la CAT — Brûlures</div>
@@ -493,11 +437,19 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
         <button class="game-btn secondary" onclick="ddReveal()" style="padding:8px 14px;font-size:13px;border:1.5px solid var(--gris-bord);color:var(--texte-sec);background:transparent">👁 Voir la réponse</button>
       </div>
       <div id="dd-feedback" style="display:none;border-radius:8px;padding:10px 14px;font-size:13px;margin-top:4px"></div>
+
+      <div class="alerte-box" style="margin-top:4px">
+        <div class="alerte-icon">🚫</div>
+        <div>
+          <h3>Ce qu'il ne faut JAMAIS faire</h3>
+          <p>Ne jamais utiliser d'eau <strong>glacée</strong> · Ne jamais percer les <strong>cloques</strong> · Ne jamais appliquer de <strong>beurre, dentifrice, huile</strong> ou autre produit sur une brûlure grave sans avis médical.</p>
+        </div>
+      </div>
     </div>
     <div class="slide-footer">
       <span>CAT — Activité drag &amp; drop</span>
-      <div class="progress-dots" id="dots3"></div>
-      <span>Slide 4/8</span>
+      <div class="progress-dots" id="dots2"></div>
+      <span>Slide 3/7</span>
     </div>
   </div>
   <div class="slide">
@@ -537,8 +489,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
     <div class="slide-footer">
       <span>CAT brûlure simple et grave</span>
-      <div class="progress-dots" id="dots4"></div>
-      <span>Slide 5/8</span>
+      <div class="progress-dots" id="dots3"></div>
+      <span>Slide 4/7</span>
     </div>
   </div>
 
@@ -598,8 +550,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
     <div class="slide-footer">
       <span>Brûlures chimiques, électriques et par inhalation</span>
-      <div class="progress-dots" id="dots5"></div>
-      <span>Slide 6/8</span>
+      <div class="progress-dots" id="dots4"></div>
+      <span>Slide 5/7</span>
     </div>
   </div>
 
@@ -664,7 +616,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
           <div class="end-sub" id="end-sub"></div>
           <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
             <button class="game-btn" onclick="restartGame()">↺ Rejouer</button>
-            <button class="game-btn secondary" onclick="goSlide(7)">Cas Concret →</button>
+            <button class="game-btn secondary" onclick="goSlide(6)">Cas Concret →</button>
           </div>
         </div>
       </div>
@@ -672,8 +624,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
     <div class="slide-footer">
       <span>Jeu — Qui veut gagner des millions ?</span>
-      <div class="progress-dots" id="dots6"></div>
-      <span>Slide 7/8</span>
+      <div class="progress-dots" id="dots5"></div>
+      <span>Slide 6/7</span>
     </div>
   </div>
 
@@ -781,8 +733,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
     <div class="slide-footer" id="cc-footer">
       <span>Temps 1 — Situation soumise aux élèves</span>
-      <div class="progress-dots" id="dots7"></div>
-      <span>Slide 8/8</span>
+      <div class="progress-dots" id="dots6"></div>
+      <span>Slide 7/7</span>
     </div>
   </div>
 
@@ -791,7 +743,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 <script>
 // ── NAV ──
 let current = 0;
-const total = 8;
+const total = 7;
 const slidePills = document.querySelectorAll('.pill[onclick^="goSlide"]');
 function goSlide(n){
   document.querySelectorAll('.slide')[current].classList.remove('active');
@@ -1098,7 +1050,25 @@ function ddMakeCard(card,fromPool){
 function ddBuildPool(){
   const pool=document.getElementById('dd-pool');
   pool.innerHTML='';
-  ddShuffle([...DD_CARDS]).forEach(c=>{if(!ddSlots.includes(c.id))pool.appendChild(ddMakeCard(c,true));});
+  const available=DD_CARDS.filter(c=>!ddSlots.includes(c.id));
+  // Always fill 4 grid cells; empty slots get a transparent placeholder
+  const grid=[];
+  DD_CARDS.forEach(c=>{
+    if(!ddSlots.includes(c.id)) grid.push({card:c,empty:false});
+    else grid.push({card:null,empty:true});
+  });
+  grid.forEach(item=>{
+    if(item.empty){
+      const ph=document.createElement('div');
+      ph.className='dd-pool-empty';
+      pool.appendChild(ph);
+    } else {
+      const wrap=document.createElement('div');
+      wrap.className='dd-pool-slot';
+      wrap.appendChild(ddMakeCard(item.card,true));
+      pool.appendChild(wrap);
+    }
+  });
 }
 
 function ddRenderBoxes(){
@@ -1174,9 +1144,15 @@ function ddReveal(){
   f.innerHTML='<strong>Réponse :</strong> 1. Refroidir → 2. Évaluer la gravité → 3. Si grave : alerter → 4. Installer &amp; surveiller';
 }
 
-function ddReset(){ddSlots=[null,null,null,null];ddRenderBoxes();ddBuildPool();ddHideFeedback();}
+function ddReset(){
+  ddSlots=[null,null,null,null];
+  // Re-shuffle card order for pool
+  ddShuffle(DD_CARDS);
+  ddRenderBoxes();ddBuildPool();ddHideFeedback();
+}
 
-// Init drag & drop
+// Init — shuffle once then build
+ddShuffle(DD_CARDS);
 ddRenderBoxes();ddBuildPool();
 
 function goToDashboard(e){
