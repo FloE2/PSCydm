@@ -620,7 +620,48 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
   </div>
 
-  <!-- SLIDE 7 : PROTECTION DU SAUVETEUR -->
+
+  <!-- SLIDE 7 : TRIAGE EXPRESS — HÉMORRAGIES -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left"><div class="sup">Chapitre 5 · Jeu interactif</div><h2>🩸 Triage Express — Quel geste pour quelle situation ?</h2></div>
+      <div class="badge-dur"><div class="v">🩸</div><div class="l">Triage</div></div>
+    </div>
+    <div class="slide-body game-dark">
+      <div class="game-score-row" style="margin-bottom:4px">
+        <div style="color:rgba(255,255,255,.5);font-size:12px">Glisse chaque scène dans la bonne zone de geste</div>
+        <button onclick="triageCheck()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:8px;padding:7px 16px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;cursor:pointer">✓ Vérifier</button>
+        <button class="game-restart-btn" onclick="triageReset()">↺ Reset</button>
+      </div>
+      <div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:4px">Situations à classer</div>
+      <div class="triage-pool" id="triage-pool"
+        ondragover="event.preventDefault()" ondrop="triagePoolDrop(event)"></div>
+      <div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin:8px 0 4px">Zones de geste</div>
+      <div class="triage-zones">
+        <div class="triage-zone" id="tz-compression" ondragover="tzOver(event,'compression')" ondragleave="tzLeave('compression')" ondrop="tzDrop(event,'compression')">
+          <div class="triage-zone-label">🤜 Compression<br>directe</div>
+        </div>
+        <div class="triage-zone" id="tz-garrot" ondragover="tzOver(event,'garrot')" ondragleave="tzLeave('garrot')" ondrop="tzDrop(event,'garrot')">
+          <div class="triage-zone-label">🎗️ Garrot</div>
+        </div>
+        <div class="triage-zone" id="tz-pansement" ondragover="tzOver(event,'pansement')" ondragleave="tzLeave('pansement')" ondrop="tzDrop(event,'pansement')">
+          <div class="triage-zone-label">🩹 Pansement<br>compressif</div>
+        </div>
+        <div class="triage-zone" id="tz-rien" ondragover="tzOver(event,'rien')" ondragleave="tzLeave('rien')" ondrop="tzDrop(event,'rien')">
+          <div class="triage-zone-label">✋ Plaie simple<br>(rincer/protéger)</div>
+        </div>
+      </div>
+      <div class="game-fb" id="triage-fb"></div>
+      <div id="triage-corrections" style="display:none;font-size:12px;color:rgba(255,255,255,.7);line-height:1.8;background:rgba(255,255,255,.04);border-radius:8px;padding:10px;margin-top:4px"></div>
+    </div>
+    <div class="slide-footer">
+      <span>Triage Express — Hémorragies</span>
+      <div class="progress-dots" id="dots7"></div>
+      <span>Slide 8/10</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 8 : PROTECTION DU SAUVETEUR -->
   <div class="slide">
     <div class="slide-header" style="background:#2558a8">
       <div class="left">
@@ -962,8 +1003,8 @@ const TRIAGE_ITEMS = [
   { id:'t2', label:'Plaie profonde au bras, sang qui coule abondamment', answer:'compression', expl:'Compression directe immédiate pour stopper l'hémorragie.' },
   { id:'t3', label:'Section partielle de l'avant-bras, compression inefficace depuis 3 min', answer:'garrot', expl:'Garrot : compression échoue, membre atteint. Noter l'heure.' },
   { id:'t4', label:'Plaie au front saignant beaucoup mais compression a stoppé le flux', answer:'pansement', expl:'Pansement compressif : la compression directe a été efficace.' },
-  { id:'t5', label:'Éraflure au genou qui arrête de saigner seule', answer:'rien', expl:'Éraflure = plaie simple. Pas d'hémorragie, pas de compression nécessaire.' },
-  { id:'t6', label:'Plaie par balle à la cuisse, saignement massif', answer:'garrot', expl:'Garrot immédiat : plaie par balle au membre = garrot d'emblée.' },
+  { id:'t5', label:'Éraflure au genou qui arrête de saigner seule', answer:'rien', expl:'Éraflure = plaie simple. Pas d\'hémorragie, pas de compression nécessaire.' },
+  { id:'t6', label:'Plaie par balle à la cuisse, saignement massif', answer:'garrot', expl:'Garrot immédiat : plaie par balle au membre = garrot d\'emblée.' },
 ];
 let triageDragging=null, triageFrom=null, triagePlaced={};
 function triageBuild(){
