@@ -935,7 +935,7 @@ function detAnswer(chosen,q){
   });
   const fb=document.getElementById('det-fb');
   if(correct){detScore+=pts;fb.className='game-fb ok';fb.innerHTML='🎯 +'+pts+' pt'+(pts>1?'s':'')+' ! '+q.expl;}
-  else{fb.className='game-fb ko';fb.innerHTML='❌ C'était : <strong>'+q.answer+'</strong>. '+q.expl;}
+  else{fb.className='game-fb ko';fb.innerHTML='❌ C\'était : <strong>'+q.answer+'</strong>. '+q.expl;}
   document.getElementById('det-score').textContent=detScore;
   document.getElementById('det-next-btn').style.display='inline-block';
 }
