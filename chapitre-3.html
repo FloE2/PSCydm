@@ -1609,7 +1609,7 @@ function qsjEnd(){
   const max=QSJ_QUESTIONS.length*3;
   document.getElementById('qsj-final-score').textContent=qsjScore+' / '+max;
   const pct=qsjScore/max;
-  document.getElementById('qsj-final-msg').textContent=pct>=.8?'Excellent ! Tu maîtrises les traumatismes 💪':pct>=.5?'Bien joué ! Quelques révisions s'imposent.':'Continue à réviser — tu y es presque !';
+  document.getElementById('qsj-final-msg').textContent=pct>=.8?'Excellent ! Tu maîtrises les traumatismes 💪':pct>=.5?'Bien joué ! Quelques révisions s\'imposent.':'Continue à réviser — tu y es presque !';
 }
 function qsjRestart(){ document.getElementById('qsj-end').style.display='none'; qsjStart(); }
 
