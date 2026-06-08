@@ -946,7 +946,7 @@ function detEnd(){
   const max=DET_QUESTIONS.length*3;
   document.getElementById('det-final-score').textContent=detScore+' / '+max;
   const pct=detScore/max;
-  document.getElementById('det-final-msg').textContent=pct>=.8?'Excellent détective ! Tu reconnais les malaises comme un pro 🔎':pct>=.5?'Bien ! Revois les signes d'alerte.':'Continue — chaque signe compte pour identifier vite.';
+  document.getElementById('det-final-msg').textContent=pct>=.8?'Excellent détective ! Tu reconnais les malaises comme un pro 🔎':pct>=.5?'Bien ! Revois les signes d\'alerte.':'Continue — chaque signe compte pour identifier vite.';
 }
 function detRestart(){document.getElementById('det-end').style.display='none';detStart();}
 
