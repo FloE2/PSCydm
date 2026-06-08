@@ -839,7 +839,9 @@ function renderDots() {
 renderDots();
 
 // ── DUEL DE CHAMPIONS — PREMIER À 4 POINTS ──
-// Questions ordonnées du plus facile (niveau 1) au plus difficile (niveau 4)
+// Principe d'équité : à chaque tour, Rouge ET Bleu reçoivent une question du MÊME niveau
+// Les questions à l'intérieur de chaque niveau sont mélangées aléatoirement
+
 const DUEL_QUESTIONS = [
   // ── NIVEAU 1 — Très facile : notions de base ──
   {
@@ -910,25 +912,67 @@ const DUEL_QUESTIONS = [
   },
   {
     niveau:4, type:'court',
-    q:'Une plaie est qualifiée de grave si elle est localisée à… (plusieurs zones possibles — laquelle n\'est PAS un critère de gravité automatique ?)',
-    opts:['Le thorax','L\'avant-bras (coupure superficielle)','La face/cou','Près d\'un orifice naturel'],
+    q:'Laquelle de ces localisations N\'est PAS un critère automatique de plaie grave ?',
+    opts:['Le thorax','L\'avant-bras (coupure superficielle)','La face / cou','Près d\'un orifice naturel'],
     answer:'L\'avant-bras (coupure superficielle)',
-    expl:'✅ <strong>L\'avant-bras superficiel</strong> — Une coupure superficielle sur l\'avant-bras peut être une plaie simple. Ce sont la localisation (thorax, abdomen, œil, orifices), le mécanisme (pénétrant, morsure) et l\'aspect (déchiqueté) qui définissent la gravité.'
+    expl:'✅ <strong>L\'avant-bras superficiel</strong> — Ce sont la localisation (thorax, abdomen, œil, orifices), le mécanisme pénétrant et l\'aspect déchiqueté qui définissent la gravité.'
   },
   {
     niveau:4, type:'court',
-    q:'Vous voyez une victime avec un couteau planté dans l\'abdomen. Vous devez…',
-    opts:['Retirer le couteau rapidement','Laisser le couteau en place et alerter','Comprimer autour du couteau avec un bandage serré','Allonger la victime jambes tendues'],
+    q:'Victime avec un couteau planté dans l\'abdomen. Vous devez…',
+    opts:['Retirer le couteau rapidement','Laisser le couteau en place et alerter','Comprimer autour avec un bandage serré','Allonger jambes tendues'],
     answer:'Laisser le couteau en place et alerter',
-    expl:'✅ <strong>Laisser en place et alerter</strong> — Ne jamais retirer le corps étranger. Alerter le 15 ou 18, installer la victime en position d\'attente (allongée, jambes fléchies) et surveiller.'
+    expl:'✅ <strong>Laisser en place et alerter</strong> — Ne jamais retirer le corps étranger. Alerter le 15 ou 18, installer la victime allongée jambes fléchies et surveiller.'
   }
 ];
+
+// ── Génération de la séquence équitable ──
+// Principe : on regroupe les questions par niveau, on mélange à l'intérieur de chaque niveau,
+// puis on construit des PAIRES [qRouge, qBleu] du même niveau.
+// Les paires elles-mêmes sont présentées dans l'ordre croissant de difficulté.
+// À l'intérieur d'un niveau, l'ordre des questions est aléatoire.
+
+function buildFairSequence(){
+  // Grouper par niveau
+  const byLevel = {};
+  DUEL_QUESTIONS.forEach(q => {
+    if(!byLevel[q.niveau]) byLevel[q.niveau] = [];
+    byLevel[q.niveau].push(q);
+  });
+
+  // Mélanger à l'intérieur de chaque niveau
+  function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]; } return a; }
+  Object.values(byLevel).forEach(arr => shuffle(arr));
+
+  // Construire la séquence : paires par niveau croissant
+  // Chaque paire = [qA, qB] avec qA ≠ qB (si assez de questions) ou la même sinon
+  const sequence = []; // liste plate : [qA1, qB1, qA2, qB2, ...]
+  const levels = Object.keys(byLevel).map(Number).sort((a,b)=>a-b);
+  levels.forEach(lvl => {
+    const pool = byLevel[lvl];
+    // On fait autant de paires que possible (max 2 paires par niveau)
+    // Pour l'équité : Rouge prend pool[0], Bleu prend pool[1] (ou pool[0] si une seule)
+    const used = [];
+    for(let i=0; i+1<pool.length; i+=2){
+      sequence.push(pool[i]);   // question Rouge
+      sequence.push(pool[i+1]); // question Bleu (différente, même niveau)
+    }
+    // Si nombre impair de questions dans le niveau, la dernière est jouée en paire avec elle-même
+    if(pool.length % 2 !== 0){
+      const last = pool[pool.length-1];
+      sequence.push(last);
+      sequence.push(last);
+    }
+  });
+  return sequence;
+}
 
 let duelTeamA='Équipe Rouge', duelTeamB='Équipe Bleue';
 let duelScoreA=0, duelScoreB=0;
 let duelCurrentTeam='A';
 let duelQIndex=0;
 let duelAnswered=false;
+let duelSequence=[];
 const SCORE_TARGET=4;
 
 function startDuel(){
@@ -938,6 +982,7 @@ function startDuel(){
   duelCurrentTeam='A';
   duelQIndex=0;
   duelAnswered=false;
+  duelSequence=buildFairSequence();
   document.getElementById('duel-config').style.display='none';
   document.getElementById('duel-round-end').style.display='none';
   document.getElementById('duel-game').style.display='flex';
@@ -948,7 +993,6 @@ function startDuel(){
 }
 
 function duelRenderScores(){
-  // Score dots: filled = points scored
   duelRenderDots('chain-a', duelScoreA, '#ff5050');
   duelRenderDots('chain-b', duelScoreB, '#5080ff');
   document.getElementById('score-a-pts').textContent=`${duelScoreA} / ${SCORE_TARGET} pts`;
@@ -978,14 +1022,21 @@ function duelRenderQ(){
   document.getElementById('duel-next-btn').style.display='none';
   document.getElementById('duel-fb').style.display='none';
 
-  const q=DUEL_QUESTIONS[Math.min(duelQIndex, DUEL_QUESTIONS.length-1)];
+  if(duelQIndex >= duelSequence.length){ duelGameOver(null); return; }
+
+  const q=duelSequence[duelQIndex];
   const isA=duelCurrentTeam==='A';
   const teamName=isA?duelTeamA:duelTeamB;
   const teamColor=isA?'#ff8080':'#80a8ff';
-  const niveauLabel=['','⭐ Niveau 1 — Facile','⭐⭐ Niveau 2','⭐⭐⭐ Niveau 3 — Difficile','⭐⭐⭐⭐ Niveau 4 — Expert'];
+  const niveauLabel=['','⭐ Niveau 1','⭐⭐ Niveau 2','⭐⭐⭐ Niveau 3','⭐⭐⭐⭐ Niveau 4 — Expert'];
+  // Numéro de paire : chaque paire = 2 questions consécutives dans la séquence
+  const pairNum = Math.floor(duelQIndex/2)+1;
+  const totalPairs = duelSequence.length/2;
 
   document.getElementById('turn-badge').innerHTML=`<span style="color:${teamColor}">▶ Tour de ${teamName}</span>`;
-  document.getElementById('q-num-badge').innerHTML=`<span style="font-size:10px;opacity:.7">${niveauLabel[q.niveau]||''}</span><br>Q ${duelQIndex+1}/${DUEL_QUESTIONS.length}`;
+  document.getElementById('q-num-badge').innerHTML=
+    `<span style="font-size:10px;opacity:.6;display:block">${niveauLabel[q.niveau]||''}</span>`+
+    `<span>Tour ${pairNum}/${totalPairs}</span>`;
   document.getElementById('duel-q-type').textContent=q.type==='vf'?'🔘 VRAI ou FAUX ?':'💬 BONNE RÉPONSE ?';
   document.getElementById('duel-q-text').textContent=q.q;
 
@@ -1013,12 +1064,11 @@ function duelAnswer(chosen, q){
   const correct=(chosen===q.answer);
   const isA=duelCurrentTeam==='A';
 
-  // Colour buttons
   document.getElementById('duel-opts').querySelectorAll('button').forEach(b=>{
     b.disabled=true;
     const raw=b.textContent.replace(/^[✅❌]\s*/,'');
-    const matchChosen=raw===chosen||b.textContent===chosen||b.textContent.includes(chosen);
-    const matchCorrect=raw===q.answer||b.textContent===q.answer||b.textContent.includes(q.answer);
+    const matchChosen=raw===chosen||b.textContent===chosen;
+    const matchCorrect=raw===q.answer||b.textContent===q.answer;
     if(matchCorrect) b.style.cssText=b.style.cssText+';background:#1a5a3a !important;border-color:#40c080;color:#80ffb8';
     else if(matchChosen&&!correct) b.style.cssText=b.style.cssText+';background:#5a1a1a !important;border-color:#c04040;color:#ffb0b0';
   });
@@ -1031,7 +1081,6 @@ function duelAnswer(chosen, q){
     fb.style.cssText='display:block;border-radius:8px;padding:10px 14px;font-size:13px;text-align:center;font-family:Outfit,sans-serif;font-weight:600;background:#1a5a3a;border:1px solid #40c080;color:#80ffb8;margin-top:4px';
     fb.innerHTML=`🎯 +1 point pour <strong>${isA?duelTeamA:duelTeamB}</strong> ! &nbsp;${q.expl}`;
     duelRenderScores();
-    // Check win
     if(duelScoreA>=SCORE_TARGET||duelScoreB>=SCORE_TARGET){
       setTimeout(()=>duelGameOver(isA),1400);
       return;
@@ -1041,18 +1090,12 @@ function duelAnswer(chosen, q){
     fb.innerHTML=`💥 Raté ! &nbsp;${q.expl}`;
   }
 
-  // Always alternate teams
   duelCurrentTeam=isA?'B':'A';
   duelQIndex++;
   document.getElementById('duel-next-btn').style.display='inline-block';
 }
 
 function duelNext(){
-  if(duelQIndex>=DUEL_QUESTIONS.length){
-    // All questions used — tie, show draw screen
-    duelGameOver(null);
-    return;
-  }
   duelRenderQ();
 }
 
@@ -1060,11 +1103,15 @@ function duelGameOver(winnerIsA){
   document.getElementById('duel-game').style.display='none';
   const re=document.getElementById('duel-round-end');
   re.style.display='flex';
-
+  if(winnerIsA===null){
+    // En cas d'égalité à la fin des questions, le score départage
+    if(duelScoreA>duelScoreB) winnerIsA=true;
+    else if(duelScoreB>duelScoreA) winnerIsA=false;
+  }
   if(winnerIsA===null){
     document.getElementById('round-trophy').textContent='🤝';
-    document.getElementById('round-title').innerHTML=`<span style="color:#f0c040">Égalité !</span>`;
-    document.getElementById('round-sub').innerHTML=`Toutes les questions ont été jouées sans vainqueur.<br>
+    document.getElementById('round-title').innerHTML=`<span style="color:#f0c040">Égalité parfaite !</span>`;
+    document.getElementById('round-sub').innerHTML=`Toutes les questions jouées, même score !<br>
       <strong style="color:#ff8080">${duelTeamA}</strong> : ${duelScoreA} pts &nbsp;·&nbsp;
       <strong style="color:#80a8ff">${duelTeamB}</strong> : ${duelScoreB} pts`;
   } else {
@@ -1073,16 +1120,16 @@ function duelGameOver(winnerIsA){
     const emoji=winnerIsA?'🔴':'🔵';
     document.getElementById('round-trophy').textContent='🏆';
     document.getElementById('round-title').innerHTML=`${emoji} <span style="color:${color}">${winner}</span> remporte le duel !`;
-    document.getElementById('round-sub').innerHTML=`Premier à atteindre ${SCORE_TARGET} points ! 🥇<br><br>
+    document.getElementById('round-sub').innerHTML=`Premier à ${SCORE_TARGET} points — en questions équitables ! 🥇<br><br>
       <strong style="color:#ff8080">${duelTeamA}</strong> : ${duelScoreA} pts &nbsp;·&nbsp;
       <strong style="color:#80a8ff">${duelTeamB}</strong> : ${duelScoreB} pts`;
   }
 }
 
 function duelNextRound(){
-  // "Rejouer" = reset but keep names
   duelScoreA=0; duelScoreB=0; duelQIndex=0; duelAnswered=false;
   duelCurrentTeam='A';
+  duelSequence=buildFairSequence(); // nouveau tirage aléatoire équitable
   document.getElementById('duel-round-end').style.display='none';
   document.getElementById('duel-game').style.display='flex';
   duelRenderScores();
@@ -1094,6 +1141,7 @@ function duelRestart(){
   document.getElementById('duel-game').style.display='none';
   document.getElementById('duel-config').style.display='flex';
 }
+
 
 
 // CAS CONCRET
