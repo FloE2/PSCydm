@@ -838,9 +838,9 @@ function renderDots() {
 }
 renderDots();
 
-// ── DUEL DE CHAMPIONS — PREMIER À 4 POINTS ──
+// ── DUEL DE CHAMPIONS — PREMIER À 6 POINTS ──
 // Principe d'équité : à chaque tour, Rouge ET Bleu reçoivent une question du MÊME niveau
-// Les questions à l'intérieur de chaque niveau sont mélangées aléatoirement
+// 16 questions — 4 par niveau — mélangées aléatoirement dans chaque niveau
 
 const DUEL_QUESTIONS = [
   // ── NIVEAU 1 — Très facile : notions de base ──
@@ -863,7 +863,13 @@ const DUEL_QUESTIONS = [
     answer:'De l\'eau courante',
     expl:'✅ <strong>Eau courante</strong> — On rince abondamment à l\'eau courante (du robinet), du centre vers l\'extérieur, pendant plusieurs secondes.'
   },
-  // ── NIVEAU 2 — Facile : CAT de base ──
+  {
+    niveau:1, type:'vf',
+    q:'Une plaie est une lésion de la peau qui peut atteindre les tissus en dessous.',
+    answer:'VRAI',
+    expl:'✅ VRAI — La plaie est une lésion de la peau, revêtement protecteur du corps, avec une atteinte possible des tissus situés en dessous.'
+  },
+    // ── NIVEAU 2 — Facile : CAT de base ──
   {
     niveau:2, type:'vf',
     q:'Si un éclat de verre est planté dans le bras, il faut l\'enlever doucement pour nettoyer la plaie.',
@@ -883,7 +889,14 @@ const DUEL_QUESTIONS = [
     answer:'Le tétanos',
     expl:'✅ <strong>Tétanos</strong> — Maladie grave parfois mortelle. Seule la vaccination protège. Toujours vérifier le carnet après une plaie souillée ou profonde.'
   },
-  // ── NIVEAU 3 — Difficile : positions et localisations ──
+  {
+    niveau:2, type:'court',
+    q:'Après avoir rincé une plaie simple, que fait-on pour la protéger ?',
+    opts:['On applique de l\'alcool','On laisse à l\'air libre','On pose un pansement stérile','On comprime avec un tissu quelconque'],
+    answer:'On pose un pansement stérile',
+    expl:'✅ <strong>Pansement stérile</strong> — Après rinçage à l\'eau courante, on protège la plaie avec un pansement stérile propre pour éviter l\'infection.'
+  },
+    // ── NIVEAU 3 — Difficile : positions et localisations ──
   {
     niveau:3, type:'vf',
     q:'Pour une plaie au thorax, on allonge la victime à plat.',
@@ -903,7 +916,14 @@ const DUEL_QUESTIONS = [
     answer:'Les deux yeux',
     expl:'✅ <strong>Les deux yeux</strong> — Fermer les deux yeux limite les mouvements oculaires solidaires et réduit le risque d\'aggravation de la lésion.'
   },
-  // ── NIVEAU 4 — Expert : situations complexes et nuances ──
+  {
+    niveau:3, type:'court',
+    q:'Pour une plaie grave au thorax, dans quelle position installe-t-on la victime ?',
+    opts:['Allongée jambes fléchies','Allongée jambes surélevées','Assise en laissant la plaie à l\'air','En position latérale de sécurité'],
+    answer:'Assise en laissant la plaie à l\'air',
+    expl:'✅ <strong>Assise, plaie à l\'air</strong> — La position assise facilite la respiration. Ne pas couvrir la plaie thoracique pour ne pas gêner les échanges respiratoires.'
+  },
+    // ── NIVEAU 4 — Expert : situations complexes et nuances ──
   {
     niveau:4, type:'vf',
     q:'Devant une plaie abdominale avec viscères apparentes, on les recouvre d\'un linge humide en attendant les secours.',
@@ -923,7 +943,13 @@ const DUEL_QUESTIONS = [
     opts:['Retirer le couteau rapidement','Laisser le couteau en place et alerter','Comprimer autour avec un bandage serré','Allonger jambes tendues'],
     answer:'Laisser le couteau en place et alerter',
     expl:'✅ <strong>Laisser en place et alerter</strong> — Ne jamais retirer le corps étranger. Alerter le 15 ou 18, installer la victime allongée jambes fléchies et surveiller.'
-  }
+  },
+  {
+    niveau:4, type:'vf',
+    q:'Une plaie à l\'aspect déchiqueté ou écrasé est systématiquement considérée comme une plaie grave.',
+    answer:'VRAI',
+    expl:'✅ VRAI — L\'aspect de la plaie (déchiqueté, écrasé) est l\'un des critères de gravité, au même titre que la localisation ou le mécanisme pénétrant.'
+  },
 ];
 
 // ── Génération de la séquence équitable ──
@@ -973,7 +999,7 @@ let duelCurrentTeam='A';
 let duelQIndex=0;
 let duelAnswered=false;
 let duelSequence=[];
-const SCORE_TARGET=4;
+const SCORE_TARGET=6;
 
 function startDuel(){
   duelTeamA=document.getElementById('team-a-name').value.trim()||'Équipe Rouge';
