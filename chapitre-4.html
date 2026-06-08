@@ -1412,7 +1412,7 @@ function cgEnd(){
   const max=CG_SCENARIOS.length*3;
   document.getElementById('cg-final-score').textContent=cgScore+' / '+max;
   const pct=cgScore/max;
-  document.getElementById('cg-final-msg').textContent=pct>=.8?'Excellent ! Tu maîtrises la CAT OBVA 💪':pct>=.5?'Bien ! Revois les séquences incomplètes.':'Continue à t'entraîner — la précision sauve des vies !';
+  document.getElementById('cg-final-msg').textContent=pct>=.8?'Excellent ! Tu maîtrises la CAT OBVA 💪':pct>=.5?'Bien ! Revois les séquences incomplètes.':'Continue à t\'entraîner — la précision sauve des vies !';
 }
 function cgRestart(){document.getElementById('cg-end').style.display='none';cgStart();}
 
