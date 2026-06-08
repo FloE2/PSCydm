@@ -270,6 +270,17 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     .slide-body { overflow-y: auto; }
     #cc-t1, [id$="-t1"] { overflow-y: visible; }
     .fcc-wrap { font-size: 11px; }
+    /* DRAG & DROP */
+    .dd-box{width:100%;min-height:105px;border:2px dashed var(--feu-bord);border-radius:10px;background:var(--feu-clair);display:flex;align-items:center;justify-content:center;padding:6px;transition:background .15s,border-color .15s;cursor:default}
+    .dd-box.over{background:#fde0cc;border-color:var(--feu)}
+    .dd-box.filled{border-style:solid;border-color:var(--feu)}
+    .dd-hint{font-size:11px;color:#ccc;text-align:center}
+    .dd-card{background:white;border:1.5px solid var(--feu);border-radius:9px;padding:8px;cursor:grab;width:100%;text-align:center;user-select:none;transition:transform .1s}
+    .dd-card:active{cursor:grabbing;transform:scale(1.02)}
+    .dd-card.dragging{opacity:.35}
+    .dd-card-ic{font-size:20px;color:var(--feu);margin-bottom:4px}
+    .dd-card-title{font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:var(--texte);margin-bottom:3px}
+    .dd-card-desc{font-size:10.5px;color:var(--texte-sec);line-height:1.35}
 </style>
 </head>
 <body>
@@ -281,13 +292,14 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="pill active" onclick="goSlide(0)">Titre</div>
     <div class="pill" onclick="goSlide(1)">Définition &amp; gravité</div>
     <div class="pill" onclick="goSlide(2)">CAT — Refroidir</div>
-    <div class="pill" onclick="goSlide(3)">Brûlures simples / graves</div>
-    <div class="pill" onclick="goSlide(4)">Brûlures particulières</div>
-    <div class="pill" onclick="goSlide(5)">🎮 Qui veut gagner des millions ?</div>
-    <div class="pill" onclick="goSlide(6)">Cas Concret</div>
+    <div class="pill" onclick="goSlide(3)">🎯 Remettre en ordre</div>
+    <div class="pill" onclick="goSlide(4)">Brûlures simples / graves</div>
+    <div class="pill" onclick="goSlide(5)">Brûlures particulières</div>
+    <div class="pill" onclick="goSlide(6)">🎮 Qui veut gagner des millions ?</div>
+    <div class="pill" onclick="goSlide(7)">Cas Concret</div>
   </div>
   <div id="nav-btns">
-    <div id="slide-counter">1 / 7</div>
+    <div id="slide-counter">1 / 8</div>
     <button class="nav-btn" onclick="prevSlide()">← Préc.</button>
     <button class="nav-btn" onclick="nextSlide()">Suiv. →</button>
   </div>
@@ -370,7 +382,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="slide-footer">
       <span>Définition et gravité</span>
       <div class="progress-dots" id="dots1"></div>
-      <span>Slide 2/7</span>
+      <span>Slide 2/8</span>
     </div>
   </div>
 
@@ -428,11 +440,66 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="slide-footer">
       <span>CAT — Refroidir immédiatement</span>
       <div class="progress-dots" id="dots2"></div>
-      <span>Slide 3/7</span>
+      <span>Slide 3/8</span>
     </div>
   </div>
 
-  <!-- SLIDE 3 : SIMPLE VS GRAVE CAT -->
+  <!-- SLIDE 3 : DRAG & DROP CAT REFROIDIR -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left">
+        <div class="sup">Chapitre 7 · Activité interactive</div>
+        <h2>🎯 Remettez les 4 étapes dans le bon ordre !</h2>
+      </div>
+      <div class="badge-dur"><div class="v">💧</div><div class="l">Geste n°1</div></div>
+    </div>
+    <div class="slide-body" style="padding:10px 20px;gap:8px">
+
+      <div class="alerte-box" style="border-color:var(--feu);background:var(--feu-clair);padding:8px 12px">
+        <div class="alerte-icon">👆</div>
+        <div>
+          <h3 style="color:var(--feu)">Un élève vient glisser les cartes dans le bon ordre.</h3>
+          <p style="color:#7a3a00">Les autres peuvent l'aider à voix haute. <strong>Commencer avant 30 min</strong> — sinon inutile !</p>
+        </div>
+      </div>
+
+      <div class="section-label">Cartes à placer — glissez-les dans le bon ordre ↓</div>
+      <div id="dd-pool" style="display:flex;gap:8px;min-height:72px;background:var(--gris);border:2px dashed var(--gris-bord);border-radius:10px;padding:8px;flex-wrap:wrap;align-items:center;"
+        ondragover="ddPoolDragOver(event)" ondrop="ddPoolDrop(event)"></div>
+
+      <div class="section-label">Ordre correct de la CAT — Brûlures</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px" id="dd-droprow">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+          <div class="step-num">1</div>
+          <div id="dd-box-0" class="dd-box" ondragover="ddBoxDragOver(event,0)" ondragleave="ddBoxDragLeave(0)" ondrop="ddBoxDrop(event,0)"><span class="dd-hint">Déposer ici…</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+          <div class="step-num">2</div>
+          <div id="dd-box-1" class="dd-box" ondragover="ddBoxDragOver(event,1)" ondragleave="ddBoxDragLeave(1)" ondrop="ddBoxDrop(event,1)"><span class="dd-hint">Déposer ici…</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+          <div class="step-num" style="background:var(--rouge)">3</div>
+          <div id="dd-box-2" class="dd-box" ondragover="ddBoxDragOver(event,2)" ondragleave="ddBoxDragLeave(2)" ondrop="ddBoxDrop(event,2)"><span class="dd-hint">Déposer ici…</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+          <div class="step-num" style="background:var(--vert)">4</div>
+          <div id="dd-box-3" class="dd-box" ondragover="ddBoxDragOver(event,3)" ondragleave="ddBoxDragLeave(3)" ondrop="ddBoxDrop(event,3)"><span class="dd-hint">Déposer ici…</span></div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
+        <button class="game-btn" onclick="ddCheck()" style="padding:8px 18px;font-size:13px">✓ Vérifier</button>
+        <button class="game-btn secondary" onclick="ddReset()" style="padding:8px 14px;font-size:13px;border:1.5px solid var(--feu);color:var(--feu);background:transparent">↺ Recommencer</button>
+        <button class="game-btn secondary" onclick="ddReveal()" style="padding:8px 14px;font-size:13px;border:1.5px solid var(--gris-bord);color:var(--texte-sec);background:transparent">👁 Voir la réponse</button>
+      </div>
+      <div id="dd-feedback" style="display:none;border-radius:8px;padding:10px 14px;font-size:13px;margin-top:4px"></div>
+    </div>
+    <div class="slide-footer">
+      <span>CAT — Activité drag &amp; drop</span>
+      <div class="progress-dots" id="dots3"></div>
+      <span>Slide 4/8</span>
+    </div>
+  </div>
   <div class="slide">
     <div class="slide-header">
       <div class="left">
@@ -470,8 +537,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
     <div class="slide-footer">
       <span>CAT brûlure simple et grave</span>
-      <div class="progress-dots" id="dots3"></div>
-      <span>Slide 4/7</span>
+      <div class="progress-dots" id="dots4"></div>
+      <span>Slide 5/8</span>
     </div>
   </div>
 
@@ -531,8 +598,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
     <div class="slide-footer">
       <span>Brûlures chimiques, électriques et par inhalation</span>
-      <div class="progress-dots" id="dots4"></div>
-      <span>Slide 5/7</span>
+      <div class="progress-dots" id="dots5"></div>
+      <span>Slide 6/8</span>
     </div>
   </div>
 
@@ -597,7 +664,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
           <div class="end-sub" id="end-sub"></div>
           <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
             <button class="game-btn" onclick="restartGame()">↺ Rejouer</button>
-            <button class="game-btn secondary" onclick="goSlide(6)">Cas Concret →</button>
+            <button class="game-btn secondary" onclick="goSlide(7)">Cas Concret →</button>
           </div>
         </div>
       </div>
@@ -605,8 +672,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
     <div class="slide-footer">
       <span>Jeu — Qui veut gagner des millions ?</span>
-      <div class="progress-dots" id="dots5"></div>
-      <span>Slide 6/7</span>
+      <div class="progress-dots" id="dots6"></div>
+      <span>Slide 7/8</span>
     </div>
   </div>
 
@@ -714,8 +781,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
     <div class="slide-footer" id="cc-footer">
       <span>Temps 1 — Situation soumise aux élèves</span>
-      <div class="progress-dots" id="dots6"></div>
-      <span>Slide 7/7</span>
+      <div class="progress-dots" id="dots7"></div>
+      <span>Slide 8/8</span>
     </div>
   </div>
 
@@ -724,7 +791,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 <script>
 // ── NAV ──
 let current = 0;
-const total = 7;
+const total = 8;
 const slidePills = document.querySelectorAll('.pill[onclick^="goSlide"]');
 function goSlide(n){
   document.querySelectorAll('.slide')[current].classList.remove('active');
@@ -1004,6 +1071,113 @@ function switchCC(){
   document.getElementById('cc-footer').querySelector('span').textContent=ccTime2?'Temps 2 — Correction':'Temps 1 — Situation soumise aux élèves';
 }
 function toggleStep(id){document.getElementById(id).classList.toggle('open');}
+
+// ── DRAG & DROP CAT BRÛLURES ──
+const DD_CARDS = [
+  {id:'dd1',ic:'🚿',title:'Refroidir',desc:'Eau courante tempérée, faible pression, 10 à 20 min. Retirer vêtements et bijoux s\'ils n\'adhèrent pas.',pos:0},
+  {id:'dd2',ic:'🔍',title:'Évaluer la gravité',desc:'Observer : surface, profondeur, aspect, localisation. Simple ou grave ?',pos:1},
+  {id:'dd3',ic:'📞',title:'Si grave : alerter',desc:'Appeler le 15, 18 ou 112 dès le début de l\'arrosage. Poursuivre selon les consignes.',pos:2},
+  {id:'dd4',ic:'🛏️',title:'Installer & surveiller',desc:'Après refroidissement : allonger (ou asseoir si gêne respiratoire). Laisser la brûlure visible.',pos:3}
+];
+let ddSlots=[null,null,null,null];
+let ddDragging=null,ddDraggingFrom=null;
+
+function ddShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function ddMakeCard(card,fromPool){
+  const el=document.createElement('div');
+  el.className='dd-card';
+  el.id='ddc-'+card.id;
+  el.draggable=true;
+  el.innerHTML=`<div class="dd-card-ic">${card.ic}</div><div class="dd-card-title">${card.title}</div><div class="dd-card-desc">${card.desc}</div>`;
+  el.addEventListener('dragstart',()=>{ddDragging=card.id;ddDraggingFrom=fromPool?'pool':'box-'+ddSlots.indexOf(card.id);el.classList.add('dragging');});
+  el.addEventListener('dragend',()=>el.classList.remove('dragging'));
+  return el;
+}
+
+function ddBuildPool(){
+  const pool=document.getElementById('dd-pool');
+  pool.innerHTML='';
+  ddShuffle([...DD_CARDS]).forEach(c=>{if(!ddSlots.includes(c.id))pool.appendChild(ddMakeCard(c,true));});
+}
+
+function ddRenderBoxes(){
+  for(let i=0;i<4;i++){
+    const box=document.getElementById('dd-box-'+i);
+    const cid=ddSlots[i];
+    if(cid){
+      const card=DD_CARDS.find(c=>c.id===cid);
+      const el=ddMakeCard(card,false);
+      el.addEventListener('dragstart',()=>{ddDragging=card.id;ddDraggingFrom='box-'+i;el.classList.add('dragging');});
+      box.innerHTML='';box.classList.add('filled');
+      box.style.borderColor='';box.style.background='';
+      box.appendChild(el);
+    } else {
+      box.innerHTML='<span class="dd-hint">Déposer ici…</span>';
+      box.classList.remove('filled');
+      box.style.borderColor='';box.style.background='';
+    }
+  }
+}
+
+function ddPoolDragOver(e){e.preventDefault();}
+function ddPoolDrop(e){
+  e.preventDefault();
+  if(ddDraggingFrom&&ddDraggingFrom.startsWith('box-')){
+    const idx=parseInt(ddDraggingFrom.replace('box-',''));
+    ddSlots[idx]=null;ddRenderBoxes();ddBuildPool();
+  }
+  ddDragging=null;ddDraggingFrom=null;
+}
+
+function ddBoxDragOver(e,idx){e.preventDefault();document.getElementById('dd-box-'+idx).classList.add('over');}
+function ddBoxDragLeave(idx){document.getElementById('dd-box-'+idx).classList.remove('over');}
+function ddBoxDrop(e,idx){
+  e.preventDefault();
+  document.getElementById('dd-box-'+idx).classList.remove('over');
+  if(!ddDragging)return;
+  const existing=ddSlots[idx];
+  const prevIdx=ddSlots.indexOf(ddDragging);
+  if(prevIdx!==-1)ddSlots[prevIdx]=existing||null;
+  ddSlots[idx]=ddDragging;
+  ddDragging=null;ddDraggingFrom=null;
+  ddRenderBoxes();ddBuildPool();
+  ddHideFeedback();
+}
+
+function ddHideFeedback(){const f=document.getElementById('dd-feedback');f.style.display='none';f.innerHTML='';}
+
+function ddCheck(){
+  if(ddSlots.some(s=>!s)){
+    const f=document.getElementById('dd-feedback');
+    f.style.display='block';f.style.background='#fdecea';f.style.border='1px solid var(--rouge-bord)';f.style.color='var(--rouge)';
+    f.innerHTML='<strong>Incomplet !</strong> Placez les 4 cartes avant de vérifier.';return;
+  }
+  let score=0;
+  for(let i=0;i<4;i++){
+    const card=DD_CARDS.find(c=>c.id===ddSlots[i]);
+    const el=document.querySelector('#dd-box-'+i+' .dd-card');
+    if(card&&card.pos===i){score++;if(el){el.style.borderColor='var(--vert)';el.style.background='var(--vert-clair)';}}
+    else if(el){el.style.borderColor='var(--rouge)';el.style.background='var(--rouge-clair)';}
+  }
+  const f=document.getElementById('dd-feedback');f.style.display='block';
+  if(score===4){f.style.background='var(--vert-clair)';f.style.border='1px solid var(--vert-bord)';f.style.color='var(--vert)';f.innerHTML='<strong>Bravo !</strong> Les 4 étapes sont dans le bon ordre. Commencer par refroidir — toujours en premier !';}
+  else{f.style.background='var(--rouge-clair)';f.style.border='1px solid var(--rouge-bord)';f.style.color='var(--rouge)';f.innerHTML=`<strong>${score}/4 correct${score>1?'s':''}</strong> — Recommencez ou cliquez sur "Voir la réponse".`;}
+}
+
+function ddReveal(){
+  ddSlots=[null,null,null,null];
+  DD_CARDS.forEach(c=>{ddSlots[c.pos]=c.id;});
+  ddRenderBoxes();ddBuildPool();
+  const f=document.getElementById('dd-feedback');f.style.display='block';
+  f.style.background='var(--vert-clair)';f.style.border='1px solid var(--vert-bord)';f.style.color='var(--vert)';
+  f.innerHTML='<strong>Réponse :</strong> 1. Refroidir → 2. Évaluer la gravité → 3. Si grave : alerter → 4. Installer &amp; surveiller';
+}
+
+function ddReset(){ddSlots=[null,null,null,null];ddRenderBoxes();ddBuildPool();ddHideFeedback();}
+
+// Init drag & drop
+ddRenderBoxes();ddBuildPool();
 
 function goToDashboard(e){
   if(e) e.preventDefault();
