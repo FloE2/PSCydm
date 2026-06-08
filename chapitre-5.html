@@ -202,6 +202,35 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     .slide-body { overflow-y: auto; }
     #cc-t1, [id$="-t1"] { overflow-y: visible; }
     .fcc-wrap { font-size: 11px; }
+
+    /* ── JEU INTERACTIF ── */
+    .game-dark{background:#0d0820;flex:1;display:flex;flex-direction:column;gap:8px;padding:12px 18px}
+    .game-q-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;text-align:center}
+    .game-q-type{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:6px}
+    .game-q-text{font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;color:white;line-height:1.4}
+    .game-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .game-opt{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:11px 10px;color:white;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center}
+    .game-opt:hover:not(:disabled){background:rgba(255,255,255,.15)}
+    .game-opt.correct{background:#1a5a3a !important;border-color:#40c080;color:#80ffb8}
+    .game-opt.wrong{background:#5a1a1a !important;border-color:#c04040;color:#ffb0b0}
+    .game-fb{border-radius:8px;padding:10px 14px;font-size:13px;text-align:center;font-family:'Outfit',sans-serif;font-weight:600;display:none;margin-top:2px}
+    .game-fb.ok{display:block;background:#1a5a3a;border:1px solid #40c080;color:#80ffb8}
+    .game-fb.ko{display:block;background:#3a1a1a;border:1px solid #c04040;color:#ffb0b0}
+    .game-score-row{display:flex;justify-content:space-between;align-items:center;font-family:'Outfit',sans-serif}
+    .game-score-val{font-size:20px;font-weight:900;color:#f0c040}
+    .game-next-btn{background:#f0c040;color:#1a0a2e;border:none;border-radius:8px;padding:9px 24px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;cursor:pointer;display:none}
+    .game-restart-btn{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);color:white;border-radius:8px;padding:8px 16px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer}
+    .timer-bar-wrap{height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+    .timer-bar{height:100%;background:#f0c040;border-radius:3px;transition:width .1s linear}
+
+    .triage-pool{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:rgba(255,255,255,.04);border:2px dashed rgba(255,255,255,.15);border-radius:10px;padding:8px}
+    .triage-zones{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .triage-zone{min-height:90px;border:2px dashed rgba(255,255,255,.2);border-radius:10px;padding:6px;display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:flex-start}
+    .triage-zone.over{border-color:#f0c040;background:rgba(240,192,64,.08)}
+    .triage-zone-label{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-align:center;color:rgba(255,255,255,.6);margin-bottom:4px}
+    .triage-card{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);border-radius:8px;padding:7px;cursor:grab;font-family:'Outfit',sans-serif;font-size:11px;color:white;text-align:center;user-select:none;width:100%}
+    .triage-card:active{cursor:grabbing;opacity:.5}
+
 </style>
 </head>
 <body>
@@ -218,8 +247,9 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="pill" onclick="goSlide(4)">Le garrot — Vrai/Faux</div>
     <div class="pill" onclick="goSlide(5)">Saignements particuliers</div>
     <div class="pill" onclick="goSlide(6)">Quiz</div>
-    <div class="pill" onclick="goSlide(7)">🛡️ Protection sauveteur</div>
-    <div class="pill" onclick="goSlide(8)">Cas Concret</div>
+    <div class="pill" onclick="goSlide(7)">🩸 Triage Express</div>
+    <div class="pill" onclick="goSlide(8)">🛡️ Protection sauveteur</div>
+    <div class="pill" onclick="goSlide(9)">Cas Concret</div>
   </div>
   <div id="nav-btns">
     <div id="slide-counter">1 / 9</div>
@@ -636,7 +666,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="slide-footer">
       <span>Protection du sauveteur · rappel transversal</span>
       <div class="progress-dots" id="dots7"></div>
-      <span>Slide 8/9</span>
+      <span>Slide 9/10</span>
     </div>
   </div>
 
@@ -789,7 +819,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="slide-footer" id="cc-footer">
       <span>Temps 1 — Situation soumise aux élèves</span>
       <div class="progress-dots" id="dots8"></div>
-      <span>Slide 9/9</span>
+      <span>Slide 10/10</span>
     </div>
   </div>
 
@@ -798,7 +828,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 <script>
 // ── Navigation ──
 let current = 0;
-const total = 9;
+const total = 10;
 const slidePills = document.querySelectorAll('.pill[onclick^="goSlide"]');
 
 function goSlide(n) {
@@ -925,6 +955,88 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight') nextSlide();
   if(e.key==='ArrowLeft') prevSlide();
 });
+
+// ── TRIAGE EXPRESS — HÉMORRAGIES ──
+const TRIAGE_ITEMS = [
+  { id:'t1', label:'Coupure au doigt avec un couteau, saignement faible', answer:'rien', expl:'Plaie simple → rincer à l'eau courante + pansement.' },
+  { id:'t2', label:'Plaie profonde au bras, sang qui coule abondamment', answer:'compression', expl:'Compression directe immédiate pour stopper l'hémorragie.' },
+  { id:'t3', label:'Section partielle de l'avant-bras, compression inefficace depuis 3 min', answer:'garrot', expl:'Garrot : compression échoue, membre atteint. Noter l'heure.' },
+  { id:'t4', label:'Plaie au front saignant beaucoup mais compression a stoppé le flux', answer:'pansement', expl:'Pansement compressif : la compression directe a été efficace.' },
+  { id:'t5', label:'Éraflure au genou qui arrête de saigner seule', answer:'rien', expl:'Éraflure = plaie simple. Pas d'hémorragie, pas de compression nécessaire.' },
+  { id:'t6', label:'Plaie par balle à la cuisse, saignement massif', answer:'garrot', expl:'Garrot immédiat : plaie par balle au membre = garrot d'emblée.' },
+];
+let triageDragging=null, triageFrom=null, triagePlaced={};
+function triageBuild(){
+  const pool=document.getElementById('triage-pool'); pool.innerHTML='';
+  TRIAGE_ITEMS.forEach(item=>{
+    if(!Object.values(triagePlaced).includes(item.id)){
+      pool.appendChild(triageMakeCard(item,'pool'));
+    }
+  });
+  ['compression','garrot','pansement','rien'].forEach(z=>{
+    const el=document.getElementById('tz-'+z);
+    // keep label
+    const lbl=el.querySelector('.triage-zone-label');
+    el.innerHTML=''; el.appendChild(lbl);
+    Object.entries(triagePlaced).forEach(([zone,id])=>{
+      if(zone===z){
+        const item=TRIAGE_ITEMS.find(i=>i.id===id);
+        el.appendChild(triageMakeCard(item,z));
+      }
+    });
+  });
+}
+function triageMakeCard(item,from){
+  const d=document.createElement('div'); d.className='triage-card'; d.textContent=item.label;
+  d.draggable=true; d.dataset.id=item.id;
+  d.addEventListener('dragstart',()=>{triageDragging=item.id;triageFrom=from;d.style.opacity='.4';});
+  d.addEventListener('dragend',()=>{d.style.opacity='1';});
+  return d;
+}
+function triagePoolDrop(e){
+  e.preventDefault();
+  if(triageDragging && triageFrom!=='pool'){
+    delete triagePlaced[triageFrom]; triageBuild();
+  }
+  triageDragging=null;
+}
+function tzOver(e,z){e.preventDefault();document.getElementById('tz-'+z).classList.add('over');}
+function tzLeave(z){document.getElementById('tz-'+z).classList.remove('over');}
+function tzDrop(e,z){
+  e.preventDefault(); document.getElementById('tz-'+z).classList.remove('over');
+  if(!triageDragging)return;
+  // Remove from old zone if placed
+  if(triageFrom!=='pool'){delete triagePlaced[triageFrom];}
+  triagePlaced[z]=triageDragging;
+  triageDragging=null; triageFrom=null;
+  triageBuild();
+  document.getElementById('triage-fb').className='game-fb';
+  document.getElementById('triage-corrections').style.display='none';
+}
+function triageCheck(){
+  let ok=0, corrections=[];
+  TRIAGE_ITEMS.forEach(item=>{
+    const placed=Object.entries(triagePlaced).find(([z,id])=>id===item.id);
+    if(placed && placed[0]===item.answer) ok++;
+    else corrections.push('<strong>'+item.label+'</strong> → '+item.expl);
+  });
+  const fb=document.getElementById('triage-fb');
+  const total=TRIAGE_ITEMS.length;
+  if(ok===total){fb.className='game-fb ok';fb.textContent='🎯 Parfait ! Toutes les situations bien classées !';}
+  else{fb.className='game-fb ko';fb.textContent='❌ '+ok+'/'+total+' corrects. Voir les corrections ci-dessous.';
+    const corr=document.getElementById('triage-corrections');
+    corr.style.display='block';
+    corr.innerHTML='<strong style="color:#f0c040">Corrections :</strong><br>'+corrections.join('<br>');
+  }
+}
+function triageReset(){
+  triagePlaced={};triageDragging=null;
+  document.getElementById('triage-fb').className='game-fb';
+  document.getElementById('triage-corrections').style.display='none';
+  triageBuild();
+}
+triageBuild();
+
 </script>
 </body>
 </html>

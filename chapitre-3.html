@@ -208,6 +208,27 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     .fcc-row b{display:block;font-size:7.5px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.38);font-weight:700;margin-bottom:1px}
     .fcc-chips{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px}
     .fcc-chip{background:rgba(255,255,255,.1);border:.5px solid rgba(255,255,255,.2);border-radius:5px;padding:1px 6px;font-size:9.5px;color:rgba(255,255,255,.8)}
+
+    /* ── JEU INTERACTIF ── */
+    .game-dark{background:#0d0820;flex:1;display:flex;flex-direction:column;gap:8px;padding:12px 18px}
+    .game-q-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;text-align:center}
+    .game-q-type{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:6px}
+    .game-q-text{font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;color:white;line-height:1.4}
+    .game-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .game-opt{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:11px 10px;color:white;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center}
+    .game-opt:hover:not(:disabled){background:rgba(255,255,255,.15)}
+    .game-opt.correct{background:#1a5a3a !important;border-color:#40c080;color:#80ffb8}
+    .game-opt.wrong{background:#5a1a1a !important;border-color:#c04040;color:#ffb0b0}
+    .game-fb{border-radius:8px;padding:10px 14px;font-size:13px;text-align:center;font-family:'Outfit',sans-serif;font-weight:600;display:none;margin-top:2px}
+    .game-fb.ok{display:block;background:#1a5a3a;border:1px solid #40c080;color:#80ffb8}
+    .game-fb.ko{display:block;background:#3a1a1a;border:1px solid #c04040;color:#ffb0b0}
+    .game-score-row{display:flex;justify-content:space-between;align-items:center;font-family:'Outfit',sans-serif}
+    .game-score-val{font-size:20px;font-weight:900;color:#f0c040}
+    .game-next-btn{background:#f0c040;color:#1a0a2e;border:none;border-radius:8px;padding:9px 24px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;cursor:pointer;display:none}
+    .game-restart-btn{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);color:white;border-radius:8px;padding:8px 16px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer}
+    .timer-bar-wrap{height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+    .timer-bar{height:100%;background:#f0c040;border-radius:3px;transition:width .1s linear}
+
 </style>
 </head>
 <body>
@@ -225,12 +246,13 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="pill" onclick="goSlide(2)">CAT membre</div>
     <div class="pill" onclick="goSlide(3)">CAT cou</div>
     <div class="pill" onclick="goSlide(4)">Ce qu'il faut retenir</div>
-    <div class="pill" onclick="goSlide(5)">🛡️ Protection &amp; Alerte</div>
-    <div class="pill" onclick="goSlide(6)">Cas Concret</div>
-    <div class="pill" onclick="goSlide(7)" style="border-color:#1a4a35;color:#25c492;">🎓 Rappel</div>
+    <div class="pill" onclick="goSlide(5)">🧩 Qui suis-je ?</div>
+    <div class="pill" onclick="goSlide(6)">🛡️ Protection &amp; Alerte</div>
+    <div class="pill" onclick="goSlide(7)">Cas Concret</div>
+    <div class="pill" onclick="goSlide(8)" style="border-color:#1a4a35;color:#25c492;">🎓 Rappel</div>
   </div>
   <div id="nav-btns">
-    <span id="slide-counter">1 / 7</span>
+    <span id="slide-counter">1 / 9</span>
     <button class="nav-btn" onclick="prevSlide()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>Préc.
     </button>
@@ -629,7 +651,57 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
   </div>
 </div>
 
-<!-- ===== SLIDE 6 : PROTECTION & ALERTE ===== -->
+
+  <!-- SLIDE 5 : QUI SUIS-JE ? TRAUMATISMES -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left"><div class="sup">Chapitre 3 · Jeu interactif</div><h2>🧩 Qui suis-je ? — Devine le traumatisme !</h2></div>
+      <div class="badge-dur"><div class="v">🩴</div><div class="l">Jeu</div></div>
+    </div>
+    <div class="slide-body game-dark">
+      <!-- CONFIG -->
+      <div id="qsj-config" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center">
+        <div style="font-size:52px">🧩</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:white">Qui suis-je ?</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.6);max-width:420px;line-height:1.6">
+          Des indices apparaissent <strong style="color:#f0c040">un par un</strong>. Devine le traumatisme le plus <strong style="color:#f0c040">tôt possible</strong> — plus vite tu trouves, plus tu marques de points !<br><br>
+          <em>3 pts si tu trouves au 1er indice · 2 pts au 2e · 1 pt au 3e</em>
+        </div>
+        <button onclick="qsjStart()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 32px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;cursor:pointer">▶ Commencer</button>
+      </div>
+      <!-- JEU -->
+      <div id="qsj-game" style="display:none;flex:1;flex-direction:column;gap:8px">
+        <div class="game-score-row">
+          <div style="color:rgba(255,255,255,.5);font-size:12px">Question <span id="qsj-qnum">1</span>/6</div>
+          <div>⭐ Score : <span class="game-score-val" id="qsj-score">0</span></div>
+          <button class="game-restart-btn" onclick="qsjRestart()">↺ Recommencer</button>
+        </div>
+        <div class="game-q-box">
+          <div class="game-q-type">🔍 Indices révélés</div>
+          <div id="qsj-indices" style="font-family:'Outfit',sans-serif;font-size:14px;color:white;line-height:1.8;text-align:left;min-height:80px"></div>
+          <button id="qsj-more-btn" onclick="qsjMoreIndice()" style="margin-top:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);border-radius:8px;padding:6px 16px;font-size:12px;cursor:pointer">+ Indice suivant (-1 pt possible)</button>
+        </div>
+        <div class="game-opts" id="qsj-opts"></div>
+        <div class="game-fb" id="qsj-fb"></div>
+        <div style="text-align:center"><button class="game-next-btn" id="qsj-next-btn" onclick="qsjNext()">Question suivante →</button></div>
+      </div>
+      <!-- FIN -->
+      <div id="qsj-end" style="display:none;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:16px;text-align:center">
+        <div style="font-size:52px">🏆</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:white">Fin du jeu !</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;color:#f0c040" id="qsj-final-score"></div>
+        <div style="font-size:13px;color:rgba(255,255,255,.6)" id="qsj-final-msg"></div>
+        <button onclick="qsjRestart()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:8px;padding:10px 24px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer">↺ Rejouer</button>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Qui suis-je ? — Traumatismes</span>
+      <div class="progress-dots" id="dots5"></div>
+      <span>Slide 6/9</span>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 6 : PROTECTION & ALERTE ===== -->
 <div class="slide" id="slide-5">
   <div class="slide-header" style="background:linear-gradient(135deg,#1a3a6b 0%,#2558a8 100%);">
     <div class="left">
@@ -776,7 +848,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
   <div class="slide-footer">
     <span>Protection &amp; Alerte — Transversal à tous les cas concrets</span>
     <div class="progress-dots" id="dots-5"></div>
-    <span>Slide 6/7</span>
+    <span>Slide 7/9</span>
   </div>
 </div>
 
@@ -1017,7 +1089,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
   <div class="slide-footer">
     <span id="cc-footer">Temps 1 — Situation soumise aux élèves</span>
     <div class="progress-dots" id="dots-6"></div>
-    <span>Slide 7/7</span>
+    <span>Slide 8/9</span>
   </div>
 </div>
 
@@ -1160,7 +1232,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 <!-- ═══ FIN SLIDE RAPPEL ═══ -->
 
 <script>
-const TOTAL=8;
+const TOTAL=9;
 let cur=0;
 const slidePills=document.querySelectorAll('.pill[onclick^="goSlide"]');
 function goSlide(n){
@@ -1467,6 +1539,80 @@ function resetC(){
   if(btn){btn.textContent='▶ Démarrer';btn.className='c-btn start';}
 }
 function resetC2(){resetC();}
+
+// ── QUI SUIS-JE ? — TRAUMATISMES ──
+const QSJ_QUESTIONS = [
+  { indices:["La douleur est vive et localisée à un membre","Le membre est gonflé et chaud","La victime ne peut pas bouger ce membre sans douleur"], answer:"Fracture", opts:["Fracture","Entorse","Luxation","Contusion"], expl:"✅ Fracture — douleur localisée, gonflement, impotence fonctionnelle. Ne pas mobiliser le membre." },
+  { indices:["L'articulation a bougé au-delà de sa limite","Gonflement immédiat et douleur à la cheville","La victime peut encore marcher malgré tout"], answer:"Entorse", opts:["Fracture","Entorse","Luxation","Contusion"], expl:"✅ Entorse — torsion ligamentaire, gonflement rapide mais mobilité partielle conservée." },
+  { indices:["L'articulation est déformée visuellement","La tête osseuse est sortie de son logement","Toute mobilisation est impossible et très douloureuse"], answer:"Luxation", opts:["Fracture","Entorse","Luxation","Plaie"], expl:"✅ Luxation — déplacement permanent des surfaces articulaires. Ne jamais tenter de réduire soi-même." },
+  { indices:["Choc violent sans plaie ni déformation visible","Hématome qui apparaît progressivement","Douleur à la pression mais mobilité conservée"], answer:"Contusion", opts:["Fracture","Entorse","Luxation","Contusion"], expl:"✅ Contusion — lésion des tissus mous sans rupture osseuse ni ligamentaire. Glace et repos." },
+  { indices:["Chute sur le côté chez une personne âgée","Membre inférieur raccourci et tourné vers l'extérieur","Toute mise en charge est impossible"], answer:"Fracture du col du fémur", opts:["Entorse de la cheville","Fracture du col du fémur","Luxation de la hanche","Contusion du genou"], expl:"✅ Fracture du col du fémur — membre raccourci + rotation externe = signe très évocateur. Urgence absolue." },
+  { indices:["Traumatisme du dos ou du cou","Picotements ou engourdissements dans les membres","La victime décrit une sensation de décharge électrique"], answer:"Traumatisme du rachis", opts:["Entorse cervicale","Contusion dorsale","Traumatisme du rachis","Fracture costale"], expl:"✅ Traumatisme du rachis — suspicion systématique si signes neurologiques. Immobilisation totale, appeler le 15." }
+];
+let qsjQ=[], qsjIdx=0, qsjScore=0, qsjIndiceShown=0, qsjAnswered=false;
+function qsjShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function qsjStart(){
+  qsjQ=qsjShuffle([...QSJ_QUESTIONS]); qsjIdx=0; qsjScore=0;
+  document.getElementById('qsj-config').style.display='none';
+  document.getElementById('qsj-end').style.display='none';
+  document.getElementById('qsj-game').style.display='flex';
+  qsjRender();
+}
+function qsjRender(){
+  qsjAnswered=false; qsjIndiceShown=0;
+  document.getElementById('qsj-qnum').textContent=qsjIdx+1;
+  document.getElementById('qsj-score').textContent=qsjScore;
+  document.getElementById('qsj-fb').className='game-fb';
+  document.getElementById('qsj-next-btn').style.display='none';
+  document.getElementById('qsj-more-btn').style.display='inline-block';
+  const q=qsjQ[qsjIdx];
+  document.getElementById('qsj-indices').innerHTML='<span style="color:#f0c040">💡 Indice 1 :</span> '+q.indices[0];
+  const opts=document.getElementById('qsj-opts'); opts.innerHTML='';
+  q.opts.forEach(o=>{
+    const b=document.createElement('button'); b.className='game-opt'; b.textContent=o;
+    b.onclick=()=>qsjAnswer(o,q); opts.appendChild(b);
+  });
+}
+function qsjMoreIndice(){
+  if(qsjAnswered) return;
+  const q=qsjQ[qsjIdx];
+  if(qsjIndiceShown>=q.indices.length-1){ document.getElementById('qsj-more-btn').style.display='none'; return; }
+  qsjIndiceShown++;
+  document.getElementById('qsj-indices').innerHTML+=
+    '<br><span style="color:#a0c0ff">💡 Indice '+(qsjIndiceShown+1)+' :</span> '+q.indices[qsjIndiceShown];
+  if(qsjIndiceShown>=q.indices.length-1) document.getElementById('qsj-more-btn').style.display='none';
+}
+function qsjAnswer(chosen, q){
+  if(qsjAnswered) return; qsjAnswered=true;
+  document.getElementById('qsj-more-btn').style.display='none';
+  const pts = qsjIndiceShown===0?3:qsjIndiceShown===1?2:1;
+  const correct=(chosen===q.answer);
+  document.getElementById('qsj-opts').querySelectorAll('.game-opt').forEach(b=>{
+    b.disabled=true;
+    if(b.textContent===q.answer) b.classList.add('correct');
+    else if(b.textContent===chosen && !correct) b.classList.add('wrong');
+  });
+  const fb=document.getElementById('qsj-fb');
+  if(correct){ qsjScore+=pts; fb.className='game-fb ok'; fb.textContent='🎯 +'+pts+' pt'+(pts>1?'s':'')+' ! '+q.expl; }
+  else { fb.className='game-fb ko'; fb.textContent='❌ '+q.expl; }
+  document.getElementById('qsj-score').textContent=qsjScore;
+  document.getElementById('qsj-next-btn').style.display='inline-block';
+}
+function qsjNext(){
+  qsjIdx++;
+  if(qsjIdx>=qsjQ.length){ qsjEnd(); return; }
+  qsjRender();
+}
+function qsjEnd(){
+  document.getElementById('qsj-game').style.display='none';
+  document.getElementById('qsj-end').style.display='flex';
+  const max=QSJ_QUESTIONS.length*3;
+  document.getElementById('qsj-final-score').textContent=qsjScore+' / '+max;
+  const pct=qsjScore/max;
+  document.getElementById('qsj-final-msg').textContent=pct>=.8?'Excellent ! Tu maîtrises les traumatismes 💪':pct>=.5?'Bien joué ! Quelques révisions s'imposent.':'Continue à réviser — tu y es presque !';
+}
+function qsjRestart(){ document.getElementById('qsj-end').style.display='none'; qsjStart(); }
+
 </script>
 </body>
 </html>

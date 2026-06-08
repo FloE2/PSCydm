@@ -187,6 +187,27 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     .slide-body { overflow-y: auto; }
     #cc-t1, [id$="-t1"] { overflow-y: visible; }
     .fcc-wrap { font-size: 11px; }
+
+    /* ── JEU INTERACTIF ── */
+    .game-dark{background:#0d0820;flex:1;display:flex;flex-direction:column;gap:8px;padding:12px 18px}
+    .game-q-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;text-align:center}
+    .game-q-type{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:6px}
+    .game-q-text{font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;color:white;line-height:1.4}
+    .game-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .game-opt{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:11px 10px;color:white;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center}
+    .game-opt:hover:not(:disabled){background:rgba(255,255,255,.15)}
+    .game-opt.correct{background:#1a5a3a !important;border-color:#40c080;color:#80ffb8}
+    .game-opt.wrong{background:#5a1a1a !important;border-color:#c04040;color:#ffb0b0}
+    .game-fb{border-radius:8px;padding:10px 14px;font-size:13px;text-align:center;font-family:'Outfit',sans-serif;font-weight:600;display:none;margin-top:2px}
+    .game-fb.ok{display:block;background:#1a5a3a;border:1px solid #40c080;color:#80ffb8}
+    .game-fb.ko{display:block;background:#3a1a1a;border:1px solid #c04040;color:#ffb0b0}
+    .game-score-row{display:flex;justify-content:space-between;align-items:center;font-family:'Outfit',sans-serif}
+    .game-score-val{font-size:20px;font-weight:900;color:#f0c040}
+    .game-next-btn{background:#f0c040;color:#1a0a2e;border:none;border-radius:8px;padding:9px 24px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;cursor:pointer;display:none}
+    .game-restart-btn{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);color:white;border-radius:8px;padding:8px 16px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer}
+    .timer-bar-wrap{height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+    .timer-bar{height:100%;background:#f0c040;border-radius:3px;transition:width .1s linear}
+
 </style>
 </head>
 <body>
@@ -201,7 +222,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="pill" onclick="goSlide(3)">Positions d'attente</div>
     <div class="pill" onclick="goSlide(4)">Manœuvres vagales</div>
     <div class="pill" onclick="goSlide(5)">🎯 Associer malaise → signes</div>
-    <div class="pill" onclick="goSlide(6)">Cas Concrets</div>
+    <div class="pill" onclick="goSlide(6)">🔎 Détective médical</div>
+    <div class="pill" onclick="goSlide(7)">Cas Concrets</div>
   </div>
   <div id="nav-btns">
     <div id="slide-counter">1 / 7</div>
@@ -536,6 +558,56 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
   </div>
 
+  
+  <!-- SLIDE 6 NOUVEAU : DÉTECTIVE MÉDICAL -->
+  <div class="slide">
+    <div class="slide-header" style="background:var(--violet)">
+      <div class="left"><div class="sup">Chapitre 8 · Jeu interactif</div><h2>🔎 Détective médical — Identifie le malaise !</h2></div>
+      <div class="badge-dur"><div class="v">🔎</div><div class="l">Détective</div></div>
+    </div>
+    <div class="slide-body game-dark">
+      <!-- CONFIG -->
+      <div id="det-config" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center">
+        <div style="font-size:52px">🔎</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:white">Détective médical</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.6);max-width:420px;line-height:1.6">
+          Des <strong style="color:#f0c040">symptômes s'affichent un à un</strong>. Identifie le malaise le plus tôt possible.<br>Plus tu réagis vite, plus tu scores !
+          <br><br><em>3 pts au 1er symptôme · 2 pts au 2e · 1 pt au 3e</em>
+        </div>
+        <button onclick="detStart()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 32px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;cursor:pointer">▶ Commencer</button>
+      </div>
+      <!-- JEU -->
+      <div id="det-game" style="display:none;flex:1;flex-direction:column;gap:8px">
+        <div class="game-score-row">
+          <div style="color:rgba(255,255,255,.5);font-size:12px">Cas <span id="det-qnum">1</span>/6</div>
+          <div>⭐ Score : <span class="game-score-val" id="det-score">0</span></div>
+          <button class="game-restart-btn" onclick="detRestart()">↺ Recommencer</button>
+        </div>
+        <div class="game-q-box">
+          <div class="game-q-type">🩺 Symptômes observés</div>
+          <div id="det-symptoms" style="font-family:'Outfit',sans-serif;font-size:14px;color:white;line-height:1.9;text-align:left;min-height:90px"></div>
+          <button id="det-more-btn" onclick="detMore()" style="margin-top:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);border-radius:8px;padding:6px 16px;font-size:12px;cursor:pointer">+ Symptôme suivant (-1 pt possible)</button>
+        </div>
+        <div class="game-opts" id="det-opts" style="grid-template-columns:1fr 1fr"></div>
+        <div class="game-fb" id="det-fb"></div>
+        <div style="text-align:center"><button class="game-next-btn" id="det-next-btn" onclick="detNext()">Cas suivant →</button></div>
+      </div>
+      <!-- FIN -->
+      <div id="det-end" style="display:none;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:16px;text-align:center">
+        <div style="font-size:52px">🏆</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:white">Enquête terminée !</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;color:#f0c040" id="det-final-score"></div>
+        <div style="font-size:13px;color:rgba(255,255,255,.6)" id="det-final-msg"></div>
+        <button onclick="detRestart()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:8px;padding:10px 24px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer">↺ Nouvelle enquête</button>
+      </div>
+    </div>
+    <div class="slide-footer" style="background:var(--violet)">
+      <span>Détective médical — Malaises</span>
+      <div class="progress-dots" id="dots6"></div>
+      <span>Slide 7/8</span>
+    </div>
+  </div>
+
   <!-- SLIDE 6 : CAS CONCRETS -->
   <div class="slide">
     <div class="slide-header" style="background:linear-gradient(135deg,var(--violet),#4a1a6a)">
@@ -686,7 +758,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="slide-footer">
       <span>Cas Concrets — AVC et Diabète</span>
       <div class="progress-dots" id="dots6"></div>
-      <span>Slide 7/7</span>
+      <span>Slide 8/8</span>
     </div>
   </div>
 
@@ -694,7 +766,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 
 <script>
 // ── NAV ──
-let current=0; const total=7;
+let current=0; const total=8;
 const slidePills=document.querySelectorAll('.pill[onclick^="goSlide"]');
 function goSlide(n){
   document.querySelectorAll('.slide')[current].classList.remove('active');
@@ -796,6 +868,88 @@ function toggleCC(id){
 function ts(hd){hd.closest('.cc-step').classList.toggle('open');}
 
 function goToDashboard(e){if(e)e.preventDefault();window.location.href='index.html?done=8';}
+
+// ── DÉTECTIVE MÉDICAL — MALAISES ──
+const DET_QUESTIONS = [
+  { symptoms:["Douleur intense dans la poitrine irradiant vers le bras gauche","Transpiration abondante et pâleur","Victime consciente, très anxieuse"],
+    answer:"Accident cardiaque", opts:["AVC","Accident cardiaque","Malaise vagal","Coup de chaleur"],
+    expl:"✅ Accident cardiaque — douleur thoracique + irradiation bras gauche = signe cardinal. Appel 15 immédiat, aspirer posture assise." },
+  { symptoms:["Paralysie soudaine d'un bras (faiblesse unilatérale)","Déformation de la bouche (coin tombant)","Difficultés à parler ou à comprendre"],
+    answer:"AVC", opts:["AVC","Accident cardiaque","Malaise vagal","Crise d'épilepsie"],
+    expl:"✅ AVC — test VITE : Visage asymétrique, bras faible, Troubles du langage, heure d'Entrée. Appel 15 immédiat." },
+  { symptoms:["Sensation de chaleur intense, pas de transpiration","Température corporelle très élevée (>40°C)","Confusion et désorientation"],
+    answer:"Coup de chaleur", opts:["Malaise vagal","Hypoglycémie","Coup de chaleur","AVC"],
+    expl:"✅ Coup de chaleur — hyperthermie sans sueur (thermorégulation dépassée). Refroidir IMMÉDIATEMENT : eau, ventilation, urgence vitale." },
+  { symptoms:["Pâleur soudaine et sueurs froides","Nausées, vision qui noircit","Personne debout depuis longtemps dans la chaleur"],
+    answer:"Malaise vagal", opts:["Accident cardiaque","Malaise vagal","Hypoglycémie","AVC"],
+    expl:"✅ Malaise vagal — hypoTA orthostatique réflexe. Allonger jambes surélevées, aérer. Récupération rapide en général." },
+  { symptoms:["Tremblement des mains, sueurs","Confusion, irritabilité","Diabétique connu, n'a pas mangé depuis le matin"],
+    answer:"Hypoglycémie", opts:["Coup de chaleur","Malaise vagal","Épilepsie","Hypoglycémie"],
+    expl:"✅ Hypoglycémie — glycémie basse chez diabétique. Si conscient : sucre rapide. Si perte de conscience : PLS + appel 15." },
+  { symptoms:["Fièvre >38°C, frissons","Difficultés à avaler, maux de tête intenses","Raideur de la nuque"],
+    answer:"Méningite", opts:["Grippe","Méningite","Malaise vagal","Coup de chaleur"],
+    expl:"✅ Méningite — triade : fièvre + céphalées + raideur nuque. Urgence vitale. Appel 15 immédiat. Possible purpura fulminans." }
+];
+let detQ=[], detIdx=0, detScore=0, detShown=0, detAnswered=false;
+function detShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function detStart(){
+  detQ=detShuffle([...DET_QUESTIONS]);detIdx=0;detScore=0;
+  document.getElementById('det-config').style.display='none';
+  document.getElementById('det-end').style.display='none';
+  document.getElementById('det-game').style.display='flex';
+  detRender();
+}
+function detRender(){
+  detAnswered=false;detShown=0;
+  document.getElementById('det-qnum').textContent=detIdx+1;
+  document.getElementById('det-score').textContent=detScore;
+  document.getElementById('det-fb').className='game-fb';
+  document.getElementById('det-next-btn').style.display='none';
+  document.getElementById('det-more-btn').style.display='inline-block';
+  const q=detQ[detIdx];
+  document.getElementById('det-symptoms').innerHTML='<span style="color:#f0c040">🩺 Signe 1 :</span> '+q.symptoms[0];
+  const opts=document.getElementById('det-opts');opts.innerHTML='';
+  q.opts.forEach(o=>{
+    const b=document.createElement('button');b.className='game-opt';b.textContent=o;
+    b.onclick=()=>detAnswer(o,q);opts.appendChild(b);
+  });
+}
+function detMore(){
+  if(detAnswered)return;
+  const q=detQ[detIdx];
+  if(detShown>=q.symptoms.length-1){document.getElementById('det-more-btn').style.display='none';return;}
+  detShown++;
+  document.getElementById('det-symptoms').innerHTML+=
+    '<br><span style="color:#a0c0ff">🩺 Signe '+(detShown+1)+' :</span> '+q.symptoms[detShown];
+  if(detShown>=q.symptoms.length-1)document.getElementById('det-more-btn').style.display='none';
+}
+function detAnswer(chosen,q){
+  if(detAnswered)return;detAnswered=true;
+  document.getElementById('det-more-btn').style.display='none';
+  const pts=detShown===0?3:detShown===1?2:1;
+  const correct=(chosen===q.answer);
+  document.getElementById('det-opts').querySelectorAll('.game-opt').forEach(b=>{
+    b.disabled=true;
+    if(b.textContent===q.answer)b.classList.add('correct');
+    else if(b.textContent===chosen&&!correct)b.classList.add('wrong');
+  });
+  const fb=document.getElementById('det-fb');
+  if(correct){detScore+=pts;fb.className='game-fb ok';fb.innerHTML='🎯 +'+pts+' pt'+(pts>1?'s':'')+' ! '+q.expl;}
+  else{fb.className='game-fb ko';fb.innerHTML='❌ C'était : <strong>'+q.answer+'</strong>. '+q.expl;}
+  document.getElementById('det-score').textContent=detScore;
+  document.getElementById('det-next-btn').style.display='inline-block';
+}
+function detNext(){detIdx++;if(detIdx>=detQ.length){detEnd();return;}detRender();}
+function detEnd(){
+  document.getElementById('det-game').style.display='none';
+  document.getElementById('det-end').style.display='flex';
+  const max=DET_QUESTIONS.length*3;
+  document.getElementById('det-final-score').textContent=detScore+' / '+max;
+  const pct=detScore/max;
+  document.getElementById('det-final-msg').textContent=pct>=.8?'Excellent détective ! Tu reconnais les malaises comme un pro 🔎':pct>=.5?'Bien ! Revois les signes d'alerte.':'Continue — chaque signe compte pour identifier vite.';
+}
+function detRestart(){document.getElementById('det-end').style.display='none';detStart();}
+
 </script>
 </body>
 </html>
