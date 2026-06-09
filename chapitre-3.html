@@ -230,15 +230,15 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     .timer-bar{height:100%;background:#f0c040;border-radius:3px;transition:width .1s linear}
 
     /* ── BLOC TECHNIQUE PÉDAGOGIQUE ACCORDÉON ── */
-    .tech-peda-block { border-radius:10px; overflow:hidden; }
+    .tech-peda-block { border-radius:10px; }
     .tech-peda-toggle {
-      display:flex; align-items:center; justify-content:space-between;
-      cursor:pointer; user-select:none; padding:10px 14px; gap:10px;
+      display:flex !important; align-items:center; justify-content:space-between;
+      cursor:pointer; user-select:none; padding:10px 14px; gap:10px; min-height:44px;
     }
-    .tech-peda-toggle:hover { filter:brightness(1.1); }
+    .tech-peda-toggle:hover { filter:brightness(1.15); }
     .tech-chevron {
-      font-size:16px; color:#7fa8d4; flex-shrink:0;
-      transition:transform .25s ease;
+      font-size:18px; color:#7fa8d4; flex-shrink:0;
+      transition:transform .25s ease; line-height:1;
     }
     .tech-peda-block.open .tech-chevron { transform:rotate(180deg); }
     .tech-peda-body { display:none; padding:0 14px 12px; }
