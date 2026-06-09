@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PSC1 · Référentiel complet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f2f1ee;
+      --surface: #ffffff;
+      --border: #e0dfd9;
+      --border-light: #ebebea;
+      --text-primary: #1a1a18;
+      --text-secondary: #6b6b65;
+      --text-muted: #b0b0aa;
+      --green: #1D9E75;
+
+      /* AC — Apport de Connaissances — Bleu */
+      --ac: #2563EB;
+      --ac-light: #EFF6FF;
+      --ac-border: rgba(37,99,235,0.25);
+
+      /* PR — Procédures — Violet */
+      --pr: #7C3AED;
+      --pr-light: #F5F3FF;
+      --pr-border: rgba(124,58,237,0.25);
+
+      /* FT — Fiches Techniques — Orange */
+      --ft: #E8650A;
+      --ft-light: #FFF7ED;
+      --ft-border: rgba(232,101,10,0.25);
+
+      --font: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 2rem 1.5rem 4rem;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url('images/PSC.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 550px;
+      opacity: 0.28;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body > * { position: relative; z-index: 1; }
+
+    /* ── SCHOOL NAME ── */
+    .school-name { max-width: 960px; margin: 0 auto 1.5rem; text-align: center; }
+    .school-name h1 { font-size: 32px; font-weight: 500; letter-spacing: -0.02em; }
+    .school-name h1 span { color: var(--green); }
+    .school-name p { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
+
+    /* ── HEADER ── */
+    .header {
+      max-width: 960px; margin: 0 auto 1.75rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+      background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px; padding: 14px 18px;
+    }
+    .header-badge { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+    .header-sub { font-size: 12px; color: var(--text-secondary); }
+    .header-copy { font-family: var(--mono); font-size: 9px; color: var(--text-muted); margin-top: 5px; letter-spacing: 0.05em; }
+    .nav-tabs { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .nav-tab {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.08em;
+      text-decoration: none; padding: 6px 13px; border-radius: 8px; border: 1px solid; transition: background .2s; white-space: nowrap;
+    }
+    .tab-green { color: #25c492; background: rgba(29,158,117,0.1); border-color: rgba(29,158,117,0.3); }
+    .tab-green:hover { background: rgba(29,158,117,0.2); }
+    .tab-active { color: #fff; background: var(--ft); border-color: var(--ft); cursor: default; }
+
+    /* ── PAGE TITLE ── */
+    .page-title {
+      max-width: 960px; margin: 0 auto 1.25rem;
+      padding: 18px 22px; background: var(--surface);
+      border: 0.5px solid var(--border); border-radius: 12px; border-left: 4px solid var(--ft);
+    }
+    .page-title h2 { font-size: 19px; font-weight: 500; margin-bottom: 5px; }
+    .page-title p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+    /* ── LEGEND ── */
+    .legend-bar {
+      max-width: 960px; margin: 0 auto 1.25rem;
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px;
+      padding: 10px 16px;
+    }
+    .leg-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--text-secondary); }
+    .leg-pill {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 4px; border: 1px solid; font-weight: 500;
+    }
+    .leg-ac { color: var(--ac); background: var(--ac-light); border-color: var(--ac-border); }
+    .leg-pr { color: var(--pr); background: var(--pr-light); border-color: var(--pr-border); }
+    .leg-ft { color: var(--ft); background: var(--ft-light); border-color: var(--ft-border); }
+    .leg-sep { color: var(--border); font-size: 18px; }
+
+    /* ── SEARCH + TOOLBAR ── */
+    .search-wrap { max-width: 960px; margin: 0 auto 0.75rem; }
+    .search-input {
+      width: 100%; padding: 10px 16px; font-family: var(--font); font-size: 14px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      color: var(--text-primary); outline: none; transition: border-color .2s;
+    }
+    .search-input:focus { border-color: var(--ft); }
+    .search-input::placeholder { color: var(--text-muted); }
+    .toolbar { max-width: 960px; margin: 0 auto 1.25rem; display: flex; justify-content: flex-end; gap: 8px; }
+    .toolbar-btn {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-secondary); background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; padding: 5px 10px; cursor: pointer; transition: background .2s;
+    }
+    .toolbar-btn:hover { background: var(--border-light); }
+
+    /* ── FILTER TABS ── */
+    .filter-bar {
+      max-width: 960px; margin: 0 auto 1.5rem;
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border);
+      cursor: pointer; transition: all .2s; background: var(--surface); color: var(--text-secondary);
+    }
+    .filter-btn.active-all { background: var(--text-primary); color: #fff; border-color: var(--text-primary); }
+    .filter-btn.active-ac { background: var(--ac); color: #fff; border-color: var(--ac); }
+    .filter-btn.active-pr { background: var(--pr); color: #fff; border-color: var(--pr); }
+    .filter-btn.active-ft { background: var(--ft); color: #fff; border-color: var(--ft); }
+
+    /* ── CHAPTER ── */
+    .chapter { max-width: 960px; margin: 0 auto 1.5rem; }
+    .chapter-header {
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-muted); padding: 0 4px; margin-bottom: 10px;
+    }
+
+    /* ── FICHE CARD ── */
+    .fiche-card {
+      background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px;
+      margin-bottom: 8px; overflow: hidden; transition: box-shadow .2s;
+    }
+    .fiche-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+    .fiche-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 13px 18px; cursor: pointer; user-select: none;
+    }
+    .fiche-badge {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+      border-radius: 5px; padding: 3px 8px; white-space: nowrap; flex-shrink: 0; border: 1px solid;
+    }
+    .badge-ac { color: var(--ac); background: var(--ac-light); border-color: var(--ac-border); }
+    .badge-pr { color: var(--pr); background: var(--pr-light); border-color: var(--pr-border); }
+    .badge-ft { color: var(--ft); background: var(--ft-light); border-color: var(--ft-border); }
+
+    .fiche-type-label {
+      font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.08em; text-transform: uppercase;
+      border-radius: 3px; padding: 2px 6px; border: 1px solid; flex-shrink: 0;
+    }
+    .type-label-ac { color: var(--ac); background: var(--ac-light); border-color: var(--ac-border); }
+    .type-label-pr { color: var(--pr); background: var(--pr-light); border-color: var(--pr-border); }
+    .type-label-ft { color: var(--ft); background: var(--ft-light); border-color: var(--ft-border); }
+
+    .fiche-title { font-size: 13.5px; font-weight: 500; color: var(--text-primary); flex: 1; line-height: 1.3; }
+    .fiche-toggle { font-size: 15px; color: var(--text-muted); transition: transform .25s; flex-shrink: 0; }
+    .fiche-card.open .fiche-toggle { transform: rotate(180deg); }
+    .fiche-body { display: none; padding: 0 18px 16px; border-top: 1px solid var(--border-light); }
+    .fiche-card.open .fiche-body { display: block; }
+
+    /* ── LEFT BORDER COLOR by type ── */
+    .fiche-card[data-type="AC"] { border-left: 3px solid var(--ac); }
+    .fiche-card[data-type="PR"] { border-left: 3px solid var(--pr); }
+    .fiche-card[data-type="FT"] { border-left: 3px solid var(--ft); }
+
+    /* ── CONTENT BLOCKS ── */
+    .block-label {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-muted); margin: 14px 0 7px;
+    }
+    .content-box {
+      background: #f8f8f7; border: 1px solid var(--border-light); border-radius: 8px;
+      padding: 11px 14px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.55;
+    }
+    .content-box ul { padding-left: 16px; display: flex; flex-direction: column; gap: 5px; margin-top: 4px; }
+    .content-box li { font-size: 12.5px; color: var(--text-secondary); line-height: 1.45; }
+    .content-box strong { color: var(--text-primary); }
+
+    /* ── KEY POINTS (FT) ── */
+    .key-points-box {
+      border-radius: 10px; padding: 13px 15px; margin-top: 13px; border: 1px solid;
+    }
+    .key-points-box.kp-ft { background: var(--ft-light); border-color: var(--ft-border); }
+    .key-points-box.kp-pr { background: var(--pr-light); border-color: var(--pr-border); }
+    .key-points-box.kp-ac { background: var(--ac-light); border-color: var(--ac-border); }
+    .kp-title {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 9px; display: flex; align-items: center; gap: 6px;
+    }
+    .kp-ft .kp-title { color: var(--ft); }
+    .kp-pr .kp-title { color: var(--pr); }
+    .kp-ac .kp-title { color: var(--ac); }
+    .kp-title::before { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+    .kp-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .kp-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; color: var(--text-primary); line-height: 1.45; }
+    .kp-list li::before { content: '▸'; flex-shrink: 0; margin-top: 1px; font-size: 10px; }
+    .kp-ft .kp-list li::before { color: var(--ft); }
+    .kp-pr .kp-list li::before { color: var(--pr); }
+    .kp-ac .kp-list li::before { color: var(--ac); }
+
+    /* ── NUMBERS GRID (numéros d'urgence) ── */
+    .num-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; margin-top: 8px; }
+    .num-card {
+      background: var(--ac-light); border: 1px solid var(--ac-border); border-radius: 8px;
+      padding: 10px 13px; display: flex; align-items: center; gap: 10px;
+    }
+    .num-big { font-family: var(--mono); font-size: 22px; font-weight: 500; color: var(--ac); flex-shrink: 0; }
+    .num-desc { font-size: 11.5px; color: var(--text-secondary); line-height: 1.35; }
+
+    /* ── NO RESULT ── */
+    .no-result { max-width: 960px; margin: 0 auto; text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px; display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="school-name">
+    <h1>PSC1 · <span>Vaucresson</span></h1>
+    <p>Prévention et secours civiques de niveau 1</p>
+  </div>
+
+  <div class="header">
+    <div>
+      <div class="header-badge">Scénario 5 · Collège de Vaucresson</div>
+      <div class="header-sub">Hybride FOAD (3h) + Présentiel (4h30)</div>
+      <div class="header-copy">© 2026 Florian EUDE · Formateur PSC1 · Collège Yves du Manoir · Vaucresson</div>
+    </div>
+    <div class="nav-tabs">
+      <a href="index.html" class="nav-tab tab-green">🏠 Accueil</a>
+      <a href="techniques.html" class="nav-tab tab-green">🎓 Techniques</a>
+      <a href="recommandations.html" class="nav-tab tab-active">📋 Recommandations</a>
+    </div>
+  </div>
+
+  <!-- PAGE TITLE -->
+  <div class="page-title">
+    <h2>📋 Référentiel PSC1 · Fiches complètes</h2>
+    <p>Toutes les fiches du RIFC 2024 — Apports de Connaissances, Procédures et Techniques — classées par chapitre.</p>
+  </div>
+
+  <!-- LÉGENDE -->
+  <div class="legend-bar">
+    <span style="font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted)">Types de fiches</span>
+    <div class="leg-item"><span class="leg-pill leg-ac">AC · Apport de Connaissances</span> Théorie, contexte, définitions</div>
+    <span class="leg-sep">|</span>
+    <div class="leg-item"><span class="leg-pill leg-pr">PR · Procédure</span> Conduite à tenir, décision</div>
+    <span class="leg-sep">|</span>
+    <div class="leg-item"><span class="leg-pill leg-ft">FT · Fiche Technique</span> Geste, points clés à maîtriser</div>
+  </div>
+
+  <!-- FILTRES -->
+  <div class="filter-bar">
+    <button class="filter-btn active-all" onclick="filterType('all', this)">Tout afficher</button>
+    <button class="filter-btn" onclick="filterType('AC', this)" style="color:var(--ac);border-color:var(--ac-border);">AC — Apport de Connaissances</button>
+    <button class="filter-btn" onclick="filterType('PR', this)" style="color:var(--pr);border-color:var(--pr-border);">PR — Procédures</button>
+    <button class="filter-btn" onclick="filterType('FT', this)" style="color:var(--ft);border-color:var(--ft-border);">FT — Fiches Techniques</button>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search-wrap">
+    <input class="search-input" type="text" id="searchInput" placeholder="🔍  Rechercher… (ex : garrot, PLS, alerte, hémorragie)" oninput="filterSearch()" />
+  </div>
+  <div class="toolbar">
+    <button class="toolbar-btn" onclick="expandAll()">Tout ouvrir</button>
+    <button class="toolbar-btn" onclick="collapseAll()">Tout fermer</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  CHAPITRE 01 — INFORMATIONS GÉNÉRALES  -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="chapter" data-chapter="ch01">
+    <div class="chapter-header">Chapitre 01 — Informations générales</div>
+
+    <!-- 01AC01 -->
+    <div class="fiche-card" data-type="AC" data-search="citoyen sécurité civile protection juridique engagement ambassadeur sauveteur 01AC01">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ac">01AC01 · 12-2023</div>
+        <div class="fiche-type-label type-label-ac">Apport de Connaissances</div>
+        <div class="fiche-title">Le citoyen de Sécurité Civile</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Contexte juridique</div>
+        <div class="content-box">
+          La <strong>loi de 2004</strong> (art. L721-1 du Code de la Sécurité Intérieure) fait de chaque citoyen un acteur de la sécurité civile. Le citoyen sauveteur bénéficie d'une <strong>protection juridique</strong> en portant assistance de manière bénévole (Loi n° 2020-840 du 3 juillet 2020).
+        </div>
+        <div class="block-label">Messages clés à retenir</div>
+        <div class="content-box">
+          <ul>
+            <li>Le secouriste est le <strong>premier maillon de la chaîne de secours</strong></li>
+            <li>Prévenir les accidents de la vie courante, notamment pour les <strong>enfants &lt;15 ans</strong> et les <strong>personnes âgées</strong></li>
+            <li>Actualiser régulièrement ses compétences</li>
+            <li>Installer une <strong>app citoyenne</strong> (Staying Alive, Sauv Life, Permis de Sauver…)</li>
+            <li>Réduire l'impact psychologique par une posture empathique (se mettre à hauteur, écouter, rassurer)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 01AC02 -->
+    <div class="fiche-card" data-type="AC" data-search="alerte populations FR-ALERT SNA sirènes signal national confinement évacuation 01AC02">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ac">01AC02 · 07-2023</div>
+        <div class="fiche-type-label type-label-ac">Apport de Connaissances</div>
+        <div class="fiche-title">Alerte et protection des populations</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Le Signal National d'Alerte (SNA)</div>
+        <div class="content-box">
+          <ul>
+            <li><strong>Début d'alerte :</strong> variation du signal sur <strong>3 cycles de 1 min 41 s</strong> espacés de 5 s</li>
+            <li><strong>Fin d'alerte :</strong> signal continu de <strong>30 secondes</strong></li>
+            <li>Testé le <strong>1er mercredi de chaque mois à midi</strong> (1 seul cycle)</li>
+            <li>FR-Alert : notification directe sur les téléphones portables dans la zone affectée, sans inscription</li>
+          </ul>
+        </div>
+        <div class="block-label">Conduite à tenir face à une alerte</div>
+        <div class="content-box">
+          <ul>
+            <li>Se <strong>mettre en sécurité</strong> (bâtiment le plus proche)</li>
+            <li><strong>Ne pas aller chercher les enfants</strong> à l'école</li>
+            <li>Sauf urgence vitale, <strong>ne pas téléphoner</strong> (libérer les réseaux)</li>
+            <li><strong>Confinement :</strong> fermer portes/fenêtres, calfeutrer, arrêter la ventilation</li>
+            <li><strong>Évacuation :</strong> emporter son kit d'urgence</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 01AC03 -->
+    <div class="fiche-card" data-type="AC" data-search="protection dégagement urgence danger terroriste attaque violence 01AC03">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ac">01AC03 · 12-2023</div>
+        <div class="fiche-type-label type-label-ac">Apport de Connaissances</div>
+        <div class="fiche-title">Protection</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Protection d'une victime</div>
+        <div class="content-box">
+          Supprimer ou écarter le danger de façon <strong>permanente</strong>. Délimiter largement la zone de danger. Le <strong>dégagement d'urgence</strong> est exceptionnel : uniquement si la victime est en danger réel, immédiat et non contrôlable.
+        </div>
+        <div class="block-label">Attaque terroriste — CAT</div>
+        <div class="content-box">
+          <ul>
+            <li><strong>S'échapper</strong> sans risque si possible</li>
+            <li>Sinon, <strong>s'enfermer et se barricader</strong></li>
+            <li>Une fois en sécurité : <strong>alerter</strong> (où, qui, quoi)</li>
+            <li>En dernier recours : <strong>résister</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 01AC04 -->
+    <div class="fiche-card" data-type="AC" data-search="alerte numéro urgence 15 18 112 114 SAMU pompiers 01AC04">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ac">01AC04 · 12-2022</div>
+        <div class="fiche-type-label type-label-ac">Apport de Connaissances</div>
+        <div class="fiche-title">Alerte aux services de secours</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Numéros d'urgence</div>
+        <div class="num-grid">
+          <div class="num-card"><div class="num-big">15</div><div class="num-desc">SAMU — Urgences médicales, conseil médical</div></div>
+          <div class="num-card"><div class="num-big">18</div><div class="num-desc">Sapeurs-Pompiers — Secours, accidents, incendies</div></div>
+          <div class="num-card"><div class="num-big">112</div><div class="num-desc">Numéro européen — Valide dans toute l'UE</div></div>
+          <div class="num-card"><div class="num-big">114</div><div class="num-desc">Déficients auditifs — SMS, fax, visio, tchat</div></div>
+        </div>
+        <div class="block-label">Informations minimales à transmettre</div>
+        <div class="content-box">
+          <ul>
+            <li>Le <strong>numéro de téléphone</strong> depuis lequel on appelle</li>
+            <li>La <strong>nature du problème</strong> (maladie, accident, attentat…)</li>
+            <li>Le <strong>nombre de victimes</strong> si plusieurs</li>
+            <li>La <strong>localisation précise</strong> de l'événement</li>
+          </ul>
+        </div>
+        <div class="key-points-box kp-ac" style="margin-top:13px">
+          <div class="kp-title">À retenir</div>
+          <ul class="kp-list">
+            <li>Raccrocher <strong>seulement sur instruction de l'opérateur</strong></li>
+            <li>Vérifier que la personne envoyée alerter <strong>a bien exécuté l'action</strong></li>
+            <li>Envoyer quelqu'un <strong>accueillir les secours</strong> à l'entrée du site</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 01AC05 -->
+    <div class="fiche-card" data-type="AC" data-search="abréviations DAE RCP PLS LVA OVA AVC morphologie adulte enfant nourrisson 01AC05">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ac">01AC05 · 12-2022</div>
+        <div class="fiche-type-label type-label-ac">Apport de Connaissances</div>
+        <div class="fiche-title">Informations générales — Abréviations et morphologie</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Abréviations clés</div>
+        <div class="content-box">
+          <ul>
+            <li><strong>DAE / DEA / DSA</strong> — Défibrillateur automatisé / entièrement automatisé / semi-automatique</li>
+            <li><strong>RCP</strong> — Réanimation cardio-pulmonaire</li>
+            <li><strong>PLS</strong> — Position latérale de sécurité</li>
+            <li><strong>LVA</strong> — Libération des voies aériennes</li>
+            <li><strong>OVA</strong> — Obstruction des voies aériennes</li>
+            <li><strong>AVC</strong> — Accident vasculaire cérébral</li>
+            <li><strong>CAT</strong> — Conduite à tenir</li>
+          </ul>
+        </div>
+        <div class="block-label">Morphologie — Critères de reconnaissance</div>
+        <div class="content-box">
+          <ul>
+            <li><strong>Adulte</strong> — Ressemble à un adulte morphologiquement</li>
+            <li><strong>Enfant</strong> — Peut tenir sur la <strong>cuisse</strong> du secouriste</li>
+            <li><strong>Nourrisson / Nouveau-né</strong> — Peut tenir sur l'<strong>avant-bras</strong> du secouriste</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /chapter 01 -->
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  CHAPITRE 02 — SECOURIR UNE PERSONNE  -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="chapter" data-chapter="ch02">
+    <div class="chapter-header">Chapitre 02 — Secourir une personne</div>
+
+    <!-- 02PR01 -->
+    <div class="fiche-card" data-type="PR" data-search="obstruction voies aériennes OVA corps étranger partielle complète 02PR01">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-pr">02PR01 · 12-2023</div>
+        <div class="fiche-type-label type-label-pr">Procédure</div>
+        <div class="fiche-title">Obstruction des voies aériennes — CAT</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Signes — Comment distinguer ?</div>
+        <div class="content-box">
+          Demander : <strong>« Est-ce que vous vous étouffez ? »</strong><br><br>
+          <strong>Obstruction partielle</strong> : peut parler, crier, tousser → respiration encore efficace<br>
+          <strong>Obstruction complète</strong> : ne peut plus parler ni émettre de son, bouche ouverte, s'agite, devient bleue
+        </div>
+        <div class="block-label">CAT — Obstruction partielle</div>
+        <div class="content-box">
+          <ul>
+            <li>Installer dans la position où elle se sent le mieux</li>
+            <li><strong>Encourager à tousser</strong></li>
+            <li>Demander un avis médical et surveiller</li>
+            <li>Si la toux devient inefficace → basculer vers CAT obstruction complète</li>
+          </ul>
+        </div>
+        <div class="block-label">CAT — Obstruction complète</div>
+        <div class="content-box">
+          <ul>
+            <li><strong>1 à 5 claques dans le dos</strong></li>
+            <li>Si inefficace : <strong>1 à 5 compressions abdominales</strong> (adulte/enfant) ou <strong>thoraciques</strong> (nourrisson, obèse, enceinte, allongé)</li>
+            <li>Répéter le cycle claques / compressions</li>
+            <li><strong>Arrêter dès</strong> : apparition de toux, reprise de la respiration, rejet du corps étranger</li>
+            <li>Si perte de connaissance → accompagner au sol + <strong>RCP</strong> + rechercher le corps étranger à chaque cycle</li>
+          </ul>
+        </div>
+        <div class="key-points-box kp-pr">
+          <div class="kp-title">Points clés de la procédure</div>
+          <ul class="kp-list">
+            <li>Toujours commencer par les <strong>claques dans le dos</strong></li>
+            <li>Les compressions varient selon le <strong>gabarit</strong> de la victime</li>
+            <li>Ne jamais laisser seule une victime en obstruction complète</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02FT01 -->
+    <div class="fiche-card" data-type="FT" data-search="claques dos désobstruction obstruction corps étranger omoplate talon main 02FT01">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ft">02FT01 · 12-2023</div>
+        <div class="fiche-type-label type-label-ft">Fiche Technique</div>
+        <div class="fiche-title">Désobstruction par des claques dans le dos</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Indication</div>
+        <div class="content-box">Obstruction complète des voies aériennes par un corps étranger.</div>
+        <div class="key-points-box kp-ft">
+          <div class="kp-title">Points clés du geste</div>
+          <ul class="kp-list">
+            <li>Frapper <strong>entre les 2 omoplates</strong></li>
+            <li>Utiliser le <strong>talon de la main ouverte</strong></li>
+            <li>Frapper de façon <strong>vigoureuse</strong></li>
+            <li>Pencher la victime <strong>vers l'avant</strong> avant de frapper</li>
+            <li>De <strong>1 à 5 claques</strong> successives</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02FT02 -->
+    <div class="fiche-card" data-type="FT" data-search="compressions abdominales heimlich estomac nombril 02FT02">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ft">02FT02 · 12-2023</div>
+        <div class="fiche-type-label type-label-ft">Fiche Technique</div>
+        <div class="fiche-title">Désobstruction par compressions abdominales</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Indication</div>
+        <div class="content-box">Obstruction complète chez l'adulte ou l'enfant, après 5 claques dans le dos inefficaces.</div>
+        <div class="key-points-box kp-ft">
+          <div class="kp-title">Points clés du geste</div>
+          <ul class="kp-list">
+            <li>Comprimer <strong>au creux de l'estomac</strong> (juste au-dessus du nombril)</li>
+            <li><strong>Ne pas appuyer sur les côtes</strong></li>
+            <li>Direction : <strong>vers l'arrière et vers le haut</strong></li>
+            <li>De <strong>1 à 5 compressions</strong> en relâchant entre chacune</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02FT03 -->
+    <div class="fiche-card" data-type="FT" data-search="compressions thoraciques adulte obèse femme enceinte sternum 02FT03">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ft">02FT03 · 12-2023</div>
+        <div class="fiche-type-label type-label-ft">Fiche Technique</div>
+        <div class="fiche-title">Désobstruction par compressions thoraciques chez l'adulte</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Indication</div>
+        <div class="content-box">Obstruction complète — adulte obèse, femme enceinte, ou personne allongée (impossible d'encercler l'abdomen).</div>
+        <div class="key-points-box kp-ft">
+          <div class="kp-title">Points clés du geste</div>
+          <ul class="kp-list">
+            <li>Comprimer <strong>au milieu du sternum</strong></li>
+            <li><strong>Ne pas appuyer sur les côtes</strong></li>
+            <li>Direction : <strong>vers l'arrière</strong></li>
+            <li>De <strong>1 à 5 compressions</strong> en relâchant entre chacune</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02FT04 -->
+    <div class="fiche-card" data-type="FT" data-search="compressions thoraciques nourrisson bébé avant-bras 02FT04">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ft">02FT04 · 12-2022</div>
+        <div class="fiche-type-label type-label-ft">Fiche Technique</div>
+        <div class="fiche-title">Désobstruction par compressions thoraciques chez le nourrisson</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Indication</div>
+        <div class="content-box">Obstruction complète chez le nourrisson, après 5 claques dans le dos inefficaces.</div>
+        <div class="key-points-box kp-ft">
+          <div class="kp-title">Points clés du geste</div>
+          <ul class="kp-list">
+            <li>Comprimer <strong>au milieu de la poitrine</strong> (pulpe de 2 doigts)</li>
+            <li>Compressions <strong>profondes</strong></li>
+            <li>Tête du nourrisson <strong>plus basse</strong> que le reste du corps</li>
+            <li>De <strong>1 à 5 compressions</strong> successives</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02PR02 -->
+    <div class="fiche-card" data-type="PR" data-search="hémorragie saignement sang compression pansement garrot 02PR02">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-pr">02PR02 · 12-2023</div>
+        <div class="fiche-type-label type-label-pr">Procédure</div>
+        <div class="fiche-title">Hémorragies externes — CAT</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Définition</div>
+        <div class="content-box">Perte de sang qui <strong>ne s'arrête pas spontanément</strong> et imbibe un mouchoir en quelques secondes.</div>
+        <div class="block-label">CAT générale</div>
+        <div class="content-box">
+          <ul>
+            <li>Demander à la victime de <strong>comprimer immédiatement</strong> l'endroit qui saigne</li>
+            <li><strong>Faire maintenir</strong> la compression (ou le faire soi-même)</li>
+            <li><strong>Allonger</strong> confortablement la victime</li>
+            <li>Alerter les secours</li>
+            <li>Si la compression est inefficace ou impossible → <strong>poser un garrot</strong></li>
+            <li>Surveiller l'aggravation (sueurs, pâleur, perte de connaissance)</li>
+          </ul>
+        </div>
+        <div class="block-label">Cas particuliers</div>
+        <div class="content-box">
+          <strong>Saignement de nez :</strong> asseoir, tête penchée <strong>en avant</strong>, comprimer les 2 narines 10 min sans relâcher<br><br>
+          <strong>Vomit / crache du sang :</strong> position où elle se sent le mieux si consciente, PLS si inconsciente → alerter<br><br>
+          <strong>Saignement par orifice naturel (hors nez) :</strong> allonger + alerter
+        </div>
+        <div class="key-points-box kp-pr">
+          <div class="kp-title">Points clés de la procédure</div>
+          <ul class="kp-list">
+            <li>Un pansement compressif ne remplace la compression manuelle <strong>que si le saignement est déjà arrêté</strong></li>
+            <li>Si saignement de nez : <strong>jamais allonger</strong>, toujours tête en avant</li>
+            <li>Se protéger avec des gants si possible (risque infectieux)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02FT05 -->
+    <div class="fiche-card" data-type="FT" data-search="compression directe saignement plaie permanente suffisante 02FT05">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ft">02FT05 · 12-2023</div>
+        <div class="fiche-type-label type-label-ft">Fiche Technique</div>
+        <div class="fiche-title">Compression directe</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Indication</div>
+        <div class="content-box">Toute plaie qui saigne abondamment.</div>
+        <div class="key-points-box kp-ft">
+          <div class="kp-title">Points clés du geste</div>
+          <ul class="kp-list">
+            <li>La compression doit être <strong>suffisante</strong> pour arrêter le saignement</li>
+            <li>La compression doit être <strong>permanente</strong> (sans relâcher)</li>
+            <li>Interposer une épaisseur de tissu si possible <strong>propre</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02FT06 -->
+    <div class="fiche-card" data-type="FT" data-search="garrot hémorragie membre amont cœur plaie serrer 02FT06">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ft">02FT06 · 12-2023</div>
+        <div class="fiche-type-label type-label-ft">Fiche Technique</div>
+        <div class="fiche-title">Garrot</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Indication</div>
+        <div class="content-box">Hémorragie d'un membre quand la compression directe est inefficace ou impossible.</div>
+        <div class="key-points-box kp-ft">
+          <div class="kp-title">Points clés du geste</div>
+          <ul class="kp-list">
+            <li>Positionner <strong>en amont de la plaie</strong> (entre le cœur et la plaie)</li>
+            <li>Placer <strong>5 à 7 cm au-dessus</strong> de la plaie</li>
+            <li><strong>Jamais sur une articulation</strong></li>
+            <li>Serrer jusqu'à l'<strong>arrêt complet du saignement</strong></li>
+            <li><strong>Ne jamais retirer</strong> sans avis médical une fois posé</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02PR03 -->
+    <div class="fiche-card" data-type="PR" data-search="perte connaissance inconscient respiration PLS allonger 02PR03">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-pr">02PR03 · 12-2023</div>
+        <div class="fiche-type-label type-label-pr">Procédure</div>
+        <div class="fiche-title">Perte de connaissance — CAT</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Définition</div>
+        <div class="content-box">Ne répond <strong>et</strong> ne réagit à aucune sollicitation verbale ou physique, mais <strong>respire</strong>.</div>
+        <div class="block-label">CAT — Étapes</div>
+        <div class="content-box">
+          <ul>
+            <li>Demander de l'aide si seul</li>
+            <li>Allonger sur le dos</li>
+            <li><strong>Libérer les voies aériennes (LVA)</strong></li>
+            <li>Apprécier la respiration sur <strong>10 secondes maximum</strong> (voir, écouter, sentir)</li>
+          </ul>
+        </div>
+        <div class="block-label">Victime non traumatique → respire</div>
+        <div class="content-box">→ <strong>PLS</strong> + alerter + surveiller la respiration en permanence</div>
+        <div class="block-label">Victime traumatique ou origine inconnue → respire</div>
+        <div class="content-box">→ Laisser sur le dos + alerter + surveiller. Si vomissement : mettre sur le côté en maintenant l'axe tête-cou-tronc</div>
+        <div class="key-points-box kp-pr">
+          <div class="kp-title">Points clés de la procédure</div>
+          <ul class="kp-list">
+            <li>Toujours libérer les voies aériennes <strong>avant</strong> d'apprécier la respiration</li>
+            <li>Appréciation de la respiration : <strong>max 10 secondes</strong></li>
+            <li>Si la respiration s'arrête → basculer en <strong>CAT arrêt cardiaque</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02FT07 -->
+    <div class="fiche-card" data-type="FT" data-search="LVA libération voies aériennes bascule tête menton front 02FT07">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ft">02FT07 · 12-2023</div>
+        <div class="fiche-type-label type-label-ft">Fiche Technique</div>
+        <div class="fiche-title">Libération des voies aériennes (LVA)</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Indication</div>
+        <div class="content-box">Systématiquement avant d'apprécier la respiration chez toute victime inconsciente.</div>
+        <div class="key-points-box kp-ft">
+          <div class="kp-title">Points clés du geste</div>
+          <ul class="kp-list">
+            <li>Le <strong>menton doit être élevé</strong></li>
+            <li>Adulte/enfant : tête en <strong>bascule arrière</strong></li>
+            <li>Nourrisson : tête en <strong>position neutre</strong> (pas de bascule excessive)</li>
+            <li>Maintenir cette position <strong>en permanence</strong> pendant l'appréciation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02FT08 -->
+    <div class="fiche-card" data-type="FT" data-search="PLS position latérale sécurité stable colonne vertébrale bouche ouverte 02FT08">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ft">02FT08 · 12-2023</div>
+        <div class="fiche-type-label type-label-ft">Fiche Technique</div>
+        <div class="fiche-title">Position latérale de sécurité (PLS)</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Indication</div>
+        <div class="content-box">Victime inconsciente qui respire, événement non traumatique.</div>
+        <div class="key-points-box kp-ft">
+          <div class="kp-title">Points clés du geste</div>
+          <ul class="kp-list">
+            <li><strong>Limiter au maximum les mouvements</strong> de la colonne vertébrale</li>
+            <li>Position <strong>stable et la plus latérale possible</strong></li>
+            <li>Permettre un <strong>contrôle permanent de la respiration</strong></li>
+            <li>Permettre <strong>l'écoulement des liquides vers l'extérieur</strong> (bouche ouverte)</li>
+            <li>Hanche et genou de la jambe supérieure à <strong>angle droit</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02PR04 -->
+    <div class="fiche-card" data-type="PR" data-search="arrêt cardiaque RCP chaîne survie défibrillation massage DAE 02PR04">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-pr">02PR04 · 12-2023</div>
+        <div class="fiche-type-label type-label-pr">Procédure</div>
+        <div class="fiche-title">Arrêt cardiaque — CAT</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Signes</div>
+        <div class="content-box">
+          Ne répond pas, ne réagit pas <strong>ET</strong> ne respire pas (ou respiration anormale/agonique = mouvements lents, bruyants, inefficaces)
+        </div>
+        <div class="block-label">La chaîne de survie — 3 actions</div>
+        <div class="content-box">
+          <ul>
+            <li>🔔 <strong>ALERTER</strong> les secours le plus tôt possible</li>
+            <li>❤️ <strong>MASSER</strong> — débuter la RCP immédiatement (30 compressions + 2 insufflations)</li>
+            <li>⚡ <strong>DÉFIBRILLER</strong> — mettre en œuvre le DAE dès que disponible</li>
+          </ul>
+          <br>Chaque minute gagnée dans la RCP peut augmenter de <strong>10% les chances de survie</strong>.
+        </div>
+        <div class="block-label">Si un tiers est présent</div>
+        <div class="content-box">Le tiers alerte et cherche le DAE. Le sauveteur commence immédiatement la RCP.</div>
+        <div class="block-label">Chez l'enfant et le nourrisson</div>
+        <div class="content-box">
+          <ul>
+            <li>Débuter par <strong>5 insufflations initiales</strong></li>
+            <li>Puis rythme : <strong>15 compressions / 2 insufflations</strong></li>
+          </ul>
+        </div>
+        <div class="key-points-box kp-pr">
+          <div class="kp-title">Points clés de la procédure</div>
+          <ul class="kp-list">
+            <li>Une respiration agonique = <strong>arrêt cardiaque</strong> → débuter la RCP</li>
+            <li>Si insufflations impossibles : <strong>compressions thoraciques seules</strong> en continu (100-120/min)</li>
+            <li>Ne pas retarder la défibrillation si le DAE est prêt</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02FT09 -->
+    <div class="fiche-card" data-type="FT" data-search="compressions thoraciques RCP sternum 100 120 fréquence profondeur 02FT09">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ft">02FT09 · 12-2023</div>
+        <div class="fiche-type-label type-label-ft">Fiche Technique</div>
+        <div class="fiche-title">Compressions thoraciques (RCP)</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Indication</div>
+        <div class="content-box">Victime en arrêt cardiaque.</div>
+        <div class="key-points-box kp-ft">
+          <div class="kp-title">Points clés du geste</div>
+          <ul class="kp-list">
+            <li>Talon d'une main au <strong>centre de la poitrine</strong>, moitié inférieure du sternum</li>
+            <li>Fréquence : <strong>100 à 120 compressions/minute</strong></li>
+            <li>Profondeur : <strong>~5 cm</strong> chez l'adulte (max 6 cm)</li>
+            <li><strong>Ne pas appuyer sur les côtes</strong></li>
+            <li>Laisser le thorax <strong>reprendre sa forme initiale</strong> sans décoller les mains</li>
+            <li>Temps de compression = temps de relâchement</li>
+            <li>Cycles de <strong>30 compressions / 2 insufflations</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02FT10 -->
+    <div class="fiche-card" data-type="FT" data-search="insufflations bouche à bouche ventilation 5 secondes lentes progressives 02FT10">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ft">02FT10 · 12-2022</div>
+        <div class="fiche-type-label type-label-ft">Fiche Technique</div>
+        <div class="fiche-title">Insufflations (bouche-à-bouche)</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Indication</div>
+        <div class="content-box">Victime en arrêt cardiaque.</div>
+        <div class="key-points-box kp-ft">
+          <div class="kp-title">Points clés du geste</div>
+          <ul class="kp-list">
+            <li>Insufflations <strong>lentes et progressives</strong></li>
+            <li><strong>Cesser dès le début du soulèvement</strong> de la poitrine</li>
+            <li>Les 2 insufflations en <strong>5 secondes maximum</strong></li>
+            <li>Pincer le nez pour <strong>éviter les fuites d'air</strong></li>
+            <li>Bouche <strong>largement ouverte et fermement appliquée</strong> autour de celle de la victime</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02FT11 -->
+    <div class="fiche-card" data-type="FT" data-search="défibrillation DAE électrodes choc précoce compressions 02FT11">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ft">02FT11 · 12-2023</div>
+        <div class="fiche-type-label type-label-ft">Fiche Technique</div>
+        <div class="fiche-title">Défibrillation (DAE)</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Indication</div>
+        <div class="content-box">Victime en arrêt cardiaque.</div>
+        <div class="key-points-box kp-ft">
+          <div class="kp-title">Points clés du geste</div>
+          <ul class="kp-list">
+            <li>Mise en œuvre <strong>la plus précoce possible</strong></li>
+            <li><strong>Interrompre le moins possible</strong> les compressions thoraciques</li>
+            <li>Suivre <strong>strictement toutes les indications</strong> de l'appareil</li>
+            <li><strong>Ne toucher la victime</strong> ni pendant l'analyse, ni pendant le choc</li>
+            <li>Reprendre les compressions <strong>immédiatement après le choc</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02AC01 -->
+    <div class="fiche-card" data-type="AC" data-search="DAE défibrillateur automatisé externe électrodes haut-parleur localisation 02AC01">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ac">02AC01 · 12-2022</div>
+        <div class="fiche-type-label type-label-ac">Apport de Connaissances</div>
+        <div class="fiche-title">Défibrillateur automatisé externe (DAE) — Fonctionnement</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Rôle du DAE</div>
+        <div class="content-box">
+          <ul>
+            <li>Analyse l'activité électrique du cœur</li>
+            <li>Reconnaît les anomalies à l'origine de l'arrêt cardiaque</li>
+            <li>Délivre ou invite à délivrer un choc électrique pour arrêter l'activité anarchique</li>
+          </ul>
+        </div>
+        <div class="block-label">Où les trouver ?</div>
+        <div class="content-box">
+          <ul>
+            <li>Établissements recevant du public (ERP)</li>
+            <li>Aéroports, gares, avions, trains</li>
+            <li>Centres commerciaux, grands magasins</li>
+            <li>Certains immeubles et lieux de travail</li>
+          </ul>
+          <br>💡 Installer une <strong>application de localisation de DAE</strong> sur son téléphone.
+        </div>
+      </div>
+    </div>
+
+    <!-- 02PR05 -->
+    <div class="fiche-card" data-type="PR" data-search="malaise AVC accident vasculaire cardiaque repos position sucre vagal 02PR05">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-pr">02PR05 · 12-2022</div>
+        <div class="fiche-type-label type-label-pr">Procédure</div>
+        <div class="fiche-title">Malaises — CAT</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Signes d'alerte urgents</div>
+        <div class="content-box">
+          <strong>Accident cardiaque :</strong> douleur dans la poitrine<br><br>
+          <strong>AVC :</strong> faiblesse/paralysie d'un bras, déformation du visage, perte de vision, trouble du langage, mal de tête sévère, perte d'équilibre → <strong>alerte immédiate</strong>
+        </div>
+        <div class="block-label">CAT générale</div>
+        <div class="content-box">
+          <ul>
+            <li><strong>Mettre au repos</strong> (allongée, assise si difficultés respiratoires, ou position où elle se sent le mieux)</li>
+            <li>Desserrer les vêtements</li>
+            <li>Rassurer, parler régulièrement</li>
+            <li>Recueillir informations : âge, durée, antécédents, traitements</li>
+            <li>Demander un <strong>avis médical</strong></li>
+            <li>Surveiller l'aggravation</li>
+          </ul>
+        </div>
+        <div class="block-label">Malaise par la chaleur</div>
+        <div class="content-box">
+          En plus de la CAT générale : endroit frais, déshabiller, <strong>arroser d'eau froide</strong>, ventiler, faire boire par petites quantités si consciente et capable d'avaler.
+        </div>
+        <div class="key-points-box kp-pr">
+          <div class="kp-title">Points clés de la procédure</div>
+          <ul class="kp-list">
+            <li>Tout signe d'AVC ou de crise cardiaque → <strong>alerte immédiate</strong></li>
+            <li>Ne jamais donner à boire à une victime inconsciente ou incapable d'avaler</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02FT12 -->
+    <div class="fiche-card" data-type="FT" data-search="manœuvres physiques malaise vagal syncope accroupissement croisement membres 02FT12">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ft">02FT12 · 07-2023</div>
+        <div class="fiche-type-label type-label-ft">Fiche Technique</div>
+        <div class="fiche-title">Manœuvres physiques (anti-malaise vagal)</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Indication</div>
+        <div class="content-box">Dès que la victime reconnaît des signes annonciateurs d'une perte de connaissance imminente (malaise vagal).</div>
+        <div class="key-points-box kp-ft">
+          <div class="kp-title">Points clés du geste</div>
+          <ul class="kp-list">
+            <li>Réalisées <strong>par la victime elle-même</strong></li>
+            <li>À débuter <strong>dès les premiers signes</strong></li>
+            <li>À poursuivre <strong>même après la mise en position allongée</strong></li>
+            <li>3 techniques : <strong>accroupissement</strong>, <strong>croisement des membres inférieurs</strong> (la plus efficace), <strong>crochetage des doigts + tension des bras</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02PR06 -->
+    <div class="fiche-card" data-type="PR" data-search="plaies simple grave hémorragie corps étranger thorax abdomen tétanos 02PR06">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-pr">02PR06 · 12-2022</div>
+        <div class="fiche-type-label type-label-pr">Procédure</div>
+        <div class="fiche-title">Plaies — CAT</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Plaie grave — Signes</div>
+        <div class="content-box">
+          Hémorragie associée, mécanisme pénétrant, localisation thorax/abdomen/œil/orifice naturel, aspect déchiqueté.
+        </div>
+        <div class="block-label">CAT — Plaie grave</div>
+        <div class="content-box">
+          <ul>
+            <li><strong>Ne jamais retirer le corps étranger</strong></li>
+            <li>Arrêter le saignement si hémorragie</li>
+            <li>Position d'attente selon localisation :<br>
+              – Thorax → <strong>assise</strong> (facilite la respiration)<br>
+              – Abdomen → <strong>allongée, jambes fléchies</strong><br>
+              – Œil → <strong>allongée, yeux fermés</strong>, ne pas bouger la tête
+            </li>
+            <li>Alerter + surveiller</li>
+          </ul>
+        </div>
+        <div class="block-label">CAT — Plaie simple</div>
+        <div class="content-box">
+          <ul>
+            <li>Se laver les mains</li>
+            <li>Rincer abondamment à l'<strong>eau courante</strong></li>
+            <li>Désinfecter avec un antiseptique</li>
+            <li>Protéger par un pansement</li>
+            <li>Conseiller de vérifier la <strong>vaccination antitétanique</strong></li>
+          </ul>
+        </div>
+        <div class="key-points-box kp-pr">
+          <div class="kp-title">Points clés de la procédure</div>
+          <ul class="kp-list">
+            <li><strong>Ne jamais retirer</strong> un corps étranger planté dans une plaie</li>
+            <li>Plaie thoracique → toujours position <strong>assise</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02PR07 -->
+    <div class="fiche-card" data-type="PR" data-search="brûlures eau courante arrosage cloques simple grave chimique électrique 02PR07">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-pr">02PR07 · 12-2022</div>
+        <div class="fiche-type-label type-label-pr">Procédure</div>
+        <div class="fiche-title">Brûlures — CAT</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Définition</div>
+        <div class="content-box">
+          <strong>Brûlure simple :</strong> rougeur chez l'adulte, ou cloque &lt; ½ paume de la main de la victime<br><br>
+          <strong>Brûlure grave :</strong> cloques &gt; ½ paume, destruction profonde, localisation visage/mains/articulations/orifices, brûlure chimique/électrique/radiologique
+        </div>
+        <div class="block-label">CAT — 1ère action toujours</div>
+        <div class="content-box">
+          Refroidir <strong>immédiatement</strong> à l'eau courante tempérée pendant <strong>au moins 10 minutes</strong> (idéalement 20 min). Débuter après 30 min = inutile.
+        </div>
+        <div class="block-label">CAT — Brûlure grave</div>
+        <div class="content-box">
+          <ul>
+            <li>Alerter dès le début de l'arrosage</li>
+            <li>Poursuivre le refroidissement selon consignes</li>
+            <li>Laisser la partie brûlée <strong>visible</strong></li>
+            <li><strong>Aucun produit</strong> sans avis médical</li>
+          </ul>
+        </div>
+        <div class="block-label">CAT — Brûlure simple</div>
+        <div class="content-box">
+          <ul>
+            <li>Refroidir jusqu'à <strong>disparition de la douleur</strong></li>
+            <li><strong>Ne jamais percer les cloques</strong></li>
+            <li>Protéger par pansement stérile ou film alimentaire</li>
+          </ul>
+        </div>
+        <div class="key-points-box kp-pr">
+          <div class="kp-title">Points clés de la procédure</div>
+          <ul class="kp-list">
+            <li>Refroidissement à l'eau courante tempérée = <strong>1ère action systématique</strong></li>
+            <li><strong>Ne jamais percer</strong> une cloque</li>
+            <li>Brûlure chimique : rincer abondamment, retirer vêtements sous l'eau</li>
+            <li>Brûlure électrique : <strong>ne jamais toucher</strong> la victime avant suppression du risque</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02PR08 -->
+    <div class="fiche-card" data-type="PR" data-search="traumatismes fracture entorse rachis cervical colonne vertébrale immobiliser 02PR08">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-pr">02PR08 · 12-2022</div>
+        <div class="fiche-type-label type-label-pr">Procédure</div>
+        <div class="fiche-title">Traumatismes — CAT</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Définition</div>
+        <div class="content-box">
+          Lésions des os (fractures), articulations (entorses, luxations) ou organes. Risque d'atteinte de la <strong>moelle épinière</strong> si traumatisme de la colonne vertébrale.
+        </div>
+        <div class="block-label">CAT générale</div>
+        <div class="content-box">
+          <ul>
+            <li><strong>Ne pas mobiliser</strong> la victime</li>
+            <li>Conseiller fermement de ne pas bouger la partie atteinte</li>
+            <li>Alerter + surveiller</li>
+          </ul>
+        </div>
+        <div class="block-label">Suspicion de traumatisme du rachis cervical</div>
+        <div class="content-box">
+          <ul>
+            <li>Demander de <strong>ne pas bouger la tête</strong></li>
+            <li>Alerter immédiatement</li>
+            <li>Stabiliser le rachis cervical en <strong>maintenant la tête à deux mains</strong></li>
+          </ul>
+        </div>
+        <div class="key-points-box kp-pr">
+          <div class="kp-title">Points clés de la procédure</div>
+          <ul class="kp-list">
+            <li>Principe fondamental : <strong>ne pas mobiliser</strong> la victime</li>
+            <li>Fracture déplacée : <strong>ne pas tenter de réaligner</strong></li>
+            <li>Traumatisme cervical : maintien de la tête jusqu'à l'arrivée des secours</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02FT13 -->
+    <div class="fiche-card" data-type="FT" data-search="maintien tête rachis cervical traumatisme cou stable coudes sol 02FT13">
+      <div class="fiche-header" onclick="toggleFiche(this)">
+        <div class="fiche-badge badge-ft">02FT13 · 12-2023</div>
+        <div class="fiche-type-label type-label-ft">Fiche Technique</div>
+        <div class="fiche-title">Maintien de la tête</div>
+        <div class="fiche-toggle">▾</div>
+      </div>
+      <div class="fiche-body">
+        <div class="block-label">Indication</div>
+        <div class="content-box">Suspicion de traumatisme du rachis cervical, ou plaie à l'œil.</div>
+        <div class="key-points-box kp-ft">
+          <div class="kp-title">Points clés du geste</div>
+          <ul class="kp-list">
+            <li>Sauveteur en <strong>position stable</strong>, dans l'axe de la victime</li>
+            <li>Prendre <strong>appui avec les coudes</strong> sur le sol ou les genoux</li>
+            <li>Maintenir la tête <strong>dans la position où elle se trouve</strong></li>
+            <li>Le maintien doit <strong>limiter les mouvements</strong> de la tête</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /chapter 02 -->
+
+  <!-- NO RESULT -->
+  <div class="no-result" id="noResult">Aucune fiche trouvée pour cette recherche.</div>
+
+  <!-- FOOTER -->
+  <div style="max-width:960px;margin:2rem auto 0;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:0.08em;color:var(--text-muted)">
+    Référentiel PSC1 · RIFC 2024 · AC — Apport de Connaissances · PR — Procédures · FT — Fiches Techniques
+  </div>
+
+  <script>
+    let currentType = 'all';
+
+    function toggleFiche(header) {
+      header.closest('.fiche-card').classList.toggle('open');
+    }
+
+    function expandAll() {
+      document.querySelectorAll('.fiche-card:not([style*="display: none"])').forEach(c => c.classList.add('open'));
+    }
+
+    function collapseAll() {
+      document.querySelectorAll('.fiche-card').forEach(c => c.classList.remove('open'));
+    }
+
+    function filterType(type, btn) {
+      currentType = type;
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active-all','active-ac','active-pr','active-ft');
+      });
+      if (type === 'all') btn.classList.add('active-all');
+      else if (type === 'AC') btn.classList.add('active-ac');
+      else if (type === 'PR') btn.classList.add('active-pr');
+      else if (type === 'FT') btn.classList.add('active-ft');
+      applyFilters();
+    }
+
+    function filterSearch() { applyFilters(); }
+
+    function applyFilters() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      let visible = 0;
+      document.querySelectorAll('.fiche-card').forEach(card => {
+        const typeOk = currentType === 'all' || card.dataset.type === currentType;
+        const searchText = (card.dataset.search || '') + ' ' + card.innerText;
+        const searchOk = !q || searchText.toLowerCase().includes(q);
+        const show = typeOk && searchOk;
+        card.style.display = show ? '' : 'none';
+        if (show) { visible++; if (q) card.classList.add('open'); }
+      });
+      document.querySelectorAll('.chapter').forEach(ch => {
+        const anyVisible = Array.from(ch.querySelectorAll('.fiche-card')).some(c => c.style.display !== 'none');
+        ch.style.display = anyVisible ? '' : 'none';
+      });
+      document.getElementById('noResult').style.display = visible === 0 ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>
