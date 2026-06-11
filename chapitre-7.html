@@ -287,6 +287,55 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     .dd-card-ic{font-size:20px;color:var(--feu)}
     .dd-card-title{font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:var(--texte)}
     .dd-card-desc{font-size:10.5px;color:var(--texte-sec);line-height:1.35}
+
+    /* FCC ACCORDÉON */
+    .fcc-accordion{border-radius:9px;overflow:hidden;margin-bottom:8px}
+    .fcc-accordion-btn{
+      width:100%;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.15);
+      color:rgba(255,255,255,.65);font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;
+      padding:8px 12px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+      border-radius:9px;transition:background .2s;text-align:left;gap:8px;
+    }
+    .fcc-accordion-btn:hover{background:rgba(0,0,0,0.38)}
+    .fcc-accordion-btn.open{border-radius:9px 9px 0 0;background:rgba(0,0,0,0.38)}
+    .fcc-accordion-chevron{font-size:12px;transition:transform .25s;flex-shrink:0}
+    .fcc-accordion-btn.open .fcc-accordion-chevron{transform:rotate(90deg)}
+    .fcc-accordion-body{display:none;background:rgba(0,0,0,0.18);border:1px solid rgba(255,255,255,0.1);
+      border-top:none;border-radius:0 0 9px 9px;padding:10px;}
+    .fcc-accordion-body.open{display:block}
+
+    /* ── LIGHTBOX ── */
+    .lb-overlay{
+      display:none;position:fixed;inset:0;z-index:9999;
+      background:rgba(0,0,0,.88);
+      align-items:center;justify-content:center;
+      cursor:zoom-out;animation:lbFadeIn .2s ease;
+    }
+    .lb-overlay.open{display:flex}
+    @keyframes lbFadeIn{from{opacity:0}to{opacity:1}}
+    .lb-img{
+      max-width:90vw;max-height:88vh;
+      border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.7);
+      object-fit:contain;
+      animation:lbZoomIn .22s ease;
+    }
+    @keyframes lbZoomIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+    .lb-close{
+      position:fixed;top:18px;right:22px;
+      font-size:28px;color:white;cursor:pointer;
+      background:rgba(0,0,0,.4);border-radius:50%;
+      width:38px;height:38px;display:flex;align-items:center;justify-content:center;
+      line-height:1;font-family:sans-serif;transition:background .2s;
+    }
+    .lb-close:hover{background:rgba(255,255,255,.2)}
+    .lb-caption{
+      position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+      color:rgba(255,255,255,.75);font-family:'Outfit',sans-serif;font-size:13px;
+      background:rgba(0,0,0,.45);padding:6px 16px;border-radius:20px;
+      pointer-events:none;white-space:nowrap;max-width:80vw;overflow:hidden;text-overflow:ellipsis;
+    }
+    img[src^="images/"]{cursor:zoom-in;transition:transform .15s,box-shadow .15s}
+    img[src^="images/"]:hover{transform:scale(1.02);box-shadow:0 6px 24px rgba(0,0,0,.45)}
 </style>
 </head>
 <body>
@@ -651,7 +700,10 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
         </div>
         
         <!-- FCC -->
-        <div class="fcc-wrap">
+        <div class="fcc-accordion">
+        <button class="fcc-accordion-btn" type="button" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span>📋 Fiche Cas Concret — Infos formateur</span><span class="fcc-accordion-chevron">›</span></button>
+        <div class="fcc-accordion-body">
+          <div class="fcc-wrap">
           <div class="fcc-box span2">
             <div class="fcc-lbl">📋 Scénario — FCC n° 7.02</div>
             <div style="display:grid;grid-template-columns:1fr 2fr;gap:6px;margin-top:4px">
@@ -670,7 +722,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
             <div class="fcc-chips"><span class="fcc-chip">Prise murale accessible</span><span class="fcc-chip">Disjoncteur accessible</span><span class="fcc-chip">Point d'eau — salle de bain attenante</span><span class="fcc-chip">Téléphone</span><span class="fcc-chip">Adresse</span></div>
           </div>
         </div>
-        <div class="fcc-sep"></div>
+        </div>
+        </div>
 
         <!-- Alerte risque électrique -->
         <div class="alerte-box" style="margin-bottom:8px">
@@ -679,6 +732,11 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
             <h3>Risque électrique ACTIF</h3>
             <p>Le fil dénudé est toujours branché sur le secteur (230 V). <strong>Ne pas toucher Marco ni le fil</strong> avant d'avoir coupé le courant.</p>
           </div>
+        </div>
+
+        <div style="text-align:center;margin:8px 0">
+          <img src="images/brulure1.jpg" alt="Illustration brûlure électrique — avant-bras"
+               style="max-height:160px;max-width:100%;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.35);border:2px solid #a0b8ea;display:inline-block;">
         </div>
 
         <div class="cc-scene">
@@ -752,6 +810,12 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
   </div>
 
 </div><!-- /stage -->
+  <!-- LIGHTBOX -->
+  <div class="lb-overlay" id="lb-overlay" onclick="lbClose()">
+    <span class="lb-close" onclick="lbClose()">✕</span>
+    <img class="lb-img" id="lb-img" src="" alt="">
+    <div class="lb-caption" id="lb-caption"></div>
+  </div>
 
 <script>
 // ── NAV ──
@@ -1177,19 +1241,19 @@ function goToDashboard(e){
 (function(){
   const container = document.getElementById('nav-pills');
   let dragSrc = null;
-  const slides = Array.from(document.querySelectorAll('.slide'));
 
-  // Chaque pill slide stocke l'index de slide original dans data-slide
+  // Stocker l'index de slide original dans chaque pill
   function tagPills(){
     container.querySelectorAll('.pill').forEach((pill, i) => {
-      if(i === 0) return; // Dashboard
+      if(i === 0) return; // Dashboard fixe
+      // L'index de slide = i-1 (pill 1 → slide 0, pill 2 → slide 1, etc.)
       pill.dataset.slide = String(i - 1);
     });
   }
 
   function initPillDrag(){
     container.querySelectorAll('.pill').forEach((pill, idx) => {
-      if(idx === 0) return; // Dashboard pill — fixe, non déplaçable
+      if(idx === 0) return; // Dashboard — fixe
       pill.classList.add('draggable-pill');
       pill.setAttribute('draggable', 'true');
       pill.title = 'Maintenir et glisser pour réorganiser';
@@ -1205,7 +1269,6 @@ function goToDashboard(e){
         pill.classList.remove('pill-dragging');
         container.querySelectorAll('.pill').forEach(p => p.classList.remove('pill-drag-over'));
         dragSrc = null;
-        applyPillOrder();
       });
 
       pill.addEventListener('dragover', e => {
@@ -1231,47 +1294,10 @@ function goToDashboard(e){
         if(srcIdx < tgtIdx) pill.after(dragSrc);
         else pill.before(dragSrc);
         pill.classList.remove('pill-drag-over');
-        applyPillOrder();
       });
     });
   }
 
-  function applyPillOrder(){
-    // Réordonne les slides dans le DOM selon l'ordre actuel des pills
-    const stage = document.getElementById('stage');
-    const pills = Array.from(container.querySelectorAll('.pill'));
-    pills.forEach((pill, i) => {
-      if(i === 0) return;
-      const slideIdx = parseInt(pill.dataset.slide);
-      if(isNaN(slideIdx)) return;
-      const slide = slides[slideIdx];
-      if(slide) stage.appendChild(slide); // remet dans l'ordre
-    });
-    // Recalculer current selon la slide active
-    const allSlides = Array.from(document.querySelectorAll('.slide'));
-    const activeSlide = document.querySelector('.slide.active');
-    const newCurrent = allSlides.indexOf(activeSlide);
-    if(newCurrent >= 0) {
-      // Mettre à jour current global sans re-switcher la slide
-      window._pillCurrent = newCurrent;
-    }
-    updatePillActiveState();
-  }
-
-  function updatePillActiveState(){
-    const pills = Array.from(container.querySelectorAll('.pill'));
-    const allSlides = Array.from(document.querySelectorAll('.slide'));
-    const activeSlideDatum = pills.find(p => {
-      const idx = parseInt(p.dataset.slide);
-      return !isNaN(idx) && allSlides[indexOf_active(allSlides)] === slides[idx];
-    });
-    pills.forEach(p => { if(p.dataset.slide) p.classList.remove('active'); });
-    if(activeSlideDatum) activeSlideDatum.classList.add('active');
-  }
-
-  function indexOf_active(arr){ return arr.findIndex(s => s.classList.contains('active')); }
-
-  // Tooltip hint discret
   function addDragHint(){
     const hint = document.createElement('span');
     hint.style.cssText = 'font-size:9px;color:rgba(127,168,212,.38);font-family:Outfit,sans-serif;white-space:nowrap;flex-shrink:0;margin-left:4px;pointer-events:none;';
@@ -1279,45 +1305,48 @@ function goToDashboard(e){
     container.appendChild(hint);
   }
 
-  tagPills();
-  initPillDrag();
-  addDragHint();
-
-  // Patch goSlide pour qu'il utilise les data-slide
-  const _origGoSlide = window.goSlide;
+  // Patch goSlide : utilise data-slide pour trouver la vraie slide
+  // Les slides restent dans leur ordre DOM original — on ne les déplace JAMAIS
   window.goSlide = function(n){
-    // n = index de slide original (data-slide)
-    // On trouve la slide correspondante et on l'active
     const allSlides = Array.from(document.querySelectorAll('.slide'));
     const pills = Array.from(container.querySelectorAll('.pill'));
+    // Désactiver tout
     allSlides.forEach(s => s.classList.remove('active'));
     pills.forEach(p => p.classList.remove('active'));
-    if(slides[n]){
-      slides[n].classList.add('active');
-      const matchingPill = pills.find(p => parseInt(p.dataset.slide) === n);
-      if(matchingPill) matchingPill.classList.add('active');
-    }
-    // Update counter
-    const newVisualIdx = allSlides.indexOf(slides[n]);
-    document.getElementById('slide-counter').textContent = (newVisualIdx + 1) + ' / ' + total;
-    current = newVisualIdx;
+    // Activer la slide n (index DOM original)
+    if(allSlides[n]) allSlides[n].classList.add('active');
+    // Activer la pill dont data-slide === n
+    const matchPill = pills.find(p => parseInt(p.dataset.slide) === n);
+    if(matchPill) matchPill.classList.add('active');
+    current = n;
+    document.getElementById('slide-counter').textContent = (n + 1) + ' / ' + total;
     renderDots();
   };
 
-  // Patch nextSlide/prevSlide pour naviguer dans l'ordre visuel des pills
+  // Patch nextSlide/prevSlide : naviguer dans l'ordre VISUEL des pills
   window.nextSlide = function(){
     const pills = Array.from(container.querySelectorAll('.pill[data-slide]'));
     const activePill = pills.find(p => p.classList.contains('active'));
     const idx = pills.indexOf(activePill);
-    if(idx < pills.length - 1) pills[idx + 1].click();
+    if(idx < pills.length - 1){
+      const nextSlideIdx = parseInt(pills[idx + 1].dataset.slide);
+      goSlide(nextSlideIdx);
+    }
   };
+
   window.prevSlide = function(){
     const pills = Array.from(container.querySelectorAll('.pill[data-slide]'));
     const activePill = pills.find(p => p.classList.contains('active'));
     const idx = pills.indexOf(activePill);
-    if(idx > 0) pills[idx - 1].click();
-    else document.querySelector('.pill:first-child').click(); // dashboard
+    if(idx > 0){
+      const prevSlideIdx = parseInt(pills[idx - 1].dataset.slide);
+      goSlide(prevSlideIdx);
+    }
   };
+
+  tagPills();
+  initPillDrag();
+  addDragHint();
 })();
 
 </script>

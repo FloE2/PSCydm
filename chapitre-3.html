@@ -248,6 +248,55 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     .tech-peda-body { display:none; padding:0 14px 12px; }
     .tech-peda-block.open .tech-peda-body { display:block; }
 
+
+    /* FCC ACCORDÉON */
+    .fcc-accordion{border-radius:9px;overflow:hidden;margin-bottom:8px}
+    .fcc-accordion-btn{
+      width:100%;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.15);
+      color:rgba(255,255,255,.65);font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;
+      padding:8px 12px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+      border-radius:9px;transition:background .2s;text-align:left;gap:8px;
+    }
+    .fcc-accordion-btn:hover{background:rgba(0,0,0,0.38)}
+    .fcc-accordion-btn.open{border-radius:9px 9px 0 0;background:rgba(0,0,0,0.38)}
+    .fcc-accordion-chevron{font-size:12px;transition:transform .25s;flex-shrink:0}
+    .fcc-accordion-btn.open .fcc-accordion-chevron{transform:rotate(90deg)}
+    .fcc-accordion-body{display:none;background:rgba(0,0,0,0.18);border:1px solid rgba(255,255,255,0.1);
+      border-top:none;border-radius:0 0 9px 9px;padding:10px;}
+    .fcc-accordion-body.open{display:block}
+
+    /* ── LIGHTBOX ── */
+    .lb-overlay{
+      display:none;position:fixed;inset:0;z-index:9999;
+      background:rgba(0,0,0,.88);
+      align-items:center;justify-content:center;
+      cursor:zoom-out;animation:lbFadeIn .2s ease;
+    }
+    .lb-overlay.open{display:flex}
+    @keyframes lbFadeIn{from{opacity:0}to{opacity:1}}
+    .lb-img{
+      max-width:90vw;max-height:88vh;
+      border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.7);
+      object-fit:contain;
+      animation:lbZoomIn .22s ease;
+    }
+    @keyframes lbZoomIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+    .lb-close{
+      position:fixed;top:18px;right:22px;
+      font-size:28px;color:white;cursor:pointer;
+      background:rgba(0,0,0,.4);border-radius:50%;
+      width:38px;height:38px;display:flex;align-items:center;justify-content:center;
+      line-height:1;font-family:sans-serif;transition:background .2s;
+    }
+    .lb-close:hover{background:rgba(255,255,255,.2)}
+    .lb-caption{
+      position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+      color:rgba(255,255,255,.75);font-family:'Outfit',sans-serif;font-size:13px;
+      background:rgba(0,0,0,.45);padding:6px 16px;border-radius:20px;
+      pointer-events:none;white-space:nowrap;max-width:80vw;overflow:hidden;text-overflow:ellipsis;
+    }
+    img[src^="images/"]{cursor:zoom-in;transition:transform .15s,box-shadow .15s}
+    img[src^="images/"]:hover{transform:scale(1.02);box-shadow:0 6px 24px rgba(0,0,0,.45)}
 </style>
 </head>
 <body>
@@ -898,7 +947,10 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;">
           <!-- COL GAUCHE -->
           <div style="display:flex;flex-direction:column;gap:10px;">
-            <div class="fcc-wrap" style="flex:0 0 auto;">
+            <div class="fcc-accordion">
+        <button class="fcc-accordion-btn" type="button" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span>📋 Fiche Cas Concret — Infos formateur</span><span class="fcc-accordion-chevron">›</span></button>
+        <div class="fcc-accordion-body">
+          <div class="fcc-wrap" style="flex:0 0 auto;">
               <div class="fcc-box span2">
                 <div class="fcc-lbl">📋 Scénario — FCC n° 2.01</div>
                 <div style="display:grid;grid-template-columns:1fr 2fr;gap:5px;margin-top:3px">
@@ -917,6 +969,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
                 <div class="fcc-chips"><span class="fcc-chip">Téléphone</span><span class="fcc-chip">Adresse (établissement scolaire)</span></div>
               </div>
             </div>
+        </div>
+        </div>
             <div style="background:#f0f6ff;border-radius:12px;border:1.5px solid #a0c0ea;overflow:hidden;flex:1;display:flex;flex-direction:column;">
               <div style="flex:1;position:relative;min-height:0;">
                 <img src="images/scenario5_skatepark2.jpg"
@@ -1756,5 +1810,12 @@ function qsjRestart(){ document.getElementById('qsj-end').style.display='none'; 
 })();
 
 </script>
+
+  <!-- LIGHTBOX -->
+  <div class="lb-overlay" id="lb-overlay" onclick="lbClose()">
+    <span class="lb-close" onclick="lbClose()">✕</span>
+    <img class="lb-img" id="lb-img" src="" alt="">
+    <div class="lb-caption" id="lb-caption"></div>
+  </div>
 </body>
 </html>

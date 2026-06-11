@@ -98,11 +98,11 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 
 /* DAE */
 .dae-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.dae-card{background:var(--or-clair);border:1.5px solid var(--or-bord);border-radius:10px;padding:9px;text-align:center}
-.dae-num{width:22px;height:22px;border-radius:50%;background:var(--or);color:white;font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 5px}
-.dae-ic{font-size:20px;margin-bottom:4px}
-.dae-title{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:#7a5a00;margin-bottom:2px}
-.dae-desc{font-size:9.5px;color:#9a7020;line-height:1.35}
+.dae-card{background:var(--or-clair);border:1.5px solid var(--or-bord);border-radius:10px;padding:12px 9px;text-align:center}
+.dae-num{width:26px;height:26px;border-radius:50%;background:var(--or);color:white;font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 6px}
+.dae-ic{font-size:26px;margin-bottom:6px}
+.dae-title{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:#7a5a00;margin-bottom:4px}
+.dae-desc{font-size:11px;color:#9a7020;line-height:1.4}
 
 /* SIMULATION INTERACTIVE */
 .sim-wrap{background:#0d1525;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px;flex:1}
@@ -203,6 +203,55 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     .rcp-card:active{cursor:grabbing;opacity:.5}
     .rcp-card.drag-over{border-color:#f0c040;background:rgba(240,192,64,.1)}
 
+
+    /* FCC ACCORDÉON */
+    .fcc-accordion{border-radius:9px;overflow:hidden;margin-bottom:8px}
+    .fcc-accordion-btn{
+      width:100%;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.15);
+      color:rgba(255,255,255,.65);font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;
+      padding:8px 12px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+      border-radius:9px;transition:background .2s;text-align:left;gap:8px;
+    }
+    .fcc-accordion-btn:hover{background:rgba(0,0,0,0.38)}
+    .fcc-accordion-btn.open{border-radius:9px 9px 0 0;background:rgba(0,0,0,0.38)}
+    .fcc-accordion-chevron{font-size:12px;transition:transform .25s;flex-shrink:0}
+    .fcc-accordion-btn.open .fcc-accordion-chevron{transform:rotate(90deg)}
+    .fcc-accordion-body{display:none;background:rgba(0,0,0,0.18);border:1px solid rgba(255,255,255,0.1);
+      border-top:none;border-radius:0 0 9px 9px;padding:10px;}
+    .fcc-accordion-body.open{display:block}
+
+    /* ── LIGHTBOX ── */
+    .lb-overlay{
+      display:none;position:fixed;inset:0;z-index:9999;
+      background:rgba(0,0,0,.88);
+      align-items:center;justify-content:center;
+      cursor:zoom-out;animation:lbFadeIn .2s ease;
+    }
+    .lb-overlay.open{display:flex}
+    @keyframes lbFadeIn{from{opacity:0}to{opacity:1}}
+    .lb-img{
+      max-width:90vw;max-height:88vh;
+      border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.7);
+      object-fit:contain;
+      animation:lbZoomIn .22s ease;
+    }
+    @keyframes lbZoomIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+    .lb-close{
+      position:fixed;top:18px;right:22px;
+      font-size:28px;color:white;cursor:pointer;
+      background:rgba(0,0,0,.4);border-radius:50%;
+      width:38px;height:38px;display:flex;align-items:center;justify-content:center;
+      line-height:1;font-family:sans-serif;transition:background .2s;
+    }
+    .lb-close:hover{background:rgba(255,255,255,.2)}
+    .lb-caption{
+      position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+      color:rgba(255,255,255,.75);font-family:'Outfit',sans-serif;font-size:13px;
+      background:rgba(0,0,0,.45);padding:6px 16px;border-radius:20px;
+      pointer-events:none;white-space:nowrap;max-width:80vw;overflow:hidden;text-overflow:ellipsis;
+    }
+    img[src^="images/"]{cursor:zoom-in;transition:transform .15s,box-shadow .15s}
+    img[src^="images/"]:hover{transform:scale(1.02);box-shadow:0 6px 24px rgba(0,0,0,.45)}
 </style>
 </head>
 <body>
@@ -633,7 +682,10 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
           </div>
           
         <!-- FCC -->
-        <div class="fcc-wrap">
+        <div class="fcc-accordion">
+        <button class="fcc-accordion-btn" type="button" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span>📋 Fiche Cas Concret — Infos formateur</span><span class="fcc-accordion-chevron">›</span></button>
+        <div class="fcc-accordion-body">
+          <div class="fcc-wrap">
           <div class="fcc-box span2">
             <div class="fcc-lbl">📋 Scénario — FCC n° 10.01</div>
             <div style="display:grid;grid-template-columns:1fr 2fr;gap:6px;margin-top:4px">
@@ -657,7 +709,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
             </div>
           </div>
         </div>
-        <div class="fcc-sep"></div>
+        </div>
+        </div>
         <div style="margin-top:10px;text-align:center;">
             <img src="images/cardio1.jpg" alt="Arrêt cardiaque sans DAE — RCP"
                  style="max-height:200px;max-width:100%;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.35);border:2px solid #8B1a1a;display:inline-block;">
@@ -702,7 +755,10 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
           </div>
           
         <!-- FCC -->
-        <div class="fcc-wrap">
+        <div class="fcc-accordion">
+        <button class="fcc-accordion-btn" type="button" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span>📋 Fiche Cas Concret — Infos formateur</span><span class="fcc-accordion-chevron">›</span></button>
+        <div class="fcc-accordion-body">
+          <div class="fcc-wrap">
           <div class="fcc-box span2">
             <div class="fcc-lbl">📋 Scénario — FCC n° 10.02</div>
             <div style="display:grid;grid-template-columns:1fr 2fr;gap:6px;margin-top:4px">
@@ -721,7 +777,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
             <div class="fcc-chips"><span class="fcc-chip">Mannequin adulte</span><span class="fcc-chip">DAE démonstration</span><span class="fcc-chip">Téléphone</span><span class="fcc-chip">Adresse : 9 allée du Collège, 92420 Vaucresson</span></div>
           </div>
         </div>
-        <div class="fcc-sep"></div><div class="cc-scene">
+        </div>
+        </div><div class="cc-scene">
             Tu es dans la grande salle de sport du gymnase du collège Yves du Manoir à Vaucresson. Un adulte s'effondre soudainement devant toi. Il ne réagit plus, aucun mouvement de respiration.<br><br>
             Un autre élève est à côté de toi. Tu aperçois une <strong>borne DAE sur le mur à 20 mètres</strong>. <strong>Tu as ton téléphone.</strong><br><br>
             <strong>Comment organises-tu les secours avec le témoin ?</strong>
@@ -774,6 +831,12 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
   </div>
 
 </div><!-- /stage -->
+  <!-- LIGHTBOX -->
+  <div class="lb-overlay" id="lb-overlay" onclick="lbClose()">
+    <span class="lb-close" onclick="lbClose()">✕</span>
+    <img class="lb-img" id="lb-img" src="" alt="">
+    <div class="lb-caption" id="lb-caption"></div>
+  </div>
 
 <script>
 // ── NAV ──
