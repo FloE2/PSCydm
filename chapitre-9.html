@@ -99,36 +99,27 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 .pls-ul li::before{content:'→';position:absolute;left:0;font-size:10px;color:var(--indigo)}
 
 /* RÉORDONNER */
-.reorder-wrap{display:flex;gap:14px}
-.reorder-pool{flex:1;display:flex;flex-direction:column;gap:6px}
-.reorder-zone{flex:1;display:flex;flex-direction:column;gap:6px}
-.pool-label{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--texte-sec);margin-bottom:4px}
-.ro-item{
-  background:white;border:1.5px solid var(--indigo-bord);border-radius:8px;
-  padding:9px 13px;cursor:grab;user-select:none;
-  display:flex;align-items:center;gap:10px;
-  font-size:12.5px;color:var(--texte);font-family:'Outfit',sans-serif;font-weight:600;
-  transition:all .2s;
-}
-.ro-item:hover{border-color:var(--indigo);background:var(--indigo-clair);transform:translateY(-1px)}
-.ro-item.dragging{opacity:.4;cursor:grabbing}
-.ro-item .ro-num{width:22px;height:22px;border-radius:50%;background:var(--indigo-clair);border:1.5px solid var(--indigo-bord);color:var(--indigo);font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ro-item.correct{background:var(--vert-clair);border-color:var(--vert);color:var(--vert)}
-.ro-item.correct .ro-num{background:var(--vert);border-color:var(--vert);color:white}
-.ro-item.wrong{background:var(--rouge-clair);border-color:var(--rouge);color:var(--rouge)}
-.ro-item.wrong .ro-num{background:var(--rouge);border-color:var(--rouge);color:white}
-.drop-zone{
-  background:var(--gris);border:2px dashed var(--gris-bord);border-radius:8px;
-  padding:9px 13px;min-height:44px;display:flex;align-items:center;
-  font-size:11px;color:var(--texte-sec);font-style:italic;
-  transition:background .15s,border-color .15s;
-}
-.drop-zone.dragover{background:var(--indigo-clair);border-color:var(--indigo)}
-.drop-zone.filled{background:white;border-style:solid;border-color:var(--indigo-bord);font-style:normal;color:var(--texte)}
-.ro-btn{background:var(--indigo);color:white;border:none;padding:8px 20px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s}
+.ro-grid-wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px;height:100%}
+.ro-col-label{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--texte-sec);margin-bottom:5px;text-align:center}
+.ro-cards-pool{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:7px;background:var(--gris);border:2px dashed var(--gris-bord);border-radius:10px;min-height:60px;align-content:start}
+.ro-slots{display:grid;grid-template-columns:1fr;gap:4px}
+.ro-card{background:white;border:1.5px solid var(--indigo-bord);border-radius:8px;padding:6px 8px;cursor:grab;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--texte);line-height:1.3;user-select:none;transition:transform .1s,box-shadow .1s,border-color .2s,background .2s}
+.ro-card:hover{border-color:var(--indigo);transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.12)}
+.ro-card:active,.ro-card.dragging{cursor:grabbing;opacity:.35}
+.ro-card.correct{background:var(--vert-clair);border-color:var(--vert);color:var(--vert);cursor:default;pointer-events:none}
+.ro-card.wrong{background:var(--rouge-clair);border-color:var(--rouge);color:var(--rouge)}
+.ro-card-num{width:20px;height:20px;border-radius:50%;background:var(--indigo-clair);border:1.5px solid var(--indigo-bord);color:var(--indigo);font-family:'Outfit',sans-serif;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ro-card.correct .ro-card-num{background:var(--vert);border-color:var(--vert);color:white}
+.ro-card.wrong .ro-card-num{background:var(--rouge);border-color:var(--rouge);color:white}
+.ro-slot{background:var(--indigo-clair);border:1.5px dashed var(--indigo-bord);border-radius:7px;padding:4px 7px;min-height:34px;display:flex;align-items:center;gap:6px;transition:background .15s,border-color .15s}
+.ro-slot.dragover{background:#dde8ff;border-color:var(--indigo);border-style:solid}
+.ro-slot.filled{background:white;border-style:solid;border-color:var(--indigo-bord)}
+.ro-slot-num{font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;color:var(--indigo-bord);flex-shrink:0;width:16px}
+.ro-slot-hint{font-size:10px;color:var(--texte-sec);font-style:italic}
+.ro-btn{background:var(--indigo);color:white;border:none;padding:7px 18px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:background .2s}
 .ro-btn:hover{background:#1e2d7a}
-.ro-reset{background:white;color:var(--texte-sec);border:1.5px solid var(--gris-bord);padding:8px 16px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-left:6px}
-.ro-score{padding:8px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;display:none}
+.ro-reset{background:white;color:var(--texte-sec);border:1.5px solid var(--gris-bord);padding:7px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer}
+.ro-score{padding:7px 12px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;display:none}
 
 /* CC */
 .cc-header{color:white;padding:13px 18px;border-radius:10px;margin-bottom:10px}
@@ -515,22 +506,21 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
       </div>
       <div class="badge-dur"><div class="v">🎯</div><div class="l">Exercice</div></div>
     </div>
-    <div class="slide-body" style="padding:10px 14px">
-      <div class="info-box" style="margin-bottom:8px;font-size:12px">
-        👇 Fais glisser chaque étape dans la colonne de droite dans l'ordre correct de la CAT perte de connaissance. Double-clique pour remettre dans la pioche.
+    <div class="slide-body" style="padding:8px 14px;gap:7px">
+      <div class="info-box" style="font-size:11px;padding:7px 12px">
+        👆 Glisse les cartes dans les cases numérotées · Après vérification, les ✅ se bloquent, les ❌ restent déplaçables
       </div>
-      <div class="reorder-wrap">
+      <div class="ro-grid-wrap">
         <div>
-          <div class="pool-label">Étapes à ordonner</div>
-          <div id="ro-pool" style="display:flex;flex-direction:column;gap:6px;min-height:200px;background:var(--gris);border:2px dashed var(--gris-bord);border-radius:10px;padding:10px"></div>
+          <div class="ro-col-label">📦 Pioche — étapes à placer</div>
+          <div id="ro-pool" class="ro-cards-pool"></div>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--gris-bord);font-size:22px;flex-shrink:0">→</div>
-        <div style="flex:1">
-          <div class="pool-label">Ordre correct (1 → 8)</div>
-          <div id="ro-zone" style="display:flex;flex-direction:column;gap:6px"></div>
+        <div>
+          <div class="ro-col-label">🔢 Ordre correct (1 → 8)</div>
+          <div id="ro-zone" class="ro-slots"></div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
         <button class="ro-btn" onclick="checkOrder()">✓ Vérifier</button>
         <button class="ro-reset" onclick="resetOrder()">↺ Recommencer</button>
         <div class="ro-score" id="ro-score"></div>
@@ -784,85 +774,117 @@ function initReorder(){
   roInited=true;
   const pool=document.getElementById('ro-pool');
   const zone=document.getElementById('ro-zone');
-
-  // Shuffle
   const shuffled=[...STEPS].sort(()=>Math.random()-.5);
-  pool.innerHTML='';
-  zone.innerHTML='';
-
-  shuffled.forEach(s=>{
-    const div=makeRoItem(s);
-    pool.appendChild(div);
+  pool.innerHTML=''; zone.innerHTML='';
+  shuffled.forEach(s=>pool.appendChild(makeRoCard(s)));
+  for(let i=1;i<=8;i++) zone.appendChild(makeRoSlot(i));
+  // Pool accepte les retours
+  pool.addEventListener('dragover',e=>e.preventDefault());
+  pool.addEventListener('drop',e=>{
+    e.preventDefault();
+    if(!roDragged||roDragged.classList.contains('correct')) return;
+    // Libérer l'ancienne slot
+    freeParentSlot(roDragged);
+    resetCard(roDragged);
+    pool.appendChild(roDragged);
+    roDragged=null;
   });
-  // Build 8 drop zones
-  for(let i=1;i<=8;i++){
-    const dz=document.createElement('div');
-    dz.className='drop-zone';
-    dz.id='dz-'+i;
-    dz.dataset.pos=i;
-    dz.innerHTML=`<span style="font-family:'Outfit',sans-serif;font-weight:700;color:var(--indigo-bord);margin-right:8px">${i}.</span><span>Dépose ici…</span>`;
-    dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('dragover');});
-    dz.addEventListener('dragleave',()=>dz.classList.remove('dragover'));
-    dz.addEventListener('drop',e=>{
-      e.preventDefault(); dz.classList.remove('dragover');
-      if(!roDragged) return;
-      // if zone already has item, return it to pool
-      const existing=dz.querySelector('.ro-item');
-      if(existing){ pool.appendChild(existing); }
-      // if dragged came from another zone, clear that zone display
-      dz.innerHTML='';
-      dz.classList.add('filled');
-      roDragged.classList.remove('dragging');
-      dz.appendChild(roDragged);
-      roDragged=null;
-    });
-    zone.appendChild(dz);
+}
+
+function makeRoCard(s){
+  const div=document.createElement('div');
+  div.className='ro-card';
+  div.draggable=true;
+  div.dataset.id=s.id;
+  div.innerHTML=`<div class="ro-card-num">✦</div><span style="font-size:10.5px;line-height:1.3">${s.text}</span>`;
+  bindCardDrag(div);
+  return div;
+}
+
+function bindCardDrag(div){
+  div.addEventListener('dragstart',e=>{
+    if(div.classList.contains('correct')){e.preventDefault();return;}
+    roDragged=div;
+    setTimeout(()=>div.classList.add('dragging'),0);
+    e.dataTransfer.effectAllowed='move';
+  });
+  div.addEventListener('dragend',()=>div.classList.remove('dragging'));
+  // Double-clic : renvoyer dans la pioche
+  div.addEventListener('dblclick',()=>{
+    if(div.classList.contains('correct')) return;
+    freeParentSlot(div);
+    resetCard(div);
+    document.getElementById('ro-pool').appendChild(div);
+  });
+}
+
+function makeRoSlot(i){
+  const dz=document.createElement('div');
+  dz.className='ro-slot';
+  dz.id='dz-'+i;
+  dz.dataset.pos=i;
+  dz.innerHTML=`<span class="ro-slot-num">${i}.</span><span class="ro-slot-hint">Dépose ici…</span>`;
+  dz.addEventListener('dragover',e=>{e.preventDefault();if(!roDragged||roDragged.classList.contains('correct'))return;dz.classList.add('dragover');});
+  dz.addEventListener('dragleave',()=>dz.classList.remove('dragover'));
+  dz.addEventListener('drop',e=>{
+    e.preventDefault(); dz.classList.remove('dragover');
+    if(!roDragged||roDragged.classList.contains('correct')) return;
+    const existing=dz.querySelector('.ro-card');
+    if(existing&&!existing.classList.contains('correct')){
+      // Swap : l'existant retourne à la pioche
+      freeParentSlot(existing);
+      resetCard(existing);
+      document.getElementById('ro-pool').appendChild(existing);
+    } else if(existing) return; // slot avec correct → refus
+    freeParentSlot(roDragged);
+    dz.innerHTML='';
+    dz.classList.add('filled');
+    dz.appendChild(roDragged);
+    roDragged=null;
+  });
+  return dz;
+}
+
+function freeParentSlot(card){
+  const parent=card.parentElement;
+  if(parent&&parent.classList.contains('ro-slot')){
+    const pos=parent.dataset.pos;
+    parent.innerHTML=`<span class="ro-slot-num">${pos}.</span><span class="ro-slot-hint">Dépose ici…</span>`;
+    parent.classList.remove('filled','dragover');
   }
 }
 
-function makeRoItem(s){
-  const div=document.createElement('div');
-  div.className='ro-item';
-  div.draggable=true;
-  div.dataset.id=s.id;
-  div.innerHTML=`<div class="ro-num">✦</div><span>${s.text}</span>`;
-  div.addEventListener('dragstart',()=>{roDragged=div;div.classList.add('dragging');});
-  div.addEventListener('dragend',()=>div.classList.remove('dragging'));
-  div.addEventListener('dblclick',()=>{
-    div.classList.remove('correct','wrong');
-    div.querySelector('.ro-num').textContent='✦';
-    document.getElementById('ro-pool').appendChild(div);
-    // clean parent drop zone
-    const parent=div.parentElement;
-    if(parent&&parent.classList.contains('drop-zone')){
-      parent.innerHTML=`<span style="font-family:'Outfit',sans-serif;font-weight:700;color:var(--indigo-bord);margin-right:8px">${parent.dataset.pos}.</span><span>Dépose ici…</span>`;
-      parent.classList.remove('filled');
-    }
-  });
-  return div;
+function resetCard(card){
+  card.classList.remove('correct','wrong');
+  card.querySelector('.ro-card-num').textContent='✦';
 }
 
 function checkOrder(){
   let ok=0;
   for(let i=1;i<=8;i++){
     const dz=document.getElementById('dz-'+i);
-    const item=dz.querySelector('.ro-item');
-    if(!item) continue;
-    const correct=STEPS[i-1].id;
-    const num=item.querySelector('.ro-num');
-    if(item.dataset.id===correct){
-      item.classList.add('correct'); item.classList.remove('wrong');
-      num.textContent=i; ok++;
+    const card=dz.querySelector('.ro-card');
+    if(!card) continue;
+    const num=card.querySelector('.ro-card-num');
+    if(card.dataset.id===STEPS[i-1].id){
+      card.classList.add('correct'); card.classList.remove('wrong');
+      num.textContent='✓'; ok++;
+      // Bloquer la card correcte
+      card.draggable=false;
     } else {
-      item.classList.add('wrong'); item.classList.remove('correct');
+      card.classList.add('wrong'); card.classList.remove('correct');
       num.textContent='✗';
+      card.draggable=true;
     }
   }
   const sc=document.getElementById('ro-score');
   sc.style.display='block';
-  sc.textContent=`Score : ${ok} / 8 bonne${ok>1?'s':''} réponse${ok>1?'s':''}`;
-  const good=ok>=7;
-  sc.style.cssText+=`;background:${good?'#e8f8ef':'#fdecea'};border:1.5px solid ${good?'#80cba0':'#e8a09a'};color:${good?'#1a7a4a':'#c0392b'};padding:8px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700`;
+  const good=ok===8;
+  const msg=good?'🎉 Parfait ! Toutes les étapes sont dans le bon ordre !':
+    ok>=6?`✅ ${ok}/8 — Presque ! Déplace les cartes ❌ pour corriger.`:
+    `❌ ${ok}/8 — Continue, déplace les cartes en rouge pour corriger.`;
+  sc.innerHTML=msg;
+  sc.style.cssText=`display:block;background:${good?'#e8f8ef':ok>=6?'#fdf3e3':'#fdecea'};border:1.5px solid ${good?'#80cba0':ok>=6?'#f0b060':'#e8a09a'};color:${good?'#1a7a4a':ok>=6?'#7a4800':'#c0392b'};padding:7px 12px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700`;
 }
 
 function resetOrder(){
