@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PSC1 — Chapitre 3 : Traumatisme</title>
+<title>PSC1 — Chapitre 9 : Perte de connaissance</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -11,12 +11,11 @@
   --bleu:#1a3a6b;--bleu-mid:#2558a8;--bleu-clair:#ddeeff;--bleu-pale:#f0f6ff;
   --rouge:#c0392b;--rouge-clair:#fdecea;--rouge-bord:#e8a09a;
   --vert:#1a7a4a;--vert-clair:#e8f8ef;--vert-bord:#80cba0;
-  --orange:#e67e22;--orange-clair:#fdf3e3;
+  --indigo:#2c3e8c;--indigo-clair:#eef0fc;--indigo-bord:#a0aaee;
+  --cyan:#0e7490;--cyan-clair:#e0f5f9;--cyan-bord:#67cfe0;
   --gris:#f4f5f7;--gris-bord:#d0d6e0;--texte:#1c2233;--texte-sec:#5a6382;
 }
 body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height:100vh;overflow:hidden;display:flex;flex-direction:column}
-
-/* NAV */
 #nav{background:#0d1525;display:flex;align-items:center;justify-content:space-between;padding:8px 18px;border-bottom:1px solid #1e2d4a;flex-shrink:0;gap:12px}
 .logo{display:flex;align-items:center;gap:8px;color:#7fa8d4;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;white-space:nowrap}
 .logo span{color:white;font-size:14px}
@@ -29,189 +28,145 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 .pill.pill-dragging{opacity:.3;transform:scale(.93)}
 .pill.pill-drag-over{border-color:#f0c040 !important;background:rgba(240,192,64,.18) !important;transform:scale(1.07);box-shadow:0 0 0 2px rgba(240,192,64,.4)}
 #nav-btns{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.nav-btn{background:#1e2d4a;border:1px solid #2a3f5f;color:#7fa8d4;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;transition:all .2s;display:flex;align-items:center;gap:5px}
+.nav-btn{background:#1e2d4a;border:1px solid #2a3f5f;color:#7fa8d4;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;transition:all .2s}
 .nav-btn:hover{background:var(--bleu-mid);border-color:var(--bleu-mid);color:white}
-.nav-btn svg{width:13px;height:13px}
 #slide-counter{color:#7fa8d4;font-size:11px;font-family:'Outfit',sans-serif;white-space:nowrap}
-
-/* STAGE */
 #stage{flex:1;display:flex;align-items:stretch;justify-content:center;padding:14px;overflow:hidden}
 .slide{display:none;background:white;border-radius:16px;width:100%;max-width:980px;position:relative;overflow:hidden}
 .slide.active{display:flex;flex-direction:column}
-
-/* HEADER */
-.slide-header{background:var(--bleu);color:white;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:16px}
+.slide-header{background:var(--indigo);color:white;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:16px}
 .slide-header .left .sup{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.65;margin-bottom:3px}
 .slide-header h1{font-family:'Outfit',sans-serif;font-size:26px;font-weight:900;line-height:1.1}
 .slide-header h2{font-family:'Outfit',sans-serif;font-size:19px;font-weight:700;line-height:1.2}
 .slide-header .badge-dur{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:8px 14px;text-align:center;flex-shrink:0}
 .slide-header .badge-dur .v{font-family:'Outfit',sans-serif;font-size:24px;font-weight:800}
 .slide-header .badge-dur .l{font-size:10px;opacity:.7;display:block}
-
-/* BODY */
 .slide-body{flex:1;padding:14px 28px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
-
-/* FOOTER */
 .slide-footer{padding:7px 28px;border-top:1px solid var(--gris-bord);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--texte-sec);flex-shrink:0;background:var(--gris)}
 .progress-dots{display:flex;gap:5px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--gris-bord);transition:all .3s}
-.dot.active{background:var(--bleu-mid)}
-.dot.done{background:#a0c0ea}
+.dot.active{background:var(--indigo)}
+.dot.done{background:#a0aaee}
 
-/* COMMON */
-.objectif-box{background:var(--bleu-clair);border-left:4px solid var(--bleu-mid);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;color:var(--bleu)}
-.objectif-box strong{font-family:'Outfit',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:3px}
+/* COMMUN */
+.objectif-box{background:var(--indigo-clair);border-left:4px solid var(--indigo);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;color:var(--indigo)}
+.objectif-box strong{font-family:'Outfit',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:3px;opacity:.7}
 .section-label{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--texte-sec);margin-bottom:6px}
 .alerte-box{background:var(--rouge-clair);border:2px solid var(--rouge);border-radius:10px;padding:9px 14px;display:flex;align-items:flex-start;gap:10px}
 .alerte-icon{font-size:20px;flex-shrink:0}
 .alerte-box h3{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:var(--rouge);margin-bottom:2px}
 .alerte-box p{font-size:11.5px;color:#7a1a10;line-height:1.4}
-.reveal-btn{background:white;border:2px solid var(--bleu-mid);color:var(--bleu-mid);border-radius:8px;padding:8px 18px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
-.reveal-btn:hover{background:var(--bleu-mid);color:white}
-.reveal-content{display:none}
-.reveal-content.shown{display:block}
+.info-box{background:var(--bleu-pale);border:1px solid #a0c0ea;border-radius:10px;padding:9px 14px;font-size:12.5px;color:var(--bleu);line-height:1.5}
+.vert-box{background:var(--vert-clair);border:1px solid var(--vert-bord);border-radius:10px;padding:9px 14px;font-size:12.5px;color:var(--vert);line-height:1.5}
 
-/* ===== SLIDE 1 : TITRE ===== */
-.titre-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:28px;background:linear-gradient(160deg,#f7f9ff 0%,#eef2fa 100%)}
-.titre-number{font-family:'Outfit',sans-serif;font-size:110px;font-weight:900;color:#dde5f5;line-height:1;user-select:none}
-.titre-main{font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;color:var(--bleu);text-align:center;line-height:1.15}
+/* TITRE */
+.titre-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:28px;background:linear-gradient(160deg,#f5f6ff 0%,#eaecf8 100%)}
+.titre-number{font-family:'Outfit',sans-serif;font-size:110px;font-weight:900;color:#c8ccf0;line-height:1;user-select:none}
+.titre-main{font-family:'Outfit',sans-serif;font-size:32px;font-weight:900;color:var(--indigo);text-align:center;line-height:1.15}
 .titre-sub{font-size:14px;color:var(--texte-sec);text-align:center;max-width:560px;line-height:1.65}
 .timing-row{display:flex;gap:16px}
 .timing-box{text-align:center;padding:10px 18px;background:white;border:1px solid var(--gris-bord);border-radius:10px}
-.timing-box .tv{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:var(--bleu)}
+.timing-box .tv{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:var(--indigo)}
 .timing-box .tl{font-size:10px;color:var(--texte-sec);text-transform:uppercase;letter-spacing:1px}
 .chips-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.chip{background:var(--bleu-clair);border:1px solid #a0c0ea;color:var(--bleu);border-radius:20px;padding:5px 14px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600}
+.chip{background:var(--indigo-clair);border:1px solid var(--indigo-bord);color:var(--indigo);border-radius:20px;padding:5px 14px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600}
 
-/* ===== SLIDE 2 : DEFINITIONS ===== */
-.def-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.def-card{background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:12px}
-.def-card .ic{font-size:20px;margin-bottom:5px}
-.def-card h3{font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;color:var(--bleu);margin-bottom:3px}
-.def-card p{font-size:12px;color:var(--texte-sec);line-height:1.5}
-.signes-row{display:flex;gap:8px;flex-wrap:wrap}
-.signe-chip{background:var(--orange-clair);border:1px solid var(--orange);color:#7a4400;border-radius:20px;padding:5px 12px;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600}
-.signe-chip.rouge{background:var(--rouge-clair);border-color:var(--rouge);color:#7a1010}
+/* ÉTAPES LVA */
+.lva-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.lva-card{background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:12px;text-align:center;position:relative}
+.lva-num{width:26px;height:26px;border-radius:50%;background:var(--indigo);color:white;font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+.lva-ic{font-size:26px;margin-bottom:6px}
+.lva-title{font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:var(--texte);margin-bottom:4px}
+.lva-desc{font-size:11px;color:var(--texte-sec);line-height:1.45}
 
-/* ===== DRAG & DROP : TIMELINE ===== */
-.dd-instruction{background:#fff8e1;border:1px dashed #f0c040;border-radius:8px;padding:7px 13px;font-size:12px;color:#7a5800;display:flex;align-items:center;gap:8px}
-.pool-zone{display:flex;flex-wrap:wrap;gap:6px;min-height:100px;padding:10px;background:var(--gris);border-radius:10px;border:1.5px dashed var(--gris-bord);align-items:flex-start;align-content:flex-start}
-/* TIMELINE SLOTS */
-.timeline{display:flex;align-items:flex-start;gap:0;width:100%;margin-top:4px}
-.timeline .tl-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
-.timeline .tl-step:not(:last-child)::after{content:'';position:absolute;top:24px;right:-1px;width:calc(50% + 1px);height:2px;background:var(--gris-bord);z-index:0}
-.timeline .tl-step:not(:first-child)::before{content:'';position:absolute;top:24px;left:0;width:50%;height:2px;background:var(--gris-bord);z-index:0}
-/* cat-flow uses tl-step too but without pseudo lines */
-.cat-flow .tl-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
-.cat-flow .tl-step::before,.cat-flow .tl-step::after{display:none!important}
-.tl-num{width:46px;height:46px;border-radius:50%;background:var(--bleu);color:white;font-family:'Outfit',sans-serif;font-weight:800;font-size:19px;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;border:3px solid white;box-shadow:0 0 0 2px var(--bleu)}
-.tl-slot{margin-top:8px;width:100%;min-height:72px;border:2px dashed var(--gris-bord);border-radius:10px;background:white;display:flex;align-items:center;justify-content:center;transition:all .2s;padding:5px;cursor:pointer}
-.tl-slot.drag-over{border-color:var(--bleu-mid);background:var(--bleu-clair)}
-.tl-slot.filled{border-style:solid;border-color:var(--gris-bord);padding:3px}
-.tl-slot.correct{border-color:var(--vert);background:var(--vert-clair)}
-.tl-slot.wrong{border-color:var(--rouge);background:var(--rouge-clair)}
+/* PLS ÉTAPES DÉTAILLÉES */
+.pls-temps{display:flex;flex-direction:column;gap:8px}
+.pls-temps-block{border-radius:10px;overflow:hidden;border:1.5px solid}
+.pls-temps-hd{padding:9px 14px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;transition:opacity .15s}
+.pls-temps-hd:hover{opacity:.85}
+.pls-temps-body{padding:10px 14px;font-size:12px;color:var(--texte-sec);line-height:1.6;display:none}
+.pls-temps-block.open .pls-temps-body{display:block}
+.pls-temps-block.t1{border-color:var(--indigo-bord)}
+.pls-temps-block.t1 .pls-temps-hd{background:var(--indigo-clair);color:var(--indigo)}
+.pls-temps-block.t2{border-color:var(--cyan-bord)}
+.pls-temps-block.t2 .pls-temps-hd{background:var(--cyan-clair);color:var(--cyan)}
+.pls-temps-block.t3{border-color:var(--vert-bord)}
+.pls-temps-block.t3 .pls-temps-hd{background:var(--vert-clair);color:var(--vert)}
+.pls-chevron{margin-left:auto;font-size:12px;transition:transform .2s}
+.pls-temps-block.open .pls-chevron{transform:rotate(90deg)}
+.pls-ul{list-style:none;display:flex;flex-direction:column;gap:4px}
+.pls-ul li{padding-left:14px;position:relative}
+.pls-ul li::before{content:'→';position:absolute;left:0;font-size:10px;color:var(--indigo)}
 
-/* STEP CARDS dans pool */
-.step-card{background:white;border:2px solid var(--gris-bord);border-radius:8px;padding:6px 10px;font-family:'Outfit',sans-serif;font-size:10.5px;font-weight:700;color:var(--texte);cursor:grab;user-select:none;transition:all .2s;display:flex;align-items:center;gap:5px;line-height:1.2;max-width:calc(50% - 4px)}
-.step-card:hover{border-color:var(--bleu-mid);box-shadow:0 2px 8px rgba(37,88,168,.15)}
-.step-card.dragging{opacity:.35;cursor:grabbing}
-.step-card.in-slot{width:100%;max-width:100%;justify-content:center;text-align:center;font-size:9.5px;border-color:transparent;background:transparent;cursor:grab;line-height:1.2;padding:4px}
-.step-card.in-slot.correct{color:var(--vert)}
-.step-card.in-slot.wrong{color:var(--rouge)}
-.step-card .step-icon{font-size:14px;flex-shrink:0}
-
-/* BOUTONS */
-.action-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:6px}
-.check-btn{background:var(--bleu-mid);color:white;border:none;border-radius:8px;padding:9px 22px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
-.check-btn:hover{background:var(--bleu)}
-.check-btn.rouge{background:var(--rouge)}
-.check-btn.rouge:hover{background:#8b1a1a}
-.reset-btn{background:white;color:var(--texte-sec);border:1px solid var(--gris-bord);border-radius:8px;padding:9px 16px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
-.reset-btn:hover{background:var(--gris)}
-.feedback-msg{padding:9px 14px;border-radius:8px;font-size:13px;font-family:'Outfit',sans-serif;font-weight:600;display:none}
-.feedback-msg.ok{background:var(--vert-clair);color:var(--vert);border:1px solid var(--vert-bord);display:block}
-.feedback-msg.ko{background:var(--rouge-clair);color:var(--rouge);border:1px solid var(--rouge-bord);display:block}
-
-/* ===== SLIDE 5 : POINTS CLES ===== */
-/* Texte exact des PDF - mis en forme comme Bergson */
-.cat-bloc{border-radius:10px;padding:16px 18px}
-.cat-bloc.bleu{background:var(--bleu-pale);border:1.5px solid #a0c0ea}
-.cat-bloc.rouge{background:var(--rouge-clair);border:1.5px solid var(--rouge-bord)}
-.cat-bloc h3{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
-.cat-bloc.bleu h3{color:var(--bleu)}
-.cat-bloc.rouge h3{color:var(--rouge)}
-
-/* Flèches CAT style Bergson */
-.cat-flow{display:flex;align-items:stretch;gap:0;flex-wrap:nowrap}
-.cat-item{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;min-width:0}
-.cat-box{background:white;border:2px solid #c8d8f0;border-radius:10px;padding:10px 8px;width:100%;font-family:'Outfit',sans-serif;font-size:11.5px;font-weight:700;color:var(--bleu);line-height:1.3;min-height:60px;display:flex;align-items:center;justify-content:center}
-.cat-box.rouge{border-color:var(--rouge-bord);color:var(--rouge)}
-.cat-arrow{align-self:center;color:var(--bleu-mid);font-size:20px;flex-shrink:0;padding:0 4px}
-.cat-arrow.rouge{color:var(--rouge)}
-
-.interdiction-box{background:var(--rouge-clair);border:2px solid var(--rouge);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:14px;margin-top:4px}
-.inter-icon{width:44px;height:44px;background:var(--rouge);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:22px;flex-shrink:0}
-.interdiction-box p{font-size:13px;color:#7a1a10;line-height:1.5;font-family:'Outfit',sans-serif;font-weight:600}
-
-/* ===== ALERTE ITEMS REVEAL ===== */
-@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.04)}100%{transform:scale(1)}}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.85;transform:scale(1.03)}}
-.alerte-item{
-  border-radius:8px;margin-bottom:7px;cursor:pointer;
-  transition:transform .15s;overflow:hidden;
-  border:1.5px solid rgba(255,255,255,.15);
+/* RÉORDONNER */
+.reorder-wrap{display:flex;gap:14px}
+.reorder-pool{flex:1;display:flex;flex-direction:column;gap:6px}
+.reorder-zone{flex:1;display:flex;flex-direction:column;gap:6px}
+.pool-label{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--texte-sec);margin-bottom:4px}
+.ro-item{
+  background:white;border:1.5px solid var(--indigo-bord);border-radius:8px;
+  padding:9px 13px;cursor:grab;user-select:none;
+  display:flex;align-items:center;gap:10px;
+  font-size:12.5px;color:var(--texte);font-family:'Outfit',sans-serif;font-weight:600;
+  transition:all .2s;
 }
-.alerte-item:hover{transform:scale(1.01)}
-.alerte-item:active{transform:scale(.98)}
-.ai-mask{
-  background:rgba(255,255,255,.08);
-  padding:9px 12px;display:flex;align-items:center;gap:10px;
+.ro-item:hover{border-color:var(--indigo);background:var(--indigo-clair);transform:translateY(-1px)}
+.ro-item.dragging{opacity:.4;cursor:grabbing}
+.ro-item .ro-num{width:22px;height:22px;border-radius:50%;background:var(--indigo-clair);border:1.5px solid var(--indigo-bord);color:var(--indigo);font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ro-item.correct{background:var(--vert-clair);border-color:var(--vert);color:var(--vert)}
+.ro-item.correct .ro-num{background:var(--vert);border-color:var(--vert);color:white}
+.ro-item.wrong{background:var(--rouge-clair);border-color:var(--rouge);color:var(--rouge)}
+.ro-item.wrong .ro-num{background:var(--rouge);border-color:var(--rouge);color:white}
+.drop-zone{
+  background:var(--gris);border:2px dashed var(--gris-bord);border-radius:8px;
+  padding:9px 13px;min-height:44px;display:flex;align-items:center;
+  font-size:11px;color:var(--texte-sec);font-style:italic;
+  transition:background .15s,border-color .15s;
 }
-.ai-num{
-  width:24px;height:24px;border-radius:50%;
-  background:rgba(255,255,255,.2);color:white;
-  font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-.ai-question{font-size:12.5px;font-weight:700;color:white;font-family:'Outfit',sans-serif;flex:1;}
-.ai-hint{font-size:10px;opacity:.5;color:white;font-family:'Outfit',sans-serif;white-space:nowrap;}
-.ai-content{
-  display:none;background:rgba(255,255,255,.14);
-  padding:9px 12px;animation:fadeIn .35s ease, pop .35s ease;
-}
-.ai-label{display:block;font-size:9.5px;opacity:.6;font-family:'Outfit',sans-serif;
-  text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
-.ai-text{font-size:12.5px;font-weight:600;color:white;line-height:1.45;}
-.alerte-item.revealed .ai-mask{display:none}
-.alerte-item.revealed .ai-content{display:block}
-.alerte-item.revealed{border-color:rgba(100,220,100,.35);cursor:default}
-.alerte-item.revealed:hover{transform:none}
-.cc-box{background:var(--bleu);color:white;border-radius:12px;padding:18px 22px}
-.cc-badge{background:rgba(255,255,255,.15);border-radius:6px;display:inline-block;padding:3px 12px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
-.cc-box h3{font-family:'Outfit',sans-serif;font-size:17px;font-weight:800;margin-bottom:6px}
-.cc-box .stxt{font-size:13.5px;line-height:1.7;opacity:.93}
-.cc-crit{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-.crit{background:rgba(255,255,255,.1);border-radius:8px;padding:9px 12px;font-size:12px;display:flex;align-items:center;gap:8px}
-.chrono-zone{display:flex;align-items:center;gap:14px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.2)}
-#chrono-display{font-family:'Outfit',sans-serif;font-size:34px;font-weight:800;color:white;min-width:80px}
-.c-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:white;border-radius:8px;padding:7px 16px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s}
-.c-btn:hover{background:rgba(255,255,255,.25)}
-.c-btn.start{background:var(--vert);border-color:var(--vert)}
-.c-btn.stop{background:var(--rouge);border-color:var(--rouge)}
+.drop-zone.dragover{background:var(--indigo-clair);border-color:var(--indigo)}
+.drop-zone.filled{background:white;border-style:solid;border-color:var(--indigo-bord);font-style:normal;color:var(--texte)}
+.ro-btn{background:var(--indigo);color:white;border:none;padding:8px 20px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s}
+.ro-btn:hover{background:#1e2d7a}
+.ro-reset{background:white;color:var(--texte-sec);border:1.5px solid var(--gris-bord);padding:8px 16px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-left:6px}
+.ro-score{padding:8px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;display:none}
+
+/* CC */
+.cc-header{color:white;padding:13px 18px;border-radius:10px;margin-bottom:10px}
+.cc-tag{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:3px}
+.cc-header h3{font-family:'Outfit',sans-serif;font-size:15px;font-weight:800}
+.cc-scene{background:#f0f6ff;border:1.5px solid #a0c0ea;border-radius:10px;padding:12px 16px;font-size:13px;color:var(--texte);line-height:1.6;margin-bottom:8px}
+.cc-scene strong{color:var(--bleu)}
+.cc-step{background:var(--gris);border:1.5px solid var(--gris-bord);border-radius:10px;overflow:hidden;margin-bottom:6px}
+.cc-step-hd{padding:9px 14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-family:'Outfit',sans-serif;font-size:12.5px;font-weight:700;color:var(--texte);transition:background .2s;user-select:none}
+.cc-step-hd:hover{background:#e8eaf0}
+.chevron{font-size:12px;color:var(--texte-sec);transition:transform .2s}
+.cc-step.open .chevron{transform:rotate(90deg)}
+.cc-step-body{display:none;padding:9px 14px;font-size:12px;color:var(--texte-sec);line-height:1.6;border-top:1px solid var(--gris-bord)}
+.cc-step.open .cc-step-body{display:block}
+.cc-step.ok .cc-step-hd{background:var(--vert-clair);color:var(--vert)}
+.cc-step.ok .cc-step-body{background:#f5fdf9;border-color:var(--vert-bord)}
+.debrief-box{background:linear-gradient(135deg,#1a3a6b,#0d1f3c);color:white;border-radius:10px;padding:12px 16px;font-size:12px;line-height:1.6;margin-top:8px}
+.debrief-box h4{font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:5px}
 
     /* FCC */
-    .fcc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
-    .fcc-box{background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:8px 10px}
+    .fcc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
+    .fcc-wrap.single{grid-template-columns:1fr}
+    .fcc-box{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.2);border-radius:9px;padding:9px 11px}
     .fcc-box.span2{grid-column:1/-1}
-    .fcc-lbl{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);margin-bottom:3px;font-family:'Outfit',sans-serif}
-    .fcc-val{font-size:11px;color:rgba(255,255,255,.9);line-height:1.4}
-    .fcc-row{display:flex;gap:5px;align-items:flex-start;margin-bottom:3px;font-size:10.5px;color:rgba(255,255,255,.85);line-height:1.35}
+    .fcc-lbl{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);margin-bottom:3px;font-family:'Outfit',sans-serif}
+    .fcc-val{font-size:11.5px;color:rgba(255,255,255,.9);line-height:1.45}
+    .fcc-row{display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;font-size:11px;color:rgba(255,255,255,.85);line-height:1.4}
     .fcc-row:last-child{margin-bottom:0}
-    .fcc-ico{font-size:12px;flex-shrink:0}
-    .fcc-row b{display:block;font-size:7.5px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.38);font-weight:700;margin-bottom:1px}
-    .fcc-chips{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px}
-    .fcc-chip{background:rgba(255,255,255,.1);border:.5px solid rgba(255,255,255,.2);border-radius:5px;padding:1px 6px;font-size:9.5px;color:rgba(255,255,255,.8)}
+    .fcc-ico{font-size:13px;flex-shrink:0}
+    .fcc-row b{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);font-weight:700;margin-bottom:1px}
+    .fcc-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+    .fcc-chip{background:rgba(255,255,255,.11);border:.5px solid rgba(255,255,255,.22);border-radius:5px;padding:1px 7px;font-size:10px;color:rgba(255,255,255,.82)}
+    .fcc-sep{height:1px;background:rgba(255,255,255,.1);margin:7px 0}
+
+    /* CC slide - use full height to avoid scroll */
+    .slide-body { overflow-y: auto; }
+    #cc-t1, [id$="-t1"] { overflow-y: visible; }
+    .fcc-wrap { font-size: 11px; }
 
     /* ── JEU INTERACTIF ── */
     .game-dark{background:#0d0820;flex:1;display:flex;flex-direction:column;gap:8px;padding:12px 18px}
@@ -233,1432 +188,809 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     .timer-bar-wrap{height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
     .timer-bar{height:100%;background:#f0c040;border-radius:3px;transition:width .1s linear}
 
-    /* ── BLOC TECHNIQUE PÉDAGOGIQUE ACCORDÉON ── */
-    .tech-peda-block { border-radius:10px; }
-    .tech-peda-toggle {
-      display:flex !important; align-items:center; justify-content:space-between;
-      cursor:pointer; user-select:none; padding:10px 14px; gap:10px; min-height:44px;
-    }
-    .tech-peda-toggle:hover { filter:brightness(1.15); }
-    .tech-chevron {
-      font-size:18px; color:#7fa8d4; flex-shrink:0;
-      transition:transform .25s ease; line-height:1;
-    }
-    .tech-peda-block.open .tech-chevron { transform:rotate(180deg); }
-    .tech-peda-body { display:none; padding:0 14px 12px; }
-    .tech-peda-block.open .tech-peda-body { display:block; }
-
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <div id="nav">
-  <div class="logo">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-    <span>PSC1</span>&nbsp;— Scénario 5
-  </div>
+  <div class="logo">💤 <span>PSC1</span> · Perte de connaissance</div>
   <div id="nav-pills">
     <div class="pill" onclick="goToDashboard()" style="border-color:#1a5a35;color:#80cba0;">← Dashboard</div>
     <div class="pill active" onclick="goSlide(0)">Titre</div>
-    <div class="pill" onclick="goSlide(1)">Définitions</div>
-    <div class="pill" onclick="goSlide(2)">CAT membre</div>
-    <div class="pill" onclick="goSlide(3)">CAT cou</div>
-    <div class="pill" onclick="goSlide(4)">Ce qu'il faut retenir</div>
-    <div class="pill" onclick="goSlide(5)">🧩 Qui suis-je ?</div>
-    <div class="pill" onclick="goSlide(6)">🛡️ Protection &amp; Alerte</div>
-    <div class="pill" onclick="goSlide(7)">Cas Concret</div>
-    <div class="pill" onclick="goSlide(8)" style="border-color:#1a4a35;color:#25c492;">🎓 Rappel</div>
+    <div class="pill" onclick="goSlide(1)">Définition &amp; risques</div>
+    <div class="pill" onclick="goSlide(2)">LVA — Libérer les voies aériennes</div>
+    <div class="pill" onclick="goSlide(3)">PLS — Position latérale de sécurité</div>
+    <div class="pill" onclick="goSlide(4)">PLS Nourrisson</div>
+    <div class="pill" onclick="goSlide(5)">🎯 Remettre dans l'ordre</div>
+    <div class="pill" onclick="goSlide(6)">⚡ Bonne décision</div>
+    <div class="pill" onclick="goSlide(7)">🛡️ Protection &amp; Alerte</div>
+    <div class="pill" onclick="goSlide(8)">Cas Concret</div>
   </div>
   <div id="nav-btns">
-    <span id="slide-counter">1 / 9</span>
-    <button class="nav-btn" onclick="prevSlide()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>Préc.
-    </button>
-    <button class="nav-btn" onclick="nextSlide()">
-      Suiv.<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9,18 15,12 9,6"/></svg>
-    </button>
+    <div id="slide-counter">1 / 8</div>
+    <button class="nav-btn" onclick="prevSlide()">← Préc.</button>
+    <button class="nav-btn" onclick="nextSlide()">Suiv. →</button>
   </div>
 </div>
 
 <div id="stage">
 
-<!-- ===== SLIDE 1 : TITRE ===== -->
-<div class="slide active" id="slide-0">
-  <div class="slide-header">
-    <div class="left">
-      <div class="sup">Scénario 5 — FOAD + Présentiel · Chapitre 3</div>
-      <h1>TRAUMATISME</h1>
-      <div style="font-size:13px;opacity:.75;margin-top:4px;">Des os, des articulations et des organes</div>
-    </div>
-    <div style="text-align:right;">
-      <div style="font-family:'Outfit',sans-serif;font-size:10px;opacity:.65;line-height:1.5;">Ministère de l'Éducation nationale<br>et de la Jeunesse · PSC1 · RIFC 2022 ver.12</div>
-    </div>
-  </div>
-  <div class="titre-body">
-    <div class="titre-number">3</div>
-    <div class="titre-main">Traumatisme<br>des os, articulations et organes</div>
-    <div class="titre-sub">À la fin de cette partie, vous serez capable d'agir face à une victime présentant un traumatisme, en reconnaissant les signes et en réalisant les gestes de secours adaptés et nécessaires.</div>
-    <div class="timing-row">
-      <div class="timing-box">
-        <div class="tv">15'</div><div class="tl">FOAD (déjà fait)</div>
+  <!-- SLIDE 0 : TITRE -->
+  <div class="slide active">
+    <div class="titre-body">
+      <div class="titre-number">9</div>
+      <div class="titre-main">💤 Perte de connaissance</div>
+      <div class="titre-sub">Stimuler · Libérer les voies aériennes · Apprécier la respiration · PLS adulte et nourrisson · Surveiller jusqu'aux secours</div>
+      <div class="timing-row">
+        <div class="timing-box"><div class="tv">30'</div><div class="tl">Durée estimée</div></div>
+        <div class="timing-box"><div class="tv">1</div><div class="tl">Cas concret</div></div>
+        <div class="timing-box"><div class="tv">5e</div><div class="tl">Classe</div></div>
       </div>
-      <div class="timing-box" style="border-color:var(--bleu-mid);">
-        <div class="tv" style="color:var(--bleu-mid);">20'</div><div class="tl">Présentiel aujourd'hui</div>
-      </div>
-      <div class="timing-box">
-        <div class="tv">1</div><div class="tl">Cas Concret</div>
-      </div>
-    </div>
-    <div class="chips-row">
-      <div class="chip">REFOR — Reformulation</div>
-      <div class="chip">APG(M) — Douleur du cou</div>
-      <div class="chip">Compétence H1</div>
-    </div>
-  </div>
-  <div class="slide-footer">
-    <span>Formation PSC1 · Collège</span>
-    <div class="progress-dots" id="dots-0"></div>
-    <span>Slide 1/7</span>
-  </div>
-</div>
-
-<!-- ===== SLIDE 2 : DÉFINITIONS ===== -->
-<div class="slide" id="slide-1">
-  <div class="slide-header">
-    <div class="left">
-      <div class="sup">Chapitre 3 · Activité d'apprentissage — Reformulation</div>
-      <h2>Qu'est-ce qu'un traumatisme ?</h2>
-    </div>
-    <div class="badge-dur"><div class="v">3'</div><div class="l">Reformulation</div></div>
-  </div>
-  <div class="slide-body">
-    <div class="objectif-box">
-      <strong>Question orale au groupe</strong>
-      Vous avez fait la FOAD. Qu'est-ce qu'un traumatisme ? Quels types de lésions peut-on voir ?
-    </div>
-    <div class="section-label">Définition — Les 3 types de lésions traumatiques</div>
-    <div class="def-grid">
-      <div class="def-card">
-        <div class="ic">🦴</div>
-        <h3>Os — Fracture</h3>
-        <p>Rupture de la continuité d'un os. Peut être visible (déformation) ou non.</p>
-      </div>
-      <div class="def-card">
-        <div class="ic">🔗</div>
-        <h3>Articulations</h3>
-        <p><strong>Entorse</strong> (élongation ligamentaire) ou <strong>luxation</strong> (déboîtement).</p>
-      </div>
-      <div class="def-card">
-        <div class="ic">🫁</div>
-        <h3>Organes</h3>
-        <p>Choc sur tête, thorax ou abdomen → atteinte possible des organes sous-jacents.</p>
-      </div>
-    </div>
-    <div class="section-label">Causes</div>
-    <div class="signes-row">
-      <div class="signe-chip">⚡ Choc / Coup</div>
-      <div class="signe-chip">⚡ Chute</div>
-      <div class="signe-chip">⚡ Faux mouvement</div>
-    </div>
-    <div class="section-label">Signes immédiats possibles</div>
-    <div class="signes-row">
-      <div class="signe-chip rouge">😣 Douleur vive</div>
-      <div class="signe-chip rouge">🚫 Difficulté / impossibilité de bouger</div>
-      <div class="signe-chip rouge">🫥 Gonflement</div>
-      <div class="signe-chip rouge">📐 Déformation</div>
-    </div>
-    <div class="alerte-box">
-      <div class="alerte-icon">⚠️</div>
-      <div>
-        <h3>Risque colonne vertébrale</h3>
-        <p>Lorsque le traumatisme se situe au niveau de la colonne vertébrale (douleur du dos ou de la nuque), une atteinte de la moelle épinière est possible. <strong>Le sauveteur ne doit pas mobiliser la victime.</strong></p>
-      </div>
-    </div>
-  </div>
-  <div class="slide-footer">
-    <span>Définitions — Signes — Causes</span>
-    <div class="progress-dots" id="dots-1"></div>
-    <span>Slide 2/7</span>
-  </div>
-</div>
-
-<!-- ===== SLIDE 3 : CAT MEMBRE drag & drop timeline ===== -->
-<div class="slide" id="slide-2">
-  <div class="slide-header">
-    <div class="left">
-      <div class="sup">Chapitre 3 · CAT · Victime consciente — traumatisme d'un membre</div>
-      <h2>Remets les étapes dans le bon ordre !</h2>
-    </div>
-    <div class="badge-dur"><div class="v">5'</div><div class="l">Activité</div></div>
-  </div>
-  <div class="slide-body">
-    <div class="dd-instruction">🖐️ Un élève vient déposer les étapes dans la bonne case. Les autres peuvent l'aider à voix haute.</div>
-
-    <div class="section-label">Pioche une étape et dépose-la sur la bonne case ↓</div>
-    <div class="pool-zone" id="pool-1"></div>
-
-    <div class="section-label">La CAT dans le bon ordre</div>
-    <div class="timeline" id="timeline-1">
-      <div class="tl-step">
-        <div class="tl-num">1</div>
-        <div class="tl-slot" id="slot-1-0" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'1')" ontouchend="tdrop(event,this,'1')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
-        </div>
-      </div>
-      <div class="cat-arrow">→</div>
-      <div class="tl-step">
-        <div class="tl-num">2</div>
-        <div class="tl-slot" id="slot-1-1" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'1')" ontouchend="tdrop(event,this,'1')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
-        </div>
-      </div>
-      <div class="cat-arrow">→</div>
-      <div class="tl-step">
-        <div class="tl-num">3</div>
-        <div class="tl-slot" id="slot-1-2" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'1')" ontouchend="tdrop(event,this,'1')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
-        </div>
-      </div>
-      <div class="cat-arrow">→</div>
-      <div class="tl-step">
-        <div class="tl-num">4</div>
-        <div class="tl-slot" id="slot-1-3" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'1')" ontouchend="tdrop(event,this,'1')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="action-row">
-      <button class="check-btn" onclick="checkDD('1')">✓ Vérifier</button>
-      <button class="reset-btn" onclick="resetDD('1')">↺ Recommencer</button>
-      <button class="reveal-btn" onclick="toggleReveal('r1')">👁 Voir la réponse</button>
-    </div>
-    <div class="feedback-msg" id="fb-1"></div>
-    <div class="reveal-content" id="r1" style="margin-top:6px;">
-      <div class="objectif-box">
-        <strong>Réponse correcte</strong>
-        1. Conseiller fermement de ne pas mobiliser la partie atteinte → 2. Faire alerter ou alerter les secours et appliquer leurs consignes → 3. Protéger de la chaleur, du froid ou des intempéries → 4. Surveiller la victime et lui parler régulièrement
-      </div>
-    </div>
-  </div>
-  <div class="slide-footer">
-    <span>REFOR — Activité interactive — un élève au clavier</span>
-    <div class="progress-dots" id="dots-2"></div>
-    <span>Slide 3/7</span>
-  </div>
-</div>
-
-<!-- ===== SLIDE 4 : CAT DOULEUR DU COU ===== -->
-<div class="slide" id="slide-3">
-  <div class="slide-header" style="background:#8b1a1a;">
-    <div class="left">
-      <div class="sup">Chapitre 3 · CAT · Douleur du cou après traumatisme — APG(M)</div>
-      <h2>Douleur du cou (rachis cervical) — Remets dans l'ordre !</h2>
-    </div>
-    <div class="badge-dur"><div class="v">5'</div><div class="l">Activité</div></div>
-  </div>
-  <div class="slide-body">
-    <div class="alerte-box">
-      <div class="alerte-icon">🚨</div>
-      <div>
-        <h3>Situation à risque majeur — Suspicion de traumatisme du rachis cervical</h3>
-        <p>Une atteinte de la moelle épinière est possible. Ne jamais mobiliser la tête. Technique APG(M).</p>
-      </div>
-    </div>
-
-    <!-- RAPPEL TECHNIQUE APG(M) — accordéon -->
-    <div class="tech-peda-block" style="background:linear-gradient(135deg,#1a2d4a,#1e3560);border:1.5px solid #2a4a7f;">
-      <div class="tech-peda-toggle" onclick="this.closest('.tech-peda-block').classList.toggle('open')">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span style="font-size:20px;flex-shrink:0;">🪞</span>
-          <span style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#7fa8d4;">
-            Technique pédagogique — APG(M) · Atelier Pratique du Geste en Miroir
-          </span>
-        </div>
-        <span class="tech-chevron">▾</span>
-      </div>
-      <div class="tech-peda-body">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11.5px;color:#a0c0e0;line-height:1.6;">
-          <div>
-            <div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:#5a8abf;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Le formateur</div>
-            <ul style="padding-left:14px;margin:0;">
-              <li>Constitue des binômes (sauveteur / victime)</li>
-              <li>Réalise 2 à 3 fois les gestes <strong style="color:white;">en demandant aux élèves de faire en même temps</strong></li>
-              <li>Demande ensuite de faire l'ensemble de la CAT</li>
-              <li>Évalue la maîtrise des gestes et de la CAT</li>
-            </ul>
-          </div>
-          <div>
-            <div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:#5a8abf;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">L'apprenant</div>
-            <ul style="padding-left:14px;margin:0;">
-              <li>En binôme, <strong style="color:white;">réalise les gestes en même temps</strong> que le formateur</li>
-              <li>Passe successivement sauveteur → victime → témoin</li>
-              <li>Refait ensuite l'ensemble de la CAT</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="dd-instruction">🖐️ Un autre élève vient déposer les étapes. Le groupe l'aide.</div>
-    <div class="section-label">Étapes disponibles</div>
-    <div class="pool-zone" id="pool-2"></div>
-    <div class="section-label">La CAT dans le bon ordre</div>
-    <div class="timeline" id="timeline-2">
-      <div class="tl-step">
-        <div class="tl-num" style="background:#8b1a1a;box-shadow:0 0 0 2px #8b1a1a;">1</div>
-        <div class="tl-slot" id="slot-2-0" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'2')" ontouchend="tdrop(event,this,'2')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
-        </div>
-      </div>
-      <div class="cat-arrow rouge">→</div>
-      <div class="tl-step">
-        <div class="tl-num" style="background:#8b1a1a;box-shadow:0 0 0 2px #8b1a1a;">2</div>
-        <div class="tl-slot" id="slot-2-1" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'2')" ontouchend="tdrop(event,this,'2')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
-        </div>
-      </div>
-      <div class="cat-arrow rouge">→</div>
-      <div class="tl-step">
-        <div class="tl-num" style="background:#8b1a1a;box-shadow:0 0 0 2px #8b1a1a;">3</div>
-        <div class="tl-slot" id="slot-2-2" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'2')" ontouchend="tdrop(event,this,'2')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
-        </div>
-      </div>
-      <div class="cat-arrow rouge">→</div>
-      <div class="tl-step">
-        <div class="tl-num" style="background:#8b1a1a;box-shadow:0 0 0 2px #8b1a1a;">4</div>
-        <div class="tl-slot" id="slot-2-3" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'2')" ontouchend="tdrop(event,this,'2')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
-        </div>
-      </div>
-    </div>
-    <div class="action-row">
-      <button class="check-btn rouge" onclick="checkDD('2')">✓ Vérifier</button>
-      <button class="reset-btn" onclick="resetDD('2')">↺ Recommencer</button>
-      <button class="reveal-btn" onclick="toggleReveal('r2')">👁 Voir la réponse</button>
-    </div>
-    <div class="feedback-msg" id="fb-2"></div>
-    <div class="reveal-content" id="r2" style="margin-top:6px;">
-      <div class="alerte-box">
-        <div class="alerte-icon">✅</div>
-        <div>
-          <h3 style="color:var(--vert)">Réponse correcte</h3>
-          <p style="color:#0e4a2b;">1. Demander à la victime de ne pas bouger la tête → 2. Faire alerter ou alerter les secours et appliquer leurs consignes → 3. Si possible : stabiliser le rachis cervical dans la position où il se trouve en maintenant à 2 mains → 4. Surveiller la victime régulièrement</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slide-footer">
-    <span>APG(M) — Activité interactive</span>
-    <div class="progress-dots" id="dots-3"></div>
-    <span>Slide 4/7</span>
-  </div>
-</div>
-
-<!-- ===== SLIDE 5 : CE QU'IL FAUT RETENIR ===== -->
-<div class="slide" id="slide-4">
-  <div class="slide-header">
-    <div class="left">
-      <div class="sup">Chapitre 3 · Bilan</div>
-      <h2>Ce qu'il faut retenir</h2>
-    </div>
-  </div>
-  <div class="slide-body" style="gap:12px;">
-
-    <!-- CAT 1 : membre -->
-    <div class="cat-bloc bleu">
-      <h3>Si la victime est consciente et présente immédiatement des signes</h3>
-      <div class="cat-flow">
-        <div class="tl-step" style="flex:1;"><div class="cat-box">CONSEILLER fermement de ne pas mobiliser la partie atteinte</div></div>
-        <div style="align-self:center;font-size:20px;color:var(--bleu-mid);padding:0 4px;flex-shrink:0;">→</div>
-        <div class="tl-step" style="flex:1;"><div class="cat-box">FAIRE ALERTER ou ALERTER les secours et appliquer leurs consignes</div></div>
-        <div style="align-self:center;font-size:20px;color:var(--bleu-mid);padding:0 4px;flex-shrink:0;">→</div>
-        <div class="tl-step" style="flex:1;"><div class="cat-box">PROTÉGER de la chaleur, du froid et des intempéries</div></div>
-        <div style="align-self:center;font-size:20px;color:var(--bleu-mid);padding:0 4px;flex-shrink:0;">→</div>
-        <div class="tl-step" style="flex:1;"><div class="cat-box">SURVEILLER la victime et lui parler régulièrement</div></div>
-      </div>
-    </div>
-
-    <!-- CAT 2 : cou -->
-    <div class="cat-bloc rouge">
-      <h3>Si la victime présente une douleur du cou à la suite d'un traumatisme (rachis cervical)</h3>
-      <div class="cat-flow">
-        <div class="tl-step" style="flex:1;"><div class="cat-box rouge">DEMANDER à la victime de ne pas bouger la tête</div></div>
-        <div style="align-self:center;font-size:20px;color:var(--rouge);padding:0 4px;flex-shrink:0;">→</div>
-        <div class="tl-step" style="flex:1;"><div class="cat-box rouge">FAIRE ALERTER ou ALERTER les secours et appliquer leurs consignes</div></div>
-        <div style="align-self:center;font-size:20px;color:var(--rouge);padding:0 4px;flex-shrink:0;">→</div>
-        <div class="tl-step" style="flex:1;"><div class="cat-box rouge">Si possible : STABILISER le rachis cervical dans la position où il se trouve en maintenant à 2 mains</div></div>
-        <div style="align-self:center;font-size:20px;color:var(--rouge);padding:0 4px;flex-shrink:0;">→</div>
-        <div class="tl-step" style="flex:1;"><div class="cat-box rouge">SURVEILLER la victime régulièrement</div></div>
-      </div>
-    </div>
-
-    <!-- Ligne du bas : interdit + maintien tête côte à côte -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-
-      <!-- Interdiction fracture + PC -->
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div class="interdiction-box">
-          <div class="inter-icon">🚫</div>
-          <p>Si la victime présente une <strong>fracture de membre déplacée</strong> : ne pas tenter de la réaligner</p>
-        </div>
-        <div class="alerte-box">
-          <div class="alerte-icon">⚠️</div>
-          <div>
-            <h3>Si la victime a perdu connaissance</h3>
-            <p>Adopter la conduite à tenir face à une perte de connaissance.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- ENCADRÉ MAINTIEN TÊTE — mot pour mot PDF 2024 PSC1 -->
-      <div style="background:#fff8e1;border:2.5px solid #e6a800;border-radius:12px;padding:14px 16px;">
-        <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#7a5000;margin-bottom:10px;display:flex;align-items:center;gap:8px;">
-          🤲 Maintien de la tête — Réalisation
-        </div>
-        <ul style="padding-left:16px;font-size:12px;color:#4a3000;line-height:1.85;font-family:'Inter',sans-serif;">
-          <li>demander à la victime de ne pas bouger la tête et la prévenir de ce que l'on va faire ;</li>
-          <li>se placer en position stable à genou dans l'axe de la victime, au niveau de sa tête ;</li>
-          <li style="background:#ffe082;border-radius:4px;padding:2px 4px;list-style:none;margin-left:-4px;padding-left:8px;"><strong>prendre appui avec les coudes sur le sol ou sur les genoux ;</strong></li>
-          <li>placer les mains de chaque côté de sa tête pour la maintenir dans la position où elle se trouve.</li>
-        </ul>
-        <div style="margin-top:10px;background:#e6a800;border-radius:8px;padding:8px 12px;">
-          <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#4a3000;margin-bottom:5px;">Points clés</div>
-          <div style="font-size:12px;color:#2a1800;line-height:1.7;">
-            Le maintien de la tête est efficace lorsque :<br>
-            &bull; le sauveteur est en position stable ;<br>
-            &bull; le maintien de la tête limite ses mouvements
-          </div>
-        </div>
-      </div>
-    </div><!-- fin grid bas -->
-
-    <!-- MÉMO FORMATEUR : APGM à faire ici -->
-    <div style="background:linear-gradient(135deg,#2a1a4a,#3a1a6b);border:2px solid #7f77dd;border-radius:12px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;margin-top:4px;">
-      <div style="font-size:24px;flex-shrink:0;">📋</div>
-      <div style="flex:1;">
-        <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#afa9ec;margin-bottom:6px;">
-          ⚠️ Mémo formateur — APGM à faire maintenant !
-        </div>
-        <div style="font-size:12px;color:#cecbf6;line-height:1.7;">
-          <strong style="color:white;">Faire réaliser la CAT complète avec maintien de tête en même temps que vous.</strong><br>
-          Si un élève n'a pas réalisé le maintien de tête, il doit <strong style="color:#ffe066;">refaire toute la CAT depuis le début</strong>.
-        </div>
-        <div style="margin-top:8px;background:rgba(127,119,221,.2);border-radius:8px;padding:8px 12px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
-          <div style="font-size:11px;color:#afa9ec;text-align:center;padding:4px;background:rgba(255,255,255,.06);border-radius:5px;">
-            <div style="font-size:16px;">🗣️</div>
-            <div>Demander de<br>ne pas bouger la tête</div>
-          </div>
-          <div style="font-size:11px;color:#afa9ec;text-align:center;padding:4px;background:rgba(255,255,255,.06);border-radius:5px;">
-            <div style="font-size:16px;">📞</div>
-            <div>Alerter ou faire<br>alerter les secours</div>
-          </div>
-          <div style="font-size:11px;color:#ffe066;text-align:center;padding:4px;background:rgba(250,200,0,.1);border-radius:5px;border:1px solid rgba(250,200,0,.3);">
-            <div style="font-size:16px;">🤲</div>
-            <div><strong>Maintenir la tête<br>à 2 mains ★</strong></div>
-          </div>
-          <div style="font-size:11px;color:#afa9ec;text-align:center;padding:4px;background:rgba(255,255,255,.06);border-radius:5px;">
-            <div style="font-size:16px;">👁️</div>
-            <div>Surveiller et<br>parler à la victime</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <div class="slide-footer">
-    <span>Ce qu'il faut retenir — Texte exact PSC1 2024</span>
-    <div class="progress-dots" id="dots-4"></div>
-    <span>Slide 5/7</span>
-  </div>
-</div>
-
-
-  <!-- SLIDE 5 : QUI SUIS-JE ? TRAUMATISMES -->
-  <div class="slide" id="slide-5">
-    <div class="slide-header">
-      <div class="left"><div class="sup">Chapitre 3 · Jeu interactif</div><h2>🧩 Qui suis-je ? — Devine le traumatisme !</h2></div>
-      <div class="badge-dur"><div class="v">🩴</div><div class="l">Jeu</div></div>
-    </div>
-    <div class="slide-body game-dark">
-      <!-- CONFIG -->
-      <div id="qsj-config" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center">
-        <div style="font-size:52px">🧩</div>
-        <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:white">Qui suis-je ?</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.6);max-width:420px;line-height:1.6">
-          Des indices apparaissent <strong style="color:#f0c040">un par un</strong>. Devine le traumatisme le plus <strong style="color:#f0c040">tôt possible</strong> — plus vite tu trouves, plus tu marques de points !<br><br>
-          <em>3 pts si tu trouves au 1er indice · 2 pts au 2e · 1 pt au 3e</em>
-        </div>
-        <button onclick="qsjStart()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 32px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;cursor:pointer">▶ Commencer</button>
-      </div>
-      <!-- JEU -->
-      <div id="qsj-game" style="display:none;flex:1;flex-direction:column;gap:8px">
-        <div class="game-score-row">
-          <div style="color:rgba(255,255,255,.5);font-size:12px">Question <span id="qsj-qnum">1</span>/6</div>
-          <div>⭐ Score : <span class="game-score-val" id="qsj-score">0</span></div>
-          <button class="game-restart-btn" onclick="qsjRestart()">↺ Recommencer</button>
-        </div>
-        <div class="game-q-box">
-          <div class="game-q-type">🔍 Indices révélés</div>
-          <div id="qsj-indices" style="font-family:'Outfit',sans-serif;font-size:14px;color:white;line-height:1.8;text-align:left;min-height:80px"></div>
-          <button id="qsj-more-btn" onclick="qsjMoreIndice()" style="margin-top:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);border-radius:8px;padding:6px 16px;font-size:12px;cursor:pointer">+ Indice suivant (-1 pt possible)</button>
-        </div>
-        <div class="game-opts" id="qsj-opts"></div>
-        <div class="game-fb" id="qsj-fb"></div>
-        <div style="text-align:center"><button class="game-next-btn" id="qsj-next-btn" onclick="qsjNext()">Question suivante →</button></div>
-      </div>
-      <!-- FIN -->
-      <div id="qsj-end" style="display:none;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:16px;text-align:center">
-        <div style="font-size:52px">🏆</div>
-        <div style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:white">Fin du jeu !</div>
-        <div style="font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;color:#f0c040" id="qsj-final-score"></div>
-        <div style="font-size:13px;color:rgba(255,255,255,.6)" id="qsj-final-msg"></div>
-        <button onclick="qsjRestart()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:8px;padding:10px 24px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer">↺ Rejouer</button>
+      <div class="chips-row">
+        <span class="chip">REFOR + APG</span>
+        <span class="chip">LVA &amp; PLS</span>
+        <span class="chip">Compétence J</span>
       </div>
     </div>
     <div class="slide-footer">
-      <span>Qui suis-je ? — Traumatismes</span>
-      <div class="progress-dots" id="dots5"></div>
-      <span>Slide 6/9</span>
+      <span>Scénario 5 — Collège Yves du Manoir · Vaucresson</span>
+      <div class="progress-dots" id="dots0"></div>
+      <span>Chapitre 9 / 10</span>
     </div>
   </div>
 
-  <!-- ===== SLIDE 6 : PROTECTION & ALERTE ===== -->
-<div class="slide" id="slide-6">
-  <div class="slide-header" style="background:linear-gradient(135deg,#1a3a6b 0%,#2558a8 100%);">
-    <div class="left">
-      <div class="sup">Chapitre 3 · Rappel transversal — À retenir pour CHAQUE cas concret</div>
-      <h2>🛡️ Protection &amp; Alerte</h2>
-    </div>
-    <div style="display:flex;gap:8px;flex-shrink:0;">
-      <div class="badge-dur" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);">
-        <div class="v">5'</div><div class="l">Rappel</div>
+  <!-- SLIDE 1 : DÉFINITION & RISQUES -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left">
+        <div class="sup">Chapitre 9 · Définition</div>
+        <h1>Qu'est-ce que la perte de connaissance ?</h1>
       </div>
+      <div class="badge-dur"><div class="v">💤</div><div class="l">Définition</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="objectif-box">
+        <strong>Objectif</strong>
+        Reconnaître une perte de connaissance, comprendre pourquoi elle est dangereuse et agir immédiatement.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="background:var(--indigo-clair);border:1.5px solid var(--indigo-bord);border-radius:10px;padding:12px">
+          <div style="font-size:22px;margin-bottom:6px">💤</div>
+          <div style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:var(--indigo);margin-bottom:5px">Définition</div>
+          <p style="font-size:12px;color:var(--texte-sec);line-height:1.5">Une personne a perdu connaissance lorsqu'elle <strong>ne répond et ne réagit à aucune sollicitation</strong> verbale ou physique, <strong>mais respire</strong>.</p>
+          <div style="margin-top:8px;font-size:11px;color:var(--indigo);font-weight:600">≠ Arrêt cardiaque : la victime respire encore.</div>
+        </div>
+        <div style="background:#fff5f5;border:1.5px solid var(--rouge-bord);border-radius:10px;padding:12px">
+          <div style="font-size:22px;margin-bottom:6px">⚠️</div>
+          <div style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:var(--rouge);margin-bottom:5px">Pourquoi c'est dangereux ?</div>
+          <p style="font-size:12px;color:#7a1a10;line-height:1.5">Une victime inconsciente <strong>laissée sur le dos</strong> est exposée à l'obstruction des voies aériennes par :</p>
+          <ul style="list-style:none;font-size:11.5px;color:#7a1a10;margin-top:5px;display:flex;flex-direction:column;gap:3px">
+            <li>· La langue qui chute dans le fond de la gorge</li>
+            <li>· Des liquides (salive, sang, vomissements)</li>
+          </ul>
+          <div style="margin-top:8px;font-size:11px;color:var(--rouge);font-weight:600">→ Risque d'évoluer vers l'arrêt respiratoire puis cardiaque.</div>
+        </div>
+      </div>
+      <div class="section-label">Comment vérifier l'absence de réponse ?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:8px;padding:10px;display:flex;align-items:center;gap:10px">
+          <div style="font-size:20px;flex-shrink:0">🗣️</div>
+          <div>
+            <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;margin-bottom:2px">Sollicitation verbale</div>
+            <div style="font-size:11.5px;color:var(--texte-sec)">« Vous m'entendez ? », « Comment ça va ? »</div>
+          </div>
+        </div>
+        <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:8px;padding:10px;display:flex;align-items:center;gap:10px">
+          <div style="font-size:20px;flex-shrink:0">✋</div>
+          <div>
+            <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;margin-bottom:2px">Sollicitation physique</div>
+            <div style="font-size:11.5px;color:var(--texte-sec)">Secouer doucement les épaules · « Serrez-moi la main »</div>
+          </div>
+        </div>
+      </div>
+      <div class="alerte-box">
+        <div class="alerte-icon">🆘</div>
+        <div>
+          <h3>Demander de l'aide immédiatement !</h3>
+          <p>Si tu es seul, crier « Au secours ! » avant tout geste. Un témoin peut appeler les secours pendant que tu agis sur la victime.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Définition et risques</span>
+      <div class="progress-dots" id="dots1"></div>
+      <span>Slide 2/8</span>
     </div>
   </div>
 
-  <div class="slide-body" style="gap:10px;padding:12px 20px;">
-
-    <!-- Bandeau intro -->
-    <div style="background:linear-gradient(135deg,#fff8e1,#fffde7);border:2px solid #f0c040;border-radius:10px;padding:10px 16px;display:flex;align-items:center;gap:12px;">
-      <div style="font-size:24px;">⚠️</div>
-      <div>
-        <div style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:#7a5000;margin-bottom:2px;">Compétences transversales — valables pour TOUS les cas concrets PSC1</div>
-        <div style="font-size:12px;color:#5a3a00;line-height:1.5;">Avant tout geste de secours : <strong>protéger</strong> la scène et <strong>alerter</strong> les secours. Ces deux actions reviennent systématiquement à chaque situation d'accident.</div>
+  <!-- SLIDE 2 : LVA -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left">
+        <div class="sup">Chapitre 9 · Geste clé n°1</div>
+        <h2>🫁 LVA — Libérer les voies aériennes</h2>
+      </div>
+      <div class="badge-dur"><div class="v">🫁</div><div class="l">LVA</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="objectif-box">
+        <strong>Pourquoi ?</strong>
+        La bascule de la tête en arrière entraîne la langue et améliore le passage de l'air. Sans LVA, on ne peut pas apprécier correctement la respiration.
+      </div>
+      <div class="lva-grid">
+        <div class="lva-card">
+          <div class="lva-num">1</div>
+          <div class="lva-ic">🛏️</div>
+          <div class="lva-title">Allonger sur le dos</div>
+          <div class="lva-desc">Placer la victime sur le dos, quelle que soit sa position initiale.</div>
+        </div>
+        <div class="lva-card" style="border-color:var(--indigo-bord);background:var(--indigo-clair)">
+          <div class="lva-num">2</div>
+          <div class="lva-ic">🖐️</div>
+          <div class="lva-title">Main sur le front</div>
+          <div class="lva-desc">Placer la paume d'une main sur le front de la victime.</div>
+        </div>
+        <div class="lva-card" style="border-color:var(--indigo-bord);background:var(--indigo-clair)">
+          <div class="lva-num">3</div>
+          <div class="lva-ic">☝️</div>
+          <div class="lva-title">Élever le menton</div>
+          <div class="lva-desc">Placer 2-3 doigts sous la pointe du menton (appui sur l'os). Basculer doucement la tête en arrière tout en élevant le menton.</div>
+        </div>
+        <div class="lva-card">
+          <div class="lva-num">4</div>
+          <div class="lva-ic">👂</div>
+          <div class="lva-title">Apprécier la respiration</div>
+          <div class="lva-desc">Joue et oreille au-dessus de la bouche/nez : regarder · écouter · sentir le flux d'air pendant <strong>10 secondes max</strong>.</div>
+        </div>
+        <div class="lva-card" style="background:var(--vert-clair);border-color:var(--vert-bord)">
+          <div class="lva-num" style="background:var(--vert)">✓</div>
+          <div class="lva-ic">😮‍💨</div>
+          <div class="lva-title" style="color:var(--vert)">Respire → PLS</div>
+          <div class="lva-desc">Si la victime respire : mettre en PLS et alerter les secours.</div>
+        </div>
+        <div class="lva-card" style="background:var(--rouge-clair);border-color:var(--rouge-bord)">
+          <div class="lva-num" style="background:var(--rouge)">!</div>
+          <div class="lva-ic">💔</div>
+          <div class="lva-title" style="color:var(--rouge)">Ne respire pas → RCP</div>
+          <div class="lva-desc">Si pas de respiration ou respiration anormale (gasps) → arrêt cardiaque → RCP (Ch.10).</div>
+        </div>
+      </div>
+      <div class="vert-box">
+        ✅ <strong>Points clés LVA :</strong> le menton doit être élevé · la tête maintenue dans cette position tout le long de l'appréciation de la respiration.
       </div>
     </div>
+    <div class="slide-footer">
+      <span>LVA — Libérer les voies aériennes</span>
+      <div class="progress-dots" id="dots2"></div>
+      <span>Slide 3/8</span>
+    </div>
+  </div>
 
-    <!-- Grille 2 colonnes : Protection + Alerte -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;">
+  <!-- SLIDE 3 : PLS ADULTE -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left">
+        <div class="sup">Chapitre 9 · Geste clé n°2</div>
+        <h2>🔄 PLS — Position Latérale de Sécurité</h2>
+      </div>
+      <div class="badge-dur"><div class="v">🔄</div><div class="l">PLS Adulte</div></div>
+    </div>
+    <div class="slide-body">
+      <div class="objectif-box">
+        <strong>Indication</strong>
+        Chez toute victime inconsciente qui respire à la suite d'un événement non traumatique. La PLS maintient les voies aériennes libres et permet l'écoulement des liquides vers l'extérieur.
+      </div>
+      <div class="pls-temps">
 
-      <!-- ===== COL 1 : PROTECTION ===== -->
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div style="background:#1a3a6b;border-radius:10px;padding:10px 14px;">
-          <div style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:white;display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-            🔵 2.01 — La Protection
+        <div class="pls-temps-block t1 open" id="pt1">
+          <div class="pls-temps-hd" onclick="togglePLS('pt1')">
+            <span>⏱️ 1er temps — Préparer le retournement</span>
+            <span class="pls-chevron">›</span>
           </div>
-          <div style="font-size:11.5px;color:rgba(255,255,255,.85);line-height:1.6;">
-            Son objectif : <strong style="color:#7fa8d4;">ANALYSER LA SITUATION</strong> et <strong style="color:#7fa8d4;">ASSURER LA PROTECTION</strong>
-            immédiate, adaptée et permanente de <strong style="color:white;">SOI-MÊME</strong>, de la <strong style="color:#f0c040;">VICTIME</strong> et des <strong style="color:#f0c040;">AUTRES PERSONNES</strong> des dangers environnants.
+          <div class="pls-temps-body">
+            <ul class="pls-ul">
+              <li>Retirer les lunettes si elle en porte</li>
+              <li>Rapprocher délicatement les membres inférieurs de l'axe du corps</li>
+              <li>Placer le bras côté sauveteur à angle droit du corps, coude plié, paume vers le haut</li>
+              <li>Saisir le bras opposé et amener le dos de la main de la victime contre son oreille, paume contre paume — <strong>maintenir tout le long</strong></li>
+              <li>Attraper la jambe opposée juste derrière le genou et la relever (pied au sol)</li>
+            </ul>
           </div>
         </div>
 
-        <!-- Danger contrôlable -->
-        <div style="background:var(--bleu-pale);border:1.5px solid #a0c0ea;border-radius:10px;padding:10px 14px;">
-          <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--bleu);margin-bottom:8px;">En cas de danger contrôlable</div>
-          <div style="display:flex;flex-direction:column;gap:6px;">
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div style="width:28px;height:28px;background:var(--bleu-mid);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;flex-shrink:0;">1</div>
-              <div style="font-size:12px;font-weight:600;color:var(--bleu);">Analyser la situation</div>
-            </div>
-            <div style="width:2px;height:10px;background:#a0c0ea;margin-left:13px;"></div>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div style="width:28px;height:28px;background:#6c9ad4;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;flex-shrink:0;">2</div>
-              <div style="font-size:12px;font-weight:600;color:var(--bleu);">Identifier le danger contrôlable</div>
-            </div>
-            <div style="width:2px;height:10px;background:#a0c0ea;margin-left:13px;"></div>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div style="width:28px;height:28px;background:#8ab4e0;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;flex-shrink:0;">3</div>
-              <div style="font-size:12px;font-weight:600;color:var(--bleu);">Supprimer / écarter le danger</div>
-            </div>
+        <div class="pls-temps-block t2" id="pt2">
+          <div class="pls-temps-hd" onclick="togglePLS('pt2')">
+            <span>🔄 2ème temps — Retourner la victime</span>
+            <span class="pls-chevron">›</span>
+          </div>
+          <div class="pls-temps-body">
+            <ul class="pls-ul">
+              <li>Tirer sur la jambe relevée pour faire pivoter la victime vers soi, <strong>d'un seul mouvement, sans brusquerie</strong></li>
+              <li>Jusqu'à ce que le genou touche le sol</li>
+              <li>Dégager doucement la main de sous la tête en préservant la bascule en arrière</li>
+            </ul>
           </div>
         </div>
 
-        <!-- Questions à se poser -->
-        <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:10px 14px;">
-          <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Questions à se poser</div>
-          <ul style="font-size:11.5px;color:var(--texte);line-height:1.8;padding-left:14px;">
-            <li>Existe-t-il un danger et où ?</li>
-            <li>Qui est exposé au danger ?</li>
-            <li>Le danger est-il contrôlable, sans risque pour le sauveteur ?</li>
-            <li>Comment et avec qui assurer la protection ?</li>
+        <div class="pls-temps-block t3" id="pt3">
+          <div class="pls-temps-hd" onclick="togglePLS('pt3')">
+            <span>✅ 3ème temps — Stabiliser</span>
+            <span class="pls-chevron">›</span>
+          </div>
+          <div class="pls-temps-body">
+            <ul class="pls-ul">
+              <li>Ajuster la jambe du dessus : hanche et genou à angle droit pour stabiliser</li>
+              <li>Ouvrir la bouche de la victime <strong>sans mobiliser la tête</strong></li>
+              <li>Surveiller en permanence la respiration</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      <div class="alerte-box">
+        <div class="alerte-icon">📐</div>
+        <div>
+          <h3>4 critères d'une bonne PLS</h3>
+          <p>Limiter les mouvements de la colonne · Position stable et la plus latérale possible · Permettre de surveiller la respiration · Permettre l'écoulement des liquides (bouche ouverte)</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>PLS — Position Latérale de Sécurité adulte</span>
+      <div class="progress-dots" id="dots3"></div>
+      <span>Slide 4/8</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 : PLS NOURRISSON -->
+  <div class="slide">
+    <div class="slide-header" style="background:var(--cyan)">
+      <div class="left">
+        <div class="sup">Chapitre 9 · Cas particulier</div>
+        <h2>👶 PLS Nourrisson — et différences avec l'adulte</h2>
+      </div>
+      <div class="badge-dur"><div class="v">👶</div><div class="l">Nourrisson</div></div>
+    </div>
+    <div class="slide-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div style="background:var(--indigo-clair);border:1.5px solid var(--indigo-bord);border-radius:10px;padding:12px">
+          <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:var(--indigo);margin-bottom:8px">🧑 Adulte / enfant</div>
+          <ul class="pls-ul" style="font-size:12px;color:var(--texte-sec)">
+            <li>LVA : bascule de la tête <strong>en arrière</strong></li>
+            <li>PLS : retournement sur le côté au sol</li>
+            <li>Stabilisé par la jambe fléchie à angle droit</li>
+            <li>Bouche ouverte après retournement</li>
+          </ul>
+        </div>
+        <div style="background:var(--cyan-clair);border:1.5px solid var(--cyan-bord);border-radius:10px;padding:12px">
+          <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:var(--cyan);margin-bottom:8px">👶 Nourrisson</div>
+          <ul class="pls-ul" style="font-size:12px;color:#1a5060">
+            <li>LVA : tête en <strong>position neutre</strong> (pas de bascule excessive)</li>
+            <li>PLS : placé sur le côté <strong>dans les bras du sauveteur</strong>, dos du nourrisson contre le sauveteur</li>
+            <li>Surveiller la respiration en permanence</li>
           </ul>
         </div>
       </div>
-
-      <!-- ===== COL 2 : ALERTE ===== -->
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div style="background:#0e4a2b;border-radius:10px;padding:10px 14px;">
-          <div style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:white;display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-            🟢 2.02 — L'Alerte
+      <div class="info-box">
+        💡 <strong>Position neutre chez le nourrisson :</strong> la tête dans l'alignement du torse, menton légèrement élevé. Une bascule excessive chez le nourrisson peut au contraire gêner la ventilation.
+      </div>
+      <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:12px">
+        <div class="section-label">Surveiller la respiration — dans tous les cas</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px">
+          <div style="text-align:center;font-size:12px;color:var(--texte-sec);padding:8px;background:white;border-radius:8px;border:1px solid var(--gris-bord)">
+            <div style="font-size:20px;margin-bottom:4px">👁️</div>
+            <strong style="color:var(--texte)">Regarder</strong><br>le ventre et la poitrine se soulèvent-ils ?
           </div>
-          <div style="font-size:11.5px;color:rgba(255,255,255,.85);line-height:1.6;">
-            Son objectif : <strong style="color:#80cba0;">Informer un service d'urgence</strong> — Nombre de victimes, nature des détresses, <strong style="color:white;">adresse précise</strong> et n° de téléphone.
+          <div style="text-align:center;font-size:12px;color:var(--texte-sec);padding:8px;background:white;border-radius:8px;border:1px solid var(--gris-bord)">
+            <div style="font-size:20px;margin-bottom:4px">👂</div>
+            <strong style="color:var(--texte)">Écouter</strong><br>des sons provoqués par la respiration ?
           </div>
-        </div>
-
-        <!-- Numéros d'urgence -->
-        <div style="background:var(--vert-clair);border:1.5px solid var(--vert-bord);border-radius:10px;padding:10px 14px;">
-          <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:var(--vert);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Numéros d'urgence</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-            <div style="background:white;border-radius:8px;padding:7px 10px;display:flex;align-items:center;gap:8px;border:1px solid var(--vert-bord);">
-              <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:var(--bleu-mid);min-width:32px;">15</div>
-              <div style="font-size:10.5px;color:var(--texte-sec);">SAMU — Urgences médicales</div>
-            </div>
-            <div style="background:white;border-radius:8px;padding:7px 10px;display:flex;align-items:center;gap:8px;border:1px solid var(--vert-bord);">
-              <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:#c0392b;min-width:32px;">18</div>
-              <div style="font-size:10.5px;color:var(--texte-sec);">Pompiers</div>
-            </div>
-            <div style="background:white;border-radius:8px;padding:7px 10px;display:flex;align-items:center;gap:8px;border:1px solid var(--vert-bord);">
-              <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:#e67e22;min-width:32px;">112</div>
-              <div style="font-size:10.5px;color:var(--texte-sec);">Numéro européen</div>
-            </div>
-            <div style="background:white;border-radius:8px;padding:7px 10px;display:flex;align-items:center;gap:8px;border:1px solid var(--vert-bord);">
-              <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:#2d3a5a;min-width:32px;">114</div>
-              <div style="font-size:10.5px;color:var(--texte-sec);">Sourds &amp; malentendants</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- CAT Alerte -->
-        <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:10px 14px;">
-          <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:var(--texte-sec);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Conduites à tenir</div>
-          <div style="display:flex;flex-direction:column;gap:6px;">
-            <div style="display:flex;align-items:center;gap:10px;background:white;border-radius:8px;padding:8px 10px;border:1px solid var(--gris-bord);">
-              <div style="font-size:18px;flex-shrink:0;">📞</div>
-              <div style="font-size:11.5px;font-weight:600;color:var(--texte);">Contacter un service d'urgence</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:10px;background:white;border-radius:8px;padding:8px 10px;border:1px solid var(--gris-bord);">
-              <div style="font-size:18px;flex-shrink:0;">🗣️</div>
-              <div style="font-size:11.5px;font-weight:600;color:var(--texte);">Transmettre les informations minimales</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:10px;background:white;border-radius:8px;padding:8px 10px;border:1px solid var(--gris-bord);">
-              <div style="font-size:18px;flex-shrink:0;">🧑‍🤝‍🧑</div>
-              <div style="font-size:11.5px;font-weight:600;color:var(--texte);">Demander à une autre personne de donner l'alerte</div>
-            </div>
-          </div>
-          <div style="margin-top:8px;background:#fff8e1;border-radius:6px;padding:6px 10px;font-size:11px;color:#7a5000;line-height:1.5;">
-            💡 Les secours peuvent conserver l'appelant au téléphone pour le conseiller ou le guider dans l'exécution des gestes, jusqu'à leur arrivée.
-          </div>
-        </div>
-
-        <!-- Lien avec le CC -->
-        <div style="background:linear-gradient(135deg,#0e4a2b,#1a7a4a);border-radius:10px;padding:10px 14px;color:white;">
-          <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;opacity:.75;margin-bottom:6px;">👉 Dans le cas concret qui suit…</div>
-          <div style="font-size:12px;line-height:1.7;">
-            <strong>Lucas chute au skate park.</strong><br>
-            ① Vérifier l'absence de <strong>danger</strong> sur la zone<br>
-            ② Demander à un témoin d'<strong>appeler le 15</strong> en donnant l'adresse précise : <em>Chemin de la Vallée Verte, 92420 Vaucresson · 06 07 52 68 90</em><br>
-            ③ Appliquer les <strong>consignes des secours</strong>
+          <div style="text-align:center;font-size:12px;color:var(--texte-sec);padding:8px;background:white;border-radius:8px;border:1px solid var(--gris-bord)">
+            <div style="font-size:20px;margin-bottom:4px">🤚</div>
+            <strong style="color:var(--texte)">Sentir</strong><br>les mouvements du ventre et de la poitrine
           </div>
         </div>
       </div>
-
-    </div><!-- fin grille -->
-
-  </div>
-  <div class="slide-footer">
-    <span>Protection &amp; Alerte — Transversal à tous les cas concrets</span>
-    <div class="progress-dots" id="dots-5"></div>
-    <span>Slide 7/9</span>
-  </div>
-</div>
-
-<!-- ===== SLIDE 7 : CAS CONCRET ===== -->
-<div class="slide" id="slide-7">
-  <div class="slide-header" style="background:#0e4a2b;">
-    <div class="left">
-      <div class="sup">Chapitre 3 · Activité d'application · Compétence H1</div>
-      <h2 id="cc-title">Cas Concret — ⏱ Temps 1 : La situation</h2>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
-      <div class="badge-dur"><div class="v">7'</div><div class="l">Cas Concret</div></div>
-      <button onclick="switchCC()" id="cc-switch-btn" style="background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.4);color:white;padding:7px 16px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;">Temps 2 : Correction →</button>
-    </div>
-  </div>
-  <div class="slide-body" style="gap:10px;">
-
-    <!-- ======= TEMPS 1 ======= -->
-    <div id="cc-t1" style="display:flex;flex-direction:column;gap:10px;flex:1;">
-
-      <!-- ÉTAT 0 : photo plein écran -->
-      <div id="t1-state2" style="display:flex;flex-direction:column;gap:10px;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;">
-          <!-- COL GAUCHE -->
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div class="fcc-wrap" style="flex:0 0 auto;">
-              <div class="fcc-box span2">
-                <div class="fcc-lbl">📋 Scénario — FCC n° 2.01</div>
-                <div style="display:grid;grid-template-columns:1fr 2fr;gap:5px;margin-top:3px">
-                  <div><div class="fcc-lbl">📍 Lieu</div><div class="fcc-val">Skate park — pendant la récréation</div></div>
-                  <div><div class="fcc-lbl">📝 MSAS</div><div class="fcc-val">Lucas (13 ans) chute en arrière, tête heurte le sol. Conscient, allongé sur le dos, douleur vive à la nuque, peur de bouger.</div></div>
-                </div>
-              </div>
-              <div class="fcc-box">
-                <div class="fcc-lbl">🎭 Acteurs</div>
-                <div class="fcc-row"><span class="fcc-ico">🤕</span><div><b>Victime</b>Allongé sur le dos, conscient. Douleur vive à la nuque. Ne pas mobiliser.</div></div>
-                <div class="fcc-row"><span class="fcc-ico">👥</span><div><b>Témoin</b>Camarades de classe aux alentours.</div></div>
-                <div class="fcc-row"><span class="fcc-ico">🦺</span><div><b>Sauveteur</b>Un camarade arrivant en premier sur les lieux.</div></div>
-              </div>
-              <div class="fcc-box">
-                <div class="fcc-lbl">🧰 Matériel</div>
-                <div class="fcc-chips"><span class="fcc-chip">Téléphone</span><span class="fcc-chip">Adresse (établissement scolaire)</span></div>
-              </div>
-            </div>
-            <div style="background:#f0f6ff;border-radius:12px;border:1.5px solid #a0c0ea;overflow:hidden;flex:1;display:flex;flex-direction:column;">
-              <div style="flex:1;position:relative;min-height:0;">
-                <img src="images/scenario5_skatepark2.jpg"
-                     alt="Chute au skate park"
-                     style="width:100%;height:100%;object-fit:cover;display:block;"/>
-                <div style="position:absolute;top:8px;right:8px;">
-                  <span style="background:#c0392b;color:white;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;">😣 Douleur à la nuque !</span>
-                </div>
-                <div style="position:absolute;bottom:8px;left:8px;background:rgba(37,88,168,0.85);color:white;font-family:'Outfit',sans-serif;font-size:24px;font-weight:900;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,0.4);">?</div>
-              </div>
-              <div style="background:#1a3a6b;padding:6px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:8px;">
-                <span style="font-size:10px;color:#a0c8f0;font-family:'Inter',sans-serif;font-weight:600;">📍 Skate park — Chemin de la Vallée Verte, 92420 Vaucresson</span>
-                <span style="font-size:10px;color:#80cba0;font-family:'Outfit',sans-serif;font-weight:700;white-space:nowrap;">📞 06 07 52 68 90</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- COL DROITE : fiche alerte + chrono -->
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div>
-              <button onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'flex':'none';this.textContent=this.nextElementSibling.style.display==='none'?'📞 Afficher le message d\'alerte ▼':'📞 Masquer le message d\'alerte ▲';"
-                style="width:100%;background:#1a3a6b;border:none;border-radius:10px;padding:10px 14px;color:white;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;text-align:left;letter-spacing:.5px;">
-                📞 Afficher le message d'alerte ▼
-              </button>
-              <div style="display:none;flex-direction:column;">
-                <div style="background:#1a3a6b;border-radius:12px;padding:14px;color:white;flex:1;display:flex;flex-direction:column;">
-              <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;opacity:.7;margin-bottom:4px;">📞 Message d'alerte</div>
-              <div style="font-size:10px;color:#80cba0;font-family:'Outfit',sans-serif;font-weight:600;margin-bottom:10px;line-height:1.4;">
-                Informer un service d'urgence : <em>nombre de victimes · nature de la détresse · adresse · téléphone · assistance apportée</em>
-              </div>
-              <div class="alerte-item" id="ai-1" onclick="revealAlerteItem(1)">
-                <div class="ai-mask"><span class="ai-num">1</span><span class="ai-question">👤 Qui appelle ?</span><span class="ai-hint">Clique →</span></div>
-                <div class="ai-content"><span class="ai-label">👤 QUI APPELLE</span><span class="ai-text">"Je m'appelle [prénom], élève du collège de Vaucresson"</span></div>
-              </div>
-              <div class="alerte-item" id="ai-2" onclick="revealAlerteItem(2)">
-                <div class="ai-mask"><span class="ai-num">2</span><span class="ai-question">📍 Adresse &amp; téléphone ?</span><span class="ai-hint">Clique →</span></div>
-                <div class="ai-content"><span class="ai-label">📍 OÙ — ADRESSE PRÉCISE + N° DE TÉLÉPHONE</span><span class="ai-text">Skate park — Chemin de la Vallée Verte, 92420 Vaucresson<br><strong style="color:#80cba0;">📞 06 07 52 68 90</strong></span></div>
-              </div>
-              <div class="alerte-item" id="ai-3" onclick="revealAlerteItem(3)">
-                <div class="ai-mask"><span class="ai-num">3</span><span class="ai-question">🤕 Que s'est-il passé ? Combien de victimes ?</span><span class="ai-hint">Clique →</span></div>
-                <div class="ai-content"><span class="ai-label">🤕 QUOI · NOMBRE DE VICTIMES</span><span class="ai-text">"<strong>1 garçon de 13 ans</strong> a chuté en skate — <strong>1 victime</strong>"</span></div>
-              </div>
-              <div class="alerte-item" id="ai-4" onclick="revealAlerteItem(4)">
-                <div class="ai-mask"><span class="ai-num">4</span><span class="ai-question">🫀 Nature de la détresse ?</span><span class="ai-hint">Clique →</span></div>
-                <div class="ai-content"><span class="ai-label">🫀 NATURE DE LA DÉTRESSE</span><span class="ai-text">"Il est <strong>conscient</strong>, il <strong>respire</strong>, il se plaint d'une <strong>vive douleur à la nuque</strong>, il ne peut pas bouger la tête"</span></div>
-              </div>
-              <div class="alerte-item" id="ai-5" onclick="revealAlerteItem(5)" style="margin-bottom:0;">
-                <div class="ai-mask"><span class="ai-num">5</span><span class="ai-question">🤲 Assistance apportée ?</span><span class="ai-hint">Clique →</span></div>
-                <div class="ai-content"><span class="ai-label">🤲 NATURE DE L'ASSISTANCE</span><span class="ai-text">"Je lui demande de <strong>ne pas bouger la tête</strong> et je reste avec lui jusqu'à votre arrivée"</span></div>
-              </div>
-              <div id="ai-final" style="display:none;margin-top:8px;background:rgba(255,220,0,.18);border:1px solid rgba(255,220,0,.4);border-radius:8px;padding:8px 12px;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#ffe066;animation:fadeIn .4s ease;">
-                ⚠️ Ne raccrochez PAS en premier — appliquez les consignes des secours
-              </div>
-              <div style="margin-top:8px;text-align:right;">
-                <button onclick="resetAlerteItems()" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);padding:5px 12px;border-radius:6px;font-size:11px;font-family:'Outfit',sans-serif;cursor:pointer;">↺ Recommencer</button>
-              </div>
-            </div>
-              </div>
-            </div>
-            <!-- Affichage chrono compact (le chrono est dans l'état 1, on affiche juste le temps) -->
-            <div style="background:#0e4a2b;border-radius:10px;padding:10px 14px;color:white;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
-              <div style="font-family:'Outfit',sans-serif;font-size:11px;opacity:.65;text-transform:uppercase;letter-spacing:1px;">⏱ Chronomètre</div>
-              <div style="display:flex;align-items:center;gap:10px;">
-                <div id="chrono-display2" style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:white;">0:00</div>
-                <button class="c-btn start" onclick="toggleC()" style="font-size:11px;padding:5px 12px;">▶/⏸</button>
-                <button class="c-btn" onclick="resetC2()" style="font-size:11px;padding:5px 10px;">↺</button>
-              </div>
-            </div>
-          </div>
+      <div class="alerte-box">
+        <div class="alerte-icon">💔</div>
+        <div>
+          <h3>Si la respiration s'arrête ou devient anormale</h3>
+          <p>→ Adopter immédiatement la CAT arrêt cardiaque (Ch.10) et prévenir les secours de l'évolution.</p>
         </div>
       </div>
-
     </div>
+    <div class="slide-footer">
+      <span>PLS nourrisson et surveillance respiratoire</span>
+      <div class="progress-dots" id="dots4"></div>
+      <span>Slide 5/8</span>
+    </div>
+  </div>
 
-    <!-- ======= TEMPS 2 ======= -->
-    <div id="cc-t2" style="display:none;flex-direction:column;gap:10px;flex:1;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;">
+  <!-- SLIDE 5 : RÉORDONNER -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="left">
+        <div class="sup">Chapitre 9 · Activité interactive</div>
+        <h2>🎯 Remets les étapes dans le bon ordre</h2>
+      </div>
+      <div class="badge-dur"><div class="v">🎯</div><div class="l">Exercice</div></div>
+    </div>
+    <div class="slide-body" style="padding:10px 14px">
+      <div class="info-box" style="margin-bottom:8px;font-size:12px">
+        👇 Fais glisser chaque étape dans la colonne de droite dans l'ordre correct de la CAT perte de connaissance. Double-clique pour remettre dans la pioche.
+      </div>
+      <div class="reorder-wrap">
+        <div>
+          <div class="pool-label">Étapes à ordonner</div>
+          <div id="ro-pool" style="display:flex;flex-direction:column;gap:6px;min-height:200px;background:var(--gris);border:2px dashed var(--gris-bord);border-radius:10px;padding:10px"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--gris-bord);font-size:22px;flex-shrink:0">→</div>
+        <div style="flex:1">
+          <div class="pool-label">Ordre correct (1 → 8)</div>
+          <div id="ro-zone" style="display:flex;flex-direction:column;gap:6px"></div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap">
+        <button class="ro-btn" onclick="checkOrder()">✓ Vérifier</button>
+        <button class="ro-reset" onclick="resetOrder()">↺ Recommencer</button>
+        <div class="ro-score" id="ro-score"></div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Exercice — Remettre dans l'ordre</span>
+      <div class="progress-dots" id="dots5"></div>
+      <span>Slide 6/8</span>
+    </div>
+  </div>
 
-        <!-- COL GAUCHE : photo + encadré résumé -->
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div class="cc-box" style="flex:0 0 auto;">
-            <div class="cc-badge">✅ Temps 2 — Correction</div>
-            <h3>Ce qu'il fallait faire</h3>
-            <div class="stxt">
-              Le sauveteur <strong>demande à Lucas de ne pas bouger la tête</strong>, maintient sa tête à deux mains dans la position trouvée, <strong>appelle en mode haut-parleur ou fait appeler les secours</strong> et surveille jusqu'à leur arrivée.
+  
+  <!-- SLIDE 6 NOUVEAU : LA BONNE DÉCISION -->
+  <div class="slide">
+    <div class="slide-header" style="background:var(--indigo)">
+      <div class="left"><div class="sup">Chapitre 9 · Jeu interactif</div><h2>⚡ La bonne décision — 10 secondes pour agir !</h2></div>
+      <div class="badge-dur"><div class="v">⚡</div><div class="l">Chrono</div></div>
+    </div>
+    <div class="slide-body game-dark">
+      <!-- CONFIG -->
+      <div id="bd-config" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center">
+        <div style="font-size:52px">⚡</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:white">La bonne décision</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.6);max-width:420px;line-height:1.6">
+          Une situation d'urgence s'affiche. Tu as <strong style="color:#f0c040">10 secondes</strong> pour choisir le bon geste.<br>La pression du temps simule l'urgence réelle.
+          <br><br><em>Bonne réponse avant 5s = 3 pts · entre 5-10s = 2 pts · après 10s = 1 pt si correct</em>
+        </div>
+        <button onclick="bdStart()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 32px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;cursor:pointer">▶ Commencer</button>
+      </div>
+      <!-- JEU -->
+      <div id="bd-game" style="display:none;flex:1;flex-direction:column;gap:8px">
+        <div class="game-score-row">
+          <div style="color:rgba(255,255,255,.5);font-size:12px">Question <span id="bd-qnum">1</span>/7</div>
+          <div>⭐ Score : <span class="game-score-val" id="bd-score">0</span></div>
+          <div id="bd-timer-label" style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:900;color:#f0c040">10s</div>
+        </div>
+        <div class="timer-bar-wrap"><div class="timer-bar" id="bd-timer-bar" style="width:100%"></div></div>
+        <div class="game-q-box">
+          <div class="game-q-type">🚨 Situation d'urgence</div>
+          <div class="game-q-text" id="bd-qtext"></div>
+        </div>
+        <div class="game-opts" id="bd-opts"></div>
+        <div class="game-fb" id="bd-fb"></div>
+        <div style="text-align:center"><button class="game-next-btn" id="bd-next-btn" onclick="bdNext()">Question suivante →</button></div>
+      </div>
+      <!-- FIN -->
+      <div id="bd-end" style="display:none;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:16px;text-align:center">
+        <div style="font-size:52px">🏆</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:white">Fin du chrono !</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;color:#f0c040" id="bd-final-score"></div>
+        <div style="font-size:13px;color:rgba(255,255,255,.6)" id="bd-final-msg"></div>
+        <button onclick="bdRestart()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:8px;padding:10px 24px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer">↺ Rejouer</button>
+      </div>
+    </div>
+    <div class="slide-footer" style="background:var(--indigo)">
+      <span>La bonne décision — PLS</span>
+      <div class="progress-dots" id="dots6"></div>
+      <span>Slide 7/9</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 6 : PROTECTION & ALERTE -->
+  <div class="slide">
+    <div class="slide-header" style="background:#2558a8">
+      <div class="left">
+        <div class="sup">Chapitre 9 · Rappel transversal</div>
+        <h2>🛡️ Protéger · Alerter · Surveiller</h2>
+      </div>
+      <div class="badge-dur"><div class="v">📞</div><div class="l">Rappel</div></div>
+    </div>
+    <div class="slide-body">
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
+        <div style="background:var(--rouge-clair);border:1.5px solid var(--rouge-bord);border-radius:10px;padding:12px">
+          <div style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:var(--rouge);margin-bottom:6px">⚠️ Traumatisme ou origine inconnue</div>
+          <ul class="pls-ul" style="font-size:12px;color:#7a1a10">
+            <li>Laisser la victime sur le dos</li>
+            <li>Alerter les secours et respecter leurs consignes</li>
+            <li>Surveiller la respiration en permanence</li>
+            <li>Si vomissement : mettre sur le côté en maintenant l'axe tête-cou-tronc</li>
+          </ul>
+        </div>
+        <div style="background:var(--vert-clair);border:1.5px solid var(--vert-bord);border-radius:10px;padding:12px">
+          <div style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:var(--vert);margin-bottom:6px">✅ Cause non traumatique — PLS</div>
+          <ul class="pls-ul" style="font-size:12px;color:#1a5a3a">
+            <li>Mettre en PLS immédiatement</li>
+            <li>Alerter les secours (15 / 18 / 112)</li>
+            <li>Surveiller la respiration en permanence</li>
+            <li>Protéger contre le froid, la chaleur, les intempéries</li>
+          </ul>
+        </div>
+      </div>
+      <div class="alerte-box">
+        <div class="alerte-icon">📞</div>
+        <div>
+          <h3>Alerter les secours — informations à donner</h3>
+          <p>Qui ? · Où exactement ? · Quoi ? (personne inconsciente qui respire) · Circonstances (chute, traumatisme ?) · Traitements connus · Antécédents</p>
+        </div>
+      </div>
+      <div class="info-box">
+        🔁 <strong>Si aggravation :</strong> la respiration s'arrête ou devient anormale (gasps, bruits) → RCP immédiate + recontacter les secours pour signaler l'aggravation.
+      </div>
+      <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:12px">
+        <div class="section-label">En période épidémique (COVID, grippe…)</div>
+        <ul class="pls-ul" style="font-size:12px;color:var(--texte-sec);margin-top:4px">
+          <li>Se protéger avec un masque si possible</li>
+          <li>Questionner sans toucher · apprécier la respiration visuellement (ventre et poitrine)</li>
+          <li>Ne pas basculer la tête · ne pas se pencher sur le visage</li>
+          <li>Se laver les mains soigneusement après les gestes</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Protéger · Alerter · Surveiller</span>
+      <div class="progress-dots" id="dots6"></div>
+      <span>Slide 8/9</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 7 : CAS CONCRET -->
+  <div class="slide">
+    <div class="slide-header" style="background:linear-gradient(135deg,var(--indigo),#1a1a5a)">
+      <div class="left">
+        <div class="sup">Chapitre 9 · Activité d'application · Compétence J</div>
+        <h2 id="cc-title">🏠 Cas Concret — Temps 1 : La situation</h2>
+      </div>
+      <button id="cc-switch-btn" onclick="switchCC()" style="background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.4);color:white;padding:7px 16px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;">Temps 2 : Correction →</button>
+    </div>
+    <div class="slide-body">
+      <div id="cc-t1">
+        <div class="cc-header" style="background:linear-gradient(135deg,#1e1e5a,#2c3e8c)">
+          <div class="cc-tag">🏠 Domicile — chambre — adulte inconscient</div>
+          <h3>Tu trouves Emma inconsciente dans sa chambre</h3>
+        </div>
+        
+        <!-- FCC -->
+        <div class="fcc-wrap">
+          <div class="fcc-box span2">
+            <div class="fcc-lbl">📋 Scénario — FCC n° 9.02</div>
+            <div style="display:grid;grid-template-columns:1fr 2fr;gap:6px;margin-top:4px">
+              <div><div class="fcc-lbl">📍 Lieu</div><div class="fcc-val">Domicile — chambre à coucher</div></div>
+              <div><div class="fcc-lbl">📝 MSAS</div><div class="fcc-val">Emma (17 ans) — allongée inconsciente dans sa chambre, sur son lit. Boîte de médicaments ouverte sur la table de nuit, lettre pliée à côté. Respiration présente mais lente.</div></div>
             </div>
           </div>
-          <!-- PHOTO TEMPS 2 -->
-          <div style="background:#e8f8ef;border-radius:12px;border:1.5px solid #80cba0;overflow:hidden;flex:1;display:flex;flex-direction:column;">
-            <div style="flex:1;position:relative;min-height:0;">
-              <img src="images/scenario5_maintien_tete.jpg"
-                   alt="Sauveteur maintenant la tête de Lucas à deux mains"
-                   style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.85) saturate(.8);"/>
-              <div style="position:absolute;top:8px;left:8px;display:flex;flex-direction:column;gap:4px;">
-                <span style="background:#27ae60;color:white;font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">🤲 Maintien tête à 2 mains</span>
-                <span style="background:#4a90d9;color:white;font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">Lucas — victime</span>
-                <span style="background:#e67e22;color:white;font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">📞 Témoin / alerte 15</span>
-              </div>
-              <div style="position:absolute;bottom:10px;left:8px;right:8px;background:rgba(14,74,43,0.92);border:1px solid #27ae60;border-radius:8px;padding:6px 10px;font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:#80cba0;text-align:center;">
-                « Lucas, ne bouge PAS la tête — je la maintiens, les secours arrivent ! »
-              </div>
-            </div>
-            <div style="background:#0e4a2b;padding:5px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
-              <span style="font-size:10px;color:#80cba0;font-family:'Inter',sans-serif;font-weight:600;">📍 Skate park — Chemin de la Vallée Verte, 92420 Vaucresson</span>
-              <span style="font-size:10px;color:#80cba0;font-family:'Outfit',sans-serif;font-weight:700;">📞 06 07 52 68 90</span>
-            </div>
+          <div class="fcc-box">
+            <div class="fcc-lbl">🎭 Organisation — Acteurs</div>
+            <div class="fcc-row"><span class="fcc-ico">🤕</span><div><b>Victime</b>Allongée sur son lit, inconsciente. Ne répond pas aux appels ni aux stimulations. Respire lentement. Pas de traumatisme apparent.</div></div>
+            <div class="fcc-row"><span class="fcc-ico">👥</span><div><b>Témoin</b>Aucun.</div></div>
+            <div class="fcc-row"><span class="fcc-ico">🦺</span><div><b>Sauveteur</b>Sa sœur aînée — rentre à la maison, frappe, entre car la porte est déverrouillée.</div></div>
+          </div>
+          <div class="fcc-box">
+            <div class="fcc-lbl">🧰 Matériel disponible</div>
+            <div class="fcc-chips"><span class="fcc-chip">Boîte de médicaments ouverte (décor)</span><span class="fcc-chip">Lettre pliée (décor)</span><span class="fcc-chip">Téléphone</span><span class="fcc-chip">Adresse</span></div>
           </div>
         </div>
+        <div class="fcc-sep"></div><div style="margin-top:10px;text-align:center;">
+          <img src="images/pc1.jpg" alt="Emma inconsciente — chambre"
+               style="max-height:200px;max-width:100%;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.35);border:2px solid #2c3e8c;display:inline-block;">
+        </div>
+        <div class="cc-scene">
+          Tu rentres chez toi en fin d'après-midi. Tu frappes à la porte de ta sœur <strong>Emma (17 ans)</strong> — pas de réponse. La porte est déverrouillée. En entrant dans sa chambre, tu la trouves <strong>allongée sur son lit</strong>, les yeux fermés. Elle ne bouge pas.<br><br>
+          Sur la table de nuit : une <strong>boîte de médicaments ouverte et presque vide</strong>, un verre d'eau, et une <strong>lettre pliée</strong>. Tu l'appelles, tu lui secoues les épaules doucement — elle ne réagit pas. Sa poitrine se soulève lentement.<br><br>
+          <strong>Tu as ton téléphone. Que fais-tu, dans quel ordre ?</strong>
+        </div>
+        <div class="info-box" style="font-size:12px">💬 À l'élève : décris ou mime les gestes dans l'ordre. Ici : pas de traumatisme → PLS sans restriction. Identifier les éléments de la scène avant d'agir.</div>
+        
+      </div>
 
-        <!-- COL DROITE : critères + points clés + débriefing -->
-        <div style="display:flex;flex-direction:column;gap:10px;overflow-y:auto;">
-
-          <!-- Critères d'évaluation -->
-          <div style="background:#0e4a2b;border-radius:12px;padding:14px;color:white;flex-shrink:0;">
-            <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;opacity:.7;margin-bottom:10px;">✅ Critères d'évaluation — Compétence H1</div>
-            <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;">
-
-              <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:10px;">
-                <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;background:rgba(255,255,255,.2);border-radius:4px;padding:1px 7px;flex-shrink:0;">1</span>
-                <span>Demander à la victime de <strong>ne pas bouger la tête</strong></span>
-              </div>
-
-              <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:10px;">
-                <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;background:rgba(255,255,255,.2);border-radius:4px;padding:1px 7px;flex-shrink:0;">2</span>
-                <span>Faire alerter ou alerter les secours (15 / 18 / 112) — message complet</span>
-              </div>
-
-              <!-- CRITÈRE 3 — POINTS CLÉS mis en valeur -->
-              <div style="background:rgba(250,200,0,.12);border:1.5px solid rgba(250,200,0,.5);border-radius:8px;padding:10px 12px;">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-                  <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;background:rgba(250,200,0,.3);border-radius:4px;padding:1px 7px;flex-shrink:0;color:#ffe066;">3</span>
-                  <span style="color:#ffe066;font-weight:700;">Si possible : <strong style="color:white;">stabiliser à 2 mains</strong> dans la position trouvée</span>
-                </div>
-                <!-- Points clés encadrés -->
-                <div style="background:rgba(250,200,0,.18);border-radius:6px;padding:8px 10px;border-left:3px solid #f0c040;">
-                  <div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#f0c040;margin-bottom:6px;">⭐ Points clés du maintien de la tête</div>
-                  <ul style="font-size:11px;color:#ffe8a0;line-height:1.8;padding-left:14px;margin:0;">
-                    <li>Se placer <strong style="color:white;">à genou dans l'axe</strong> de la victime, au niveau de sa tête</li>
-                    <li><strong style="color:white;">Prendre appui avec les coudes</strong> sur le sol ou sur les genoux</li>
-                    <li>Placer les mains <strong style="color:white;">de chaque côté</strong> de la tête pour la maintenir dans la position trouvée</li>
-                  </ul>
-                  <div style="margin-top:8px;background:rgba(250,200,0,.25);border-radius:5px;padding:6px 10px;font-size:11px;color:#fff3a0;font-family:'Outfit',sans-serif;font-weight:700;">
-                    ✅ Efficace si : sauveteur en position stable · mouvements de la tête limités
-                  </div>
-                </div>
-              </div>
-
-              <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:10px;">
-                <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;background:rgba(255,255,255,.2);border-radius:4px;padding:1px 7px;flex-shrink:0;">4</span>
-                <span>Surveiller et <strong>parler régulièrement</strong> à la victime</span>
-              </div>
-
-              <div style="background:rgba(220,50,50,.25);border:1px solid rgba(255,100,100,.4);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:10px;">
-                <span style="font-size:16px;flex-shrink:0;">🚫</span>
-                <span style="color:#ffaaaa;">Ne pas tenter de relever ou déplacer la victime</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Débriefing formateur -->
-          <button class="reveal-btn" onclick="toggleReveal('debrief')">💬 Débriefing formateur</button>
-          <div class="reveal-content" id="reveal-debrief">
-            <div class="objectif-box">
-              <strong>Points de débriefing</strong>
-              <ul style="margin-top:8px;padding-left:16px;font-size:12px;line-height:2;">
-                <li>A-t-il dit « ne bouge <strong>PAS LA TÊTE</strong> » (et non juste « ne bouge pas ») ?</li>
-                <li>A-t-il <strong>maintenu la tête à 2 mains</strong> dans la position trouvée, sans la corriger ?</li>
-                <li>A-t-il pris appui avec <strong>les coudes</strong> sur le sol ou les genoux ?</li>
-                <li>Le message d'alerte était-il <strong>complet</strong> ? (qui · où · quoi · état · assistance)</li>
-                <li>A-t-il maintenu le <strong>contact verbal</strong> avec Lucas ?</li>
-                <li>A-t-il attendu les secours sans <strong>relever ou déplacer</strong> la victime ?</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- BOUTON RETOUR DASHBOARD -->
-          <a href="index.html?done=3" onclick="goToDashboard(event)"
-             style="display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#1a5a35,#1a7a4a);border:1.5px solid #27ae60;border-radius:12px;padding:14px 20px;color:white;text-decoration:none;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;flex-shrink:0;"
-             onmouseover="this.style.background='linear-gradient(135deg,#27ae60,#1a9a50)'"
-             onmouseout="this.style.background='linear-gradient(135deg,#1a5a35,#1a7a4a)'">
-            <span style="font-size:20px;">✅</span>
-            <div style="text-align:left;">
-              <div>Chapitre 1 terminé — Retour au dashboard</div>
-              <div style="font-size:11px;opacity:.75;font-weight:600;">La carte Traumatisme passera en vert ✓</div>
-            </div>
-            <span style="font-size:18px;margin-left:auto;">→</span>
+      <div id="cc-t2" style="display:none">
+        <div class="section-label">Correction — ce qu'il fallait faire</div>
+        <div style="display:flex;gap:10px;justify-content:center;margin-bottom:10px;flex-wrap:wrap;">
+          <img src="images/lva.jpg" alt="LVA — Libération des voies aériennes"
+               style="max-height:175px;max-width:48%;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.3);border:2px solid #27ae60;object-fit:cover;">
+          <img src="images/pc2.jpg" alt="PLS — Perte de connaissance"
+               style="max-height:175px;max-width:48%;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.3);border:2px solid #27ae60;object-fit:cover;">
+        </div>
+        <div class="cc-step ok" id="s1"><div class="cc-step-hd" onclick="ts(this)"><span>🛡️ 1. Protéger la zone</span><span class="chevron">›</span></div><div class="cc-step-body">Ne pas toucher la lettre ni les médicaments (éléments utiles aux secours). S'assurer qu'il n'y a pas d'autre danger. Appeler à l'aide immédiatement.</div></div>
+        <div class="cc-step ok" id="s2"><div class="cc-step-hd" onclick="ts(this)"><span>🗣️ 2. Stimuler — vérifier l'absence de réponse</span><span class="chevron">›</span></div><div class="cc-step-body">« Emma ! Tu m'entends ? » en secouant doucement les épaules, en pinçant le trapèze. Pas de réponse → inconscience confirmée.</div></div>
+        <div class="cc-step ok" id="s3"><div class="cc-step-hd" onclick="ts(this)"><span>🛏️ 3. Allonger sur le dos</span><span class="chevron">›</span></div><div class="cc-step-body">Il est déjà au sol. S'assurer qu'il est bien sur le dos. Pas de traumatisme apparent. Allonger délicatement sur le dos si ce n'est pas déjà le cas.</div></div>
+        <div class="cc-step ok" id="s4"><div class="cc-step-hd" onclick="ts(this)"><span>🫁 4. LVA — Libérer les voies aériennes</span><span class="chevron">›</span></div><div class="cc-step-body">Main sur le front · 2 doigts sous le menton · basculer doucement la tête en arrière et élever le menton.</div></div>
+        <div class="cc-step ok" id="s5"><div class="cc-step-hd" onclick="ts(this)"><span>👂 5. Apprécier la respiration (10 sec max)</span><span class="chevron">›</span></div><div class="cc-step-body">Joue et oreille au-dessus de la bouche et du nez : regarder le ventre · écouter · sentir le flux d'air. Il respire → PLS. S'il ne respire pas → RCP (Ch.10).</div></div>
+        <div class="cc-step ok" id="s6"><div class="cc-step-hd" onclick="ts(this)"><span>🔄 6. Mettre en PLS</span><span class="chevron">›</span></div><div class="cc-step-body">Pas de traumatisme → PLS. 3 temps : préparer · retourner · stabiliser. Ouvrir la bouche pour permettre l'écoulement des liquides. La tête légèrement en extension.</div></div>
+        <div class="cc-step ok" id="s7"><div class="cc-step-hd" onclick="ts(this)"><span>📞 7. Alerter les secours</span><span class="chevron">›</span></div><div class="cc-step-body">15 ou 18 ou 112. Donner : l'adresse, Emma (17 ans) inconsciente, respire, médicaments sur la table de nuit, mise en PLS. Ne pas raccrocher. Appliquer les consignes du médecin régulateur.</div></div>
+        <div class="cc-step ok" id="s8"><div class="cc-step-hd" onclick="ts(this)"><span>👀 8. Surveiller la respiration en permanence</span><span class="chevron">›</span></div><div class="cc-step-body">Regarder · écouter · sentir jusqu'à l'arrivée des secours. Protéger du froid. Si la respiration s'arrête → RCP + recontacter.</div></div>
+        <div class="debrief-box">
+          <h4>💬 Débriefing formateur</h4>
+          <p>Points clés : la stimulation a-t-elle été réalisée avant tout geste ? La LVA a-t-elle précédé l'appréciation de la respiration ? La PLS a-t-elle été correctement exécutée (3 temps) ? La surveillance a-t-elle été maintenue ? L'alerte a-t-elle été donnée avec les bons éléments ?</p>
+        </div>
+        <div style="margin-top:10px;text-align:center">
+          <a href="index.html?done=9" onclick="goToDashboard(event)"
+             style="display:inline-block;background:var(--vert);color:white;padding:10px 24px;border-radius:10px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;text-decoration:none;">
+            ✅ Chapitre terminé — Retour au dashboard
           </a>
-
         </div>
       </div>
     </div>
-
+    <div class="slide-footer" id="cc-footer">
+      <span>Temps 1 — Situation soumise aux élèves</span>
+      <div class="progress-dots" id="dots7"></div>
+      <span>Slide 9/9</span>
+    </div>
   </div>
-  <div class="slide-footer">
-    <span id="cc-footer">Temps 1 — Situation soumise aux élèves</span>
-    <div class="progress-dots" id="dots-6"></div>
-    <span>Slide 8/9</span>
-  </div>
-</div>
 
-
-</div><!-- end stage -->
-
-<!-- ═══ SLIDE 7 : RAPPEL TECHNIQUES ═══ -->
-<div class="slide" id="slide-8" style="background:#0d1117;border-radius:16px;overflow:hidden;">
-  <div style="max-width:860px;margin:0 auto;padding:24px 20px;font-family:'Outfit',sans-serif;flex:1;overflow-y:auto;">
-
-    <!-- Header -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
-      <div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:#5a6075;margin-bottom:4px;">Ch. 3 · Traumatisme</div>
-        <h2 style="font-size:22px;font-weight:800;color:#e8eaf0;margin:0;">🎓 Techniques utilisées dans ce chapitre</h2>
-      </div>
-      <a href="techniques.html" target="_blank"
-         style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#25c492;text-decoration:none;padding:7px 16px;background:rgba(29,158,117,0.12);border:1px solid rgba(29,158,117,0.3);border-radius:8px;">
-        📖 Référentiel complet ↗
-      </a>
-    </div>
-
-    <!-- Bandeau FOAD -->
-    <div style="background:rgba(240,138,48,0.1);border:1px solid rgba(240,138,48,0.25);border-left:3px solid #f08a30;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12.5px;color:#b0b5c8;line-height:1.6;">
-      <strong style="color:#f08a30;">💻 Scénario 5 FOAD :</strong> les apprenants ont déjà vu le traumatisme en FOAD (3h). En présentiel, on <strong style="color:#f08a30;">réactive</strong> d'abord (REFOR), puis on <strong style="color:#f08a30;">pratique</strong> immédiatement (APG(M) ou DCJIM).
-    </div>
-
-    <!-- Séquence visuelle -->
-    <div style="font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#5a6075;margin-bottom:10px;">Séquence pédagogique</div>
-    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:24px;">
-      <div style="background:rgba(240,138,48,0.12);border:1px solid rgba(240,138,48,0.3);border-radius:8px;padding:8px 14px;text-align:center;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#f08a30;">REFOR</div>
-        <div style="font-size:10px;color:#7a8090;margin-top:2px;">CAT Traumatisme</div>
-      </div>
-      <div style="color:#5a6075;font-size:18px;">→</div>
-      <div style="background:rgba(232,91,91,0.1);border:1px solid rgba(232,91,91,0.3);border-radius:8px;padding:8px 14px;text-align:center;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#ff8888;">APG(M)</div>
-        <div style="font-size:10px;color:#7a8090;margin-top:2px;">Douleur du cou</div>
-      </div>
-      <div style="color:#5a6075;font-size:13px;padding:0 2px;">ou</div>
-      <div style="background:rgba(29,158,117,0.1);border:1px solid rgba(29,158,117,0.25);border-radius:8px;padding:8px 14px;text-align:center;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#40dba0;">DCJIM</div>
-        <div style="font-size:10px;color:#7a8090;margin-top:2px;">Douleur du cou</div>
-      </div>
-      <div style="color:#5a6075;font-size:18px;">→</div>
-      <div style="background:rgba(155,127,232,0.1);border:1px solid rgba(155,127,232,0.25);border-radius:8px;padding:8px 14px;text-align:center;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#9b7fe8;">1 CC</div>
-        <div style="font-size:10px;color:#7a8090;margin-top:2px;">Évaluation</div>
-      </div>
-    </div>
-
-    <!-- Fiches techniques -->
-    <div style="font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#5a6075;margin-bottom:10px;">Fiches des techniques</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;">
-
-      <!-- REFOR -->
-      <a href="techniques.html#REFOR" target="_blank" style="text-decoration:none;">
-        <div style="background:#13161e;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:14px 16px;transition:border-color .2s,transform .2s;"
-          onmouseover="this.style.borderColor='rgba(240,138,48,0.45)';this.style.transform='translateY(-2px)'"
-          onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='translateY(0)'">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;padding:4px 10px;background:rgba(240,138,48,0.15);color:#f08a30;border-radius:6px;">REFOR</span>
-            <span style="font-size:12px;font-weight:600;color:#e8eaf0;">Reformulation</span>
-          </div>
-          <div style="font-size:11px;color:#9ea3b5;line-height:1.55;margin-bottom:8px;">Réactivation mémorielle post-FOAD : l'apprenant guide le formateur dans la CAT. Remplace la démo complète.</div>
-          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">
-            <span style="font-size:9px;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:rgba(91,141,248,0.15);color:#5b8df8;">Apprentissage</span>
-            <span style="font-size:9px;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:rgba(240,138,48,0.15);color:#f08a30;">FOAD</span>
-          </div>
-          <div style="font-size:10px;color:#25c492;font-weight:600;">→ Voir fiche complète</div>
-        </div>
-      </a>
-
-      <!-- APG(M) -->
-      <a href="techniques.html#APGM" target="_blank" style="text-decoration:none;">
-        <div style="background:#13161e;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:14px 16px;transition:border-color .2s,transform .2s;"
-          onmouseover="this.style.borderColor='rgba(232,91,91,0.45)';this.style.transform='translateY(-2px)'"
-          onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='translateY(0)'">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;padding:4px 10px;background:rgba(232,91,91,0.12);color:#ff8888;border-radius:6px;">APG(M)</span>
-            <span style="font-size:12px;font-weight:600;color:#e8eaf0;">Atelier Pratique du Geste</span>
-          </div>
-          <div style="font-size:11px;color:#9ea3b5;line-height:1.55;margin-bottom:8px;">Binôme : sauveteur / victime / observateur. Le (M) = formateur fait les gestes <em>en même temps</em> 2-3× avant l'autonomie.</div>
-          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">
-            <span style="font-size:9px;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:rgba(91,141,248,0.15);color:#5b8df8;">Apprentissage</span>
-            <span style="font-size:9px;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:rgba(240,138,48,0.15);color:#f08a30;">FOAD</span>
-          </div>
-          <div style="font-size:10px;color:#25c492;font-weight:600;">→ Voir fiche complète</div>
-        </div>
-      </a>
-
-      <!-- DCJIM -->
-      <a href="techniques.html#DCJIM" target="_blank" style="text-decoration:none;">
-        <div style="background:#13161e;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:14px 16px;transition:border-color .2s,transform .2s;"
-          onmouseover="this.style.borderColor='rgba(29,158,117,0.45)';this.style.transform='translateY(-2px)'"
-          onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='translateY(0)'">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;padding:4px 10px;background:rgba(29,158,117,0.1);color:#40dba0;border-radius:6px;">DCJIM</span>
-            <span style="font-size:12px;font-weight:600;color:#e8eaf0;">Démo Commentée en Miroir</span>
-          </div>
-          <div style="font-size:11px;color:#9ea3b5;line-height:1.55;margin-bottom:8px;">Alternative à l'APG(M) : formateur + apprenants font les gestes simultanément. Plus guidé, progression plus lente.</div>
-          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">
-            <span style="font-size:9px;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:rgba(91,141,248,0.15);color:#5b8df8;">Apprentissage</span>
-            <span style="font-size:9px;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:rgba(240,138,48,0.15);color:#f08a30;">FOAD</span>
-          </div>
-          <div style="font-size:10px;color:#25c492;font-weight:600;">→ Voir fiche complète</div>
-        </div>
-      </a>
-
-      <!-- CC -->
-      <a href="techniques.html#CC" target="_blank" style="text-decoration:none;">
-        <div style="background:#13161e;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:14px 16px;transition:border-color .2s,transform .2s;"
-          onmouseover="this.style.borderColor='rgba(155,127,232,0.45)';this.style.transform='translateY(-2px)'"
-          onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='translateY(0)'">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;padding:4px 10px;background:rgba(155,127,232,0.12);color:#9b7fe8;border-radius:6px;">CC</span>
-            <span style="font-size:12px;font-weight:600;color:#e8eaf0;">Cas Concret</span>
-          </div>
-          <div style="font-size:11px;color:#9ea3b5;line-height:1.55;margin-bottom:8px;">Évaluation formative finale. L'apprenant joue le sauveteur face à une MSAS (1 victime, 1 détresse, ≤ 10 min).</div>
-          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">
-            <span style="font-size:9px;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:20px;background:rgba(155,127,232,0.15);color:#9b7fe8;">Application</span>
-          </div>
-          <div style="font-size:10px;color:#25c492;font-weight:600;">→ Voir fiche complète</div>
-        </div>
-      </a>
-
-    </div><!-- end fiches grid -->
-
-    <!-- Bouton retour -->
-    <div style="margin-top:28px;text-align:center;">
-      <button onclick="goSlide(0)"
-        style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#9ea3b5;padding:9px 22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;cursor:pointer;"
-        onmouseover="this.style.background='rgba(255,255,255,0.09)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">
-        ← Revenir au Titre
-      </button>
-    </div>
-
-  </div><!-- end inner wrapper -->
-  <div style="padding:7px 28px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#5a6075;flex-shrink:0;background:#0d1117;">
-    <span>Techniques pédagogiques — Ch. 3</span>
-    <div class="progress-dots" id="dots-8"></div>
-    <span>Slide 9/9</span>
-  </div>
-</div>
-<!-- ═══ FIN SLIDE RAPPEL ═══ -->
+</div><!-- /stage -->
 
 <script>
-const TOTAL=9;
-let cur=0;
+// ── NAV ──
+let current=0; const total=9;
 const slidePills=document.querySelectorAll('.pill[onclick^="goSlide"]');
 function goSlide(n){
-  document.getElementById('slide-'+cur).classList.remove('active');
-  slidePills[cur].classList.remove('active');
-  cur=n;
-  document.getElementById('slide-'+cur).classList.add('active');
-  slidePills[cur].classList.add('active');
-  document.getElementById('slide-counter').textContent=(cur+1)+' / '+TOTAL;
-  updateDots();
+  document.querySelectorAll('.slide')[current].classList.remove('active');
+  slidePills[current].classList.remove('active');
+  current=n;
+  document.querySelectorAll('.slide')[current].classList.add('active');
+  slidePills[current].classList.add('active');
+  document.getElementById('slide-counter').textContent=(current+1)+' / '+total;
+  renderDots();
+  if(n===5) initReorder();
 }
-function nextSlide(){if(cur<TOTAL-1)goSlide(cur+1)}
-function prevSlide(){if(cur>0)goSlide(cur-1)}
-document.addEventListener('keydown',e=>{
-  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();nextSlide()}
-  if(e.key==='ArrowLeft'){e.preventDefault();prevSlide()}
-});
-function updateDots(){
-  for(let i=0;i<TOTAL;i++){
-    const d=document.getElementById('dots-'+i);
-    if(!d)return;
-    d.innerHTML='';
-    for(let j=0;j<TOTAL;j++){
-      const dot=document.createElement('div');
-      dot.className='dot'+(j===i?' active':j<i?' done':'');
-      d.appendChild(dot);
-    }
+function nextSlide(){if(current<total-1)goSlide(current+1);}
+function prevSlide(){if(current>0)goSlide(current-1);}
+function renderDots(){
+  for(let i=0;i<total;i++){
+    const el=document.getElementById('dots'+i); if(!el)continue;
+    let h=''; for(let j=0;j<total;j++) h+=`<div class="dot${j===i?' active':j<i?' done':''}"></div>`;
+    el.innerHTML=h;
   }
 }
-updateDots();
+renderDots();
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextSlide();if(e.key==='ArrowLeft')prevSlide();});
 
-function toggleReveal(id){
-  const el=document.getElementById(id)||document.getElementById('reveal-'+id);
-  if(el)el.classList.toggle('shown');
-}
+// ── PLS accordion ──
+function togglePLS(id){document.getElementById(id).classList.toggle('open');}
 
-// ===== DRAG & DROP =====
-const DATA={
-  '1':{
-    steps:[
-      {id:'a',icon:'🗣️',text:'Conseiller fermement de ne pas mobiliser la partie atteinte'},
-      {id:'b',icon:'📞',text:'Faire alerter ou alerter les secours et appliquer leurs consignes'},
-      {id:'c',icon:'🌡️',text:'Protéger de la chaleur, du froid ou des intempéries'},
-      {id:'d',icon:'👁️',text:'Surveiller la victime et lui parler régulièrement'},
-    ],
-    order:['a','b','c','d']
-  },
-  '2':{
-    steps:[
-      {id:'e',icon:'🤲',text:'Si possible : stabiliser le rachis cervical dans la position où il se trouve en maintenant à 2 mains'},
-      {id:'f',icon:'🗣️',text:'Demander à la victime de ne pas bouger la tête'},
-      {id:'g',icon:'📞',text:'Faire alerter ou alerter les secours et appliquer leurs consignes'},
-      {id:'h',icon:'👁️',text:'Surveiller la victime régulièrement'},
-    ],
-    order:['f','g','e','h']
-  }
-};
+// ── RÉORDONNER ──
+const STEPS = [
+  {id:'r1', text:'🗣️ Stimuler — vérifier l\'absence de réponse verbale et physique'},
+  {id:'r2', text:'🆘 Demander de l\'aide / crier au secours'},
+  {id:'r3', text:'🛏️ Allonger la victime sur le dos'},
+  {id:'r4', text:'🫁 Libérer les voies aériennes (LVA)'},
+  {id:'r5', text:'👂 Apprécier la respiration pendant 10 secondes max'},
+  {id:'r6', text:'🔄 Mettre en PLS (si elle respire)'},
+  {id:'r7', text:'📞 Alerter les secours (15 / 18 / 112)'},
+  {id:'r8', text:'👀 Surveiller la respiration en permanence'},
+];
+let roInited=false;
+let roDragged=null;
 
-let dragging=null; // la carte en cours de déplacement
-let dragOrigin=null; // le slot ou pool d'où elle vient
+function initReorder(){
+  if(roInited) return;
+  roInited=true;
+  const pool=document.getElementById('ro-pool');
+  const zone=document.getElementById('ro-zone');
 
-function buildPool(cat){
-  const pool=document.getElementById('pool-'+cat);
+  // Shuffle
+  const shuffled=[...STEPS].sort(()=>Math.random()-.5);
   pool.innerHTML='';
-  // Reset all slots visually
-  DATA[cat].order.forEach((_,i)=>{
-    const slot=document.getElementById('slot-'+cat+'-'+i);
-    if(slot){
-      slot.innerHTML=emptySlot();
-      slot.classList.remove('filled','correct','wrong');
-    }
+  zone.innerHTML='';
+
+  shuffled.forEach(s=>{
+    const div=makeRoItem(s);
+    pool.appendChild(div);
   });
-  const shuffled=[...DATA[cat].steps].sort(()=>Math.random()-.5);
-  shuffled.forEach(s=>pool.appendChild(makeCard(s,cat)));
+  // Build 8 drop zones
+  for(let i=1;i<=8;i++){
+    const dz=document.createElement('div');
+    dz.className='drop-zone';
+    dz.id='dz-'+i;
+    dz.dataset.pos=i;
+    dz.innerHTML=`<span style="font-family:'Outfit',sans-serif;font-weight:700;color:var(--indigo-bord);margin-right:8px">${i}.</span><span>Dépose ici…</span>`;
+    dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('dragover');});
+    dz.addEventListener('dragleave',()=>dz.classList.remove('dragover'));
+    dz.addEventListener('drop',e=>{
+      e.preventDefault(); dz.classList.remove('dragover');
+      if(!roDragged) return;
+      // if zone already has item, return it to pool
+      const existing=dz.querySelector('.ro-item');
+      if(existing){ pool.appendChild(existing); }
+      // if dragged came from another zone, clear that zone display
+      dz.innerHTML='';
+      dz.classList.add('filled');
+      roDragged.classList.remove('dragging');
+      dz.appendChild(roDragged);
+      roDragged=null;
+    });
+    zone.appendChild(dz);
+  }
 }
 
-function emptySlot(){
-  return '<span style="font-size:11px;color:#bbb;font-family:\'Outfit\',sans-serif;pointer-events:none;">Déposer ici</span>';
-}
-
-function makeCard(s,cat){
+function makeRoItem(s){
   const div=document.createElement('div');
-  div.className='step-card';
-  div.id='card-'+s.id;
+  div.className='ro-item';
   div.draggable=true;
   div.dataset.id=s.id;
-  div.dataset.cat=cat;
-  div.innerHTML='<span class="step-icon" style="pointer-events:none;">'+s.icon+'</span><span style="pointer-events:none;">'+s.text+'</span>';
-  attachDrag(div);
+  div.innerHTML=`<div class="ro-num">✦</div><span>${s.text}</span>`;
+  div.addEventListener('dragstart',()=>{roDragged=div;div.classList.add('dragging');});
+  div.addEventListener('dragend',()=>div.classList.remove('dragging'));
+  div.addEventListener('dblclick',()=>{
+    div.classList.remove('correct','wrong');
+    div.querySelector('.ro-num').textContent='✦';
+    document.getElementById('ro-pool').appendChild(div);
+    // clean parent drop zone
+    const parent=div.parentElement;
+    if(parent&&parent.classList.contains('drop-zone')){
+      parent.innerHTML=`<span style="font-family:'Outfit',sans-serif;font-weight:700;color:var(--indigo-bord);margin-right:8px">${parent.dataset.pos}.</span><span>Dépose ici…</span>`;
+      parent.classList.remove('filled');
+    }
+  });
   return div;
 }
 
-function attachDrag(card){
-  card.addEventListener('dragstart',e=>{
-    dragging=card;
-    dragOrigin=card.parentElement;
-    setTimeout(()=>card.classList.add('dragging'),0);
-  });
-  card.addEventListener('dragend',e=>{
-    card.classList.remove('dragging');
-  });
-  card.addEventListener('touchstart',e=>{
-    dragging=card;
-    dragOrigin=card.parentElement;
-    card.classList.add('dragging');
-  },{passive:true});
-}
-
-function ov(e){
-  e.preventDefault();
-  e.currentTarget.classList.add('drag-over');
-}
-
-function ol(e){ e.currentTarget.classList.remove('drag-over'); }
-
-function dp(e,slot,cat){
-  e.preventDefault();
-  slot.classList.remove('drag-over');
-  if(!dragging)return;
-  doSwap(slot,cat);
-}
-
-function tdrop(e,slot,cat){
-  slot.classList.remove('drag-over');
-  if(!dragging)return;
-  doSwap(slot,cat);
-}
-
-function doSwap(targetSlot, cat){
-  const pool=document.getElementById('pool-'+cat);
-  const sourceParent=dragOrigin; // où était la carte draggée
-
-  // Carte qui occupe déjà la case cible (peut être null)
-  const existingCard=targetSlot.classList.contains('filled')
-    ? targetSlot.querySelector('.step-card') : null;
-
-  // 1. Retirer la carte draggée de son emplacement d'origine
-  dragging.classList.remove('in-slot','correct','wrong','dragging');
-
-  // 2. Si la source était un slot → on doit y mettre quelque chose
-  if(sourceParent && sourceParent.classList.contains('tl-slot')){
-    sourceParent.classList.remove('filled','correct','wrong');
-    if(existingCard){
-      // Échange : mettre l'ancienne carte dans le slot source
-      existingCard.classList.add('in-slot');
-      existingCard.classList.remove('correct','wrong');
-      sourceParent.innerHTML='';
-      sourceParent.classList.add('filled');
-      sourceParent.appendChild(existingCard);
+function checkOrder(){
+  let ok=0;
+  for(let i=1;i<=8;i++){
+    const dz=document.getElementById('dz-'+i);
+    const item=dz.querySelector('.ro-item');
+    if(!item) continue;
+    const correct=STEPS[i-1].id;
+    const num=item.querySelector('.ro-num');
+    if(item.dataset.id===correct){
+      item.classList.add('correct'); item.classList.remove('wrong');
+      num.textContent=i; ok++;
     } else {
-      // Slot source devient vide
-      sourceParent.innerHTML=emptySlot();
-    }
-  } else {
-    // Source = pool : si case cible avait une carte → la renvoyer au pool
-    if(existingCard){
-      existingCard.classList.remove('in-slot','correct','wrong');
-      pool.appendChild(existingCard);
+      item.classList.add('wrong'); item.classList.remove('correct');
+      num.textContent='✗';
     }
   }
-
-  // 3. Placer la carte draggée dans la case cible
-  targetSlot.innerHTML='';
-  targetSlot.classList.add('filled');
-  targetSlot.classList.remove('correct','wrong');
-  dragging.classList.add('in-slot');
-  dragging.draggable=true; // reste draggable depuis un slot !
-  targetSlot.appendChild(dragging);
-
-  dragging=null;
-  dragOrigin=null;
-
-  // Reset feedback
-  const fb=document.getElementById('fb-'+cat);
-  if(fb) fb.className='feedback-msg';
+  const sc=document.getElementById('ro-score');
+  sc.style.display='block';
+  sc.textContent=`Score : ${ok} / 8 bonne${ok>1?'s':''} réponse${ok>1?'s':''}`;
+  const good=ok>=7;
+  sc.style.cssText+=`;background:${good?'#e8f8ef':'#fdecea'};border:1.5px solid ${good?'#80cba0':'#e8a09a'};color:${good?'#1a7a4a':'#c0392b'};padding:8px 14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700`;
 }
 
-function checkDD(cat){
-  const order=DATA[cat].order;
-  let allOk=true;
-  order.forEach((id,i)=>{
-    const slot=document.getElementById('slot-'+cat+'-'+i);
-    const card=slot?slot.querySelector('.step-card'):null;
-    if(card){
-      const ok=card.dataset.id===id;
-      card.classList.toggle('correct',ok);
-      card.classList.toggle('wrong',!ok);
-      slot.classList.toggle('correct',ok);
-      slot.classList.toggle('wrong',!ok);
-      if(!ok)allOk=false;
-    } else {
-      allOk=false;
-    }
-  });
-  const fb=document.getElementById('fb-'+cat);
-  if(allOk){
-    fb.className='feedback-msg ok';
-    fb.textContent='🎉 Bravo ! La CAT est dans le bon ordre !';
-  } else {
-    fb.className='feedback-msg ko';
-    fb.textContent='❌ Pas encore… Les cases en rouge sont mal placées. Tu peux les déplacer directement !';
-  }
+function resetOrder(){
+  roInited=false;
+  document.getElementById('ro-score').style.display='none';
+  initReorder();
 }
 
-function resetDD(cat){
-  document.getElementById('fb-'+cat).className='feedback-msg';
-  const rid=cat==='1'?'r1':'r2';
-  const rev=document.getElementById(rid);
-  if(rev)rev.classList.remove('shown');
-  buildPool(cat);
+// ── CC ──
+let ccT2=false;
+function switchCC(){
+  ccT2=!ccT2;
+  document.getElementById('cc-t1').style.display=ccT2?'none':'block';
+  document.getElementById('cc-t2').style.display=ccT2?'block':'none';
+  document.getElementById('cc-switch-btn').textContent=ccT2?'← Retour temps 1':'Temps 2 : Correction →';
+  document.getElementById('cc-title').textContent=ccT2?'Cas Concret — ✅ Temps 2 : Correction':'🏠 Cas Concret — Temps 1 : La situation';
+  document.getElementById('cc-footer').querySelector('span').textContent=ccT2?'Temps 2 — Correction':'Temps 1 — Situation soumise aux élèves';
 }
+function ts(hd){hd.closest('.cc-step').classList.toggle('open');}
+function goToDashboard(e){if(e)e.preventDefault();window.location.href='index.html?done=9';}
 
-buildPool('1');
-buildPool('2');
-
-// ===== DASHBOARD =====
-function goToDashboard(e) {
-  if (e) e.preventDefault();
-  localStorage.setItem('psc1_ch1_done', 'true');
-  window.location.href = 'index.html?done=3';
-}
-
-// ===== ALERTE ITEMS REVEAL =====
-let alerteCount=0;
-function revealAlerteItem(n){
-  const el=document.getElementById('ai-'+n);
-  if(!el||el.classList.contains('revealed'))return;
-  el.classList.add('revealed');
-  alerteCount++;
-  if(alerteCount>=5){
-    const fin=document.getElementById('ai-final');
-    if(fin){fin.style.display='flex';fin.style.animation='fadeIn .4s ease';}
-  }
-}
-function resetAlerteItems(){
-  for(let i=1;i<=5;i++){
-    const el=document.getElementById('ai-'+i);
-    if(el)el.classList.remove('revealed');
-  }
-  const fin=document.getElementById('ai-final');
-  if(fin)fin.style.display='none';
-  alerteCount=0;
-}
-
-// ===== REVEAL PROGRESSIF TEMPS 1 =====
-function t1Reveal(state) {
-  document.getElementById('t1-state0').style.display = 'none';
-  document.getElementById('t1-state1').style.display = 'none';
-  document.getElementById('t1-state2').style.display = 'none';
-  if (state === 1) {
-    document.getElementById('t1-state1').style.display = 'flex';
-  } else if (state === 2) {
-    document.getElementById('t1-state2').style.display = 'flex';
-    resetAlerteItems();
-  }
-}
-
-// ===== CC 2 TEMPS =====
-let ccPhase=1;
-function switchCC() {
-  const t1 = document.getElementById('cc-t1');
-  const t2 = document.getElementById('cc-t2');
-  const btn = document.getElementById('cc-switch-btn');
-  const footer = document.getElementById('cc-footer');
-  if (t2.style.display === 'none') {
-    t1.style.display = 'none'; t2.style.display = 'flex';
-    btn.textContent = '← Temps 1 : Situation';
-    if (footer) footer.querySelector('span').textContent = 'Temps 2 — Correction';
-  } else {
-    t1.style.display = 'flex'; t2.style.display = 'none';
-    btn.textContent = 'Temps 2 : Correction →';
-    if (footer) footer.querySelector('span').textContent = 'Temps 1 — Situation soumise aux élèves';
-  }
-}
-
-// ===== CHRONO =====
-let cInt=null,cSecs=0,cRun=false;
-function updateChronoDisplays(){
-  const m=Math.floor(cSecs/60),s=cSecs%60;
-  const txt=m+':'+(s<10?'0':'')+s;
-  const d1=document.getElementById('chrono-display');
-  const d2=document.getElementById('chrono-display2');
-  if(d1)d1.textContent=txt;
-  if(d2)d2.textContent=txt;
-  const col=cSecs>=420?'#ff6b6b':'white';
-  if(d1)d1.style.color=col;
-  if(d2)d2.style.color=col;
-}
-function toggleC(){
-  const btn=document.getElementById('c-btn');
-  if(cRun){
-    clearInterval(cInt);cRun=false;
-    if(btn){btn.textContent='▶ Reprendre';btn.className='c-btn start';}
-  } else {
-    cInt=setInterval(()=>{cSecs++;updateChronoDisplays();},1000);
-    cRun=true;
-    if(btn){btn.textContent='⏸ Pause';btn.className='c-btn stop';}
-  }
-}
-function resetC(){
-  clearInterval(cInt);cRun=false;cSecs=0;
-  updateChronoDisplays();
-  const btn=document.getElementById('c-btn');
-  if(btn){btn.textContent='▶ Démarrer';btn.className='c-btn start';}
-}
-function resetC2(){resetC();}
-
-// ── QUI SUIS-JE ? — TRAUMATISMES ──
-const QSJ_QUESTIONS = [
-  { indices:["La douleur est vive et localisée à un membre","Le membre est gonflé et chaud","La victime ne peut pas bouger ce membre sans douleur"], answer:"Fracture", opts:["Fracture","Entorse","Luxation","Contusion"], expl:"✅ Fracture — douleur localisée, gonflement, impotence fonctionnelle. Ne pas mobiliser le membre." },
-  { indices:["L'articulation a bougé au-delà de sa limite","Gonflement immédiat et douleur à la cheville","La victime peut encore marcher malgré tout"], answer:"Entorse", opts:["Fracture","Entorse","Luxation","Contusion"], expl:"✅ Entorse — torsion ligamentaire, gonflement rapide mais mobilité partielle conservée." },
-  { indices:["L'articulation est déformée visuellement","La tête osseuse est sortie de son logement","Toute mobilisation est impossible et très douloureuse"], answer:"Luxation", opts:["Fracture","Entorse","Luxation","Plaie"], expl:"✅ Luxation — déplacement permanent des surfaces articulaires. Ne jamais tenter de réduire soi-même." },
-  { indices:["Choc violent sans plaie ni déformation visible","Hématome qui apparaît progressivement","Douleur à la pression mais mobilité conservée"], answer:"Contusion", opts:["Fracture","Entorse","Luxation","Contusion"], expl:"✅ Contusion — lésion des tissus mous sans rupture osseuse ni ligamentaire. Glace et repos." },
-  { indices:["Chute sur le côté chez une personne âgée","Membre inférieur raccourci et tourné vers l'extérieur","Toute mise en charge est impossible"], answer:"Fracture du col du fémur", opts:["Entorse de la cheville","Fracture du col du fémur","Luxation de la hanche","Contusion du genou"], expl:"✅ Fracture du col du fémur — membre raccourci + rotation externe = signe très évocateur. Urgence absolue." },
-  { indices:["Traumatisme du dos ou du cou","Picotements ou engourdissements dans les membres","La victime décrit une sensation de décharge électrique"], answer:"Traumatisme du rachis", opts:["Entorse cervicale","Contusion dorsale","Traumatisme du rachis","Fracture costale"], expl:"✅ Traumatisme du rachis — suspicion systématique si signes neurologiques. Immobilisation totale, appeler le 15." }
+// ── LA BONNE DÉCISION — PLS / PERTE DE CONNAISSANCE ──
+const BD_QUESTIONS = [
+  { q:"Une personne s\'effondre, ne répond pas, mais respire. Que faites-vous en premier ?", answer:"Libérer les voies aériennes", opts:["Commencer le RCP","Libérer les voies aériennes","Appeler le 15","Mettre en PLS immédiatement"], expl:"✅ LVA d\'abord — basculer la tête, soulever le menton. Sans air libre, rien d\'autre ne sert." },
+  { q:"Victime inconsciente qui respire, seule sur le dos. Quelle est la priorité ?", answer:"Mettre en PLS", opts:["Mettre en PLS","Faire le bouche-à-bouche","Lui parler pour la garder consciente","Comprimer le thorax"], expl:"✅ PLS — la victime qui respire allongée risque l\'obstruction par la langue ou les vomissements. La PLS sécurise les voies." },
+  { q:"En PLS, de quel côté tourne-t-on la victime de préférence ?", answer:"Côté gauche (côté sauveteur)", opts:["Côté droit","Côté gauche (côté sauveteur)","N'importe quel côté","Sur le ventre"], expl:"✅ Côté gauche — c\'est la recommandation standard pour les adultes. Facilite le drainage des liquides." },
+  { q:"Après avoir mis une victime en PLS, que faites-vous ensuite ?", answer:"Alerter le 15 et surveiller la respiration", opts:["Faire le bouche-à-bouche","La remettre sur le dos","Alerter le 15 et surveiller la respiration","La secouer pour qu\'elle reprenne conscience"], expl:"✅ Alerter + surveiller — la PLS est une position d\'attente. On alerte et on surveille jusqu\'à l\'arrivée des secours." },
+  { q:"Une victime inconsciente vomit en PLS. Que faites-vous ?", answer:"Dégager la bouche avec un doigt et maintenir la PLS", opts:["La remettre sur le dos","Lui mettre un objet dans la bouche","Dégager la bouche avec un doigt et maintenir la PLS","Commencer le RCP"], expl:"✅ Dégager + maintenir PLS — en PLS, les vomissements s\'écoulent vers l\'extérieur. Dégager si besoin, ne pas changer de position." },
+  { q:"Pour un nourrisson inconscient qui respire, la PLS se fait comment ?", answer:"Maintenu sur le flanc, tenu par le sauveteur", opts:["Comme un adulte côté gauche","Maintenu sur le flanc, tenu par le sauveteur","Sur le ventre, tête tournée","Allongé sur le dos, bouche ouverte"], expl:"✅ Nourrisson — tenu sur le flanc dans les bras du sauveteur ou calé avec un rouleau de tissu. Tête légèrement basculée." },
+  { q:"Une victime traumatisée (chute, accident) est inconsciente et respire. La PLS est-elle possible ?", answer:"Oui, mais avec maintien de la tête en axe", opts:["Non, ne jamais la mobiliser","Oui, comme d'habitude","Oui, mais avec maintien de la tête en axe","Oui, en tirant sur les bras"], expl:"✅ PLS traumatique — possible mais avec maintien rigoureux de l\'axe tête-cou-tronc. Idéalement à 2 sauveteurs." }
 ];
-let qsjQ=[], qsjIdx=0, qsjScore=0, qsjIndiceShown=0, qsjAnswered=false;
-function qsjShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function qsjStart(){
-  qsjQ=qsjShuffle([...QSJ_QUESTIONS]); qsjIdx=0; qsjScore=0;
-  document.getElementById('qsj-config').style.display='none';
-  document.getElementById('qsj-end').style.display='none';
-  document.getElementById('qsj-game').style.display='flex';
-  qsjRender();
+let bdQ=[], bdIdx=0, bdScore=0, bdTimer=null, bdStart_t=0, bdAnswered=false;
+function bdShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function bdStart(){
+  bdQ=bdShuffle([...BD_QUESTIONS]);bdIdx=0;bdScore=0;
+  document.getElementById('bd-config').style.display='none';
+  document.getElementById('bd-end').style.display='none';
+  document.getElementById('bd-game').style.display='flex';
+  bdRender();
 }
-function qsjRender(){
-  qsjAnswered=false; qsjIndiceShown=0;
-  document.getElementById('qsj-qnum').textContent=qsjIdx+1;
-  document.getElementById('qsj-score').textContent=qsjScore;
-  document.getElementById('qsj-fb').className='game-fb';
-  document.getElementById('qsj-next-btn').style.display='none';
-  document.getElementById('qsj-more-btn').style.display='inline-block';
-  const q=qsjQ[qsjIdx];
-  document.getElementById('qsj-indices').innerHTML='<span style="color:#f0c040">💡 Indice 1 :</span> '+q.indices[0];
-  const opts=document.getElementById('qsj-opts'); opts.innerHTML='';
+function bdRender(){
+  bdAnswered=false;
+  const q=bdQ[bdIdx];
+  document.getElementById('bd-qnum').textContent=bdIdx+1;
+  document.getElementById('bd-score').textContent=bdScore;
+  document.getElementById('bd-qtext').textContent=q.q;
+  document.getElementById('bd-fb').className='game-fb';
+  document.getElementById('bd-next-btn').style.display='none';
+  const opts=document.getElementById('bd-opts');opts.innerHTML='';
   q.opts.forEach(o=>{
-    const b=document.createElement('button'); b.className='game-opt'; b.textContent=o;
-    b.onclick=()=>qsjAnswer(o,q); opts.appendChild(b);
+    const b=document.createElement('button');b.className='game-opt';b.textContent=o;
+    b.onclick=()=>bdAnswer(o,q);opts.appendChild(b);
   });
+  bdStartTimer();
 }
-function qsjMoreIndice(){
-  if(qsjAnswered) return;
-  const q=qsjQ[qsjIdx];
-  if(qsjIndiceShown>=q.indices.length-1){ document.getElementById('qsj-more-btn').style.display='none'; return; }
-  qsjIndiceShown++;
-  document.getElementById('qsj-indices').innerHTML+=
-    '<br><span style="color:#a0c0ff">💡 Indice '+(qsjIndiceShown+1)+' :</span> '+q.indices[qsjIndiceShown];
-  if(qsjIndiceShown>=q.indices.length-1) document.getElementById('qsj-more-btn').style.display='none';
+function bdStartTimer(){
+  clearInterval(bdTimer);
+  bdStart_t=Date.now();
+  const LIMIT=10000;
+  function tick(){
+    const elapsed=Date.now()-bdStart_t;
+    const pct=Math.max(0,(1-elapsed/LIMIT)*100);
+    document.getElementById('bd-timer-bar').style.width=pct+'%';
+    document.getElementById('bd-timer-bar').style.background=pct>50?'#f0c040':pct>20?'#ff9800':'#ff4444';
+    const secs=Math.max(0,Math.ceil((LIMIT-elapsed)/1000));
+    document.getElementById('bd-timer-label').textContent=secs+'s';
+    if(elapsed>=LIMIT && !bdAnswered){ clearInterval(bdTimer); bdTimeUp(); }
+  }
+  bdTimer=setInterval(tick,100);
 }
-function qsjAnswer(chosen, q){
-  if(qsjAnswered) return; qsjAnswered=true;
-  document.getElementById('qsj-more-btn').style.display='none';
-  const pts = qsjIndiceShown===0?3:qsjIndiceShown===1?2:1;
-  const correct=(chosen===q.answer);
-  document.getElementById('qsj-opts').querySelectorAll('.game-opt').forEach(b=>{
+function bdTimeUp(){
+  bdAnswered=true;
+  const q=bdQ[bdIdx];
+  document.getElementById('bd-opts').querySelectorAll('.game-opt').forEach(b=>{
     b.disabled=true;
-    if(b.textContent===q.answer) b.classList.add('correct');
-    else if(b.textContent===chosen && !correct) b.classList.add('wrong');
+    if(b.textContent===q.answer)b.classList.add('correct');
   });
-  const fb=document.getElementById('qsj-fb');
-  if(correct){ qsjScore+=pts; fb.className='game-fb ok'; fb.textContent='🎯 +'+pts+' pt'+(pts>1?'s':'')+' ! '+q.expl; }
-  else { fb.className='game-fb ko'; fb.textContent='❌ '+q.expl; }
-  document.getElementById('qsj-score').textContent=qsjScore;
-  document.getElementById('qsj-next-btn').style.display='inline-block';
+  const fb=document.getElementById('bd-fb');
+  fb.className='game-fb ko';
+  fb.innerHTML='⏰ Temps écoulé ! La bonne réponse était : <strong>'+q.answer+'</strong>. '+q.expl;
+  document.getElementById('bd-next-btn').style.display='inline-block';
 }
-function qsjNext(){
-  qsjIdx++;
-  if(qsjIdx>=qsjQ.length){ qsjEnd(); return; }
-  qsjRender();
+function bdAnswer(chosen,q){
+  if(bdAnswered)return;bdAnswered=true;
+  clearInterval(bdTimer);
+  const elapsed=Date.now()-bdStart_t;
+  const pts=chosen===q.answer?(elapsed<5000?3:2):0;
+  document.getElementById('bd-opts').querySelectorAll('.game-opt').forEach(b=>{
+    b.disabled=true;
+    if(b.textContent===q.answer)b.classList.add('correct');
+    else if(b.textContent===chosen&&chosen!==q.answer)b.classList.add('wrong');
+  });
+  const fb=document.getElementById('bd-fb');
+  if(chosen===q.answer){bdScore+=pts;fb.className='game-fb ok';fb.innerHTML='🎯 +'+pts+' pt'+(pts>1?'s':'')+' ! '+q.expl;}
+  else{fb.className='game-fb ko';fb.innerHTML='❌ '+q.expl;}
+  document.getElementById('bd-score').textContent=bdScore;
+  document.getElementById('bd-next-btn').style.display='inline-block';
 }
-function qsjEnd(){
-  document.getElementById('qsj-game').style.display='none';
-  document.getElementById('qsj-end').style.display='flex';
-  const max=QSJ_QUESTIONS.length*3;
-  document.getElementById('qsj-final-score').textContent=qsjScore+' / '+max;
-  const pct=qsjScore/max;
-  document.getElementById('qsj-final-msg').textContent=pct>=.8?'Excellent ! Tu maîtrises les traumatismes 💪':pct>=.5?'Bien joué ! Quelques révisions s\'imposent.':'Continue à réviser — tu y es presque !';
+function bdNext(){bdIdx++;if(bdIdx>=bdQ.length){bdEnd();return;}bdRender();}
+function bdEnd(){
+  clearInterval(bdTimer);
+  document.getElementById('bd-game').style.display='none';
+  document.getElementById('bd-end').style.display='flex';
+  const max=BD_QUESTIONS.length*3;
+  document.getElementById('bd-final-score').textContent=bdScore+' / '+max;
+  const pct=bdScore/max;
+  document.getElementById('bd-final-msg').textContent=pct>=.8?'Excellent ! Tu réagis vite et juste ⚡':pct>=.5?'Bien ! La rapidité de décision s\'améliore avec la pratique.':'Continue à t\'entraîner — en urgence, chaque seconde compte !';
 }
-function qsjRestart(){ document.getElementById('qsj-end').style.display='none'; qsjStart(); }
+function bdRestart(){document.getElementById('bd-end').style.display='none';bdStart();}
 
 
 // ── DRAG & DROP PILLS NAVIGATION ──
 (function(){
   const container = document.getElementById('nav-pills');
   let dragSrc = null;
-  const slides = Array.from(document.querySelectorAll('.slide'));
 
+  // Stocker l'index de slide original dans chaque pill
   function tagPills(){
     container.querySelectorAll('.pill').forEach((pill, i) => {
-      if(i === 0) return;
+      if(i === 0) return; // Dashboard fixe
+      // L'index de slide = i-1 (pill 1 → slide 0, pill 2 → slide 1, etc.)
       pill.dataset.slide = String(i - 1);
     });
   }
 
   function initPillDrag(){
     container.querySelectorAll('.pill').forEach((pill, idx) => {
-      if(idx === 0) return;
+      if(idx === 0) return; // Dashboard — fixe
       pill.classList.add('draggable-pill');
       pill.setAttribute('draggable', 'true');
       pill.title = 'Maintenir et glisser pour réorganiser';
@@ -1674,7 +1006,6 @@ function qsjRestart(){ document.getElementById('qsj-end').style.display='none'; 
         pill.classList.remove('pill-dragging');
         container.querySelectorAll('.pill').forEach(p => p.classList.remove('pill-drag-over'));
         dragSrc = null;
-        applyPillOrder();
       });
 
       pill.addEventListener('dragover', e => {
@@ -1695,48 +1026,13 @@ function qsjRestart(){ document.getElementById('qsj-end').style.display='none'; 
         if(!dragSrc || dragSrc === pill) return;
         const pills = Array.from(container.querySelectorAll('.pill'));
         const tgtIdx = pills.indexOf(pill);
-        if(tgtIdx === 0) return;
+        if(tgtIdx === 0) return; // Ne pas déposer sur Dashboard
         const srcIdx = pills.indexOf(dragSrc);
         if(srcIdx < tgtIdx) pill.after(dragSrc);
         else pill.before(dragSrc);
         pill.classList.remove('pill-drag-over');
-        applyPillOrder();
       });
     });
-  }
-
-  function applyPillOrder(){
-    const stage = document.getElementById('stage');
-    const pills = Array.from(container.querySelectorAll('.pill'));
-    pills.forEach((pill, i) => {
-      if(i === 0) return;
-      const slideIdx = parseInt(pill.dataset.slide);
-      if(isNaN(slideIdx)) return;
-      const slide = slides[slideIdx];
-      if(slide) stage.appendChild(slide);
-    });
-    const allSlides = Array.from(document.querySelectorAll('.slide'));
-    const activeSlide = document.querySelector('.slide.active');
-    const newCurrent = allSlides.indexOf(activeSlide);
-    if(newCurrent >= 0) current = newCurrent;
-    updatePillActiveState();
-  }
-
-  function updatePillActiveState(){
-    const pills = Array.from(container.querySelectorAll('.pill'));
-    const allSlides = Array.from(document.querySelectorAll('.slide'));
-    const activeIdx = allSlides.findIndex(s => s.classList.contains('active'));
-    pills.forEach(p => { if(p.dataset.slide) p.classList.remove('active'); });
-    pills.forEach(p => {
-      if(parseInt(p.dataset.slide) === activeIdx - (slides.length - allSlides.length)) {
-        // simple: trouver la pill dont la slide courante est active
-      }
-    });
-    // Approche directe : pill active = celle dont data-slide correspond à la slide active dans slides[]
-    const activeSlide = document.querySelector('.slide.active');
-    const origIdx = slides.indexOf(activeSlide);
-    const matchPill = pills.find(p => parseInt(p.dataset.slide) === origIdx);
-    if(matchPill) matchPill.classList.add('active');
   }
 
   function addDragHint(){
@@ -1746,40 +1042,48 @@ function qsjRestart(){ document.getElementById('qsj-end').style.display='none'; 
     container.appendChild(hint);
   }
 
-  tagPills();
-  initPillDrag();
-  addDragHint();
-
-  // Patch goSlide
-  const _origGoSlide = window.goSlide;
+  // Patch goSlide : utilise data-slide pour trouver la vraie slide
+  // Les slides restent dans leur ordre DOM original — on ne les déplace JAMAIS
   window.goSlide = function(n){
     const allSlides = Array.from(document.querySelectorAll('.slide'));
     const pills = Array.from(container.querySelectorAll('.pill'));
+    // Désactiver tout
     allSlides.forEach(s => s.classList.remove('active'));
     pills.forEach(p => p.classList.remove('active'));
-    if(slides[n]){
-      slides[n].classList.add('active');
-      const matchingPill = pills.find(p => parseInt(p.dataset.slide) === n);
-      if(matchingPill) matchingPill.classList.add('active');
-    }
-    const allSlidesNow = Array.from(document.querySelectorAll('.slide'));
-    current = allSlidesNow.indexOf(slides[n]);
-    document.getElementById('slide-counter').textContent = (current + 1) + ' / ' + total;
+    // Activer la slide n (index DOM original)
+    if(allSlides[n]) allSlides[n].classList.add('active');
+    // Activer la pill dont data-slide === n
+    const matchPill = pills.find(p => parseInt(p.dataset.slide) === n);
+    if(matchPill) matchPill.classList.add('active');
+    current = n;
+    document.getElementById('slide-counter').textContent = (n + 1) + ' / ' + total;
     renderDots();
   };
 
+  // Patch nextSlide/prevSlide : naviguer dans l'ordre VISUEL des pills
   window.nextSlide = function(){
     const pills = Array.from(container.querySelectorAll('.pill[data-slide]'));
     const activePill = pills.find(p => p.classList.contains('active'));
     const idx = pills.indexOf(activePill);
-    if(idx < pills.length - 1) pills[idx + 1].click();
+    if(idx < pills.length - 1){
+      const nextSlideIdx = parseInt(pills[idx + 1].dataset.slide);
+      goSlide(nextSlideIdx);
+    }
   };
+
   window.prevSlide = function(){
     const pills = Array.from(container.querySelectorAll('.pill[data-slide]'));
     const activePill = pills.find(p => p.classList.contains('active'));
     const idx = pills.indexOf(activePill);
-    if(idx > 0) pills[idx - 1].click();
+    if(idx > 0){
+      const prevSlideIdx = parseInt(pills[idx - 1].dataset.slide);
+      goSlide(prevSlideIdx);
+    }
   };
+
+  tagPills();
+  initPillDrag();
+  addDragHint();
 })();
 
 </script>
