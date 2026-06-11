@@ -20,10 +20,14 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 #nav{background:#0d1525;display:flex;align-items:center;justify-content:space-between;padding:8px 18px;border-bottom:1px solid #1e2d4a;flex-shrink:0;gap:12px}
 .logo{display:flex;align-items:center;gap:8px;color:#7fa8d4;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;white-space:nowrap}
 .logo span{color:white;font-size:14px}
-#nav-pills{display:flex;gap:3px;flex-wrap:wrap}
-.pill{font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid #2a3f5f;color:#7fa8d4;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;white-space:nowrap}
+#nav-pills{display:flex;gap:3px;flex-wrap:wrap;align-items:center}
+.pill{font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid #2a3f5f;color:#7fa8d4;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;white-space:nowrap;user-select:none}
 .pill.active{background:var(--bleu-mid);border-color:var(--bleu-mid);color:white}
 .pill:hover:not(.active){background:#1e2d4a}
+.pill.draggable-pill{cursor:grab}
+.pill.draggable-pill:active{cursor:grabbing}
+.pill.pill-dragging{opacity:.3;transform:scale(.93)}
+.pill.pill-drag-over{border-color:#f0c040 !important;background:rgba(240,192,64,.18) !important;transform:scale(1.07);box-shadow:0 0 0 2px rgba(240,192,64,.4)}
 #nav-btns{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .nav-btn{background:#1e2d4a;border:1px solid #2a3f5f;color:#7fa8d4;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;transition:all .2s}
 .nav-btn:hover{background:var(--bleu-mid);border-color:var(--bleu-mid);color:white}
@@ -1168,6 +1172,154 @@ function goToDashboard(e){
   if(e) e.preventDefault();
   window.location.href='index.html?done=7';
 }
+
+// ── DRAG & DROP PILLS NAVIGATION ──
+(function(){
+  const container = document.getElementById('nav-pills');
+  let dragSrc = null;
+  const slides = Array.from(document.querySelectorAll('.slide'));
+
+  // Chaque pill slide stocke l'index de slide original dans data-slide
+  function tagPills(){
+    container.querySelectorAll('.pill').forEach((pill, i) => {
+      if(i === 0) return; // Dashboard
+      pill.dataset.slide = String(i - 1);
+    });
+  }
+
+  function initPillDrag(){
+    container.querySelectorAll('.pill').forEach((pill, idx) => {
+      if(idx === 0) return; // Dashboard pill — fixe, non déplaçable
+      pill.classList.add('draggable-pill');
+      pill.setAttribute('draggable', 'true');
+      pill.title = 'Maintenir et glisser pour réorganiser';
+
+      pill.addEventListener('dragstart', e => {
+        dragSrc = pill;
+        setTimeout(() => pill.classList.add('pill-dragging'), 0);
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', pill.dataset.slide || '');
+      });
+
+      pill.addEventListener('dragend', () => {
+        pill.classList.remove('pill-dragging');
+        container.querySelectorAll('.pill').forEach(p => p.classList.remove('pill-drag-over'));
+        dragSrc = null;
+        applyPillOrder();
+      });
+
+      pill.addEventListener('dragover', e => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        if(dragSrc && dragSrc !== pill){
+          container.querySelectorAll('.pill').forEach(p => p.classList.remove('pill-drag-over'));
+          pill.classList.add('pill-drag-over');
+        }
+      });
+
+      pill.addEventListener('dragleave', e => {
+        if(!pill.contains(e.relatedTarget)) pill.classList.remove('pill-drag-over');
+      });
+
+      pill.addEventListener('drop', e => {
+        e.preventDefault();
+        if(!dragSrc || dragSrc === pill) return;
+        const pills = Array.from(container.querySelectorAll('.pill'));
+        const tgtIdx = pills.indexOf(pill);
+        if(tgtIdx === 0) return; // Ne pas déposer sur Dashboard
+        const srcIdx = pills.indexOf(dragSrc);
+        if(srcIdx < tgtIdx) pill.after(dragSrc);
+        else pill.before(dragSrc);
+        pill.classList.remove('pill-drag-over');
+        applyPillOrder();
+      });
+    });
+  }
+
+  function applyPillOrder(){
+    // Réordonne les slides dans le DOM selon l'ordre actuel des pills
+    const stage = document.getElementById('stage');
+    const pills = Array.from(container.querySelectorAll('.pill'));
+    pills.forEach((pill, i) => {
+      if(i === 0) return;
+      const slideIdx = parseInt(pill.dataset.slide);
+      if(isNaN(slideIdx)) return;
+      const slide = slides[slideIdx];
+      if(slide) stage.appendChild(slide); // remet dans l'ordre
+    });
+    // Recalculer current selon la slide active
+    const allSlides = Array.from(document.querySelectorAll('.slide'));
+    const activeSlide = document.querySelector('.slide.active');
+    const newCurrent = allSlides.indexOf(activeSlide);
+    if(newCurrent >= 0) {
+      // Mettre à jour current global sans re-switcher la slide
+      window._pillCurrent = newCurrent;
+    }
+    updatePillActiveState();
+  }
+
+  function updatePillActiveState(){
+    const pills = Array.from(container.querySelectorAll('.pill'));
+    const allSlides = Array.from(document.querySelectorAll('.slide'));
+    const activeSlideDatum = pills.find(p => {
+      const idx = parseInt(p.dataset.slide);
+      return !isNaN(idx) && allSlides[indexOf_active(allSlides)] === slides[idx];
+    });
+    pills.forEach(p => { if(p.dataset.slide) p.classList.remove('active'); });
+    if(activeSlideDatum) activeSlideDatum.classList.add('active');
+  }
+
+  function indexOf_active(arr){ return arr.findIndex(s => s.classList.contains('active')); }
+
+  // Tooltip hint discret
+  function addDragHint(){
+    const hint = document.createElement('span');
+    hint.style.cssText = 'font-size:9px;color:rgba(127,168,212,.38);font-family:Outfit,sans-serif;white-space:nowrap;flex-shrink:0;margin-left:4px;pointer-events:none;';
+    hint.textContent = '⠿ glisser pour réorganiser';
+    container.appendChild(hint);
+  }
+
+  tagPills();
+  initPillDrag();
+  addDragHint();
+
+  // Patch goSlide pour qu'il utilise les data-slide
+  const _origGoSlide = window.goSlide;
+  window.goSlide = function(n){
+    // n = index de slide original (data-slide)
+    // On trouve la slide correspondante et on l'active
+    const allSlides = Array.from(document.querySelectorAll('.slide'));
+    const pills = Array.from(container.querySelectorAll('.pill'));
+    allSlides.forEach(s => s.classList.remove('active'));
+    pills.forEach(p => p.classList.remove('active'));
+    if(slides[n]){
+      slides[n].classList.add('active');
+      const matchingPill = pills.find(p => parseInt(p.dataset.slide) === n);
+      if(matchingPill) matchingPill.classList.add('active');
+    }
+    // Update counter
+    const newVisualIdx = allSlides.indexOf(slides[n]);
+    document.getElementById('slide-counter').textContent = (newVisualIdx + 1) + ' / ' + total;
+    current = newVisualIdx;
+    renderDots();
+  };
+
+  // Patch nextSlide/prevSlide pour naviguer dans l'ordre visuel des pills
+  window.nextSlide = function(){
+    const pills = Array.from(container.querySelectorAll('.pill[data-slide]'));
+    const activePill = pills.find(p => p.classList.contains('active'));
+    const idx = pills.indexOf(activePill);
+    if(idx < pills.length - 1) pills[idx + 1].click();
+  };
+  window.prevSlide = function(){
+    const pills = Array.from(container.querySelectorAll('.pill[data-slide]'));
+    const activePill = pills.find(p => p.classList.contains('active'));
+    const idx = pills.indexOf(activePill);
+    if(idx > 0) pills[idx - 1].click();
+    else document.querySelector('.pill:first-child').click(); // dashboard
+  };
+})();
+
 </script>
 </body>
 </html>
