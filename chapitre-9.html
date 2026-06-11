@@ -1058,6 +1058,7 @@ function bdRestart(){document.getElementById('bd-end').style.display='none';bdSt
     current = n;
     document.getElementById('slide-counter').textContent = (n + 1) + ' / ' + total;
     renderDots();
+    if(n===5) initReorder();
   };
 
   // Patch nextSlide/prevSlide : naviguer dans l'ordre VISUEL des pills
