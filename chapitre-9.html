@@ -978,18 +978,19 @@ function bdRestart(){document.getElementById('bd-end').style.display='none';bdSt
 (function(){
   const container = document.getElementById('nav-pills');
   let dragSrc = null;
-  const slides = Array.from(document.querySelectorAll('.slide'));
 
+  // Stocker l'index de slide original dans chaque pill
   function tagPills(){
     container.querySelectorAll('.pill').forEach((pill, i) => {
-      if(i === 0) return;
+      if(i === 0) return; // Dashboard fixe
+      // L'index de slide = i-1 (pill 1 → slide 0, pill 2 → slide 1, etc.)
       pill.dataset.slide = String(i - 1);
     });
   }
 
   function initPillDrag(){
     container.querySelectorAll('.pill').forEach((pill, idx) => {
-      if(idx === 0) return;
+      if(idx === 0) return; // Dashboard — fixe
       pill.classList.add('draggable-pill');
       pill.setAttribute('draggable', 'true');
       pill.title = 'Maintenir et glisser pour réorganiser';
@@ -1005,7 +1006,6 @@ function bdRestart(){document.getElementById('bd-end').style.display='none';bdSt
         pill.classList.remove('pill-dragging');
         container.querySelectorAll('.pill').forEach(p => p.classList.remove('pill-drag-over'));
         dragSrc = null;
-        applyPillOrder();
       });
 
       pill.addEventListener('dragover', e => {
@@ -1026,48 +1026,13 @@ function bdRestart(){document.getElementById('bd-end').style.display='none';bdSt
         if(!dragSrc || dragSrc === pill) return;
         const pills = Array.from(container.querySelectorAll('.pill'));
         const tgtIdx = pills.indexOf(pill);
-        if(tgtIdx === 0) return;
+        if(tgtIdx === 0) return; // Ne pas déposer sur Dashboard
         const srcIdx = pills.indexOf(dragSrc);
         if(srcIdx < tgtIdx) pill.after(dragSrc);
         else pill.before(dragSrc);
         pill.classList.remove('pill-drag-over');
-        applyPillOrder();
       });
     });
-  }
-
-  function applyPillOrder(){
-    const stage = document.getElementById('stage');
-    const pills = Array.from(container.querySelectorAll('.pill'));
-    pills.forEach((pill, i) => {
-      if(i === 0) return;
-      const slideIdx = parseInt(pill.dataset.slide);
-      if(isNaN(slideIdx)) return;
-      const slide = slides[slideIdx];
-      if(slide) stage.appendChild(slide);
-    });
-    const allSlides = Array.from(document.querySelectorAll('.slide'));
-    const activeSlide = document.querySelector('.slide.active');
-    const newCurrent = allSlides.indexOf(activeSlide);
-    if(newCurrent >= 0) current = newCurrent;
-    updatePillActiveState();
-  }
-
-  function updatePillActiveState(){
-    const pills = Array.from(container.querySelectorAll('.pill'));
-    const allSlides = Array.from(document.querySelectorAll('.slide'));
-    const activeIdx = allSlides.findIndex(s => s.classList.contains('active'));
-    pills.forEach(p => { if(p.dataset.slide) p.classList.remove('active'); });
-    pills.forEach(p => {
-      if(parseInt(p.dataset.slide) === activeIdx - (slides.length - allSlides.length)) {
-        // simple: trouver la pill dont la slide courante est active
-      }
-    });
-    // Approche directe : pill active = celle dont data-slide correspond à la slide active dans slides[]
-    const activeSlide = document.querySelector('.slide.active');
-    const origIdx = slides.indexOf(activeSlide);
-    const matchPill = pills.find(p => parseInt(p.dataset.slide) === origIdx);
-    if(matchPill) matchPill.classList.add('active');
   }
 
   function addDragHint(){
@@ -1077,40 +1042,48 @@ function bdRestart(){document.getElementById('bd-end').style.display='none';bdSt
     container.appendChild(hint);
   }
 
-  tagPills();
-  initPillDrag();
-  addDragHint();
-
-  // Patch goSlide
-  const _origGoSlide = window.goSlide;
+  // Patch goSlide : utilise data-slide pour trouver la vraie slide
+  // Les slides restent dans leur ordre DOM original — on ne les déplace JAMAIS
   window.goSlide = function(n){
     const allSlides = Array.from(document.querySelectorAll('.slide'));
     const pills = Array.from(container.querySelectorAll('.pill'));
+    // Désactiver tout
     allSlides.forEach(s => s.classList.remove('active'));
     pills.forEach(p => p.classList.remove('active'));
-    if(slides[n]){
-      slides[n].classList.add('active');
-      const matchingPill = pills.find(p => parseInt(p.dataset.slide) === n);
-      if(matchingPill) matchingPill.classList.add('active');
-    }
-    const allSlidesNow = Array.from(document.querySelectorAll('.slide'));
-    current = allSlidesNow.indexOf(slides[n]);
-    document.getElementById('slide-counter').textContent = (current + 1) + ' / ' + total;
+    // Activer la slide n (index DOM original)
+    if(allSlides[n]) allSlides[n].classList.add('active');
+    // Activer la pill dont data-slide === n
+    const matchPill = pills.find(p => parseInt(p.dataset.slide) === n);
+    if(matchPill) matchPill.classList.add('active');
+    current = n;
+    document.getElementById('slide-counter').textContent = (n + 1) + ' / ' + total;
     renderDots();
   };
 
+  // Patch nextSlide/prevSlide : naviguer dans l'ordre VISUEL des pills
   window.nextSlide = function(){
     const pills = Array.from(container.querySelectorAll('.pill[data-slide]'));
     const activePill = pills.find(p => p.classList.contains('active'));
     const idx = pills.indexOf(activePill);
-    if(idx < pills.length - 1) pills[idx + 1].click();
+    if(idx < pills.length - 1){
+      const nextSlideIdx = parseInt(pills[idx + 1].dataset.slide);
+      goSlide(nextSlideIdx);
+    }
   };
+
   window.prevSlide = function(){
     const pills = Array.from(container.querySelectorAll('.pill[data-slide]'));
     const activePill = pills.find(p => p.classList.contains('active'));
     const idx = pills.indexOf(activePill);
-    if(idx > 0) pills[idx - 1].click();
+    if(idx > 0){
+      const prevSlideIdx = parseInt(pills[idx - 1].dataset.slide);
+      goSlide(prevSlideIdx);
+    }
   };
+
+  tagPills();
+  initPillDrag();
+  addDragHint();
 })();
 
 </script>
