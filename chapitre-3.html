@@ -111,18 +111,16 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 .tl-slot.wrong{border-color:var(--rouge);background:var(--rouge-clair)}
 
 /* STEP CARDS illustrées */
-.pool-zone{display:flex;flex-wrap:wrap;gap:10px;min-height:80px;padding:10px;background:var(--gris);border-radius:10px;border:1.5px dashed var(--gris-bord);align-items:flex-start;align-content:flex-start;justify-content:center}
-.step-card{background:white;border:2.5px solid var(--gris-bord);border-radius:12px;padding:8px 6px 6px;font-family:'Outfit',sans-serif;cursor:grab;user-select:none;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:4px;width:130px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.08)}
-.step-card:hover{border-color:var(--bleu-mid);box-shadow:0 4px 14px rgba(37,88,168,.18);transform:translateY(-2px)}
+.step-card{background:white;border:2.5px solid var(--gris-bord);border-radius:10px;padding:6px 5px 4px;font-family:'Outfit',sans-serif;cursor:grab;user-select:none;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:3px;width:132px;text-align:center;box-shadow:0 2px 5px rgba(0,0,0,.07)}
+.step-card:hover{border-color:var(--bleu-mid);box-shadow:0 3px 10px rgba(37,88,168,.18);transform:translateY(-1px)}
 .step-card.dragging{opacity:.3;cursor:grabbing;transform:scale(.95)}
-.step-card.in-slot{width:100%;max-width:100%;border-color:transparent;background:transparent;cursor:grab;box-shadow:none;padding:3px;border-radius:10px}
+.step-card.in-slot{width:100%;max-width:100%;border-color:transparent;background:transparent;cursor:grab;box-shadow:none;padding:2px;border-radius:8px}
 .step-card.in-slot:hover{transform:none;border-color:transparent}
-.step-card.in-slot.correct{opacity:1}
-.step-card.in-slot.wrong{opacity:1}
-.step-card .step-img{width:72px;height:72px;object-fit:contain;border-radius:8px;pointer-events:none;display:block;margin:0 auto}
-.step-card .step-icon-big{font-size:52px;line-height:1;pointer-events:none;display:block}
-.step-card .step-label{font-size:11px;font-weight:800;color:var(--texte);pointer-events:none;line-height:1.2;text-transform:uppercase;letter-spacing:.4px}
-.step-card.in-slot .step-label{font-size:10px}
+.step-card .step-img{width:58px;height:58px;object-fit:contain;border-radius:6px;pointer-events:none;display:block;margin:0 auto}
+.step-card.in-slot .step-img{width:52px;height:52px}
+.step-card .step-label{font-size:10px;font-weight:800;pointer-events:none;line-height:1.2;text-transform:uppercase;letter-spacing:.3px}
+.step-card .step-sub{font-size:8px;font-weight:600;pointer-events:none;opacity:.75;line-height:1.2}
+.step-card.in-slot .step-label{font-size:9.5px}
 .step-card.in-slot.correct .step-label{color:var(--vert)}
 .step-card.in-slot.wrong .step-label{color:var(--rouge)}
 .tl-slot{margin-top:8px;width:100%;min-height:110px;border:2px dashed var(--gris-bord);border-radius:12px;background:white;display:flex;align-items:center;justify-content:center;transition:all .2s;padding:4px;cursor:pointer}
@@ -452,53 +450,57 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
     <div class="badge-dur"><div class="v">5'</div><div class="l">Activité</div></div>
   </div>
-  <div class="slide-body">
+  <div class="slide-body" style="gap:7px">
     <div class="dd-instruction">🖐️ Un élève vient déposer les étapes dans la bonne case. Les autres peuvent l'aider à voix haute.</div>
-
-    <div class="section-label">Pioche une étape et dépose-la sur la bonne case ↓</div>
-    <div class="pool-zone" id="pool-1"></div>
-
-    <div class="section-label">La CAT dans le bon ordre</div>
-    <div class="timeline" id="timeline-1">
-      <div class="tl-step">
-        <div class="tl-num">1</div>
-        <div class="tl-slot" id="slot-1-0" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'1')" ontouchend="tdrop(event,this,'1')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
-        </div>
+    <div class="dd-wrap">
+      <!-- Pioche -->
+      <div class="dd-pool-col">
+        <div class="dd-pool-col-label">📦 Pioche</div>
+        <div class="pool-zone" id="pool-1"></div>
       </div>
-      <div class="cat-arrow">→</div>
-      <div class="tl-step">
-        <div class="tl-num">2</div>
-        <div class="tl-slot" id="slot-1-1" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'1')" ontouchend="tdrop(event,this,'1')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
+      <!-- Timeline -->
+      <div class="dd-timeline-col">
+        <div class="dd-timeline-col-label">🔢 La CAT dans le bon ordre</div>
+        <div class="timeline" id="timeline-1">
+          <div class="tl-step">
+            <div class="tl-num">1</div>
+            <div class="tl-slot" id="slot-1-0" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'1')" ontouchend="tdrop(event,this,'1')">
+              <span style="font-size:10px;color:#bbb;font-family:'Outfit',sans-serif;text-align:center">📥<br>Déposer ici</span>
+            </div>
+          </div>
+          <div class="cat-arrow">→</div>
+          <div class="tl-step">
+            <div class="tl-num">2</div>
+            <div class="tl-slot" id="slot-1-1" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'1')" ontouchend="tdrop(event,this,'1')">
+              <span style="font-size:10px;color:#bbb;font-family:'Outfit',sans-serif;text-align:center">📥<br>Déposer ici</span>
+            </div>
+          </div>
+          <div class="cat-arrow">→</div>
+          <div class="tl-step">
+            <div class="tl-num">3</div>
+            <div class="tl-slot" id="slot-1-2" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'1')" ontouchend="tdrop(event,this,'1')">
+              <span style="font-size:10px;color:#bbb;font-family:'Outfit',sans-serif;text-align:center">📥<br>Déposer ici</span>
+            </div>
+          </div>
+          <div class="cat-arrow">→</div>
+          <div class="tl-step">
+            <div class="tl-num">4</div>
+            <div class="tl-slot" id="slot-1-3" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'1')" ontouchend="tdrop(event,this,'1')">
+              <span style="font-size:10px;color:#bbb;font-family:'Outfit',sans-serif;text-align:center">📥<br>Déposer ici</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="cat-arrow">→</div>
-      <div class="tl-step">
-        <div class="tl-num">3</div>
-        <div class="tl-slot" id="slot-1-2" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'1')" ontouchend="tdrop(event,this,'1')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
+        <div class="action-row" style="margin-top:4px">
+          <button class="check-btn" onclick="checkDD('1')">✓ Vérifier</button>
+          <button class="reset-btn" onclick="resetDD('1')">↺ Recommencer</button>
+          <button class="reveal-btn" onclick="toggleReveal('r1')">👁 Réponse</button>
         </div>
-      </div>
-      <div class="cat-arrow">→</div>
-      <div class="tl-step">
-        <div class="tl-num">4</div>
-        <div class="tl-slot" id="slot-1-3" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'1')" ontouchend="tdrop(event,this,'1')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
+        <div class="feedback-msg" id="fb-1"></div>
+        <div class="reveal-content" id="r1">
+          <div class="objectif-box" style="font-size:11px;padding:6px 10px">
+            <strong>Réponse :</strong> 1. Conseiller de ne pas mobiliser → 2. Alerter les secours → 3. Protéger du froid et des intempéries → 4. Surveiller et parler régulièrement
+          </div>
         </div>
-      </div>
-    </div>
-
-    <div class="action-row">
-      <button class="check-btn" onclick="checkDD('1')">✓ Vérifier</button>
-      <button class="reset-btn" onclick="resetDD('1')">↺ Recommencer</button>
-      <button class="reveal-btn" onclick="toggleReveal('r1')">👁 Voir la réponse</button>
-    </div>
-    <div class="feedback-msg" id="fb-1"></div>
-    <div class="reveal-content" id="r1" style="margin-top:6px;">
-      <div class="objectif-box">
-        <strong>Réponse correcte</strong>
-        1. Conseiller fermement de ne pas mobiliser la partie atteinte → 2. Faire alerter ou alerter les secours et appliquer leurs consignes → 3. Protéger de la chaleur, du froid ou des intempéries → 4. Surveiller la victime et lui parler régulièrement
       </div>
     </div>
   </div>
@@ -562,53 +564,55 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
 
     <div class="dd-instruction">🖐️ Un autre élève vient déposer les étapes. Le groupe l'aide.</div>
-    <div class="section-label">Étapes disponibles</div>
-    <div class="pool-zone" id="pool-2"></div>
-    <div class="section-label">La CAT dans le bon ordre</div>
-    <div class="timeline" id="timeline-2">
-      <div class="tl-step">
-        <div class="tl-num" style="background:#8b1a1a;box-shadow:0 0 0 2px #8b1a1a;">1</div>
-        <div class="tl-slot" id="slot-2-0" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'2')" ontouchend="tdrop(event,this,'2')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
-        </div>
+    <div class="dd-wrap">
+      <div class="dd-pool-col">
+        <div class="dd-pool-col-label">📦 Pioche</div>
+        <div class="pool-zone" id="pool-2"></div>
       </div>
-      <div class="cat-arrow rouge">→</div>
-      <div class="tl-step">
-        <div class="tl-num" style="background:#8b1a1a;box-shadow:0 0 0 2px #8b1a1a;">2</div>
-        <div class="tl-slot" id="slot-2-1" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'2')" ontouchend="tdrop(event,this,'2')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
+      <div class="dd-timeline-col">
+        <div class="dd-timeline-col-label">🔢 La CAT dans le bon ordre</div>
+        <div class="timeline" id="timeline-2">
+          <div class="tl-step">
+            <div class="tl-num" style="background:#8b1a1a;box-shadow:0 0 0 2px #8b1a1a;">1</div>
+            <div class="tl-slot" id="slot-2-0" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'2')" ontouchend="tdrop(event,this,'2')">
+              <span style="font-size:10px;color:#bbb;font-family:'Outfit',sans-serif;text-align:center">📥<br>Déposer ici</span>
+            </div>
+          </div>
+          <div class="cat-arrow rouge">→</div>
+          <div class="tl-step">
+            <div class="tl-num" style="background:#8b1a1a;box-shadow:0 0 0 2px #8b1a1a;">2</div>
+            <div class="tl-slot" id="slot-2-1" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'2')" ontouchend="tdrop(event,this,'2')">
+              <span style="font-size:10px;color:#bbb;font-family:'Outfit',sans-serif;text-align:center">📥<br>Déposer ici</span>
+            </div>
+          </div>
+          <div class="cat-arrow rouge">→</div>
+          <div class="tl-step">
+            <div class="tl-num" style="background:#8b1a1a;box-shadow:0 0 0 2px #8b1a1a;">3</div>
+            <div class="tl-slot" id="slot-2-2" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'2')" ontouchend="tdrop(event,this,'2')">
+              <span style="font-size:10px;color:#bbb;font-family:'Outfit',sans-serif;text-align:center">📥<br>Déposer ici</span>
+            </div>
+          </div>
+          <div class="cat-arrow rouge">→</div>
+          <div class="tl-step">
+            <div class="tl-num" style="background:#8b1a1a;box-shadow:0 0 0 2px #8b1a1a;">4</div>
+            <div class="tl-slot" id="slot-2-3" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'2')" ontouchend="tdrop(event,this,'2')">
+              <span style="font-size:10px;color:#bbb;font-family:'Outfit',sans-serif;text-align:center">📥<br>Déposer ici</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="cat-arrow rouge">→</div>
-      <div class="tl-step">
-        <div class="tl-num" style="background:#8b1a1a;box-shadow:0 0 0 2px #8b1a1a;">3</div>
-        <div class="tl-slot" id="slot-2-2" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'2')" ontouchend="tdrop(event,this,'2')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
+        <div class="action-row" style="margin-top:4px">
+          <button class="check-btn rouge" onclick="checkDD('2')">✓ Vérifier</button>
+          <button class="reset-btn" onclick="resetDD('2')">↺ Recommencer</button>
+          <button class="reveal-btn" onclick="toggleReveal('r2')">👁 Réponse</button>
         </div>
-      </div>
-      <div class="cat-arrow rouge">→</div>
-      <div class="tl-step">
-        <div class="tl-num" style="background:#8b1a1a;box-shadow:0 0 0 2px #8b1a1a;">4</div>
-        <div class="tl-slot" id="slot-2-3" ondragover="ov(event)" ondragleave="ol(event)" ondrop="dp(event,this,'2')" ontouchend="tdrop(event,this,'2')">
-          <span style="font-size:11px;color:#bbb;font-family:'Outfit',sans-serif">Déposer ici</span>
+        <div class="feedback-msg" id="fb-2"></div>
+        <div class="reveal-content" id="r2">
+          <div class="objectif-box" style="font-size:11px;padding:6px 10px">
+            <strong>Réponse :</strong> 1. Ne pas bouger la tête → 2. Alerter les secours → 3. Stabiliser le rachis (si possible, à 2 mains) → 4. Surveiller régulièrement
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="action-row">
-      <button class="check-btn rouge" onclick="checkDD('2')">✓ Vérifier</button>
-      <button class="reset-btn" onclick="resetDD('2')">↺ Recommencer</button>
-      <button class="reveal-btn" onclick="toggleReveal('r2')">👁 Voir la réponse</button>
-    </div>
-    <div class="feedback-msg" id="fb-2"></div>
-    <div class="reveal-content" id="r2" style="margin-top:6px;">
-      <div class="alerte-box">
-        <div class="alerte-icon">✅</div>
-        <div>
-          <h3 style="color:var(--vert)">Réponse correcte</h3>
-          <p style="color:#0e4a2b;">1. Demander à la victime de ne pas bouger la tête → 2. Faire alerter ou alerter les secours et appliquer leurs consignes → 3. Si possible : stabiliser le rachis cervical dans la position où il se trouve en maintenant à 2 mains → 4. Surveiller la victime régulièrement</p>
-        </div>
-      </div>
-    </div>
+      </div><!-- /dd-timeline-col -->
+    </div><!-- /dd-wrap -->
   </div>
   <div class="slide-footer">
     <span>APG(M) — Activité interactive</span>
@@ -1369,7 +1373,7 @@ const DATA={
     steps:[
       {id:'a',img:'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjEwIiBmaWxsPSIjZmRlY2VhIi8+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzOCIgcj0iMjIiIGZpbGw9IiNjMDM5MmIiIG9wYWNpdHk9IjAuMTUiLz4KICAgICA8bGluZSB4MT0iMzUiIHkxPSIyMyIgeDI9IjY1IiB5Mj0iNTMiIHN0cm9rZT0iI2MwMzkyYiIgc3Ryb2tlLXdpZHRoPSI2IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgICA8bGluZSB4MT0iNjUiIHkxPSIyMyIgeDI9IjM1IiB5Mj0iNTMiIHN0cm9rZT0iI2MwMzkyYiIgc3Ryb2tlLXdpZHRoPSI2IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjM4IiByPSIyMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzAzOTJiIiBzdHJva2Utd2lkdGg9IjQiLz4KICA8dGV4dCB4PSI1MCIgeT0iODMiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTEiIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IiNjMDM5MmIiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBsZXR0ZXItc3BhY2luZz0iMC41Ij5JTU1PQklMSVNFUjwvdGV4dD4KICA8dGV4dCB4PSI1MCIgeT0iOTEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iNy41IiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSIjYzAzOTJiIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiI+bmUgcGFzIGJvdWdlcjwvdGV4dD4KPC9zdmc+',bg:'#fdecea',border:'#c0392b',label:'IMMOBILISER',sub:'ne pas bouger',text:'Conseiller fermement de ne pas mobiliser la partie atteinte'},
       {id:'b',img:'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjEwIiBmaWxsPSIjZmZmOGUxIi8+CiAgPHJlY3QgeD0iMzIiIHk9IjE1IiB3aWR0aD0iMzYiIGhlaWdodD0iNTAiIHJ4PSI2IiBmaWxsPSIjZjM5YzEyIiBvcGFjaXR5PSIwLjIiIHN0cm9rZT0iI2U2N2UyMiIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgICAgPHJlY3QgeD0iNDAiIHk9IjUwIiB3aWR0aD0iMjAiIGhlaWdodD0iMyIgcng9IjIiIGZpbGw9IiNlNjdlMjIiLz4KICAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjIzIiByPSIyLjUiIGZpbGw9IiNlNjdlMjIiLz4KICAgICA8cGF0aCBkPSJNNjggMzAgUTc2IDM4IDY4IDQ2IiBzdHJva2U9IiNlNjdlMjIiIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICAgPHBhdGggZD0iTTczIDI1IFE4NSAzOCA3MyA1MSIgc3Ryb2tlPSIjZTY3ZTIyIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDx0ZXh0IHg9IjUwIiB5PSI4MyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMSIgZm9udC13ZWlnaHQ9IjkwMCIgZmlsbD0iI2U2N2UyMiIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGxldHRlci1zcGFjaW5nPSIwLjUiPkFMRVJURVI8L3RleHQ+CiAgPHRleHQgeD0iNTAiIHk9IjkxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjcuNSIgZm9udC13ZWlnaHQ9IjYwMCIgZmlsbD0iI2U2N2UyMiIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiPjE1IMK3IDE4IMK3IDExMjwvdGV4dD4KPC9zdmc+',bg:'#fff8e1',border:'#e67e22',label:'ALERTER',sub:'15·18·112',text:'Faire alerter ou alerter les secours et appliquer leurs consignes'},
-      {id:'c',img:'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjEwIiBmaWxsPSIjZThmOGVmIi8+CiAgPHBhdGggZD0iTTUwIDE0IEw3MiAyNCBMNzIgNDYgUTcyIDYyIDUwIDcyIFEyOCA2MiAyOCA0NiBMMjggMjQgWiIgZmlsbD0iIzFhN2E0YSIgb3BhY2l0eT0iMC4xOCIgc3Ryb2tlPSIjMWE3YTRhIiBzdHJva2Utd2lkdGg9IjMuNSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogICAgIDxwYXRoIGQ9Ik00MiA0MyBMNDcgNDkgTDYwIDMzIiBzdHJva2U9IiMxYTdhNGEiIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBmaWxsPSJub25lIi8+CiAgPHRleHQgeD0iNTAiIHk9IjgzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjMWE3YTRhIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgbGV0dGVyLXNwYWNpbmc9IjAuNSI+UFJPVMOJR0VSPC90ZXh0PgogIDx0ZXh0IHg9IjUwIiB5PSI5MSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI3LjUiIGZvbnQtd2VpZ2h0PSI2MDAiIGZpbGw9IiMxYTdhNGEiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIj5jaGF1ZCDCtyBmcm9pZCDCtyBwbHVpZTwvdGV4dD4KPC9zdmc+',bg:'#e8f8ef',border:'#1a7a4a',label:'PROTÉGER',sub:'chaud/froid',text:'Protéger de la chaleur, du froid ou des intempéries'},
+      {id:'c',img:'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjEwIiBmaWxsPSIjZThmOGVmIi8+CiAgPHBhdGggZD0iTTUwIDE0IEw3MiAyNCBMNzIgNDYgUTcyIDYyIDUwIDcyIFEyOCA2MiAyOCA0NiBMMjggMjQgWiIgZmlsbD0iIzFhN2E0YSIgb3BhY2l0eT0iMC4xOCIgc3Ryb2tlPSIjMWE3YTRhIiBzdHJva2Utd2lkdGg9IjMuNSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogICAgIDxwYXRoIGQ9Ik00MiA0MyBMNDcgNDkgTDYwIDMzIiBzdHJva2U9IiMxYTdhNGEiIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBmaWxsPSJub25lIi8+CiAgPHRleHQgeD0iNTAiIHk9IjgzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjMWE3YTRhIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgbGV0dGVyLXNwYWNpbmc9IjAuNSI+UFJPVMOJR0VSPC90ZXh0PgogIDx0ZXh0IHg9IjUwIiB5PSI5MSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI3LjUiIGZvbnQtd2VpZ2h0PSI2MDAiIGZpbGw9IiMxYTdhNGEiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIj5jaGF1ZCDCtyBmcm9pZCDCtyBwbHVpZTwvdGV4dD4KPC9zdmc+',bg:'#e8f8ef',border:'#1a7a4a',label:'PROTÉGER',sub:'chaud/froid',text:'Protéger de la chaleur, du froid et des intempéries'},
       {id:'d',img:'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjEwIiBmaWxsPSIjZjBlOGZmIi8+CiAgPHBhdGggZD0iTTE2IDM4IFE1MCA2MCA4NCAzOCBRNTAgMTYgMTYgMzggWiIgZmlsbD0iIzZhMWE5YSIgb3BhY2l0eT0iMC4xNSIgc3Ryb2tlPSIjNmExYTlhIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjM4IiByPSIxMCIgZmlsbD0iIzZhMWE5YSIgb3BhY2l0eT0iMC45Ii8+CiAgICAgPGNpcmNsZSBjeD0iNTMiIGN5PSIzNSIgcj0iMyIgZmlsbD0id2hpdGUiLz4KICAgICA8cGF0aCBkPSJNMjggNTUgUTUwIDY1IDcyIDU1IiBzdHJva2U9IiM2YTFhOWEiIHN0cm9rZS13aWR0aD0iMi41IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgICA8dGV4dCB4PSI1MCIgeT0iNjEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iOCIgZmlsbD0iIzZhMWE5YSIgZm9udC1mYW1pbHk9IkFyaWFsIj5wYXJsZXI8L3RleHQ+CiAgPHRleHQgeD0iNTAiIHk9IjgzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjExIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjNmExYTlhIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgbGV0dGVyLXNwYWNpbmc9IjAuNSI+U1VSVkVJTExFUjwvdGV4dD4KICA8dGV4dCB4PSI1MCIgeT0iOTEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iNy41IiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSIjNmExYTlhIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiI+ZXQgcGFybGVyIMOgIGxhIHZpY3RpbWU8L3RleHQ+Cjwvc3ZnPg==',bg:'#f0e8ff',border:'#6a1a9a',label:'SURVEILLER',sub:'et parler',text:'Surveiller la victime et lui parler régulièrement'},
     ],
     order:['a','b','c','d']
