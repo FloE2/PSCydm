@@ -110,16 +110,18 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 .tl-slot.correct{border-color:var(--vert);background:var(--vert-clair)}
 .tl-slot.wrong{border-color:var(--rouge);background:var(--rouge-clair)}
 
-/* STEP CARDS illustrées */
-.step-card{background:white;border:2.5px solid var(--gris-bord);border-radius:10px;padding:6px 5px 4px;font-family:'Outfit',sans-serif;cursor:grab;user-select:none;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:3px;width:132px;text-align:center;box-shadow:0 2px 5px rgba(0,0,0,.07)}
-.step-card:hover{border-color:var(--bleu-mid);box-shadow:0 3px 10px rgba(37,88,168,.18);transform:translateY(-1px)}
-.step-card.dragging{opacity:.3;cursor:grabbing;transform:scale(.95)}
-.step-card.in-slot{width:100%;max-width:100%;border-color:transparent;background:transparent;cursor:grab;box-shadow:none;padding:2px;border-radius:8px}
+/* STEP CARDS — format horizontal compact dans la pioche */
+.step-card{background:white;border:2px solid var(--gris-bord);border-radius:9px;padding:5px 8px;font-family:'Outfit',sans-serif;cursor:grab;user-select:none;transition:all .15s;display:flex;flex-direction:row;align-items:center;gap:7px;width:100%;text-align:left;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.step-card:hover{border-color:var(--bleu-mid);box-shadow:0 2px 8px rgba(37,88,168,.15);transform:translateX(2px)}
+.step-card.dragging{opacity:.25;cursor:grabbing}
+/* Dans un slot : format vertical centré */
+.step-card.in-slot{flex-direction:column;gap:3px;text-align:center;border-color:transparent;background:transparent;cursor:grab;box-shadow:none;padding:3px;width:100%}
 .step-card.in-slot:hover{transform:none;border-color:transparent}
-.step-card .step-img{width:58px;height:58px;object-fit:contain;border-radius:6px;pointer-events:none;display:block;margin:0 auto}
-.step-card.in-slot .step-img{width:52px;height:52px}
-.step-card .step-label{font-size:10px;font-weight:800;pointer-events:none;line-height:1.2;text-transform:uppercase;letter-spacing:.3px}
-.step-card .step-sub{font-size:8px;font-weight:600;pointer-events:none;opacity:.75;line-height:1.2}
+.step-card .step-img{width:38px;height:38px;object-fit:contain;border-radius:5px;pointer-events:none;flex-shrink:0}
+.step-card.in-slot .step-img{width:44px;height:44px;margin:0 auto}
+.step-card .step-label{font-size:10.5px;font-weight:800;pointer-events:none;line-height:1.2;text-transform:uppercase;letter-spacing:.3px}
+.step-card .step-sub{font-size:8px;font-weight:600;pointer-events:none;opacity:.7;line-height:1.2;display:none}
+.step-card.in-slot .step-sub{display:block}
 .step-card.in-slot .step-label{font-size:9.5px}
 .step-card.in-slot.correct .step-label{color:var(--vert)}
 .step-card.in-slot.wrong .step-label{color:var(--rouge)}
@@ -1421,11 +1423,13 @@ function makeCard(s,cat){
   div.style.background=s.bg||'white';
   div.style.borderColor=s.border||'#ccc';
   div.title=s.text;
+  // Format pioche : horizontal (img à gauche, label à droite)
   div.innerHTML=`
-    <img src="${s.img}" class="step-img" alt="" style="pointer-events:none;width:70px;height:70px;object-fit:contain;border-radius:6px">
-    <span class="step-label" style="pointer-events:none;color:${s.border}">${s.label}</span>
-    ${s.sub?`<span style="pointer-events:none;font-size:8.5px;font-family:'Outfit',sans-serif;color:${s.border};opacity:.75;font-weight:600">${s.sub}</span>`:''}
-  `;
+    <img src="${s.img}" class="step-img" alt="" style="pointer-events:none">
+    <div style="pointer-events:none;display:flex;flex-direction:column;gap:1px;min-width:0">
+      <span class="step-label" style="color:${s.border}">${s.label.replace(/\n/g,' ')}</span>
+      ${s.sub?`<span class="step-sub" style="color:${s.border};display:block">${s.sub}</span>`:''}
+    </div>`;
   attachDrag(div);
   return div;
 }
@@ -1495,7 +1499,7 @@ function doSwap(targetSlot, cat){
     // Source = pool : si case cible avait une carte → la renvoyer au pool
     if(existingCard){
       existingCard.classList.remove('in-slot','correct','wrong');
-      pool.appendChild(existingCard);
+      existingCard.classList.remove('in-slot'); pool.appendChild(existingCard);
     }
   }
 
