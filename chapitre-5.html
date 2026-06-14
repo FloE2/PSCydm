@@ -968,7 +968,7 @@ function defiShowFinal(){
   const max = 9; // 3 niveaux × 3 questions
   const pct = defiScore / max;
   const stars = pct >= .89 ? '⭐⭐⭐' : pct >= .66 ? '⭐⭐' : '⭐';
-  const msg = pct >= .89 ? 'Excellent ! Tu maîtrises les hémorragies 💪' : pct >= .66 ? 'Bien joué ! Quelques notions à revoir.' : 'Continue à t'entraîner — tu y es presque !';
+  const msg = pct >= .89 ? "Excellent ! Tu maîtrises les hémorragies 💪" : pct >= .66 ? "Bien joué ! Quelques notions à revoir." : "Continue à t'entraîner — tu y es presque !";
   body.innerHTML = `
     <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px;">
       <div style="font-size:52px;">🏆</div>
