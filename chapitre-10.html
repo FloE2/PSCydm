@@ -974,6 +974,13 @@ function rcpStart(){
   rcpRender();
 }
 function rcpShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function rcpUpdateNumbers(){
+  const cards=[...document.getElementById('rcp-cards').children];
+  cards.forEach((c,i)=>{
+    const numEl=c.querySelector('.rcp-num');
+    if(numEl) numEl.textContent=i+1;
+  });
+}
 function rcpRender(){
   rcpChecked=false;
   const s=RCP_SCENARIOS[rcpIdx];
@@ -987,9 +994,9 @@ function rcpRender(){
   shuffled.forEach((step,i)=>{
     const d=document.createElement('div');d.className='rcp-card';d.dataset.step=step;
     d.draggable=true;
-    d.innerHTML='<span style="font-size:18px;opacity:.3;flex-shrink:0">⠿</span><span>'+step+'</span>';
+    d.innerHTML='<span class="rcp-num" style="background:#c0392b;color:white;border-radius:50%;width:24px;height:24px;font-family:Outfit,sans-serif;font-size:12px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">'+(i+1)+'</span><span style="font-size:18px;opacity:.3;flex-shrink:0;margin-left:4px">⠿</span><span style="flex:1">'+step+'</span>';
     d.addEventListener('dragstart',e=>{rcpDragSrc=d;d.style.opacity='.4';});
-    d.addEventListener('dragend',e=>{d.style.opacity='1';d.classList.remove('drag-over');});
+    d.addEventListener('dragend',e=>{d.style.opacity='1';d.classList.remove('drag-over');rcpUpdateNumbers();});
     d.addEventListener('dragover',e=>{e.preventDefault();d.classList.add('drag-over');});
     d.addEventListener('dragleave',e=>{d.classList.remove('drag-over');});
     d.addEventListener('drop',e=>{
@@ -999,6 +1006,7 @@ function rcpRender(){
       const nodes=[...p.children];
       const si=nodes.indexOf(rcpDragSrc),di=nodes.indexOf(d);
       if(si<di)p.insertBefore(rcpDragSrc,d.nextSibling);else p.insertBefore(rcpDragSrc,d);
+      rcpUpdateNumbers();
     });
     el.appendChild(d);
   });
