@@ -721,19 +721,36 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 // ── Navigation ──
 let current = 0;
 const total = 8;
-const slidePills = document.querySelectorAll('.pill[onclick^="goSlide"]');
+const allSlides = Array.from(document.querySelectorAll('.slide'));
 
 function goSlide(n) {
-  document.querySelectorAll('.slide')[current].classList.remove('active');
-  slidePills[current].classList.remove('active');
+  // Désactiver tout
+  allSlides.forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('#nav-pills .pill[data-slide]').forEach(p => p.classList.remove('active'));
+  // Activer la slide n
+  if(allSlides[n]) allSlides[n].classList.add('active');
+  // Activer la pill dont data-slide === n (ou par ordre visuel si pas encore taggée)
+  const matchPill = document.querySelector('#nav-pills .pill[data-slide="'+n+'"]');
+  if(matchPill) matchPill.classList.add('active');
   current = n;
-  document.querySelectorAll('.slide')[current].classList.add('active');
-  slidePills[current].classList.add('active');
-  document.getElementById('slide-counter').textContent = (current+1) + ' / ' + total;
+  document.getElementById('slide-counter').textContent = (n+1) + ' / ' + total;
   renderDots();
+  // Initialiser le Défi si on arrive sur slide 4
+  if(n === 4 && typeof defiInit === 'function'){
+    const body = document.getElementById('defi-body');
+    if(body && body.innerHTML.trim() === '') defiInit();
+  }
 }
-function nextSlide(){if(current<total-1)goSlide(current+1);}
-function prevSlide(){if(current>0)goSlide(current-1);}
+function nextSlide(){
+  const pills = Array.from(document.querySelectorAll('#nav-pills .pill[data-slide]'));
+  const idx = pills.findIndex(p => p.classList.contains('active'));
+  if(idx < pills.length - 1) goSlide(parseInt(pills[idx+1].dataset.slide));
+}
+function prevSlide(){
+  const pills = Array.from(document.querySelectorAll('#nav-pills .pill[data-slide]'));
+  const idx = pills.findIndex(p => p.classList.contains('active'));
+  if(idx > 0) goSlide(parseInt(pills[idx-1].dataset.slide));
+}
 
 function renderDots() {
   for(let i=0;i<total;i++){
@@ -747,6 +764,18 @@ function renderDots() {
     el.innerHTML = html;
   }
 }
+
+// Attribuer data-slide immédiatement (avant drag&drop) pour que goSlide fonctionne au clic
+(function tagPillsEarly(){
+  document.querySelectorAll('#nav-pills .pill').forEach((pill, i) => {
+    if(i === 0) return; // Dashboard fixe
+    pill.dataset.slide = String(i - 1);
+  });
+  // Activer la pill du slide 0
+  const p0 = document.querySelector('#nav-pills .pill[data-slide="0"]');
+  if(p0) p0.classList.add('active');
+})();
+
 renderDots();
 
 // ══════════════════════════════════════════
@@ -1053,47 +1082,13 @@ document.querySelectorAll('.slide')[4] && (function(){
   }
 
   // Patch goSlide : utilise data-slide pour trouver la vraie slide
-  window.goSlide = function(n){
-    const allSlides = Array.from(document.querySelectorAll('.slide'));
-    const pills = Array.from(container.querySelectorAll('.pill'));
-    allSlides.forEach(s => s.classList.remove('active'));
-    pills.forEach(p => p.classList.remove('active'));
-    if(allSlides[n]) allSlides[n].classList.add('active');
-    const matchPill = pills.find(p => parseInt(p.dataset.slide) === n);
-    if(matchPill) matchPill.classList.add('active');
-    current = n;
-    document.getElementById('slide-counter').textContent = (n + 1) + ' / ' + total;
-    renderDots();
-    // Initialiser le Défi si on arrive sur ce slide
-    if(n === 4 && typeof defiInit === 'function'){
-      const body = document.getElementById('defi-body');
-      if(body && body.innerHTML.trim() === '') defiInit();
-    }
-  };
-
-  // Patch nextSlide/prevSlide : naviguer dans l'ordre VISUEL des pills
-  window.nextSlide = function(){
-    const pills = Array.from(container.querySelectorAll('.pill[data-slide]'));
-    const activePill = pills.find(p => p.classList.contains('active'));
-    const idx = pills.indexOf(activePill);
-    if(idx < pills.length - 1){
-      const nextSlideIdx = parseInt(pills[idx + 1].dataset.slide);
-      goSlide(nextSlideIdx);
-    }
-  };
-
-  window.prevSlide = function(){
-    const pills = Array.from(container.querySelectorAll('.pill[data-slide]'));
-    const activePill = pills.find(p => p.classList.contains('active'));
-    const idx = pills.indexOf(activePill);
-    if(idx > 0){
-      const prevSlideIdx = parseInt(pills[idx - 1].dataset.slide);
-      goSlide(prevSlideIdx);
-    }
-  };
+  // (goSlide, nextSlide, prevSlide already handle data-slide natively above)
 
   tagPills();
   restoreOrder(); // ← Restaure l'ordre sauvegardé au chargement
+  // Activer la pill du slide courant après restore
+  const activePill = document.querySelector('#nav-pills .pill[data-slide="0"]');
+  if(activePill) activePill.classList.add('active');
   initPillDrag();
   addDragHint();
 })();
