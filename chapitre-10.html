@@ -457,6 +457,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
           <video id="vid-ct" src="videos/ct.mp4"
             style="width:220px;height:130px;border-radius:8px;object-fit:cover;cursor:pointer;display:block;background:#000"
             playsinline
+            muted
             onclick="this.paused ? this.play() : this.pause()">
           </video>
           <!-- Bouton plein écran -->
@@ -470,6 +471,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
           <span style="color:#f0c040;font-weight:700">Observer :</span> position des mains · bras tendus · décompression complète · rythme régulier</div>
           <div style="display:flex;gap:8px;margin-top:8px">
             <button onclick="var v=document.getElementById('vid-ct');v.currentTime=0;v.play()" style="background:var(--rouge);color:white;border:none;border-radius:6px;padding:5px 14px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;cursor:pointer">↺ Recommencer</button>
+            <button id="btn-son" onclick="var v=document.getElementById('vid-ct');v.muted=!v.muted;this.textContent=v.muted?'🔇 Son coupé':'🔊 Son activé';" style="background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:5px 14px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;cursor:pointer">🔇 Son coupé</button>
             <button onclick="var v=document.getElementById('vid-ct');if(v.requestFullscreen)v.requestFullscreen();else if(v.webkitRequestFullscreen)v.webkitRequestFullscreen();" style="background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:5px 14px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;cursor:pointer">⛶ Plein écran</button>
           </div>
         </div>
