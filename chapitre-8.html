@@ -275,7 +275,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="pill" onclick="goSlide(3)">Positions d'attente</div>
     <div class="pill" onclick="goSlide(4)">Manœuvres vagales</div>
     <div class="pill" onclick="goSlide(5)">🎯 Associer malaise → signes</div>
-    <div class="pill" onclick="goSlide(6)">🔎 Détective médical</div>
+    <div class="pill" onclick="goSlide(6)">📞 Dispatching médical</div>
     <div class="pill" onclick="goSlide(7)">Cas Concrets</div>
   </div>
   <div id="nav-btns">
@@ -612,50 +612,18 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
   </div>
 
   
-  <!-- SLIDE 6 NOUVEAU : DÉTECTIVE MÉDICAL -->
-  <div class="slide">
-    <div class="slide-header" style="background:var(--violet)">
-      <div class="left"><div class="sup">Chapitre 8 · Jeu interactif</div><h2>🔎 Détective médical — Identifie le malaise !</h2></div>
-      <div class="badge-dur"><div class="v">🔎</div><div class="l">Détective</div></div>
+  <!-- SLIDE 6 : DISPATCHING MÉDICAL -->
+  <div class="slide" style="background:#0d1117">
+    <div class="slide-header" style="background:linear-gradient(135deg,#0a2a1a,#0d5c2e)">
+      <div class="left">
+        <div class="sup">Chapitre 8 · Jeu de rôle interactif</div>
+        <h2>📞 Dispatching médical — Tu es l'opérateur du 15 !</h2>
+      </div>
+      <div class="badge-dur" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)"><div class="v">📞</div><div class="l">Jeu</div></div>
     </div>
-    <div class="slide-body game-dark">
-      <!-- CONFIG -->
-      <div id="det-config" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center">
-        <div style="font-size:52px">🔎</div>
-        <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:white">Détective médical</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.6);max-width:420px;line-height:1.6">
-          Des <strong style="color:#f0c040">symptômes s'affichent un à un</strong>. Identifie le malaise le plus tôt possible.<br>Plus tu réagis vite, plus tu scores !
-          <br><br><em>3 pts au 1er symptôme · 2 pts au 2e · 1 pt au 3e</em>
-        </div>
-        <button onclick="detStart()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 32px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;cursor:pointer">▶ Commencer</button>
-      </div>
-      <!-- JEU -->
-      <div id="det-game" style="display:none;flex:1;flex-direction:column;gap:8px">
-        <div class="game-score-row">
-          <div style="color:rgba(255,255,255,.5);font-size:12px">Cas <span id="det-qnum">1</span>/6</div>
-          <div>⭐ Score : <span class="game-score-val" id="det-score">0</span></div>
-          <button class="game-restart-btn" onclick="detRestart()">↺ Recommencer</button>
-        </div>
-        <div class="game-q-box">
-          <div class="game-q-type">🩺 Symptômes observés</div>
-          <div id="det-symptoms" style="font-family:'Outfit',sans-serif;font-size:14px;color:white;line-height:1.9;text-align:left;min-height:90px"></div>
-          <button id="det-more-btn" onclick="detMore()" style="margin-top:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);border-radius:8px;padding:6px 16px;font-size:12px;cursor:pointer">+ Symptôme suivant (-1 pt possible)</button>
-        </div>
-        <div class="game-opts" id="det-opts" style="grid-template-columns:1fr 1fr"></div>
-        <div class="game-fb" id="det-fb"></div>
-        <div style="text-align:center"><button class="game-next-btn" id="det-next-btn" onclick="detNext()">Cas suivant →</button></div>
-      </div>
-      <!-- FIN -->
-      <div id="det-end" style="display:none;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:16px;text-align:center">
-        <div style="font-size:52px">🏆</div>
-        <div style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:white">Enquête terminée !</div>
-        <div style="font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;color:#f0c040" id="det-final-score"></div>
-        <div style="font-size:13px;color:rgba(255,255,255,.6)" id="det-final-msg"></div>
-        <button onclick="detRestart()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:8px;padding:10px 24px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer">↺ Nouvelle enquête</button>
-      </div>
-    </div>
-    <div class="slide-footer" style="background:var(--violet)">
-      <span>Détective médical — Malaises</span>
+    <div class="slide-body game-dark" id="dispatch-body" style="padding:16px 20px;gap:10px;overflow-y:auto"></div>
+    <div class="slide-footer" style="background:#0a1a0a;border-color:#1a4a2a">
+      <span>Dispatching médical — Jeu de rôle</span>
       <div class="progress-dots" id="dots6"></div>
       <span>Slide 7/8</span>
     </div>
@@ -843,6 +811,7 @@ function goSlide(n){
   slidePills[current].classList.add('active');
   document.getElementById('slide-counter').textContent=(current+1)+' / '+total;
   renderDots();
+  if(n===6){var b=document.getElementById('dispatch-body');if(b&&b.innerHTML.trim()==='')dispatchInit();}
 }
 function nextSlide(){if(current<total-1)goSlide(current+1);}
 function prevSlide(){if(current>0)goSlide(current-1);}
@@ -936,89 +905,254 @@ function ts(hd){hd.closest('.cc-step').classList.toggle('open');}
 
 function goToDashboard(e){if(e)e.preventDefault();window.location.href='index.html?done=8';}
 
-// ── DÉTECTIVE MÉDICAL — MALAISES ──
-const DET_QUESTIONS = [
-  { symptoms:["Douleur intense dans la poitrine irradiant vers le bras gauche","Transpiration abondante et pâleur","Victime consciente, très anxieuse"],
-    answer:"Accident cardiaque", opts:["AVC","Accident cardiaque","Malaise vagal","Coup de chaleur"],
-    expl:"✅ Accident cardiaque — douleur thoracique + irradiation bras gauche = signe cardinal. Appel 15 immédiat, aspirer posture assise." },
-  { symptoms:["Paralysie soudaine d'un bras (faiblesse unilatérale)","Déformation de la bouche (coin tombant)","Difficultés à parler ou à comprendre"],
-    answer:"AVC", opts:["AVC","Accident cardiaque","Malaise vagal","Crise d'épilepsie"],
-    expl:"✅ AVC — test VITE : Visage asymétrique, bras faible, Troubles du langage, heure d'Entrée. Appel 15 immédiat." },
-  { symptoms:["Sensation de chaleur intense, pas de transpiration","Température corporelle très élevée (>40°C)","Confusion et désorientation"],
-    answer:"Coup de chaleur", opts:["Malaise vagal","Hypoglycémie","Coup de chaleur","AVC"],
-    expl:"✅ Coup de chaleur — hyperthermie sans sueur (thermorégulation dépassée). Refroidir IMMÉDIATEMENT : eau, ventilation, urgence vitale." },
-  { symptoms:["Pâleur soudaine et sueurs froides","Nausées, vision qui noircit","Personne debout depuis longtemps dans la chaleur"],
-    answer:"Malaise vagal", opts:["Accident cardiaque","Malaise vagal","Hypoglycémie","AVC"],
-    expl:"✅ Malaise vagal — hypoTA orthostatique réflexe. Allonger jambes surélevées, aérer. Récupération rapide en général." },
-  { symptoms:["Tremblement des mains, sueurs","Confusion, irritabilité","Diabétique connu, n'a pas mangé depuis le matin"],
-    answer:"Hypoglycémie", opts:["Coup de chaleur","Malaise vagal","Épilepsie","Hypoglycémie"],
-    expl:"✅ Hypoglycémie — glycémie basse chez diabétique. Si conscient : sucre rapide. Si perte de conscience : PLS + appel 15." },
-  { symptoms:["Fièvre >38°C, frissons","Difficultés à avaler, maux de tête intenses","Raideur de la nuque"],
-    answer:"Méningite", opts:["Grippe","Méningite","Malaise vagal","Coup de chaleur"],
-    expl:"✅ Méningite — triade : fièvre + céphalées + raideur nuque. Urgence vitale. Appel 15 immédiat. Possible purpura fulminans." }
+
+// ── DISPATCHING MÉDICAL ──
+const DISPATCH_SITUATIONS = [
+  {
+    id:'hypo',
+    titre:'🍬 Madame Chen, 54 ans — Diabétique',
+    contexte:'Au supermarché, une femme s\'effondre sur le chariot. Elle est confuse, tremble, transpire abondamment. Sa fille vous dit qu\'elle est diabétique et n\'a pas mangé depuis ce matin.',
+    type:'Malaise hypoglycémique',
+    bonnes:[
+      {id:'b1', txt:'Elle a 54 ans et elle est diabétique'},
+      {id:'b2', txt:'Elle est confuse et tremble — signes d\'hypoglycémie'},
+      {id:'b3', txt:'Elle est consciente et peut avaler'},
+      {id:'b4', txt:'Je suis au supermarché Leclerc, rue Pasteur'},
+      {id:'b5', txt:'Elle n\'a pas mangé depuis ce matin'},
+    ],
+    mauvaises:[
+      {id:'m1', txt:'Elle a l\'air fatiguée'},
+      {id:'m2', txt:'Je lui ai donné de l\'aspirine'},
+      {id:'m3', txt:'Elle a une bonne mine'},
+      {id:'m4', txt:'Son chariot est renversé'},
+    ],
+    ordre:['b4','b1','b5','b2','b3'],
+    cat:[
+      'Mettre au repos, assise ou position de confort',
+      'Lui donner du sucre (morceaux, jus de fruit) si consciente et peut avaler',
+      'Appeler le 15 en transmettant : lieu, âge, antécédent diabète, signes observés, état de conscience',
+      'Surveiller — si perte de conscience : ne plus rien donner par la bouche, appeler à nouveau',
+    ]
+  },
+  {
+    id:'avc',
+    titre:'🧠 Monsieur Dubois, 67 ans — Suspicion AVC',
+    contexte:'Dans le parc, un homme assis sur un banc ne répond plus normalement. Sa bouche est déformée, son bras gauche pend sans qu\'il puisse le lever. Il bredouille quand il essaie de parler.',
+    type:'AVC (Accident Vasculaire Cérébral)',
+    bonnes:[
+      {id:'b1', txt:'Il a 67 ans'},
+      {id:'b2', txt:'Bouche déformée, bras gauche paralysé, parole incompréhensible'},
+      {id:'b3', txt:'Il est conscient mais ne peut pas parler clairement'},
+      {id:'b4', txt:'Je suis au parc municipal, avenue des Lilas'},
+      {id:'b5', txt:'Les signes sont apparus il y a environ 5 minutes'},
+    ],
+    mauvaises:[
+      {id:'m1', txt:'Il a l\'air d\'avoir bu'},
+      {id:'m2', txt:'Je l\'ai aidé à s\'allonger par terre'},
+      {id:'m3', txt:'Il fait beau aujourd\'hui'},
+      {id:'m4', txt:'Je lui ai donné de l\'eau'},
+    ],
+    ordre:['b4','b1','b5','b2','b3'],
+    cat:[
+      'Ne pas déplacer la victime — la laisser dans la position où elle se sent le mieux',
+      'Appeler le 15 EN URGENCE : AVC = urgence absolue, chaque minute compte',
+      'Transmettre : lieu précis, âge, signes observés (FAST : Face/Arm/Speech/Time), heure d\'apparition',
+      'Surveiller la conscience et la respiration jusqu\'à l\'arrivée des secours',
+      'Ne rien donner à manger ou à boire',
+    ]
+  },
+  {
+    id:'cardiaque',
+    titre:'❤️ Monsieur Martin, 58 ans — Douleur thoracique',
+    contexte:'Dans la salle de réunion, un collègue saisit sa poitrine. Il décrit une douleur en étau qui irradie dans son bras gauche et sa mâchoire. Il transpire, est très pâle et angoissé.',
+    type:'Accident cardiaque',
+    bonnes:[
+      {id:'b1', txt:'Il a 58 ans, pas d\'antécédent connu'},
+      {id:'b2', txt:'Douleur en étau irradiant bras gauche et mâchoire'},
+      {id:'b3', txt:'Il est conscient, très pâle et transpire'},
+      {id:'b4', txt:'Nous sommes au 3e étage, 12 rue du Commerce — immeuble de bureaux'},
+      {id:'b5', txt:'La douleur a commencé il y a 3 minutes'},
+    ],
+    mauvaises:[
+      {id:'m1', txt:'Il a mangé un sandwich ce midi'},
+      {id:'m2', txt:'Je lui ai donné de l\'aspirine sans demander'},
+      {id:'m3', txt:'Il fait du sport le week-end'},
+      {id:'m4', txt:'Je l\'ai allongé par terre'},
+    ],
+    ordre:['b4','b1','b5','b2','b3'],
+    cat:[
+      'Installer en position demi-assise (ne pas allonger)',
+      'Appeler le 15 immédiatement — ne pas attendre',
+      'Transmettre : lieu précis, âge, nature de la douleur, irradiation, durée, état général',
+      'Ne donner aucun médicament sans avis médical (y compris aspiration)',
+      'Desserrer les vêtements, rassurer, surveiller en continu',
+    ]
+  },
 ];
-let detQ=[], detIdx=0, detScore=0, detShown=0, detAnswered=false;
-function detShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function detStart(){
-  detQ=detShuffle([...DET_QUESTIONS]);detIdx=0;detScore=0;
-  document.getElementById('det-config').style.display='none';
-  document.getElementById('det-end').style.display='none';
-  document.getElementById('det-game').style.display='flex';
-  detRender();
+
+var dispSit, dispPhase, dispScore, dispErrors, dispSelected;
+
+function dispatchInit(){
+  dispSit = DISPATCH_SITUATIONS[Math.floor(Math.random()*DISPATCH_SITUATIONS.length)];
+  dispPhase = 'triage'; dispScore = 0; dispErrors = 0; dispSelected = [];
+  dispRender();
 }
-function detRender(){
-  detAnswered=false;detShown=0;
-  document.getElementById('det-qnum').textContent=detIdx+1;
-  document.getElementById('det-score').textContent=detScore;
-  document.getElementById('det-fb').className='game-fb';
-  document.getElementById('det-next-btn').style.display='none';
-  document.getElementById('det-more-btn').style.display='inline-block';
-  const q=detQ[detIdx];
-  document.getElementById('det-symptoms').innerHTML='<span style="color:#f0c040">🩺 Signe 1 :</span> '+q.symptoms[0];
-  const opts=document.getElementById('det-opts');opts.innerHTML='';
-  q.opts.forEach(o=>{
-    const b=document.createElement('button');b.className='game-opt';b.textContent=o;
-    b.onclick=()=>detAnswer(o,q);opts.appendChild(b);
+
+function dispRender(){
+  var body = document.getElementById('dispatch-body');
+  body.innerHTML = '';
+
+  if(dispPhase === 'triage') dispRenderTriage(body);
+  else if(dispPhase === 'result') dispRenderResult(body);
+  else dispRenderFinal(body);
+}
+
+function dispRenderTriage(body){
+  var s = dispSit;
+
+  // Header situation
+  var hdr = document.createElement('div');
+  hdr.style.cssText = 'background:rgba(255,255,255,.06);border:1.5px solid rgba(13,92,46,.8);border-radius:12px;padding:12px 16px;margin-bottom:8px';
+  hdr.innerHTML = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">'
+    +'<div style="font-size:28px">📞</div>'
+    +'<div>'
+    +'<div style="font-family:Outfit,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#6ee7b7">Appel entrant — SAMU 15</div>'
+    +'<div style="font-family:Outfit,sans-serif;font-size:15px;font-weight:900;color:white">'+s.titre+'</div>'
+    +'</div></div>'
+    +'<div style="font-size:12px;color:rgba(255,255,255,.75);line-height:1.6;background:rgba(0,0,0,.2);border-radius:8px;padding:8px 12px">'+s.contexte+'</div>';
+  body.appendChild(hdr);
+
+  // Consigne
+  var cons = document.createElement('div');
+  cons.style.cssText = 'font-family:Outfit,sans-serif;font-size:13px;font-weight:700;color:#f0c040;margin-bottom:6px;text-align:center';
+  cons.textContent = 'Sélectionne les informations UTILES à transmettre au 15 (évite les infos inutiles !)';
+  body.appendChild(cons);
+
+  // Grille d'infos mélangées
+  var all = [...s.bonnes, ...s.mauvaises].sort(() => Math.random() - .5);
+  var grid = document.createElement('div');
+  grid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px';
+
+  all.forEach(function(item){
+    var btn = document.createElement('button');
+    btn.id = 'dbtn-'+item.id;
+    btn.style.cssText = 'background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.18);border-radius:10px;padding:10px 12px;color:white;font-family:Outfit,sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-align:left;line-height:1.4;transition:all .15s';
+    btn.textContent = item.txt;
+    btn.onclick = function(){ dispToggle(btn, item); };
+    grid.appendChild(btn);
   });
+  body.appendChild(grid);
+
+  // Feedback
+  var fb = document.createElement('div');
+  fb.id = 'disp-fb';
+  fb.style.cssText = 'min-height:30px;font-family:Outfit,sans-serif;font-size:12px;font-weight:600;text-align:center;padding:6px';
+  body.appendChild(fb);
+
+  // Bouton valider
+  var valBtn = document.createElement('button');
+  valBtn.style.cssText = 'width:100%;background:#0d5c2e;border:2px solid #6ee7b7;color:white;border-radius:10px;padding:11px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;margin-top:4px';
+  valBtn.textContent = '📞 Transmettre au SAMU →';
+  valBtn.onclick = dispValider;
+  body.appendChild(valBtn);
 }
-function detMore(){
-  if(detAnswered)return;
-  const q=detQ[detIdx];
-  if(detShown>=q.symptoms.length-1){document.getElementById('det-more-btn').style.display='none';return;}
-  detShown++;
-  document.getElementById('det-symptoms').innerHTML+=
-    '<br><span style="color:#a0c0ff">🩺 Signe '+(detShown+1)+' :</span> '+q.symptoms[detShown];
-  if(detShown>=q.symptoms.length-1)document.getElementById('det-more-btn').style.display='none';
+
+function dispToggle(btn, item){
+  var idx = dispSelected.indexOf(item.id);
+  if(idx > -1){
+    dispSelected.splice(idx, 1);
+    btn.style.background = 'rgba(255,255,255,.07)';
+    btn.style.borderColor = 'rgba(255,255,255,.18)';
+    btn.style.color = 'white';
+  } else {
+    dispSelected.push(item.id);
+    btn.style.background = 'rgba(240,192,64,.2)';
+    btn.style.borderColor = '#f0c040';
+    btn.style.color = '#f0c040';
+  }
+  document.getElementById('disp-fb').textContent = dispSelected.length + ' info(s) sélectionnée(s)';
 }
-function detAnswer(chosen,q){
-  if(detAnswered)return;detAnswered=true;
-  document.getElementById('det-more-btn').style.display='none';
-  const pts=detShown===0?3:detShown===1?2:1;
-  const correct=(chosen===q.answer);
-  document.getElementById('det-opts').querySelectorAll('.game-opt').forEach(b=>{
-    b.disabled=true;
-    if(b.textContent===q.answer)b.classList.add('correct');
-    else if(b.textContent===chosen&&!correct)b.classList.add('wrong');
+
+function dispValider(){
+  if(dispSelected.length === 0){
+    document.getElementById('disp-fb').textContent = '⚠️ Sélectionne au moins une information !';
+    return;
+  }
+  var s = dispSit;
+  var bonneIds = s.bonnes.map(function(b){ return b.id; });
+  var mauvaiseIds = s.mauvaises.map(function(m){ return m.id; });
+
+  var bonnesSelectionnees = dispSelected.filter(function(id){ return bonneIds.indexOf(id) > -1; });
+  var mauvaisesSelectionnees = dispSelected.filter(function(id){ return mauvaiseIds.indexOf(id) > -1; });
+  var oubliees = bonneIds.filter(function(id){ return dispSelected.indexOf(id) === -1; });
+
+  dispScore = bonnesSelectionnees.length - mauvaisesSelectionnees.length;
+  dispErrors = mauvaisesSelectionnees.length + oubliees.length;
+  dispPhase = 'result';
+  dispRender();
+}
+
+function dispRenderResult(body){
+  var s = dispSit;
+  var bonneIds = s.bonnes.map(function(b){ return b.id; });
+  var mauvaiseIds = s.mauvaises.map(function(m){ return m.id; });
+
+  var pct = dispScore / s.bonnes.length;
+  var mention = pct >= .8 ? '🏆 Excellent dispatch !' : pct >= .5 ? '👍 Correct, à affiner' : '📚 Des infos importantes manquaient';
+  var couleur = pct >= .8 ? '#40c080' : pct >= .5 ? '#f0c040' : '#ff8080';
+
+  // Score
+  var sc = document.createElement('div');
+  sc.style.cssText = 'text-align:center;margin-bottom:10px';
+  sc.innerHTML = '<div style="font-family:Outfit,sans-serif;font-size:18px;font-weight:900;color:'+couleur+'">'+mention+'</div>'
+    +'<div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:4px">'+dispScore+' bonne(s) info · '+mauvaiseIds.filter(function(id){return dispSelected.indexOf(id)>-1}).length+' info(s) inutile(s)</div>';
+  body.appendChild(sc);
+
+  // Correction sélection
+  var corr = document.createElement('div');
+  corr.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px';
+  var all = [...s.bonnes, ...s.mauvaises];
+  all.forEach(function(item){
+    var isBonne = bonneIds.indexOf(item.id) > -1;
+    var wasSelected = dispSelected.indexOf(item.id) > -1;
+    var ok = isBonne && wasSelected;
+    var errMauvaise = !isBonne && wasSelected;
+    var errOubli = isBonne && !wasSelected;
+    var bg = ok ? 'rgba(64,192,128,.2)' : errMauvaise ? 'rgba(192,64,64,.2)' : errOubli ? 'rgba(240,192,64,.1)' : 'rgba(255,255,255,.04)';
+    var bord = ok ? '#40c080' : errMauvaise ? '#c04040' : errOubli ? '#f0c040' : 'rgba(255,255,255,.1)';
+    var ic = ok ? '✅' : errMauvaise ? '❌' : errOubli ? '⚠️' : '—';
+    var el = document.createElement('div');
+    el.style.cssText = 'background:'+bg+';border:1.5px solid '+bord+';border-radius:8px;padding:8px 10px;font-family:Outfit,sans-serif;font-size:11px;color:white;line-height:1.4';
+    el.innerHTML = '<span style="margin-right:5px">'+ic+'</span>'+item.txt;
+    corr.appendChild(el);
   });
-  const fb=document.getElementById('det-fb');
-  if(correct){detScore+=pts;fb.className='game-fb ok';fb.innerHTML='🎯 +'+pts+' pt'+(pts>1?'s':'')+' ! '+q.expl;}
-  else{fb.className='game-fb ko';fb.innerHTML='❌ C\'était : <strong>'+q.answer+'</strong>. '+q.expl;}
-  document.getElementById('det-score').textContent=detScore;
-  document.getElementById('det-next-btn').style.display='inline-block';
+  body.appendChild(corr);
+
+  // CAT complète
+  var catDiv = document.createElement('div');
+  catDiv.style.cssText = 'background:#0a2a1a;border:2px solid #40c080;border-radius:12px;padding:12px 16px;margin-bottom:10px';
+  catDiv.innerHTML = '<div style="font-family:Outfit,sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#40c080;margin-bottom:8px">📋 CAT complète — '+s.type+'</div>'
+    +s.cat.map(function(step, i){
+      return '<div style="display:flex;gap:8px;align-items:baseline;margin-bottom:5px">'
+        +'<span style="background:#0d5c2e;color:#6ee7b7;border-radius:50%;width:20px;height:20px;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">'+(i+1)+'</span>'
+        +'<div style="font-size:12px;color:#d1fae5;line-height:1.5">'+step+'</div>'
+        +'</div>';
+    }).join('');
+  body.appendChild(catDiv);
+
+  // Boutons
+  var btnRow = document.createElement('div');
+  btnRow.style.cssText = 'display:flex;gap:8px';
+  btnRow.innerHTML = '<button onclick="dispatchInit()" style="flex:1;background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:10px;font-family:Outfit,sans-serif;font-size:13px;font-weight:800;cursor:pointer">↺ Nouvelle situation</button>';
+  body.appendChild(btnRow);
 }
-function detNext(){detIdx++;if(detIdx>=detQ.length){detEnd();return;}detRender();}
-function detEnd(){
-  document.getElementById('det-game').style.display='none';
-  document.getElementById('det-end').style.display='flex';
-  const max=DET_QUESTIONS.length*3;
-  document.getElementById('det-final-score').textContent=detScore+' / '+max;
-  const pct=detScore/max;
-  document.getElementById('det-final-msg').textContent=pct>=.8?'Excellent détective ! Tu reconnais les malaises comme un pro 🔎':pct>=.5?'Bien ! Revois les signes d\'alerte.':'Continue — chaque signe compte pour identifier vite.';
-}
-function detRestart(){document.getElementById('det-end').style.display='none';detStart();}
+
+document.addEventListener('DOMContentLoaded', function(){
+  var b = document.getElementById('dispatch-body');
+  if(b && b.innerHTML.trim() === '') dispatchInit();
+});
 
 
-// ── DRAG & DROP PILLS NAVIGATION ──
 (function(){
   const container = document.getElementById('nav-pills');
   let dragSrc = null;
