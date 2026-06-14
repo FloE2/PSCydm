@@ -297,9 +297,9 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="pill" onclick="goSlide(1)">Définition</div>
     <div class="pill" onclick="goSlide(2)">Compression directe</div>
     <div class="pill" onclick="goSlide(3)">Arbre de décision</div>
-    <div class="pill" onclick="goSlide(4)">🎮 Défi Hémorragies</div>
+    <div class="pill" onclick="goSlide(4)">Défi Hémorragies</div>
     <div class="pill" onclick="goSlide(5)">Saignements particuliers</div>
-    <div class="pill" onclick="goSlide(6)">🛡️ Protection sauveteur</div>
+    <div class="pill" onclick="goSlide(6)">Protection sauveteur</div>
     <div class="pill" onclick="goSlide(7)">Cas Concret</div>
   </div>
   <div id="nav-btns">
@@ -484,25 +484,24 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
   </div>
 
-  <!-- SLIDE 4 : DÉFI HÉMORRAGIES (jeu unifié 3 niveaux) -->
+  <!-- SLIDE 4 : DEFI HEMORRAGIES -->
   <div class="slide" id="defi-slide">
     <div class="slide-header" style="background:linear-gradient(135deg,#7a1a1a,#c0392b);">
       <div class="left">
-        <div class="sup">Chapitre 5 · Jeu progressif</div>
-        <h2>🎮 Défi Hémorragies — 3 niveaux</h2>
+        <div class="sup">Chapitre 5 &middot; Jeu progressif</div>
+        <h2>D&eacute;fi H&eacute;morragies &mdash; 3 niveaux</h2>
       </div>
-      <div class="badge-dur"><div class="v">🎮</div><div class="l">Défi</div></div>
+      <div class="badge-dur"><div class="v">&#127918;</div><div class="l">D&eacute;fi</div></div>
     </div>
-    <div class="slide-body game-dark" id="defi-body" style="padding:14px 20px;gap:10px;overflow-y:auto;">
-    </div>
+    <div class="slide-body game-dark" id="defi-body" style="padding:14px 20px;gap:10px;overflow-y:auto;"></div>
     <div class="slide-footer">
-      <span id="defi-footer-label">Défi Hémorragies</span>
+      <span>D&eacute;fi H&eacute;morragies</span>
       <div class="progress-dots" id="dots4"></div>
       <span>Slide 5/8</span>
     </div>
   </div>
 
-  <!-- SLIDE 8 : PROTECTION DU SAUVETEUR -->
+    <!-- SLIDE 8 : PROTECTION DU SAUVETEUR -->
   <div class="slide">
     <div class="slide-header" style="background:#2558a8">
       <div class="left">
@@ -718,378 +717,228 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
   </div>
 
 <script>
-// ── Navigation ──
-let current = 0;
-const total = 8;
-const allSlides = Array.from(document.querySelectorAll('.slide'));
+let current=0, total=8;
 
-function goSlide(n) {
-  // Désactiver tout
-  allSlides.forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('#nav-pills .pill[data-slide]').forEach(p => p.classList.remove('active'));
-  // Activer la slide n
-  if(allSlides[n]) allSlides[n].classList.add('active');
-  // Activer la pill dont data-slide === n (ou par ordre visuel si pas encore taggée)
-  const matchPill = document.querySelector('#nav-pills .pill[data-slide="'+n+'"]');
-  if(matchPill) matchPill.classList.add('active');
-  current = n;
-  document.getElementById('slide-counter').textContent = (n+1) + ' / ' + total;
+function goSlide(n){
+  document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('#nav-pills .pill[data-slide]').forEach(p=>p.classList.remove('active'));
+  const s=document.querySelectorAll('.slide')[n];
+  if(s) s.classList.add('active');
+  const p=document.querySelector('#nav-pills .pill[data-slide="'+n+'"]');
+  if(p) p.classList.add('active');
+  current=n;
+  document.getElementById('slide-counter').textContent=(n+1)+' / '+total;
   renderDots();
-  // Initialiser le Défi si on arrive sur slide 4
-  if(n === 4 && typeof defiInit === 'function'){
-    const body = document.getElementById('defi-body');
-    if(body && body.innerHTML.trim() === '') defiInit();
+  if(n===4&&typeof defiInit==='function'){
+    const b=document.getElementById('defi-body');
+    if(b&&b.innerHTML.trim()==='') defiInit();
   }
 }
 function nextSlide(){
-  const pills = Array.from(document.querySelectorAll('#nav-pills .pill[data-slide]'));
-  const idx = pills.findIndex(p => p.classList.contains('active'));
-  if(idx < pills.length - 1) goSlide(parseInt(pills[idx+1].dataset.slide));
+  const pp=Array.from(document.querySelectorAll('#nav-pills .pill[data-slide]'));
+  const i=pp.findIndex(p=>p.classList.contains('active'));
+  if(i<pp.length-1) goSlide(parseInt(pp[i+1].dataset.slide));
 }
 function prevSlide(){
-  const pills = Array.from(document.querySelectorAll('#nav-pills .pill[data-slide]'));
-  const idx = pills.findIndex(p => p.classList.contains('active'));
-  if(idx > 0) goSlide(parseInt(pills[idx-1].dataset.slide));
+  const pp=Array.from(document.querySelectorAll('#nav-pills .pill[data-slide]'));
+  const i=pp.findIndex(p=>p.classList.contains('active'));
+  if(i>0) goSlide(parseInt(pp[i-1].dataset.slide));
 }
-
-function renderDots() {
+function renderDots(){
   for(let i=0;i<total;i++){
-    const el = document.getElementById('dots'+i);
+    const el=document.getElementById('dots'+i)||document.getElementById('dots-'+i);
     if(!el) continue;
-    let html = '';
-    for(let j=0;j<total;j++){
-      const cls = j===i?'dot active':j<i?'dot done':'dot';
-      html+=`<div class="${cls}"></div>`;
-    }
-    el.innerHTML = html;
+    let h='';
+    for(let j=0;j<total;j++) h+='<div class="dot'+(j===i?' active':j<i?' done':'')+'"></div>';
+    el.innerHTML=h;
   }
 }
-
-// Attribuer data-slide immédiatement (avant drag&drop) pour que goSlide fonctionne au clic
-(function tagPillsEarly(){
-  document.querySelectorAll('#nav-pills .pill').forEach((pill, i) => {
-    if(i === 0) return; // Dashboard fixe
-    pill.dataset.slide = String(i - 1);
+(function(){
+  document.querySelectorAll('#nav-pills .pill').forEach((pill,i)=>{
+    if(i===0) return;
+    pill.dataset.slide=String(i-1);
   });
-  // Activer la pill du slide 0
-  const p0 = document.querySelector('#nav-pills .pill[data-slide="0"]');
+  const p0=document.querySelector('#nav-pills .pill[data-slide="0"]');
   if(p0) p0.classList.add('active');
 })();
-
 renderDots();
 
-// ══════════════════════════════════════════
-// 🎮 DÉFI HÉMORRAGIES — JEU UNIFIÉ 3 NIVEAUX
-// ══════════════════════════════════════════
-
-// ── Banque de questions ──
-const DEFI_VF = [
-  { q:"Le garrot, c’est dangereux, ça fait perdre le bras.", answer:false, expl:"FAUX — idée reçue dépassée. Un garrot bien posé ne fait pas perdre le membre. Ne pas le poser quand c’est nécessaire peut être mortel." },
-  { q:"Le garrot se pose directement sur la plaie.", answer:false, expl:"FAUX — Le garrot se pose 5 à 7 cm AU-DESSUS de la plaie (côté cœur), jamais sur une articulation." },
-  { q:"Une fois posé, on peut desserrer le garrot si la douleur est trop forte.", answer:false, expl:"FAUX — Une fois posé, le garrot ne doit jamais être retiré ou desserré sans avis médical." },
-  { q:"On peut utiliser une ceinture large comme garrot improvisé.", answer:true, expl:"VRAI — Un lien large (3-5 cm), solide et non élastique convient. Le garrot industriel reste préférable s’il est disponible." },
-  { q:"La compression directe doit être légère pour ne pas faire mal.", answer:false, expl:"FAUX — La compression doit être FORTE et PERMANENTE pour stopper le saignement." },
-  { q:"Un pansement compressif peut remplacer la compression manuelle même si le saignement n’est pas arrêté.", answer:false, expl:"FAUX — Le pansement compressif ne remplace la compression manuelle QUE si elle a permis d’arrêter le saignement." },
+// DEFI HEMORRAGIES
+const DEFI_VF=[
+  {q:"Le garrot fait perdre le bras.",answer:false,expl:"FAUX - idee recue. Un garrot bien pose ne fait pas perdre le membre."},
+  {q:"Le garrot se pose directement sur la plaie.",answer:false,expl:"FAUX - 5 a 7 cm AU-DESSUS de la plaie, cote coeur, jamais sur une articulation."},
+  {q:"On peut desserrer le garrot si la douleur est trop forte.",answer:false,expl:"FAUX - Jamais retirer ou desserrer sans avis medical."},
+  {q:"Une ceinture large peut servir de garrot improvise.",answer:true,expl:"VRAI - Un lien large (3-5 cm), solide, non elastique convient."},
+  {q:"La compression directe doit etre legere pour ne pas faire mal.",answer:false,expl:"FAUX - La compression doit etre FORTE et PERMANENTE."},
+  {q:"Un pansement compressif peut remplacer la compression meme si le saignement continue.",answer:false,expl:"FAUX - Seulement si la compression a arrete le saignement."},
+];
+const DEFI_QCM=[
+  {q:"Quelqu'un saigne abondamment du bras. Ta premiere action ?",opts:["Appeler le 15","Comprimer fortement avec un tissu","Attendre","Poser un garrot"],answer:1,expl:"Comprimer immediatement est la priorite absolue."},
+  {q:"La compression a stoppe le saignement. Tu es seul. Que fais-tu ?",opts:["Continuer a comprimer","Pansement compressif + appeler le 15","Retirer la main pour verifier","Poser un garrot"],answer:1,expl:"Le pansement compressif libere les mains pour alerter."},
+  {q:"Saignement de nez apres un choc a la tete.",opts:["Allonger","Asseoir, tete en avant, comprimer 10 min","Asseoir + avis medical obligatoire","Lui dire de renifler"],answer:2,expl:"Tete en avant + compression, MAIS avis medical car choc."},
+  {q:"Ou pose-t-on le garrot ?",opts:["Sur la plaie","Sur l'articulation","5-7 cm en dessous","5-7 cm au-dessus, cote coeur"],answer:3,expl:"Au-dessus de la plaie, 5-7 cm, jamais sur une articulation."},
+  {q:"Condition pour poser un pansement compressif ?",opts:["Saignement abondant","Sauveteur occupe","La compression a arrete le saignement","Victime consciente"],answer:2,expl:"Seulement si la compression manuelle a arrete le saignement."},
+  {q:"Victime qui vomit du sang, consciente.",opts:["Allonger sur le dos","Asseoir, tete en avant","Position de confort + alerter","Lui donner a boire"],answer:2,expl:"Position de confort + alerte immediate."},
+];
+const DEFI_TRIAGE=[
+  {q:"Coupure au doigt, saignement faible qui s'arrete seul.",opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"],answer:3,expl:"Plaie simple : rincer + pansement."},
+  {q:"Plaie profonde au bras, sang abondant, ne s'arrete pas.",opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"],answer:0,expl:"Compression directe immediate et forte."},
+  {q:"Avant-bras : compression inefficace depuis 3 min.",opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"],answer:1,expl:"Garrot : la compression echoue. Noter l'heure."},
+  {q:"Bras : compression a stoppe le flux. Tu dois appeler le 15.",opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"],answer:2,expl:"Pansement compressif : libere les mains pour alerter."},
+  {q:"Plaie par balle a la cuisse, saignement massif.",opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"],answer:1,expl:"Garrot immediat."},
+  {q:"Eraflure au genou qui s'arrete seule.",opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"],answer:3,expl:"Plaie simple : rincer + pansement."},
 ];
 
-const DEFI_QCM = [
-  { q:"Tu arrives et quelqu’un saigne abondamment du bras. Ta première action ?", opts:["Appeler le 15 immédiatement","Comprimer fortement avec un tissu","Attendre pour voir si ça s’arrête","Poser immédiatement un garrot"], answer:1, expl:"Comprimer immédiatement est la priorité absolue. On appelle ensuite les secours." },
-  { q:"La compression a stoppé le saignement. Tu es seul. Que fais-tu ?", opts:["Continuer à comprimer jusqu’aux secours","Poser un pansement compressif serré, puis appeler le 15","Retirer la main pour vérifier que ça ne saigne plus","Poser un garrot par précaution"], answer:1, expl:"Le pansement compressif libère les mains du sauveteur pour alerter et surveiller." },
-  { q:"Quelqu’un saigne du nez après un choc à la tête. Tu dois…", opts:["L’allonger et lui surélever la tête","L’asseoir, tête en avant, comprimer 10 min","L’asseoir tête en avant ET demander un avis médical (choc)","Lui dire de renifler pour arrêter"], answer:2, expl:"Tête en avant + compression, MAIS avis médical indispensable car saignement après un choc." },
-  { q:"Où pose-t-on le garrot sur un membre qui saigne ?", opts:["Directement sur la plaie","Sur l’articulation la plus proche","5 à 7 cm en dessous de la plaie","5 à 7 cm au-dessus de la plaie, côté cœur"], answer:3, expl:"Au-dessus de la plaie (côté cœur), à 5-7 cm, jamais sur une articulation." },
-  { q:"Quelle est la condition pour poser un pansement compressif ?", opts:["Le saignement est abondant","Le sauveteur a besoin de ses deux mains","La compression manuelle a arrêté le saignement","La victime peut appuyer elle-même"], answer:2, expl:"Le pansement compressif remplace la compression manuelle SEULEMENT si elle a permis d’arrêter le saignement." },
-  { q:"Une victime vomit du sang, elle est consciente. Que fais-tu ?", opts:["L’allonger sur le dos","L’asseoir, tête en avant","L’installer dans la position où elle se sent le mieux, alerter","Lui donner à boire pour compenser"], answer:2, expl:"Position de confort + alerte immédiate. C’est un signe de maladie grave." },
-];
+function shuffle(arr){return [...arr].sort(()=>Math.random()-.5);}
+function pick3(arr){return shuffle(arr).slice(0,3);}
 
-const DEFI_TRIAGE = [
-  { q:"Coupure au doigt avec un couteau, saignement faible qui s’arrête seul.", opts:["Compression directe","Garrot","Pansement compressif","Plaie simple (rincer/protéger)"], answer:3, expl:"Plaie simple : rincer à l’eau courante + pansement." },
-  { q:"Plaie profonde au bras, sang qui coule abondamment, ne s’arrête pas seul.", opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"], answer:0, expl:"Compression directe immédiate et forte pour stopper l’hémorragie." },
-  { q:"Section partielle de l’avant-bras, compression directe inefficace depuis 3 min.", opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"], answer:1, expl:"Garrot : compression échoue, membre atteint. Il faut noter l’heure de pose." },
-  { q:"Plaie au bras — la compression a stoppé le flux. Tu es seul et dois appeler le 15.", opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"], answer:2, expl:"Pansement compressif : la compression a été efficace, il libère les mains pour alerter." },
-  { q:"Plaie par balle à la cuisse, saignement massif.", opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"], answer:1, expl:"Garrot immédiat : plaie par balle au membre = garrot d’emblée." },
-  { q:"Éraflure au genou qui s’arrête de saigner seule après 30 secondes.", opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"], answer:3, expl:"Éraflure = plaie simple. Rincer à l’eau courante, protéger avec un pansement." },
-];
-
-// ── État du jeu ──
-let defiLevel = 1; // 1, 2, 3
-let defiQuestions = [];
-let defiIdx = 0;
-let defiScore = 0;
-let defiAnswered = false;
-
-function defiInit(){
-  defiLevel = 1; defiIdx = 0; defiScore = 0;
-  defiLoadLevel();
-}
-
+let defiLevel=1,defiQuestions=[],defiIdx=0,defiScore=0,defiAnswered=false;
+function defiInit(){defiLevel=1;defiIdx=0;defiScore=0;defiLoadLevel();}
 function defiLoadLevel(){
-  defiIdx = 0; defiAnswered = false;
-  if(defiLevel === 1) defiQuestions = pick3(DEFI_VF);
-  else if(defiLevel === 2) defiQuestions = pick3(DEFI_QCM);
-  else defiQuestions = pick3(DEFI_TRIAGE);
+  defiIdx=0;defiAnswered=false;
+  if(defiLevel===1) defiQuestions=pick3(DEFI_VF);
+  else if(defiLevel===2) defiQuestions=pick3(DEFI_QCM);
+  else defiQuestions=pick3(DEFI_TRIAGE);
   defiRender();
 }
-
 function defiRender(){
-  const body = document.getElementById('defi-body');
-  body.innerHTML = '';
-
-  // Barre de niveaux
-  const lvlNames = ['Niveau 1 — Vrai / Faux','Niveau 2 — Quiz','Niveau 3 — Triage Express'];
-  const lvlIcons = ['🔵','🟡','🔴'];
-  const lvlDesc  = ['Questions rapides — vrai ou faux ?','4 choix — il faut réfléchir !','Situation réelle — quel geste ?'];
-  const bar = document.createElement('div');
-  bar.style.cssText = 'display:flex;gap:6px;margin-bottom:10px;';
+  const body=document.getElementById('defi-body');
+  body.innerHTML='';
+  const lvl=['Niv.1 Vrai/Faux','Niv.2 Quiz','Niv.3 Triage'];
+  const bar=document.createElement('div');
+  bar.style.cssText='display:flex;gap:6px;margin-bottom:10px;';
   for(let i=1;i<=3;i++){
-    const b = document.createElement('div');
-    b.style.cssText = `flex:1;text-align:center;padding:6px 4px;border-radius:8px;font-family:Outfit,sans-serif;font-size:11px;font-weight:700;border:2px solid ${i<defiLevel?'#40c080':i===defiLevel?'#f0c040':'rgba(255,255,255,.15)'};background:${i<defiLevel?'rgba(64,192,128,.15)':i===defiLevel?'rgba(240,192,64,.15)':'transparent'};color:${i<defiLevel?'#40c080':i===defiLevel?'#f0c040':'rgba(255,255,255,.3)'};`;
-    b.innerHTML = `${lvlIcons[i-1]} ${lvlNames[i-1]}`;
-    bar.appendChild(b);
+    const b=document.createElement('div');
+    const done=i<defiLevel,act=i===defiLevel;
+    b.style.cssText='flex:1;text-align:center;padding:6px 4px;border-radius:8px;font-family:Outfit,sans-serif;font-size:11px;font-weight:700;border:2px solid '+(done?'#40c080':act?'#f0c040':'rgba(255,255,255,.15)')+';background:'+(done?'rgba(64,192,128,.15)':act?'rgba(240,192,64,.15)':'transparent')+';color:'+(done?'#40c080':act?'#f0c040':'rgba(255,255,255,.3)')+';';
+    b.textContent=lvl[i-1];bar.appendChild(b);
   }
   body.appendChild(bar);
-
-  // Titre du niveau
-  const h = document.createElement('div');
-  h.style.cssText = 'font-family:Outfit,sans-serif;font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;text-align:center;';
-  h.textContent = lvlDesc[defiLevel-1] + ' — Question ' + (defiIdx+1) + ' / ' + defiQuestions.length;
-  body.appendChild(h);
-
-  // Score courant
-  const sc = document.createElement('div');
-  sc.style.cssText = 'text-align:right;font-family:Outfit,sans-serif;font-size:12px;color:#f0c040;margin-bottom:6px;';
-  sc.textContent = '⭐ Score : ' + defiScore;
-  body.appendChild(sc);
-
-  const q = defiQuestions[defiIdx];
-
-  if(defiLevel === 1) defiRenderVF(body, q);
-  else defiRenderQCM(body, q);
+  const info=document.createElement('div');
+  info.style.cssText='font-family:Outfit,sans-serif;font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;text-align:center;';
+  info.textContent='Question '+(defiIdx+1)+' / '+defiQuestions.length+'  |  Score : '+defiScore;
+  body.appendChild(info);
+  const q=defiQuestions[defiIdx];
+  if(defiLevel===1) defiRenderVF(body,q);
+  else defiRenderQCM(body,q);
 }
-
-function defiRenderVF(body, q){
-  const box = document.createElement('div');
-  box.style.cssText = 'background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px 18px;text-align:center;';
-  box.innerHTML = `<div style="font-size:13px;color:rgba(255,255,255,.6);font-family:Outfit,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;">Vrai ou Faux ?</div>
-    <div style="font-family:Outfit,sans-serif;font-size:15px;font-weight:700;color:white;line-height:1.5;margin-bottom:16px;">💬 ${q.q}</div>
-    <div style="display:flex;gap:12px;justify-content:center;">
-      <button onclick="defiAnswerVF(true)" style="background:rgba(64,192,128,.2);border:2px solid #40c080;color:#40c080;border-radius:10px;padding:10px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">✅ VRAI</button>
-      <button onclick="defiAnswerVF(false)" style="background:rgba(192,64,64,.2);border:2px solid #c04040;color:#ff8080;border-radius:10px;padding:10px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">❌ FAUX</button>
-    </div>`;
+function defiRenderVF(body,q){
+  const box=document.createElement('div');
+  box.style.cssText='background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px 18px;text-align:center;';
+  box.innerHTML='<div style="font-size:13px;color:rgba(255,255,255,.6);font-family:Outfit,sans-serif;font-weight:700;text-transform:uppercase;margin-bottom:10px;">Vrai ou Faux ?</div>'
+    +'<div style="font-family:Outfit,sans-serif;font-size:15px;font-weight:700;color:white;line-height:1.5;margin-bottom:16px;">'+q.q+'</div>'
+    +'<div style="display:flex;gap:12px;justify-content:center;">'
+    +'<button onclick="defiAnswerVF(true)" style="background:rgba(64,192,128,.2);border:2px solid #40c080;color:#40c080;border-radius:10px;padding:10px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">VRAI</button>'
+    +'<button onclick="defiAnswerVF(false)" style="background:rgba(192,64,64,.2);border:2px solid #c04040;color:#ff8080;border-radius:10px;padding:10px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">FAUX</button>'
+    +'</div>';
   body.appendChild(box);
-  const fb = document.createElement('div');
-  fb.id = 'defi-fb';
-  fb.style.cssText = 'display:none;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:13px;font-family:Outfit,sans-serif;font-weight:600;text-align:center;';
-  body.appendChild(fb);
+  const fb=document.createElement('div');fb.id='defi-fb';fb.style.display='none';body.appendChild(fb);
 }
-
 function defiAnswerVF(chosen){
   if(defiAnswered) return;
-  defiAnswered = true;
-  const q = defiQuestions[defiIdx];
-  const correct = (chosen === q.answer);
-  if(correct) defiScore++;
-  const btns = document.querySelectorAll('#defi-body button');
-  btns.forEach(b => b.disabled = true);
-  const fb = document.getElementById('defi-fb');
-  fb.style.display = 'block';
-  fb.style.background = correct ? 'rgba(64,192,128,.15)' : 'rgba(192,64,64,.15)';
-  fb.style.border = '1px solid ' + (correct ? '#40c080' : '#c04040');
-  fb.style.color = correct ? '#80ffb8' : '#ffb0b0';
-  fb.innerHTML = (correct ? '🎯 Bonne réponse ! ' : '❌ ') + q.expl;
+  defiAnswered=true;
+  const q=defiQuestions[defiIdx];
+  const ok=(chosen===q.answer);
+  if(ok) defiScore++;
+  document.querySelectorAll('#defi-body button').forEach(b=>b.disabled=true);
+  const fb=document.getElementById('defi-fb');
+  fb.style.cssText='display:block;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:13px;font-family:Outfit,sans-serif;font-weight:600;text-align:center;background:'+(ok?'rgba(64,192,128,.15)':'rgba(192,64,64,.15)')+';border:1px solid '+(ok?'#40c080':'#c04040')+';color:'+(ok?'#80ffb8':'#ffb0b0')+';';
+  fb.textContent=(ok?'Bonne reponse ! ':'Incorrect. ')+q.expl;
   defiShowNext();
 }
-
-function defiRenderQCM(body, q){
-  const box = document.createElement('div');
-  box.style.cssText = 'background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;';
-  const type = defiLevel === 2 ? 'Quiz — 1 bonne réponse' : 'Triage Express — Quel geste ?';
-  box.innerHTML = `<div style="font-family:Outfit,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:8px;">${type}</div>
-    <div style="font-family:Outfit,sans-serif;font-size:14px;font-weight:700;color:white;line-height:1.5;margin-bottom:12px;">${q.q}</div>`;
-  const grid = document.createElement('div');
-  grid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:8px;';
-  q.opts.forEach((opt, i) => {
-    const b = document.createElement('button');
-    b.style.cssText = 'background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 10px;color:white;font-family:Outfit,sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-align:left;line-height:1.4;';
-    b.innerHTML = `<span style="font-family:Outfit,sans-serif;font-weight:900;color:#f0c040;margin-right:6px;">${String.fromCharCode(65+i)}.</span>${opt}`;
-    b.onclick = () => defiAnswerQCM(i, b);
-    grid.appendChild(b);
+function defiRenderQCM(body,q){
+  const box=document.createElement('div');
+  box.style.cssText='background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;';
+  const type=defiLevel===2?'Quiz - 1 bonne reponse':'Triage - Quel geste ?';
+  let html='<div style="font-family:Outfit,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">'+type+'</div>'
+    +'<div style="font-family:Outfit,sans-serif;font-size:14px;font-weight:700;color:white;line-height:1.5;margin-bottom:12px;">'+q.q+'</div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="defi-opts">';
+  q.opts.forEach((opt,i)=>{
+    html+='<button onclick="defiAnswerQCM('+i+')" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:10px;color:white;font-family:Outfit,sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-align:left;line-height:1.4;">'+String.fromCharCode(65+i)+'. '+opt+'</button>';
   });
-  box.appendChild(grid);
-  body.appendChild(box);
-  const fb = document.createElement('div');
-  fb.id = 'defi-fb';
-  fb.style.cssText = 'display:none;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:12px;font-family:Outfit,sans-serif;font-weight:600;';
-  body.appendChild(fb);
+  html+='</div>';
+  box.innerHTML=html;body.appendChild(box);
+  const fb=document.createElement('div');fb.id='defi-fb';fb.style.display='none';body.appendChild(fb);
 }
-
-function defiAnswerQCM(chosen, btn){
+function defiAnswerQCM(chosen){
   if(defiAnswered) return;
-  defiAnswered = true;
-  const q = defiQuestions[defiIdx];
-  const correct = (chosen === q.answer);
-  if(correct) defiScore++;
-  const allBtns = document.querySelectorAll('#defi-body button');
-  allBtns.forEach((b,i) => {
-    b.disabled = true;
-    if(i === q.answer){ b.style.background='rgba(64,192,128,.25)'; b.style.borderColor='#40c080'; }
-    else if(i === chosen && !correct){ b.style.background='rgba(192,64,64,.25)'; b.style.borderColor='#c04040'; }
+  defiAnswered=true;
+  const q=defiQuestions[defiIdx];
+  const ok=(chosen===q.answer);
+  if(ok) defiScore++;
+  document.querySelectorAll('#defi-opts button').forEach((b,i)=>{
+    b.disabled=true;
+    if(i===q.answer){b.style.background='rgba(64,192,128,.25)';b.style.borderColor='#40c080';}
+    else if(i===chosen&&!ok){b.style.background='rgba(192,64,64,.25)';b.style.borderColor='#c04040';}
   });
-  const fb = document.getElementById('defi-fb');
-  fb.style.display = 'block';
-  fb.style.background = correct ? 'rgba(64,192,128,.15)' : 'rgba(192,64,64,.15)';
-  fb.style.border = '1px solid ' + (correct ? '#40c080' : '#c04040');
-  fb.style.color = correct ? '#80ffb8' : '#ffb0b0';
-  fb.innerHTML = (correct ? '🎯 ' : '❌ ') + q.expl;
+  const fb=document.getElementById('defi-fb');
+  fb.style.cssText='display:block;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:12px;font-family:Outfit,sans-serif;font-weight:600;background:'+(ok?'rgba(64,192,128,.15)':'rgba(192,64,64,.15)')+';border:1px solid '+(ok?'#40c080':'#c04040')+';color:'+(ok?'#80ffb8':'#ffb0b0')+';';
+  fb.textContent=(ok?'Correct ! ':'Incorrect. ')+q.expl;
   defiShowNext();
 }
-
 function defiShowNext(){
-  const body = document.getElementById('defi-body');
-  const nextBtn = document.createElement('button');
-  const isLastQ = defiIdx >= defiQuestions.length - 1;
-  const isLastLevel = defiLevel === 3;
-  nextBtn.style.cssText = 'margin-top:10px;width:100%;background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:11px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;';
-  if(!isLastQ){
-    nextBtn.textContent = 'Question suivante →';
-    nextBtn.onclick = () => { defiIdx++; defiAnswered = false; defiRender(); };
-  } else if(!isLastLevel){
-    nextBtn.textContent = "🚀 Niveau " + (defiLevel+1) + " — C'est parti !";
-    nextBtn.style.background = defiLevel===1 ? '#f0c040' : '#c04040';
-    nextBtn.onclick = () => { defiLevel++; defiLoadLevel(); };
-  } else {
-    nextBtn.textContent = '🏆 Voir mon score final';
-    nextBtn.onclick = defiShowFinal;
-  }
-  body.appendChild(nextBtn);
+  const body=document.getElementById('defi-body');
+  const btn=document.createElement('button');
+  const lastQ=defiIdx>=defiQuestions.length-1;
+  const lastLvl=defiLevel===3;
+  btn.style.cssText='margin-top:10px;width:100%;background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:11px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;';
+  if(!lastQ){btn.textContent='Question suivante';btn.onclick=()=>{defiIdx++;defiAnswered=false;defiRender();};}
+  else if(!lastLvl){btn.textContent='Niveau '+(defiLevel+1)+' - Allez-y !';btn.onclick=()=>{defiLevel++;defiLoadLevel();};}
+  else{btn.textContent='Voir mon score final';btn.onclick=defiShowFinal;}
+  body.appendChild(btn);
 }
-
 function defiShowFinal(){
-  const body = document.getElementById('defi-body');
-  const max = 9; // 3 niveaux × 3 questions
-  const pct = defiScore / max;
-  const stars = pct >= .89 ? '⭐⭐⭐' : pct >= .66 ? '⭐⭐' : '⭐';
-  const msg = pct >= .89 ? "Excellent ! Tu maîtrises les hémorragies 💪" : pct >= .66 ? "Bien joué ! Quelques notions à revoir." : "Continue à t'entraîner — tu y es presque !";
-  body.innerHTML = `
-    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px;">
-      <div style="font-size:52px;">🏆</div>
-      <div style="font-family:Outfit,sans-serif;font-size:28px;font-weight:900;color:#f0c040;">${stars}</div>
-      <div style="font-family:Outfit,sans-serif;font-size:22px;font-weight:900;color:white;">Score final : ${defiScore} / ${max}</div>
-      <div style="font-size:13px;color:rgba(255,255,255,.6);max-width:360px;line-height:1.6;">${msg}</div>
-      <button onclick="defiInit()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 32px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;margin-top:8px;">↺ Rejouer (nouvelles questions)</button>
-    </div>`;
+  const body=document.getElementById('defi-body');
+  const max=9,pct=defiScore/max;
+  const stars=pct>=.89?'***':pct>=.66?'**':'*';
+  const msg=pct>=.89?'Excellent !':pct>=.66?'Bien joue !':'Continue a t'entrainer !';
+  body.innerHTML='<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px;">'
+    +'<div style="font-size:52px;">&#127942;</div>'
+    +'<div style="font-family:Outfit,sans-serif;font-size:28px;font-weight:900;color:#f0c040;">'+stars+'</div>'
+    +'<div style="font-family:Outfit,sans-serif;font-size:22px;font-weight:900;color:white;">Score : '+defiScore+' / '+max+'</div>'
+    +'<div style="font-size:13px;color:rgba(255,255,255,.6);">'+msg+'</div>'
+    +'<button onclick="defiInit()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 32px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">Rejouer</button>'
+    +'</div>';
 }
 
-// Lancer le jeu quand on arrive sur le slide
-document.querySelectorAll('.slide')[4] && (function(){
-  // init au clic sur la pill
-  const pillDefi = document.querySelector('.pill[onclick="goSlide(4)"]');
-  if(pillDefi) pillDefi.addEventListener('click', () => setTimeout(defiInit, 50));
-})();
+// Cas concret
+let ccTime2=false;
+function switchCC(){
+  ccTime2=!ccTime2;
+  document.getElementById('cc-t1').style.display=ccTime2?'none':'block';
+  document.getElementById('cc-t2').style.display=ccTime2?'block':'none';
+  document.getElementById('cc-switch-btn').textContent=ccTime2?'Retour temps 1':'Temps 2 : Correction';
+  document.getElementById('cc-title').textContent=ccTime2?'Cas Concret - Temps 2':'Cas Concret - Temps 1';
+  document.getElementById('cc-footer').querySelector('span').textContent=ccTime2?'Temps 2':'Temps 1';
+}
+function toggleStep(id){document.getElementById(id).classList.toggle('open');}
+function goToDashboard(e){if(e)e.preventDefault();window.location.href='index.html?done=5';}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextSlide();if(e.key==='ArrowLeft')prevSlide();});
+function lbOpen(src,cap){const o=document.getElementById('lb-overlay');document.getElementById('lb-img').src=src;document.getElementById('lb-caption').textContent=cap||'';o.classList.add('open');}
+function lbClose(){document.getElementById('lb-overlay').classList.remove('open');}
 
-// ── Cas concret ──
-
-// ── DRAG & DROP PILLS NAVIGATION avec persistance localStorage ──
+// Drag & drop pills avec localStorage
 (function(){
-  const STORAGE_KEY = 'psc1_ch5_pill_order';
-  const container = document.getElementById('nav-pills');
-  let dragSrc = null;
-
-  // Stocker l'index de slide original dans chaque pill
-  function tagPills(){
-    container.querySelectorAll('.pill').forEach((pill, i) => {
-      if(i === 0) return; // Dashboard fixe
-      pill.dataset.slide = String(i - 1);
+  const KEY='psc1_ch5_pill_order',container=document.getElementById('nav-pills');
+  let src=null;
+  function save(){localStorage.setItem(KEY,JSON.stringify(Array.from(container.querySelectorAll('.pill[data-slide]')).map(p=>p.dataset.slide)));}
+  function restore(){
+    const s=localStorage.getItem(KEY);if(!s)return;
+    try{JSON.parse(s).forEach(idx=>{const p=document.querySelector('#nav-pills .pill[data-slide="'+idx+'"]');if(p)container.appendChild(p);});}catch(e){}
+  }
+  function initDrag(){
+    container.querySelectorAll('.pill[data-slide]').forEach(pill=>{
+      pill.classList.add('draggable-pill');pill.draggable=true;
+      pill.addEventListener('dragstart',e=>{src=pill;setTimeout(()=>pill.classList.add('pill-dragging'),0);});
+      pill.addEventListener('dragend',()=>{pill.classList.remove('pill-dragging');container.querySelectorAll('.pill').forEach(p=>p.classList.remove('pill-drag-over'));src=null;save();});
+      pill.addEventListener('dragover',e=>{e.preventDefault();if(src&&src!==pill){container.querySelectorAll('.pill').forEach(p=>p.classList.remove('pill-drag-over'));pill.classList.add('pill-drag-over');}});
+      pill.addEventListener('dragleave',e=>{if(!pill.contains(e.relatedTarget))pill.classList.remove('pill-drag-over');});
+      pill.addEventListener('drop',e=>{e.preventDefault();if(!src||src===pill)return;const pp=Array.from(container.querySelectorAll('.pill'));const ti=pp.indexOf(pill);if(ti===0)return;if(pp.indexOf(src)<ti)pill.after(src);else pill.before(src);pill.classList.remove('pill-drag-over');});
     });
   }
-
-  // Sauvegarder l'ordre actuel des pills
-  function saveOrder(){
-    const order = Array.from(container.querySelectorAll('.pill[data-slide]'))
-      .map(p => p.dataset.slide);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(order));
-  }
-
-  // Restaurer l'ordre sauvegardé
-  function restoreOrder(){
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if(!saved) return;
-    try {
-      const order = JSON.parse(saved);
-      const pills = Array.from(container.querySelectorAll('.pill[data-slide]'));
-      order.forEach(slideIdx => {
-        const pill = pills.find(p => p.dataset.slide === slideIdx);
-        if(pill) container.appendChild(pill);
-      });
-    } catch(e){}
-  }
-
-  function initPillDrag(){
-    container.querySelectorAll('.pill').forEach((pill, idx) => {
-      if(idx === 0) return; // Dashboard — fixe
-      pill.classList.add('draggable-pill');
-      pill.setAttribute('draggable', 'true');
-      pill.title = 'Maintenir et glisser pour réorganiser';
-
-      pill.addEventListener('dragstart', e => {
-        dragSrc = pill;
-        setTimeout(() => pill.classList.add('pill-dragging'), 0);
-        e.dataTransfer.effectAllowed = 'move';
-        e.dataTransfer.setData('text/plain', pill.dataset.slide || '');
-      });
-
-      pill.addEventListener('dragend', () => {
-        pill.classList.remove('pill-dragging');
-        container.querySelectorAll('.pill').forEach(p => p.classList.remove('pill-drag-over'));
-        dragSrc = null;
-        saveOrder(); // ← Sauvegarde après chaque déplacement
-      });
-
-      pill.addEventListener('dragover', e => {
-        e.preventDefault();
-        e.dataTransfer.dropEffect = 'move';
-        if(dragSrc && dragSrc !== pill){
-          container.querySelectorAll('.pill').forEach(p => p.classList.remove('pill-drag-over'));
-          pill.classList.add('pill-drag-over');
-        }
-      });
-
-      pill.addEventListener('dragleave', e => {
-        if(!pill.contains(e.relatedTarget)) pill.classList.remove('pill-drag-over');
-      });
-
-      pill.addEventListener('drop', e => {
-        e.preventDefault();
-        if(!dragSrc || dragSrc === pill) return;
-        const pills = Array.from(container.querySelectorAll('.pill'));
-        const tgtIdx = pills.indexOf(pill);
-        if(tgtIdx === 0) return; // Ne pas déposer sur Dashboard
-        const srcIdx = pills.indexOf(dragSrc);
-        if(srcIdx < tgtIdx) pill.after(dragSrc);
-        else pill.before(dragSrc);
-        pill.classList.remove('pill-drag-over');
-      });
-    });
-  }
-
-  function addDragHint(){
-    const hint = document.createElement('span');
-    hint.style.cssText = 'font-size:9px;color:rgba(127,168,212,.38);font-family:Outfit,sans-serif;white-space:nowrap;flex-shrink:0;margin-left:4px;pointer-events:none;';
-    hint.textContent = '⠿ glisser pour réorganiser';
-    container.appendChild(hint);
-  }
-
-  // Patch goSlide : utilise data-slide pour trouver la vraie slide
-  // (goSlide, nextSlide, prevSlide already handle data-slide natively above)
-
-  tagPills();
-  restoreOrder(); // ← Restaure l'ordre sauvegardé au chargement
-  // Activer la pill du slide courant après restore
-  const activePill = document.querySelector('#nav-pills .pill[data-slide="0"]');
-  if(activePill) activePill.classList.add('active');
-  initPillDrag();
-  addDragHint();
+  function hint(){const h=document.createElement('span');h.style.cssText='font-size:9px;color:rgba(127,168,212,.38);font-family:Outfit,sans-serif;white-space:nowrap;flex-shrink:0;margin-left:4px;pointer-events:none;';h.textContent='glisser pour reorganiser';container.appendChild(h);}
+  restore();initDrag();hint();
 })();
 
-</script>
 </body>
 </html>
