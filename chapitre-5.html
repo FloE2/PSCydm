@@ -842,7 +842,7 @@ function defiRender(){
   bar.style.cssText = 'display:flex;gap:6px;margin-bottom:10px;';
   for(let i=1;i<=3;i++){
     const b = document.createElement('div');
-    b.style.cssText = `flex:1;text-align:center;padding:6px 4px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;border:2px solid ${i<defiLevel?'#40c080':i===defiLevel?'#f0c040':'rgba(255,255,255,.15)'};background:${i<defiLevel?'rgba(64,192,128,.15)':i===defiLevel?'rgba(240,192,64,.15)':'transparent'};color:${i<defiLevel?'#40c080':i===defiLevel?'#f0c040':'rgba(255,255,255,.3)'};`;
+    b.style.cssText = `flex:1;text-align:center;padding:6px 4px;border-radius:8px;font-family:Outfit,sans-serif;font-size:11px;font-weight:700;border:2px solid ${i<defiLevel?'#40c080':i===defiLevel?'#f0c040':'rgba(255,255,255,.15)'};background:${i<defiLevel?'rgba(64,192,128,.15)':i===defiLevel?'rgba(240,192,64,.15)':'transparent'};color:${i<defiLevel?'#40c080':i===defiLevel?'#f0c040':'rgba(255,255,255,.3)'};`;
     b.innerHTML = `${lvlIcons[i-1]} ${lvlNames[i-1]}`;
     bar.appendChild(b);
   }
@@ -850,13 +850,13 @@ function defiRender(){
 
   // Titre du niveau
   const h = document.createElement('div');
-  h.style.cssText = 'font-family:'Outfit',sans-serif;font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;text-align:center;';
+  h.style.cssText = 'font-family:Outfit,sans-serif;font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;text-align:center;';
   h.textContent = lvlDesc[defiLevel-1] + ' — Question ' + (defiIdx+1) + ' / ' + defiQuestions.length;
   body.appendChild(h);
 
   // Score courant
   const sc = document.createElement('div');
-  sc.style.cssText = 'text-align:right;font-family:'Outfit',sans-serif;font-size:12px;color:#f0c040;margin-bottom:6px;';
+  sc.style.cssText = 'text-align:right;font-family:Outfit,sans-serif;font-size:12px;color:#f0c040;margin-bottom:6px;';
   sc.textContent = '⭐ Score : ' + defiScore;
   body.appendChild(sc);
 
@@ -869,16 +869,16 @@ function defiRender(){
 function defiRenderVF(body, q){
   const box = document.createElement('div');
   box.style.cssText = 'background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px 18px;text-align:center;';
-  box.innerHTML = `<div style="font-size:13px;color:rgba(255,255,255,.6);font-family:'Outfit',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;">Vrai ou Faux ?</div>
-    <div style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;color:white;line-height:1.5;margin-bottom:16px;">💬 ${q.q}</div>
+  box.innerHTML = `<div style="font-size:13px;color:rgba(255,255,255,.6);font-family:Outfit,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;">Vrai ou Faux ?</div>
+    <div style="font-family:Outfit,sans-serif;font-size:15px;font-weight:700;color:white;line-height:1.5;margin-bottom:16px;">💬 ${q.q}</div>
     <div style="display:flex;gap:12px;justify-content:center;">
-      <button onclick="defiAnswerVF(true)" style="background:rgba(64,192,128,.2);border:2px solid #40c080;color:#40c080;border-radius:10px;padding:10px 28px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer;">✅ VRAI</button>
-      <button onclick="defiAnswerVF(false)" style="background:rgba(192,64,64,.2);border:2px solid #c04040;color:#ff8080;border-radius:10px;padding:10px 28px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer;">❌ FAUX</button>
+      <button onclick="defiAnswerVF(true)" style="background:rgba(64,192,128,.2);border:2px solid #40c080;color:#40c080;border-radius:10px;padding:10px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">✅ VRAI</button>
+      <button onclick="defiAnswerVF(false)" style="background:rgba(192,64,64,.2);border:2px solid #c04040;color:#ff8080;border-radius:10px;padding:10px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">❌ FAUX</button>
     </div>`;
   body.appendChild(box);
   const fb = document.createElement('div');
   fb.id = 'defi-fb';
-  fb.style.cssText = 'display:none;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:13px;font-family:'Outfit',sans-serif;font-weight:600;text-align:center;';
+  fb.style.cssText = 'display:none;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:13px;font-family:Outfit,sans-serif;font-weight:600;text-align:center;';
   body.appendChild(fb);
 }
 
@@ -903,14 +903,14 @@ function defiRenderQCM(body, q){
   const box = document.createElement('div');
   box.style.cssText = 'background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;';
   const type = defiLevel === 2 ? 'Quiz — 1 bonne réponse' : 'Triage Express — Quel geste ?';
-  box.innerHTML = `<div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:8px;">${type}</div>
-    <div style="font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;color:white;line-height:1.5;margin-bottom:12px;">${q.q}</div>`;
+  box.innerHTML = `<div style="font-family:Outfit,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:8px;">${type}</div>
+    <div style="font-family:Outfit,sans-serif;font-size:14px;font-weight:700;color:white;line-height:1.5;margin-bottom:12px;">${q.q}</div>`;
   const grid = document.createElement('div');
   grid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:8px;';
   q.opts.forEach((opt, i) => {
     const b = document.createElement('button');
-    b.style.cssText = 'background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 10px;color:white;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-align:left;line-height:1.4;';
-    b.innerHTML = `<span style="font-family:'Outfit',sans-serif;font-weight:900;color:#f0c040;margin-right:6px;">${String.fromCharCode(65+i)}.</span>${opt}`;
+    b.style.cssText = 'background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 10px;color:white;font-family:Outfit,sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-align:left;line-height:1.4;';
+    b.innerHTML = `<span style="font-family:Outfit,sans-serif;font-weight:900;color:#f0c040;margin-right:6px;">${String.fromCharCode(65+i)}.</span>${opt}`;
     b.onclick = () => defiAnswerQCM(i, b);
     grid.appendChild(b);
   });
@@ -918,7 +918,7 @@ function defiRenderQCM(body, q){
   body.appendChild(box);
   const fb = document.createElement('div');
   fb.id = 'defi-fb';
-  fb.style.cssText = 'display:none;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;';
+  fb.style.cssText = 'display:none;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:12px;font-family:Outfit,sans-serif;font-weight:600;';
   body.appendChild(fb);
 }
 
@@ -948,7 +948,7 @@ function defiShowNext(){
   const nextBtn = document.createElement('button');
   const isLastQ = defiIdx >= defiQuestions.length - 1;
   const isLastLevel = defiLevel === 3;
-  nextBtn.style.cssText = 'margin-top:10px;width:100%;background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:11px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer;';
+  nextBtn.style.cssText = 'margin-top:10px;width:100%;background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:11px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;';
   if(!isLastQ){
     nextBtn.textContent = 'Question suivante →';
     nextBtn.onclick = () => { defiIdx++; defiAnswered = false; defiRender(); };
@@ -972,10 +972,10 @@ function defiShowFinal(){
   body.innerHTML = `
     <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px;">
       <div style="font-size:52px;">🏆</div>
-      <div style="font-family:'Outfit',sans-serif;font-size:28px;font-weight:900;color:#f0c040;">${stars}</div>
-      <div style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:white;">Score final : ${defiScore} / ${max}</div>
+      <div style="font-family:Outfit,sans-serif;font-size:28px;font-weight:900;color:#f0c040;">${stars}</div>
+      <div style="font-family:Outfit,sans-serif;font-size:22px;font-weight:900;color:white;">Score final : ${defiScore} / ${max}</div>
       <div style="font-size:13px;color:rgba(255,255,255,.6);max-width:360px;line-height:1.6;">${msg}</div>
-      <button onclick="defiInit()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 32px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer;margin-top:8px;">↺ Rejouer (nouvelles questions)</button>
+      <button onclick="defiInit()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 32px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;margin-top:8px;">↺ Rejouer (nouvelles questions)</button>
     </div>`;
 }
 
