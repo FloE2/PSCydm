@@ -953,7 +953,7 @@ function defiShowNext(){
     nextBtn.textContent = 'Question suivante →';
     nextBtn.onclick = () => { defiIdx++; defiAnswered = false; defiRender(); };
   } else if(!isLastLevel){
-    nextBtn.textContent = '🚀 Niveau ' + (defiLevel+1) + ' — C'est parti !';
+    nextBtn.textContent = "🚀 Niveau " + (defiLevel+1) + " — C'est parti !";
     nextBtn.style.background = defiLevel===1 ? '#f0c040' : '#c04040';
     nextBtn.onclick = () => { defiLevel++; defiLoadLevel(); };
   } else {
