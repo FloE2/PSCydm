@@ -120,6 +120,15 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 .step-card.in-slot.wrong{color:var(--rouge)}
 .step-card .step-icon{font-size:14px;flex-shrink:0}
 
+/* ACCORDÉON TECHNIQUE PÉDAGOGIQUE */
+.tech-peda-block{border-radius:10px;}
+.tech-peda-toggle{display:flex!important;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;padding:10px 14px;gap:10px;min-height:44px;}
+.tech-peda-toggle:hover{filter:brightness(1.15);}
+.tech-chevron{font-size:18px;color:#7fa8d4;flex-shrink:0;transition:transform .25s ease;line-height:1;}
+.tech-peda-block.open .tech-chevron{transform:rotate(180deg);}
+.tech-peda-body{display:none;padding:0 14px 12px;}
+.tech-peda-block.open .tech-peda-body{display:block;}
+
 /* BOUTONS */
 .action-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:6px}
 .check-btn{background:var(--obva);color:white;border:none;border-radius:8px;padding:9px 22px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
@@ -471,10 +480,15 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
 
     <!-- Rappel REFOR -->
-    <div style="background:linear-gradient(135deg,#1a2d4a,#1e3560);border:1.5px solid #2a4a7f;border-radius:10px;padding:10px 14px;display:flex;gap:12px;align-items:flex-start;">
-      <div style="font-size:20px;flex-shrink:0;">🔄</div>
-      <div>
-        <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#7fa8d4;margin-bottom:4px;">Technique pédagogique — REFOR · Reformulation</div>
+    <div class="tech-peda-block" style="background:linear-gradient(135deg,#1a2d4a,#1e3560);border:1.5px solid #2a4a7f;">
+      <div class="tech-peda-toggle" onclick="this.closest('.tech-peda-block').classList.toggle('open')">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:18px;flex-shrink:0;">🔄</span>
+          <span style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#7fa8d4;">Technique pédagogique — REFOR · Reformulation</span>
+        </div>
+        <span class="tech-chevron">▾</span>
+      </div>
+      <div class="tech-peda-body">
         <div style="font-size:11.5px;color:#a0c0e0;line-height:1.6;">Le formateur <strong style="color:white;">reformule la CAT avec ou sans gestuelle</strong>, guidé par les apprenants qui l'interrogent et le corrigent. Permet la réactivation mémorielle après la FOAD.</div>
       </div>
     </div>
@@ -564,10 +578,15 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
 
     <!-- APGM rappel APRÈS la reformulation -->
-    <div style="background:linear-gradient(135deg,#1a2d4a,#1e3560);border:1.5px solid #2a4a7f;border-radius:10px;padding:10px 14px;display:flex;gap:12px;align-items:flex-start;">
-      <div style="font-size:20px;flex-shrink:0;">🪞</div>
-      <div style="flex:1;">
-        <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#7fa8d4;margin-bottom:4px;">Technique pédagogique — APG(M) · Atelier Pratique du Geste en Miroir</div>
+    <div class="tech-peda-block" style="background:linear-gradient(135deg,#1a2d4a,#1e3560);border:1.5px solid #2a4a7f;">
+      <div class="tech-peda-toggle" onclick="this.closest('.tech-peda-block').classList.toggle('open')">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:18px;flex-shrink:0;">🪞</span>
+          <span style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#7fa8d4;">Technique pédagogique — APG(M) · Atelier Pratique du Geste en Miroir</span>
+        </div>
+        <span class="tech-chevron">▾</span>
+      </div>
+      <div class="tech-peda-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px;color:#a0c0e0;line-height:1.6;">
           <div>
             <div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:#5a8abf;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Le formateur</div>
@@ -666,10 +685,15 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
 
     <!-- MÉMO APGM nourrisson -->
-    <div style="background:linear-gradient(135deg,#1a2d4a,#1e3560);border:1.5px solid #2a4a7f;border-radius:10px;padding:10px 14px;display:flex;gap:10px;align-items:flex-start;">
-      <div style="font-size:20px;flex-shrink:0;">🪞</div>
-      <div style="flex:1;">
-        <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#7fa8d4;margin-bottom:4px;">⚠️ Mémo formateur — APG(M) à faire maintenant !</div>
+    <div class="tech-peda-block" style="background:linear-gradient(135deg,#1a2d4a,#1e3560);border:1.5px solid #2a4a7f;">
+      <div class="tech-peda-toggle" onclick="this.closest('.tech-peda-block').classList.toggle('open')">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:18px;flex-shrink:0;">🪞</span>
+          <span style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#7fa8d4;">⚠️ Mémo formateur — APG(M) à faire maintenant !</span>
+        </div>
+        <span class="tech-chevron">▾</span>
+      </div>
+      <div class="tech-peda-body">
         <div style="font-size:11.5px;color:#a0c0e0;line-height:1.6;">
           Faire réaliser la CAT complète en binôme <strong style="color:white;">enfant + nourrisson</strong> en même temps que vous.<br>
           Penser à faire passer les rôles : <strong style="color:white;">sauveteur → victime → témoin</strong>.<br>
