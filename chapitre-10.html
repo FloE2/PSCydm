@@ -453,18 +453,25 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 
       <!-- Capsule vidéo compressions -->
       <div style="display:flex;align-items:center;gap:14px;background:#1a0a0a;border:2px solid var(--rouge);border-radius:12px;padding:12px 16px">
-        <div style="flex-shrink:0">
+        <div style="flex-shrink:0;position:relative">
           <video id="vid-ct" src="videos/ct.mp4"
             style="width:220px;height:130px;border-radius:8px;object-fit:cover;cursor:pointer;display:block;background:#000"
             playsinline
             onclick="this.paused ? this.play() : this.pause()">
           </video>
+          <!-- Bouton plein écran -->
+          <button onclick="var v=document.getElementById('vid-ct');if(v.requestFullscreen)v.requestFullscreen();else if(v.webkitRequestFullscreen)v.webkitRequestFullscreen();"
+            title="Plein écran"
+            style="position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.4);color:white;border-radius:5px;padding:3px 7px;font-size:13px;cursor:pointer;line-height:1">⛶</button>
         </div>
         <div style="flex:1">
           <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#ff8080;margin-bottom:4px">▶ Démonstration — Compressions thoraciques</div>
           <div style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.6">Clique sur la vidéo pour lancer · Reclique pour pause<br>
           <span style="color:#f0c040;font-weight:700">Observer :</span> position des mains · bras tendus · décompression complète · rythme régulier</div>
-          <button onclick="var v=document.getElementById('vid-ct');v.currentTime=0;v.play()" style="margin-top:8px;background:var(--rouge);color:white;border:none;border-radius:6px;padding:5px 14px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;cursor:pointer">↺ Recommencer</button>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button onclick="var v=document.getElementById('vid-ct');v.currentTime=0;v.play()" style="background:var(--rouge);color:white;border:none;border-radius:6px;padding:5px 14px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;cursor:pointer">↺ Recommencer</button>
+            <button onclick="var v=document.getElementById('vid-ct');if(v.requestFullscreen)v.requestFullscreen();else if(v.webkitRequestFullscreen)v.webkitRequestFullscreen();" style="background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:5px 14px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;cursor:pointer">⛶ Plein écran</button>
+          </div>
         </div>
       </div>
 
