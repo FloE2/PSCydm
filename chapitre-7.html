@@ -663,9 +663,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
               <button class="game-btn secondary" id="btn-next" onclick="nextQuestion()" style="display:none">Question suivante →</button>
             </div>
             <div id="vote-result" style="display:none;margin-top:4px">
-              <div style="font-size:11px;color:rgba(255,255,255,.6);margin-bottom:8px;text-align:center;font-family:'Outfit',sans-serif;font-weight:700">📊 Vote du public — saisis le nombre de mains levées</div>
-              <div id="vote-inputs" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px"></div>
-              <div class="vote-bars" id="vote-bars"></div>
+              <div style="font-size:11px;color:rgba(255,255,255,.6);margin-bottom:6px;text-align:center;font-family:'Outfit',sans-serif;font-weight:700">📊 Vote du public</div>
+              <div id="vote-inputs" style="display:flex;flex-direction:column;gap:5px"></div>
             </div>
           </div>
           <div class="millionaire-ladder" id="ladder"></div>
@@ -1091,48 +1090,35 @@ function useVote(){
   if(jokerVoteUsed||answered) return;
   jokerVoteUsed=true;
   document.getElementById('joker-vote').classList.add('used');
-  // Relancer le chrono avec plus de temps pour compter les mains
   startTimer(TIME_VOTE);
   const q=QUESTIONS[currentQ];
   const letters=['A','B','C','D'];
   const voteZone=document.getElementById('vote-result');
   const inputsDiv=document.getElementById('vote-inputs');
-  const barsDiv=document.getElementById('vote-bars');
   inputsDiv.innerHTML='';
-  barsDiv.innerHTML='';
 
-  // Build input fields + bars for visible options
   const visibleLetters=letters.filter(l=>{
     const opt=document.getElementById('opt-'+l);
     return opt&&!opt.classList.contains('hidden');
   });
 
+  // Une seule ligne par option : lettre | input | barre | count
   visibleLetters.forEach(l=>{
-    // Input row
-    const inp=document.createElement('div');
-    inp.style.cssText='display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:6px 10px';
-    inp.innerHTML=`<span style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:#f0c040;width:18px;flex-shrink:0">${l}</span>
-      <input type="number" id="vote-inp-${l}" min="0" max="30" value="0"
-        style="background:transparent;border:none;color:white;font-family:'Outfit',sans-serif;font-size:16px;font-weight:700;width:48px;outline:none;text-align:center"
-        oninput="updateVoteBars()">
-      <span style="font-size:11px;color:rgba(255,255,255,.4)">voix</span>`;
-    inputsDiv.appendChild(inp);
-  });
-
-  // Build bar rows
-  visibleLetters.forEach(l=>{
-    const item=document.createElement('div');
-    item.className='vote-bar-item';
-    item.innerHTML=`<div class="vote-bar-label" style="justify-content:space-between">
-      <span style="font-family:'Outfit',sans-serif;font-weight:700">${l}</span>
-      <span id="vote-count-${l}" style="color:#f0c040">0</span>
-    </div>
-    <div class="vote-bar-track"><div class="vote-bar-fill" id="vote-bar-${l}" style="width:0%"></div></div>`;
-    barsDiv.appendChild(item);
+    const row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:center;gap:8px';
+    row.innerHTML=
+      '<span style="font-family:Outfit,sans-serif;font-size:12px;font-weight:900;color:#f0c040;width:14px;flex-shrink:0">'+l+'</span>'
+      +'<input type="number" id="vote-inp-'+l+'" min="0" max="30" value="0" '
+        +'style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:6px;color:white;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;width:46px;text-align:center;padding:3px;outline:none;flex-shrink:0" '
+        +'oninput="updateVoteBars()">'
+      +'<div style="flex:1;height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden">'
+        +'<div id="vote-bar-'+l+'" style="height:100%;width:0%;background:#f0c040;border-radius:4px;transition:width .5s ease"></div>'
+      +'</div>'
+      +'<span id="vote-count-'+l+'" style="font-family:Outfit,sans-serif;font-size:11px;color:#f0c040;width:22px;text-align:right;flex-shrink:0">0</span>';
+    inputsDiv.appendChild(row);
   });
 
   voteZone.style.display='block';
-  // focus first input
   setTimeout(()=>{
     const first=document.getElementById('vote-inp-'+visibleLetters[0]);
     if(first) first.focus();
