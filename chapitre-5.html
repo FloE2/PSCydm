@@ -1175,8 +1175,9 @@ function triageReset(){
 triageBuild();
 
 
-// ── DRAG & DROP PILLS NAVIGATION ──
+// ── DRAG & DROP PILLS NAVIGATION avec persistance localStorage ──
 (function(){
+  const STORAGE_KEY = 'psc1_ch5_pill_order';
   const container = document.getElementById('nav-pills');
   let dragSrc = null;
 
@@ -1184,9 +1185,29 @@ triageBuild();
   function tagPills(){
     container.querySelectorAll('.pill').forEach((pill, i) => {
       if(i === 0) return; // Dashboard fixe
-      // L'index de slide = i-1 (pill 1 → slide 0, pill 2 → slide 1, etc.)
       pill.dataset.slide = String(i - 1);
     });
+  }
+
+  // Sauvegarder l'ordre actuel des pills
+  function saveOrder(){
+    const order = Array.from(container.querySelectorAll('.pill[data-slide]'))
+      .map(p => p.dataset.slide);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(order));
+  }
+
+  // Restaurer l'ordre sauvegardé
+  function restoreOrder(){
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if(!saved) return;
+    try {
+      const order = JSON.parse(saved);
+      const pills = Array.from(container.querySelectorAll('.pill[data-slide]'));
+      order.forEach(slideIdx => {
+        const pill = pills.find(p => p.dataset.slide === slideIdx);
+        if(pill) container.appendChild(pill);
+      });
+    } catch(e){}
   }
 
   function initPillDrag(){
@@ -1207,6 +1228,7 @@ triageBuild();
         pill.classList.remove('pill-dragging');
         container.querySelectorAll('.pill').forEach(p => p.classList.remove('pill-drag-over'));
         dragSrc = null;
+        saveOrder(); // ← Sauvegarde après chaque déplacement
       });
 
       pill.addEventListener('dragover', e => {
@@ -1244,16 +1266,12 @@ triageBuild();
   }
 
   // Patch goSlide : utilise data-slide pour trouver la vraie slide
-  // Les slides restent dans leur ordre DOM original — on ne les déplace JAMAIS
   window.goSlide = function(n){
     const allSlides = Array.from(document.querySelectorAll('.slide'));
     const pills = Array.from(container.querySelectorAll('.pill'));
-    // Désactiver tout
     allSlides.forEach(s => s.classList.remove('active'));
     pills.forEach(p => p.classList.remove('active'));
-    // Activer la slide n (index DOM original)
     if(allSlides[n]) allSlides[n].classList.add('active');
-    // Activer la pill dont data-slide === n
     const matchPill = pills.find(p => parseInt(p.dataset.slide) === n);
     if(matchPill) matchPill.classList.add('active');
     current = n;
@@ -1283,6 +1301,7 @@ triageBuild();
   };
 
   tagPills();
+  restoreOrder(); // ← Restaure l'ordre sauvegardé au chargement
   initPillDrag();
   addDragHint();
 })();
