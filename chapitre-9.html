@@ -243,8 +243,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="pill" onclick="goSlide(4)">PLS Nourrisson</div>
     <div class="pill" onclick="goSlide(5)">🎯 Remettre dans l'ordre</div>
     <div class="pill" onclick="goSlide(6)">⚡ Bonne décision</div>
-    <div class="pill" onclick="goSlide(7)">🛡️ Protection &amp; Alerte</div>
-    <div class="pill" onclick="goSlide(8)">Cas Concret</div>
+    <div class="pill" onclick="goSlide(7)">Cas Concret</div>
   </div>
   <div id="nav-btns">
     <div id="slide-counter">1 / 8</div>
@@ -632,63 +631,6 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
   </div>
 
-  <!-- SLIDE 6 : PROTECTION & ALERTE -->
-  <div class="slide">
-    <div class="slide-header" style="background:#2558a8">
-      <div class="left">
-        <div class="sup">Chapitre 9 · Rappel transversal</div>
-        <h2>🛡️ Protéger · Alerter · Surveiller</h2>
-      </div>
-      <div class="badge-dur"><div class="v">📞</div><div class="l">Rappel</div></div>
-    </div>
-    <div class="slide-body">
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
-        <div style="background:var(--rouge-clair);border:1.5px solid var(--rouge-bord);border-radius:10px;padding:12px">
-          <div style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:var(--rouge);margin-bottom:6px">⚠️ Traumatisme ou origine inconnue</div>
-          <ul class="pls-ul" style="font-size:12px;color:#7a1a10">
-            <li>Laisser la victime sur le dos</li>
-            <li>Alerter les secours et respecter leurs consignes</li>
-            <li>Surveiller la respiration en permanence</li>
-            <li>Si vomissement : mettre sur le côté en maintenant l'axe tête-cou-tronc</li>
-          </ul>
-        </div>
-        <div style="background:var(--vert-clair);border:1.5px solid var(--vert-bord);border-radius:10px;padding:12px">
-          <div style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:var(--vert);margin-bottom:6px">✅ Cause non traumatique — PLS</div>
-          <ul class="pls-ul" style="font-size:12px;color:#1a5a3a">
-            <li>Mettre en PLS immédiatement</li>
-            <li>Alerter les secours (15 / 18 / 112)</li>
-            <li>Surveiller la respiration en permanence</li>
-            <li>Protéger contre le froid, la chaleur, les intempéries</li>
-          </ul>
-        </div>
-      </div>
-      <div class="alerte-box">
-        <div class="alerte-icon">📞</div>
-        <div>
-          <h3>Alerter les secours — informations à donner</h3>
-          <p>Qui ? · Où exactement ? · Quoi ? (personne inconsciente qui respire) · Circonstances (chute, traumatisme ?) · Traitements connus · Antécédents</p>
-        </div>
-      </div>
-      <div class="info-box">
-        🔁 <strong>Si aggravation :</strong> la respiration s'arrête ou devient anormale (gasps, bruits) → RCP immédiate + recontacter les secours pour signaler l'aggravation.
-      </div>
-      <div style="background:var(--gris);border:1px solid var(--gris-bord);border-radius:10px;padding:12px">
-        <div class="section-label">En période épidémique (COVID, grippe…)</div>
-        <ul class="pls-ul" style="font-size:12px;color:var(--texte-sec);margin-top:4px">
-          <li>Se protéger avec un masque si possible</li>
-          <li>Questionner sans toucher · apprécier la respiration visuellement (ventre et poitrine)</li>
-          <li>Ne pas basculer la tête · ne pas se pencher sur le visage</li>
-          <li>Se laver les mains soigneusement après les gestes</li>
-        </ul>
-      </div>
-    </div>
-    <div class="slide-footer">
-      <span>Protéger · Alerter · Surveiller</span>
-      <div class="progress-dots" id="dots6"></div>
-      <span>Slide 8/9</span>
-    </div>
-  </div>
-
   <!-- SLIDE 7 : CAS CONCRET -->
   <div class="slide">
     <div class="slide-header" style="background:linear-gradient(135deg,var(--indigo),#1a1a5a)">
@@ -787,7 +729,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 
 <script>
 // ── NAV ──
-let current=0; const total=9;
+let current=0; const total=8;
 const slidePills=document.querySelectorAll('.pill[onclick^="goSlide"]');
 function goSlide(n){
   document.querySelectorAll('.slide')[current].classList.remove('active');
