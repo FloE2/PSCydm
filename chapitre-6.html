@@ -251,13 +251,12 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="pill" onclick="goSlide(1)">Plaie simple / grave</div>
     <div class="pill" onclick="goSlide(2)">Corps étranger</div>
     <div class="pill" onclick="goSlide(3)">Positions d'attente</div>
-    <div class="pill" onclick="goSlide(4)">CAT plaie simple</div>
-    <div class="pill" onclick="goSlide(5)">⚔️ Duel Champions</div>
-    <div class="pill" onclick="goSlide(6)">🛡️ Protection &amp; Alerte</div>
-    <div class="pill" onclick="goSlide(7)">Cas Concret</div>
+    <div class="pill" onclick="goSlide(4)">⚡ Chrono-CAT</div>
+    <div class="pill" onclick="goSlide(5)">🛡️ Protection &amp; Alerte</div>
+    <div class="pill" onclick="goSlide(6)">Cas Concret</div>
   </div>
   <div id="nav-btns">
-    <div id="slide-counter">1 / 8</div>
+    <div id="slide-counter">1 / 7</div>
     <button class="nav-btn" onclick="prevSlide()">← Préc.</button>
     <button class="nav-btn" onclick="nextSlide()">Suiv. →</button>
   </div>
@@ -493,161 +492,24 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
   </div>
 
-  <!-- SLIDE 4 : CAT PLAIE SIMPLE -->
-  <div class="slide">
-    <div class="slide-header">
+  <!-- SLIDE 4 : CHRONO-CAT -->
+  <div class="slide" style="background:#0d1117">
+    <div class="slide-header" style="background:linear-gradient(135deg,#1a0a2e,#2d1b6b)">
       <div class="left">
-        <div class="sup">Chapitre 6 · Plaie simple</div>
-        <h2>Je soigne une plaie simple — étape par étape</h2>
+        <div class="sup">Chapitre 6 · Jeu interactif</div>
+        <h2>⚡ Chrono-CAT — Clique dans le bon ordre !</h2>
       </div>
-      <div class="badge-dur"><div class="v">🩹</div><div class="l">Geste simple</div></div>
+      <div class="badge-dur" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)"><div class="v">⚡</div><div class="l">Jeu</div></div>
     </div>
-    <div class="slide-body">
-      <div class="vert-box">
-        ✅ Une plaie simple (petite coupure, éraflure) peut être soignée directement. Pas besoin d'appeler les secours si le saignement s'arrête rapidement.
-      </div>
-      <div class="simple-steps">
-        <div class="ss-card">
-          <div class="ss-num">1</div>
-          <div class="ss-ic">🤲</div>
-          <div class="ss-title">Se laver les mains</div>
-          <div class="ss-desc">À l'eau et au savon avant de toucher la plaie.</div>
-        </div>
-        <div class="ss-card">
-          <div class="ss-num">2</div>
-          <div class="ss-ic">🚿</div>
-          <div class="ss-title">Rincer abondamment</div>
-          <div class="ss-desc">À l'eau courante, avec ou sans savon. Utiliser une compresse si besoin pour enlever les souillures.</div>
-        </div>
-        <div class="ss-card">
-          <div class="ss-num">3</div>
-          <div class="ss-ic">🧴</div>
-          <div class="ss-title">Désinfecter</div>
-          <div class="ss-desc">Appliquer un antiseptique (facultatif si eau disponible).</div>
-        </div>
-        <div class="ss-card">
-          <div class="ss-num">4</div>
-          <div class="ss-ic">🩹</div>
-          <div class="ss-title">Protéger</div>
-          <div class="ss-desc">Couvrir avec un pansement adhésif propre.</div>
-        </div>
-        <div class="ss-card">
-          <div class="ss-num">5</div>
-          <div class="ss-ic">⚕️</div>
-          <div class="ss-title">Conseiller un médecin</div>
-          <div class="ss-desc">Pour vérifier le vaccin antitétanique · Si fièvre ou rougeur apparaissent dans les jours suivants.</div>
-        </div>
-      </div>
-      <div class="alerte-box">
-        <div class="alerte-icon">⚠️</div>
-        <div>
-          <h3>Quand la plaie simple devient grave…</h3>
-          <p>Si le saignement ne s'arrête pas · Si la plaie est profonde ou très large · Si un corps étranger est présent → appliquer la <strong>conduite à tenir plaie grave</strong> et alerter les secours.</p>
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer">
-      <span>CAT plaie simple</span>
-      <div class="progress-dots" id="dots4"></div>
-      <span>Slide 5/8</span>
-    </div>
-  </div>
-
-  <!-- SLIDE 5 : JEU CHAMPION — 4 À LA SUITE -->
-  <div class="slide">
-    <div class="slide-header" style="background:linear-gradient(135deg,#1a0a2e,#3a1060)">
-      <div class="left">
-        <div class="sup">Chapitre 6 · Duel de champions</div>
-        <h2>🏆 4 à la Suite — Qui connaît les Plaies ?</h2>
-      </div>
-      <div class="badge-dur"><div class="v">⚔️</div><div class="l">Duel</div></div>
-    </div>
-    <div class="slide-body" style="padding:10px 16px;gap:8px;background:#0d0820">
-
-      <!-- ÉCRAN CONFIG -->
-      <div id="duel-config" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:20px">
-        <div style="font-size:48px">⚔️</div>
-        <div style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:white;text-align:center">Duel de Champions — Plaies</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.6);text-align:center;max-width:440px;line-height:1.6">
-          Le premier à enchaîner <strong style="color:#f0c040">4 bonnes réponses d'affilée</strong> gagne la manche !<br>
-          Questions Vrai/Faux + réponses courtes · Les deux équipes jouent en alternance.
-        </div>
-        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;width:100%;max-width:500px">
-          <div style="background:rgba(255,80,80,.12);border:2px solid rgba(255,80,80,.4);border-radius:12px;padding:12px;text-align:center">
-            <div style="font-size:22px">🔴</div>
-            <input id="team-a-name" type="text" value="Équipe Rouge" maxlength="20"
-              style="background:transparent;border:none;border-bottom:1px solid rgba(255,80,80,.5);color:#ff8080;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;text-align:center;width:100%;outline:none;padding:4px 0;margin-top:6px">
-          </div>
-          <div style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:#f0c040">VS</div>
-          <div style="background:rgba(80,120,255,.12);border:2px solid rgba(80,120,255,.4);border-radius:12px;padding:12px;text-align:center">
-            <div style="font-size:22px">🔵</div>
-            <input id="team-b-name" type="text" value="Équipe Bleue" maxlength="20"
-              style="background:transparent;border:none;border-bottom:1px solid rgba(80,120,255,.5);color:#80a8ff;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;text-align:center;width:100%;outline:none;padding:4px 0;margin-top:6px">
-          </div>
-        </div>
-        <button onclick="startDuel()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 32px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;cursor:pointer">▶ Lancer le duel !</button>
-      </div>
-
-      <!-- ÉCRAN JEU -->
-      <div id="duel-game" style="display:none;flex:1;flex-direction:column;gap:8px">
-
-        <!-- Scores + tour -->
-        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center">
-          <div id="score-a-box" style="background:rgba(255,80,80,.12);border:2px solid rgba(255,80,80,.3);border-radius:10px;padding:10px;text-align:center;transition:all .3s">
-            <div id="score-a-name" style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:#ff8080">Équipe Rouge</div>
-            <div style="display:flex;gap:4px;justify-content:center;margin-top:6px" id="chain-a"></div>
-            <div id="score-a-pts" style="font-family:'Outfit',sans-serif;font-size:10px;color:rgba(255,128,128,.6);margin-top:4px">0 manche(s)</div>
-          </div>
-          <div style="text-align:center">
-            <div id="turn-badge" style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:#f0c040;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px">Tour</div>
-            <div id="q-num-badge" style="background:rgba(255,200,0,.15);border:1px solid rgba(255,200,0,.3);border-radius:8px;padding:6px 12px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:#f0c040">Q 1/12</div>
-          </div>
-          <div id="score-b-box" style="background:rgba(80,120,255,.12);border:2px solid rgba(80,120,255,.3);border-radius:10px;padding:10px;text-align:center;transition:all .3s">
-            <div id="score-b-name" style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:#80a8ff">Équipe Bleue</div>
-            <div style="display:flex;gap:4px;justify-content:center;margin-top:6px" id="chain-b"></div>
-            <div id="score-b-pts" style="font-family:'Outfit',sans-serif;font-size:10px;color:rgba(128,168,255,.6);margin-top:4px">0 manche(s)</div>
-          </div>
-        </div>
-
-        <!-- Question -->
-        <div id="duel-q-box" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;text-align:center">
-          <div id="duel-q-type" style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:6px"></div>
-          <div id="duel-q-text" style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;color:white;line-height:1.4"></div>
-        </div>
-
-        <!-- Réponses -->
-        <div id="duel-opts" style="display:grid;gap:8px"></div>
-
-        <!-- Feedback -->
-        <div id="duel-fb" style="display:none;border-radius:8px;padding:10px 14px;font-size:13px;text-align:center;font-family:'Outfit',sans-serif;font-weight:600"></div>
-
-        <!-- Bouton suivant -->
-        <div style="text-align:center">
-          <button id="duel-next-btn" onclick="duelNext()" style="display:none;background:#f0c040;color:#1a0a2e;border:none;border-radius:8px;padding:9px 24px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;cursor:pointer">Question suivante →</button>
-        </div>
-
-      </div>
-
-      <!-- ÉCRAN FIN DE MANCHE -->
-      <div id="duel-round-end" style="display:none;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:20px;text-align:center">
-        <div id="round-trophy" style="font-size:56px"></div>
-        <div id="round-title" style="font-family:'Outfit',sans-serif;font-size:24px;font-weight:900;color:white"></div>
-        <div id="round-sub" style="font-size:13px;color:rgba(255,255,255,.6);max-width:400px;line-height:1.6"></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
-          <button onclick="duelNextRound()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:8px;padding:10px 24px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer">↺ Rejouer</button>
-          <button onclick="duelRestart()" style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);color:white;border-radius:8px;padding:10px 18px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer">↺ Recommencer</button>
-        </div>
-      </div>
-
-    </div>
+    <div class="slide-body game-dark" id="chronocat-body" style="padding:16px 20px;gap:10px;overflow-y:auto"></div>
     <div class="slide-footer" style="background:#0d0820;border-color:#2a1a4a">
-      <span style="color:rgba(255,255,255,.4)">Duel de Champions — Plaies</span>
-      <div class="progress-dots" id="dots5"></div>
-      <span style="color:rgba(255,255,255,.4)">Slide 6/8</span>
+      <span>Chrono-CAT — CAT plaie simple &amp; grave</span>
+      <div class="progress-dots" id="dots4"></div>
+      <span>Slide 5/7</span>
     </div>
   </div>
 
-  <!-- SLIDE 6 : PROTECTION & ALERTE -->
+    <!-- SLIDE 6 : PROTECTION & ALERTE -->
   <div class="slide">
     <div class="slide-header" style="background:#2558a8">
       <div class="left">
@@ -697,7 +559,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="slide-footer">
       <span>Protéger · Alerter · Surveiller</span>
       <div class="progress-dots" id="dots6"></div>
-      <span>Slide 7/8</span>
+      <span>Slide 7/7</span>
     </div>
   </div>
 
@@ -867,7 +729,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="slide-footer" id="cc-footer">
       <span>Temps 1 — Situation soumise aux élèves</span>
       <div class="progress-dots" id="dots7"></div>
-      <span>Slide 8/8</span>
+      <span>Slide 7/7</span>
     </div>
   </div>
 
@@ -881,7 +743,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 
 <script>
 let current = 0;
-const total = 8;
+const total = 7;
 const slidePills = document.querySelectorAll('.pill[onclick^="goSlide"]');
 
 function goSlide(n) {
@@ -892,6 +754,7 @@ function goSlide(n) {
   slidePills[current].classList.add('active');
   document.getElementById('slide-counter').textContent = (current+1) + ' / ' + total;
   renderDots();
+  if(n===4){const b=document.getElementById('chronocat-body');if(b&&b.innerHTML.trim()==='')setTimeout(chronoCatInit,50);}
 }
 function nextSlide(){if(current<total-1)goSlide(current+1);}
 function prevSlide(){if(current>0)goSlide(current-1);}
@@ -909,7 +772,148 @@ function renderDots() {
 }
 renderDots();
 
-// ── DUEL DE CHAMPIONS — PREMIER À 6 POINTS ──
+// ── CHRONO-CAT ──
+const CC_SIMPLE = [
+  {id:'s1', txt:'Se laver les mains',               expl:'À l\'eau et au savon avant de toucher la plaie.'},
+  {id:'s2', txt:'Rincer abondamment à l\'eau courante', expl:'Du centre vers l\'extérieur, plusieurs secondes, avec ou sans savon.'},
+  {id:'s3', txt:'Désinfecter',                       expl:'Appliquer un antiseptique (facultatif si eau courante disponible).'},
+  {id:'s4', txt:'Protéger avec un pansement',        expl:'Couvrir avec un pansement adhésif propre et stérile.'},
+  {id:'s5', txt:'Conseiller de vérifier le vaccin antitétanique', expl:'Surtout si plaie souillée ou profonde. Consulter si fièvre ou rougeur.'},
+];
+const CC_GRAVE = [
+  {id:'g1', txt:'Protéger la zone',                  expl:'Sécuriser. Écarter les dangers sans se mettre en danger soi-même.'},
+  {id:'g2', txt:'Ne pas retirer le corps étranger',  expl:'Le laisser en place. Comprimer AUTOUR si saignement, jamais dessus.'},
+  {id:'g3', txt:'Installer dans la bonne position d\'attente', expl:'Thorax → assise. Abdomen → allongée jambes fléchies. Œil → allongée tête immobile. Autres → allongée.'},
+  {id:'g4', txt:'Alerter les secours (15 / 18 / 112)', expl:'Donner : lieu, nature de la plaie, état de la victime. Appliquer les consignes.'},
+  {id:'g5', txt:'Surveiller et rassurer jusqu\'aux secours', expl:'Parler, couvrir du froid, surveiller la conscience et la respiration. Ne pas laisser seul.'},
+];
+
+const CAT_SIMPLE_HTML = `
+  <div style="background:#e8f8ef;border:2px solid #1a7a4a;border-radius:12px;padding:12px 16px">
+    <div style="font-family:Outfit,sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#1a7a4a;margin-bottom:8px">✅ CAT — Plaie simple</div>
+    ${CC_SIMPLE.map((s,i)=>`<div style="display:flex;gap:8px;align-items:baseline;margin-bottom:4px"><span style="background:#1a7a4a;color:white;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">${i+1}</span><div><strong style="font-size:12px;color:#1a3a1a">${s.txt}</strong><span style="font-size:11px;color:#2a5a3a"> — ${s.expl}</span></div></div>`).join('')}
+  </div>`;
+
+const CAT_GRAVE_HTML = `
+  <div style="background:#fdecea;border:2px solid #c0392b;border-radius:12px;padding:12px 16px">
+    <div style="font-family:Outfit,sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#c0392b;margin-bottom:8px">🚨 CAT — Plaie grave</div>
+    ${CC_GRAVE.map((s,i)=>`<div style="display:flex;gap:8px;align-items:baseline;margin-bottom:4px"><span style="background:#c0392b;color:white;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">${i+1}</span><div><strong style="font-size:12px;color:#3a1a1a">${s.txt}</strong><span style="font-size:11px;color:#5a2a20"> — ${s.expl}</span></div></div>`).join('')}
+  </div>`;
+
+var ccManche=1, ccExpected=0, ccScore=0, ccErrors=0, ccTimer=null, ccSeconds=0;
+
+function chronoCatInit(){ccManche=1;ccScore=0;ccErrors=0;chronoCatRender();}
+
+function chronoCatRender(){
+  const body=document.getElementById('chronocat-body');
+  body.innerHTML='';
+  const steps=ccManche===1?CC_SIMPLE:CC_GRAVE;
+  const label=ccManche===1?'Plaie SIMPLE':'Plaie GRAVE';
+  const color=ccManche===1?'#40c080':'#ff6060';
+  const borderColor=ccManche===1?'#1a7a4a':'#c0392b';
+  ccExpected=0; clearInterval(ccTimer); ccSeconds=0;
+
+  // Header
+  const hdr=document.createElement('div');
+  hdr.style.cssText='display:flex;align-items:center;justify-content:space-between;margin-bottom:8px';
+  hdr.innerHTML='<div>'
+    +'<div style="font-family:Outfit,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.4)">Manche '+ccManche+' / 2</div>'
+    +'<div style="font-family:Outfit,sans-serif;font-size:17px;font-weight:900;color:'+color+'">CAT — '+label+'</div>'
+    +'</div>'
+    +'<div style="display:flex;gap:16px;align-items:center">'
+    +'<div><div id="cc-chrono" style="font-family:Outfit,sans-serif;font-size:22px;font-weight:900;color:#f0c040">0s</div></div>'
+    +'<div style="font-family:Outfit,sans-serif;font-size:12px;color:rgba(255,255,255,.5)">❌ <span id="cc-errors">0</span></div>'
+    +'</div>';
+  body.appendChild(hdr);
+
+  // Consigne
+  const cons=document.createElement('div');
+  cons.style.cssText='background:rgba(255,255,255,.06);border:1.5px solid '+borderColor+';border-radius:10px;padding:9px 14px;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;color:white;margin-bottom:8px;text-align:center';
+  cons.textContent='Clique sur les étapes dans le bon ordre — du plus rapide au plus lent !';
+  body.appendChild(cons);
+
+  // Grille boutons mélangés
+  const shuffled=[...steps].sort(()=>Math.random()-.5);
+  const grid=document.createElement('div');
+  grid.id='cc-grid';
+  grid.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:8px';
+  shuffled.forEach(step=>{
+    const btn=document.createElement('button');
+    btn.id='cc-btn-'+step.id;
+    btn.dataset.order=steps.indexOf(step);
+    btn.style.cssText='background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.2);border-radius:12px;padding:13px 12px;color:white;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;cursor:pointer;text-align:center;line-height:1.4;transition:all .15s';
+    btn.textContent=step.txt;
+    btn.onclick=()=>chronoCatClick(btn,step,steps,color,borderColor);
+    grid.appendChild(btn);
+  });
+  body.appendChild(grid);
+
+  // Feedback
+  const fb=document.createElement('div');
+  fb.id='cc-fb';
+  fb.style.cssText='min-height:34px;border-radius:8px;padding:6px 12px;font-family:Outfit,sans-serif;font-size:12px;font-weight:600;text-align:center;margin-top:6px';
+  body.appendChild(fb);
+
+  ccTimer=setInterval(()=>{ccSeconds++;const el=document.getElementById('cc-chrono');if(el)el.textContent=ccSeconds+'s';},1000);
+}
+
+function chronoCatClick(btn,step,steps,color,borderColor){
+  if(btn.disabled) return;
+  const order=parseInt(btn.dataset.order);
+  const fb=document.getElementById('cc-fb');
+  if(order===ccExpected){
+    btn.style.background='rgba(64,192,128,.25)';btn.style.borderColor='#40c080';btn.style.color='#80ffb8';btn.disabled=true;
+    // Afficher l'explication de l'étape
+    fb.style.cssText='display:block;min-height:34px;border-radius:8px;padding:8px 12px;font-family:Outfit,sans-serif;font-size:12px;font-weight:600;margin-top:6px;background:rgba(64,192,128,.12);border:1px solid #40c080;color:#80ffb8;text-align:left';
+    fb.innerHTML='<strong>✅ Étape '+(ccExpected+1)+' :</strong> '+step.expl;
+    ccExpected++;
+    if(ccExpected===steps.length){clearInterval(ccTimer);setTimeout(()=>chronoCatMancheEnd(steps,color),600);}
+  } else {
+    ccErrors++;document.getElementById('cc-errors').textContent=ccErrors;
+    btn.style.background='rgba(192,64,64,.25)';btn.style.borderColor='#c04040';
+    fb.style.cssText='display:block;min-height:34px;border-radius:8px;padding:8px 12px;font-family:Outfit,sans-serif;font-size:12px;font-weight:600;margin-top:6px;background:rgba(192,64,64,.12);border:1px solid #c04040;color:#ffb0b0;text-align:center';
+    fb.textContent='❌ Pas encore ! Cherche l\'étape n°'+(ccExpected+1)+'.';
+    setTimeout(()=>{btn.style.background='rgba(255,255,255,.08)';btn.style.borderColor='rgba(255,255,255,.2)';},700);
+  }
+}
+
+function chronoCatMancheEnd(steps,color){
+  const body=document.getElementById('chronocat-body');
+  const pts=Math.max(0,steps.length-ccErrors);ccScore+=pts;
+  body.innerHTML='';
+
+  const isSimple=ccManche===1;
+  const catHtml=isSimple?CAT_SIMPLE_HTML:CAT_GRAVE_HTML;
+  const emoji=ccErrors===0?'🏆':ccErrors<=2?'💪':'📚';
+  const txt=ccErrors===0?'Parfait, aucune erreur !':ccErrors<=2?'Bien joué !':'Continue à réviser !';
+
+  body.innerHTML='<div style="font-family:Outfit,sans-serif;font-size:14px;font-weight:900;color:'+color+';margin-bottom:6px">'+emoji+' Manche '+ccManche+' terminée — '+ccSeconds+'s · '+ccErrors+' erreur(s) · +'+pts+' pt(s)</div>'
+    +'<div style="font-family:Outfit,sans-serif;font-size:13px;color:rgba(255,255,255,.7);margin-bottom:10px">'+txt+' Voici le rappel de la CAT :</div>'
+    +catHtml
+    +'<div style="margin-top:10px;text-align:center">'
+    +(ccManche<2
+      ?'<button onclick="ccManche++;chronoCatRender()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer">Manche 2 — Plaie GRAVE →</button>'
+      :'<button onclick="chronoCatFinal()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer">Voir mon score final 🏆</button>')
+    +'</div>';
+}
+
+function chronoCatFinal(){
+  const body=document.getElementById('chronocat-body');
+  const max=CC_SIMPLE.length+CC_GRAVE.length;
+  const pct=ccScore/max;
+  const stars=pct>=.9?'★★★':pct>=.6?'★★':'★';
+  const msg=pct>=.9?'Expert secouriste !':pct>=.6?'Bien joué !':'Revois les CAT et recommence !';
+  body.innerHTML='<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:10px">'
+    +'<div style="font-size:48px">🏆</div>'
+    +'<div style="font-family:Outfit,sans-serif;font-size:30px;font-weight:900;color:#f0c040">'+stars+'</div>'
+    +'<div style="font-family:Outfit,sans-serif;font-size:20px;font-weight:900;color:white">Score : '+ccScore+' / '+max+'</div>'
+    +'<div style="font-size:13px;color:rgba(255,255,255,.6)">'+msg+'</div>'
+    +'<div style="display:flex;gap:10px;width:100%;margin-top:4px">'+CAT_SIMPLE_HTML+CAT_GRAVE_HTML+'</div>'
+    +'<button onclick="chronoCatInit()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:11px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer">↺ Rejouer</button>'
+    +'</div>';
+}
+
+
 // Principe d'équité : à chaque tour, Rouge ET Bleu reçoivent une question du MÊME niveau
 // 16 questions — 4 par niveau — mélangées aléatoirement dans chaque niveau
 
