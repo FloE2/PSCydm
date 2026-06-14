@@ -147,6 +147,20 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 .step-t{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;color:var(--texte);margin-bottom:2px}
 .step-d{font-size:10px;color:var(--texte-sec);line-height:1.35}
 
+/* FLIP CARDS CAT */
+.cat-flip{perspective:800px;cursor:pointer;min-height:160px}
+.cat-flip-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d;min-height:160px}
+.cat-flip.flipped .cat-flip-inner{transform:rotateY(180deg)}
+.cat-flip-front,.cat-flip-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 8px;text-align:center}
+.cat-flip-front{background:var(--violet);border:2px solid #8e44ad}
+.cat-flip-back{background:var(--gris);border:2px solid var(--violet);transform:rotateY(180deg)}
+.cat-flip-num{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.25);color:white;font-family:'Outfit',sans-serif;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.cat-flip-num.revealed{background:var(--violet);color:white}
+.cat-flip-question{font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;color:rgba(255,255,255,.8);line-height:1.3}
+.cat-flip-icon{font-size:26px;margin-bottom:6px}
+.cat-flip-title{font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:var(--texte);margin-bottom:4px}
+.cat-flip-desc{font-size:10.5px;color:var(--texte-sec);line-height:1.4}
+
 /* CC TABS */
 .cc-tabs{display:flex;gap:8px;margin-bottom:12px}
 .cc-tab{padding:8px 16px;border-radius:8px;border:1.5px solid var(--gris-bord);background:var(--gris);font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:var(--texte-sec);cursor:pointer;transition:all .2s}
@@ -390,57 +404,125 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
       </div>
       <div class="badge-dur"><div class="v">📋</div><div class="l">CAT</div></div>
     </div>
-    <div class="slide-body">
-      <div class="steps-h">
-        <div class="step-c">
-          <div class="step-n">1</div>
-          <div class="step-i">👁️</div>
-          <div class="step-t">Observer les signes</div>
-          <div class="step-d">AVC ? Cardiaque ? Autre ? Identifier pour orienter les secours.</div>
+    <div class="slide-body" style="gap:10px">
+
+      <div class="info-box" style="font-size:12px">
+        👆 <strong>Clique sur chaque vignette</strong> pour la révéler. Les élèves disent l'étape, tu valides en cliquant.
+      </div>
+
+      <!-- Flip cards -->
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;flex:1">
+
+        <!-- Étape 1 -->
+        <div class="cat-flip" onclick="flipCard(this)">
+          <div class="cat-flip-inner">
+            <div class="cat-flip-front">
+              <div class="cat-flip-num">1</div>
+              <div class="cat-flip-question">Que faut-il faire ?</div>
+            </div>
+            <div class="cat-flip-back">
+              <div class="cat-flip-num revealed">1</div>
+              <div class="cat-flip-icon">👁️</div>
+              <div class="cat-flip-title">Observer les signes</div>
+              <div class="cat-flip-desc">AVC ? Cardiaque ? Autre ? Identifier pour orienter les secours.</div>
+            </div>
+          </div>
         </div>
-        <div class="step-c">
-          <div class="step-n">2</div>
-          <div class="step-i">🛏️</div>
-          <div class="step-t">Mettre au repos</div>
-          <div class="step-d">Position adaptée (allongée, assise ou celle où elle se sent le mieux). Desserrer les vêtements.</div>
+
+        <!-- Étape 2 -->
+        <div class="cat-flip" onclick="flipCard(this)">
+          <div class="cat-flip-inner">
+            <div class="cat-flip-front">
+              <div class="cat-flip-num">2</div>
+              <div class="cat-flip-question">Que faut-il faire ?</div>
+            </div>
+            <div class="cat-flip-back">
+              <div class="cat-flip-num revealed">2</div>
+              <div class="cat-flip-icon">🛏️</div>
+              <div class="cat-flip-title">Mettre au repos</div>
+              <div class="cat-flip-desc">Position adaptée (allongée, assise ou celle où elle se sent le mieux). Desserrer les vêtements.</div>
+            </div>
+          </div>
         </div>
-        <div class="step-c">
-          <div class="step-n">3</div>
-          <div class="step-i">❓</div>
-          <div class="step-t">Questionner</div>
-          <div class="step-d">Âge · durée du malaise · antécédents · traitements · hospitalisations récentes.</div>
+
+        <!-- Étape 3 -->
+        <div class="cat-flip" onclick="flipCard(this)">
+          <div class="cat-flip-inner">
+            <div class="cat-flip-front">
+              <div class="cat-flip-num">3</div>
+              <div class="cat-flip-question">Que faut-il faire ?</div>
+            </div>
+            <div class="cat-flip-back">
+              <div class="cat-flip-num revealed">3</div>
+              <div class="cat-flip-icon">❓</div>
+              <div class="cat-flip-title">Questionner</div>
+              <div class="cat-flip-desc">Âge · durée du malaise · antécédents · traitements · hospitalisations récentes.</div>
+            </div>
+          </div>
         </div>
-        <div class="step-c">
-          <div class="step-n">4</div>
-          <div class="step-i">📞</div>
-          <div class="step-t">Avis médical</div>
-          <div class="step-d">15, 18 ou 112. Transmettre les infos recueillies. Le médecin peut parler directement à la victime.</div>
+
+        <!-- Étape 4 -->
+        <div class="cat-flip" onclick="flipCard(this)">
+          <div class="cat-flip-inner">
+            <div class="cat-flip-front">
+              <div class="cat-flip-num">4</div>
+              <div class="cat-flip-question">Que faut-il faire ?</div>
+            </div>
+            <div class="cat-flip-back">
+              <div class="cat-flip-num revealed">4</div>
+              <div class="cat-flip-icon">📞</div>
+              <div class="cat-flip-title">Avis médical</div>
+              <div class="cat-flip-desc">15, 18 ou 112. Transmettre les infos recueillies. Le médecin peut parler directement à la victime.</div>
+            </div>
+          </div>
         </div>
-        <div class="step-c">
-          <div class="step-n">5</div>
-          <div class="step-i">💊</div>
-          <div class="step-t">Aider à la prise de traitement</div>
-          <div class="step-d">À sa demande ou sur conseil médical : traitement habituel ou sucre en morceaux.</div>
+
+        <!-- Étape 5 -->
+        <div class="cat-flip" onclick="flipCard(this)">
+          <div class="cat-flip-inner">
+            <div class="cat-flip-front">
+              <div class="cat-flip-num">5</div>
+              <div class="cat-flip-question">Que faut-il faire ?</div>
+            </div>
+            <div class="cat-flip-back">
+              <div class="cat-flip-num revealed">5</div>
+              <div class="cat-flip-icon">💊</div>
+              <div class="cat-flip-title">Aider à la prise de traitement</div>
+              <div class="cat-flip-desc">À sa demande ou sur conseil médical : traitement habituel ou sucre en morceaux.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bouton reset -->
+      <div style="text-align:center">
+        <button onclick="resetFlips()" style="background:transparent;border:1.5px solid var(--gris-bord);color:var(--texte-sec);border-radius:8px;padding:6px 18px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;cursor:pointer">↺ Tout masquer à nouveau</button>
+      </div>
+
+      <!-- Aide-mémoire formateur (discret) -->
+      <div style="border-top:1px dashed #d0d6e0;padding-top:8px;margin-top:2px">
+        <button onclick="toggleAideMem()" style="background:transparent;border:none;color:#b0b8cc;font-family:'Outfit',sans-serif;font-size:11px;cursor:pointer;display:flex;align-items:center;gap:5px;padding:0">
+          <span id="aide-chevron">▶</span> 👁️ Aide-mémoire formateur (confidentiel)
+        </button>
+        <div id="aide-mem" style="display:none;margin-top:8px;background:#f8f0ff;border:1.5px solid #c39bd3;border-radius:10px;padding:10px 14px">
+          <div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#6c3483;margin-bottom:8px">📋 Résumé — CAT malaise (formateur)</div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div style="display:flex;gap:8px;align-items:baseline"><span style="background:#6c3483;color:white;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">1</span><span style="font-size:12px;color:#3a1a5a"><strong>Observer</strong> — AVC ? Cardiaque ? Infectieux ? Identifier le type de malaise pour orienter les secours.</span></div>
+            <div style="display:flex;gap:8px;align-items:baseline"><span style="background:#6c3483;color:white;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">2</span><span style="font-size:12px;color:#3a1a5a"><strong>Repos</strong> — Position adaptée : allongée / assise / confort. Desserrer les vêtements.</span></div>
+            <div style="display:flex;gap:8px;align-items:baseline"><span style="background:#6c3483;color:white;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">3</span><span style="font-size:12px;color:#3a1a5a"><strong>Questionner</strong> — Âge, durée, antécédents, traitements, hospitalisations récentes.</span></div>
+            <div style="display:flex;gap:8px;align-items:baseline"><span style="background:#6c3483;color:white;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">4</span><span style="font-size:12px;color:#3a1a5a"><strong>Avis médical</strong> — 15 / 18 / 112. Transmettre les infos. Le médecin peut parler à la victime.</span></div>
+            <div style="display:flex;gap:8px;align-items:baseline"><span style="background:#6c3483;color:white;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">5</span><span style="font-size:12px;color:#3a1a5a"><strong>Traitement</strong> — Si demandé ou prescrit : traitement habituel ou sucre. Jamais imposé.</span></div>
+          </div>
+          <div style="margin-top:8px;font-size:11px;color:#8a5aaa;font-style:italic">⚠️ En cas d'aggravation → CAT perte de connaissance (Ch.9) + rappeler le 15.</div>
         </div>
       </div>
-      <div class="vert-box">
-        💊 <strong>Aider à la prise de traitement</strong> : on aide uniquement si la victime le demande ou si les secours le prescrivent. Pour un diabétique : donner du <strong>sucre en morceaux</strong> si la victime est consciente et peut avaler.
-      </div>
-      <div class="info-box">
-        🔁 <strong>En cas d'aggravation</strong> : si la victime perd connaissance → appliquer la CAT perte de connaissance (Ch.9) et recontacter les secours pour signaler l'aggravation.
-      </div>
-      <div class="alerte-box">
-        <div class="alerte-icon">🌡️</div>
-        <div>
-          <h3>Maladie infectieuse — mesures barrières</h3>
-          <p>En période épidémique : appliquer les mesures barrières, proposer un masque à la victime (le retirer si cela gêne sa respiration). Respecter la distance physique autant que possible.</p>
-        </div>
-      </div>
+
     </div>
     <div class="slide-footer">
       <span>CAT face à un malaise</span>
       <div class="progress-dots" id="dots2"></div>
-      <span>Slide 3/7</span>
+      <span>Slide 3/8</span>
     </div>
   </div>
 
@@ -905,6 +987,17 @@ function ts(hd){hd.closest('.cc-step').classList.toggle('open');}
 
 function goToDashboard(e){if(e)e.preventDefault();window.location.href='index.html?done=8';}
 
+
+// ── FLIP CARDS CAT ──
+function flipCard(el){el.classList.toggle('flipped');}
+function resetFlips(){document.querySelectorAll('.cat-flip').forEach(function(c){c.classList.remove('flipped');});}
+function toggleAideMem(){
+  var panel=document.getElementById('aide-mem');
+  var chev=document.getElementById('aide-chevron');
+  var open=panel.style.display==='block';
+  panel.style.display=open?'none':'block';
+  chev.textContent=open?'▶':'▼';
+}
 
 // ── DISPATCHING MÉDICAL ──
 const DISPATCH_SITUATIONS = [
