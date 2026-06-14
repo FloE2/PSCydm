@@ -784,34 +784,31 @@ renderDots();
 
 // ── Banque de questions ──
 const DEFI_VF = [
-  { q:'« Le garrot, c'est dangereux, ça fait perdre le bras. »', answer:false, expl:'FAUX — idée reçue dépassée. Un garrot bien posé ne fait pas perdre le membre. Ne pas le poser quand c'est nécessaire peut être mortel.' },
-  { q:'« Le garrot se pose directement sur la plaie. »', answer:false, expl:'FAUX — Le garrot se pose 5 à 7 cm AU-DESSUS de la plaie (côté cœur), jamais sur une articulation.' },
-  { q:'« Une fois posé, on peut desserrer le garrot si la douleur est trop forte. »', answer:false, expl:'FAUX — Une fois posé, le garrot ne doit jamais être retiré ou desserré sans avis médical.' },
-  { q:'« On peut utiliser une ceinture large comme garrot improvisé. »', answer:true, expl:'VRAI — Un lien large (3-5 cm), solide et non élastique convient. Le garrot industriel reste préférable s'il est disponible.' },
-  { q:'« La compression directe doit être légère pour ne pas faire mal. »', answer:false, expl:'FAUX — La compression doit être FORTE et PERMANENTE pour stopper le saignement.' },
-  { q:'« Un pansement compressif peut remplacer la compression manuelle même si le saignement n'est pas arrêté. »', answer:false, expl:'FAUX — Le pansement compressif ne remplace la compression manuelle QUE si elle a permis d'arrêter le saignement.' },
+  { q:"Le garrot, c’est dangereux, ça fait perdre le bras.", answer:false, expl:"FAUX — idée reçue dépassée. Un garrot bien posé ne fait pas perdre le membre. Ne pas le poser quand c’est nécessaire peut être mortel." },
+  { q:"Le garrot se pose directement sur la plaie.", answer:false, expl:"FAUX — Le garrot se pose 5 à 7 cm AU-DESSUS de la plaie (côté cœur), jamais sur une articulation." },
+  { q:"Une fois posé, on peut desserrer le garrot si la douleur est trop forte.", answer:false, expl:"FAUX — Une fois posé, le garrot ne doit jamais être retiré ou desserré sans avis médical." },
+  { q:"On peut utiliser une ceinture large comme garrot improvisé.", answer:true, expl:"VRAI — Un lien large (3-5 cm), solide et non élastique convient. Le garrot industriel reste préférable s’il est disponible." },
+  { q:"La compression directe doit être légère pour ne pas faire mal.", answer:false, expl:"FAUX — La compression doit être FORTE et PERMANENTE pour stopper le saignement." },
+  { q:"Un pansement compressif peut remplacer la compression manuelle même si le saignement n’est pas arrêté.", answer:false, expl:"FAUX — Le pansement compressif ne remplace la compression manuelle QUE si elle a permis d’arrêter le saignement." },
 ];
 
 const DEFI_QCM = [
-  { q:'Tu arrives et quelqu'un saigne abondamment du bras. Ta première action ?', opts:['Appeler le 15 immédiatement','Comprimer fortement avec un tissu','Attendre pour voir si ça s'arrête','Poser immédiatement un garrot'], answer:1, expl:'Comprimer immédiatement est la priorité absolue. On appelle ensuite les secours.' },
-  { q:'La compression a stoppé le saignement. Tu es seul. Que fais-tu ?', opts:['Continuer à comprimer jusqu'aux secours','Poser un pansement compressif serré, puis appeler le 15','Retirer la main pour vérifier que ça ne saigne plus','Poser un garrot par précaution'], answer:1, expl:'Le pansement compressif libère les mains du sauveteur pour alerter et surveiller.' },
-  { q:'Quelqu'un saigne du nez après un choc à la tête. Tu dois…', opts:['L'allonger et lui surélever la tête','L'asseoir, tête en avant, comprimer 10 min','L'asseoir tête en avant ET demander un avis médical (choc)','Lui dire de renifler pour arrêter'], answer:2, expl:'Tête en avant + compression, MAIS avis médical indispensable car saignement après un choc.' },
-  { q:'Où pose-t-on le garrot sur un membre qui saigne ?', opts:['Directement sur la plaie','Sur l'articulation la plus proche','5 à 7 cm en dessous de la plaie','5 à 7 cm au-dessus de la plaie, côté cœur'], answer:3, expl:'Au-dessus de la plaie (côté cœur), à 5-7 cm, jamais sur une articulation.' },
-  { q:'Quelle est la condition pour poser un pansement compressif ?', opts:['Le saignement est abondant','Le sauveteur a besoin de ses deux mains','La compression manuelle a arrêté le saignement','La victime peut appuyer elle-même'], answer:2, expl:'Le pansement compressif remplace la compression manuelle SEULEMENT si elle a permis d'arrêter le saignement.' },
-  { q:'Victime qui vomit du sang, elle est consciente. Tu fais ?', opts:['L'allonger sur le dos','L'asseoir, tête en avant','L'installer dans la position où elle se sent le mieux, alerter','Lui donner à boire pour compenser la perte de sang'], answer:2, expl:'Position de confort + alerte immédiate. C'est un signe de maladie grave.' },
+  { q:"Tu arrives et quelqu’un saigne abondamment du bras. Ta première action ?", opts:["Appeler le 15 immédiatement","Comprimer fortement avec un tissu","Attendre pour voir si ça s’arrête","Poser immédiatement un garrot"], answer:1, expl:"Comprimer immédiatement est la priorité absolue. On appelle ensuite les secours." },
+  { q:"La compression a stoppé le saignement. Tu es seul. Que fais-tu ?", opts:["Continuer à comprimer jusqu’aux secours","Poser un pansement compressif serré, puis appeler le 15","Retirer la main pour vérifier que ça ne saigne plus","Poser un garrot par précaution"], answer:1, expl:"Le pansement compressif libère les mains du sauveteur pour alerter et surveiller." },
+  { q:"Quelqu’un saigne du nez après un choc à la tête. Tu dois…", opts:["L’allonger et lui surélever la tête","L’asseoir, tête en avant, comprimer 10 min","L’asseoir tête en avant ET demander un avis médical (choc)","Lui dire de renifler pour arrêter"], answer:2, expl:"Tête en avant + compression, MAIS avis médical indispensable car saignement après un choc." },
+  { q:"Où pose-t-on le garrot sur un membre qui saigne ?", opts:["Directement sur la plaie","Sur l’articulation la plus proche","5 à 7 cm en dessous de la plaie","5 à 7 cm au-dessus de la plaie, côté cœur"], answer:3, expl:"Au-dessus de la plaie (côté cœur), à 5-7 cm, jamais sur une articulation." },
+  { q:"Quelle est la condition pour poser un pansement compressif ?", opts:["Le saignement est abondant","Le sauveteur a besoin de ses deux mains","La compression manuelle a arrêté le saignement","La victime peut appuyer elle-même"], answer:2, expl:"Le pansement compressif remplace la compression manuelle SEULEMENT si elle a permis d’arrêter le saignement." },
+  { q:"Une victime vomit du sang, elle est consciente. Que fais-tu ?", opts:["L’allonger sur le dos","L’asseoir, tête en avant","L’installer dans la position où elle se sent le mieux, alerter","Lui donner à boire pour compenser"], answer:2, expl:"Position de confort + alerte immédiate. C’est un signe de maladie grave." },
 ];
 
 const DEFI_TRIAGE = [
-  { q:'Coupure au doigt avec un couteau, saignement faible qui s'arrête seul.', opts:['🤜 Compression directe','🎗️ Garrot','🩹 Pansement compressif','✋ Plaie simple (rincer/protéger)'], answer:3, expl:'Éraflure = plaie simple. Pas d'hémorragie, pas de compression nécessaire.' },
-  { q:'Plaie profonde au bras, sang qui coule abondamment, ne s'arrête pas seul.', opts:['🤜 Compression directe','🎗️ Garrot','🩹 Pansement compressif','✋ Plaie simple'], answer:0, expl:'Compression directe immédiate et forte pour stopper l'hémorragie.' },
-  { q:'Section partielle de l'avant-bras, compression directe inefficace depuis 3 min.', opts:['🤜 Compression directe','🎗️ Garrot','🩹 Pansement compressif','✋ Plaie simple'], answer:1, expl:'Garrot : compression échoue, membre atteint. Il faut noter l'heure de pose.' },
-  { q:'Plaie au bras — la compression a stoppé le flux. Tu es seul et dois appeler le 15.', opts:['🤜 Compression directe','🎗️ Garrot','🩹 Pansement compressif','✋ Plaie simple'], answer:2, expl:'Pansement compressif : la compression a été efficace, il libère les mains pour alerter.' },
-  { q:'Plaie par balle à la cuisse, saignement massif.', opts:['🤜 Compression directe','🎗️ Garrot','🩹 Pansement compressif','✋ Plaie simple'], answer:1, expl:'Garrot immédiat : plaie par balle au membre = garrot d'emblée.' },
-  { q:'Éraflure au genou qui s'arrête de saigner seule après 30 secondes.', opts:['🤜 Compression directe','🎗️ Garrot','🩹 Pansement compressif','✋ Plaie simple'], answer:3, expl:'Éraflure = plaie simple. Rincer à l'eau courante, protéger avec un pansement.' },
+  { q:"Coupure au doigt avec un couteau, saignement faible qui s’arrête seul.", opts:["Compression directe","Garrot","Pansement compressif","Plaie simple (rincer/protéger)"], answer:3, expl:"Plaie simple : rincer à l’eau courante + pansement." },
+  { q:"Plaie profonde au bras, sang qui coule abondamment, ne s’arrête pas seul.", opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"], answer:0, expl:"Compression directe immédiate et forte pour stopper l’hémorragie." },
+  { q:"Section partielle de l’avant-bras, compression directe inefficace depuis 3 min.", opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"], answer:1, expl:"Garrot : compression échoue, membre atteint. Il faut noter l’heure de pose." },
+  { q:"Plaie au bras — la compression a stoppé le flux. Tu es seul et dois appeler le 15.", opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"], answer:2, expl:"Pansement compressif : la compression a été efficace, il libère les mains pour alerter." },
+  { q:"Plaie par balle à la cuisse, saignement massif.", opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"], answer:1, expl:"Garrot immédiat : plaie par balle au membre = garrot d’emblée." },
+  { q:"Éraflure au genou qui s’arrête de saigner seule après 30 secondes.", opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"], answer:3, expl:"Éraflure = plaie simple. Rincer à l’eau courante, protéger avec un pansement." },
 ];
-
-function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
-function pick3(arr){ return shuffle(arr).slice(0,3); }
 
 // ── État du jeu ──
 let defiLevel = 1; // 1, 2, 3
