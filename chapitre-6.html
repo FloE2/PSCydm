@@ -252,14 +252,12 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="pill" onclick="goSlide(2)">Corps étranger</div>
     <div class="pill" onclick="goSlide(3)">Positions d'attente</div>
     <div class="pill" onclick="goSlide(4)">CAT plaie simple</div>
-    <div class="pill" onclick="goSlide(5)">CAT plaie grave</div>
-    <div class="pill" onclick="goSlide(6)">⚡ Chrono-CAT</div>
-    <div class="pill" onclick="goSlide(7)">⚔️ Duel Champions</div>
-    <div class="pill" onclick="goSlide(8)">🛡️ Protection &amp; Alerte</div>
-    <div class="pill" onclick="goSlide(9)">Cas Concret</div>
+    <div class="pill" onclick="goSlide(5)">⚔️ Duel Champions</div>
+    <div class="pill" onclick="goSlide(6)">🛡️ Protection &amp; Alerte</div>
+    <div class="pill" onclick="goSlide(7)">Cas Concret</div>
   </div>
   <div id="nav-btns">
-    <div id="slide-counter">1 / 10</div>
+    <div id="slide-counter">1 / 8</div>
     <button class="nav-btn" onclick="prevSlide()">← Préc.</button>
     <button class="nav-btn" onclick="nextSlide()">Suiv. →</button>
   </div>
@@ -432,80 +430,49 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
         📍 La position dépend de la <strong>localisation</strong> de la plaie — elle prévient les complications et facilite la respiration ou la circulation.
       </div>
 
-      <!-- 4 cartes visuelles -->
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;flex:1">
 
         <!-- Membre / tronc -->
-        <div style="background:#fdf0e8;border:2px solid #d4956a;border-radius:14px;display:flex;flex-direction:column;align-items:center;padding:12px 8px;gap:8px;text-align:center">
+        <div style="background:#fdf0e8;border:2px solid #d4956a;border-radius:14px;display:flex;flex-direction:column;align-items:center;padding:10px 8px;gap:6px;text-align:center">
           <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#8B4513">Membre / tronc</div>
-          <!-- Silhouette allongée -->
-          <svg viewBox="0 0 100 60" width="90" height="54" xmlns="http://www.w3.org/2000/svg">
-            <rect x="5" y="30" width="90" height="8" rx="4" fill="#d4956a"/>
-            <circle cx="15" cy="26" r="8" fill="#e8b88a"/>
-            <rect x="20" y="26" width="55" height="12" rx="6" fill="#e8b88a"/>
-            <rect x="75" y="28" width="18" height="6" rx="3" fill="#e8b88a"/>
-            <rect x="25" y="38" width="12" height="6" rx="3" fill="#e8b88a"/>
-            <rect x="55" y="38" width="12" height="6" rx="3" fill="#e8b88a"/>
-          </svg>
-          <div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:900;color:#8B4513">ALLONGÉE</div>
+          <div style="width:100%;flex:1;min-height:90px;border-radius:8px;overflow:hidden;background:#f5f5f5;display:flex;align-items:center;justify-content:center">
+            <img src="images/pos1.jpg" alt="Position allongée — membre/tronc"
+              style="width:100%;height:100%;object-fit:contain;max-height:120px">
+          </div>
+          <div style="font-family:'Outfit',sans-serif;font-size:17px;font-weight:900;color:#8B4513">ALLONGÉE</div>
           <div style="font-size:11px;color:#7a5030;line-height:1.4">Position la plus fréquente<br>Sur le sol ou canapé</div>
         </div>
 
         <!-- Thorax -->
-        <div style="background:#e8f0fd;border:2px solid #2558a8;border-radius:14px;display:flex;flex-direction:column;align-items:center;padding:12px 8px;gap:8px;text-align:center">
+        <div style="background:#e8f0fd;border:2px solid #2558a8;border-radius:14px;display:flex;flex-direction:column;align-items:center;padding:10px 8px;gap:6px;text-align:center">
           <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#1a3a6b">Plaie au thorax</div>
-          <!-- Silhouette assise -->
-          <svg viewBox="0 0 100 60" width="90" height="54" xmlns="http://www.w3.org/2000/svg">
-            <rect x="40" y="44" width="20" height="10" rx="4" fill="#7fa8d4"/>
-            <rect x="35" y="20" width="30" height="26" rx="8" fill="#a8c4e8"/>
-            <circle cx="50" cy="13" r="9" fill="#a8c4e8"/>
-            <rect x="20" y="22" width="15" height="6" rx="3" fill="#a8c4e8" transform="rotate(-20 27 25)"/>
-            <rect x="65" y="22" width="15" height="6" rx="3" fill="#a8c4e8" transform="rotate(20 72 25)"/>
-            <!-- plaie thorax -->
-            <circle cx="50" cy="30" r="4" fill="#c0392b" opacity="0.7"/>
-            <line x1="50" y1="30" x2="50" y2="20" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2"/>
-          </svg>
-          <div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:900;color:#1a3a6b">ASSISE</div>
+          <div style="width:100%;flex:1;min-height:90px;border-radius:8px;overflow:hidden;background:#f5f5f5;display:flex;align-items:center;justify-content:center">
+            <img src="images/pos2.png" alt="Position assise — thorax"
+              style="width:100%;height:100%;object-fit:contain;max-height:120px">
+          </div>
+          <div style="font-family:'Outfit',sans-serif;font-size:17px;font-weight:900;color:#1a3a6b">ASSISE</div>
           <div style="font-size:11px;color:#2a4a7f;line-height:1.4">Plaie laissée à l'air libre<br>Facilite la respiration</div>
         </div>
 
         <!-- Abdomen -->
-        <div style="background:#e8f8ef;border:2px solid #1a7a4a;border-radius:14px;display:flex;flex-direction:column;align-items:center;padding:12px 8px;gap:8px;text-align:center">
+        <div style="background:#e8f8ef;border:2px solid #1a7a4a;border-radius:14px;display:flex;flex-direction:column;align-items:center;padding:10px 8px;gap:6px;text-align:center">
           <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#1a5a34">Plaie à l'abdomen</div>
-          <!-- Silhouette allongée jambes fléchies -->
-          <svg viewBox="0 0 100 60" width="90" height="54" xmlns="http://www.w3.org/2000/svg">
-            <rect x="5" y="28" width="90" height="6" rx="3" fill="#80cba0" opacity="0.4"/>
-            <circle cx="14" cy="24" r="7" fill="#80cba0"/>
-            <rect x="18" y="22" width="48" height="10" rx="5" fill="#80cba0"/>
-            <!-- jambes fléchies -->
-            <path d="M60 28 Q70 20 80 28 Q85 34 78 38" stroke="#1a7a4a" stroke-width="5" fill="none" stroke-linecap="round"/>
-            <path d="M68 28 Q78 20 88 28 Q93 34 86 38" stroke="#1a7a4a" stroke-width="5" fill="none" stroke-linecap="round"/>
-            <!-- flèche -->
-            <text x="50" y="50" font-size="8" fill="#1a7a4a" text-anchor="middle" font-family="sans-serif">jambes fléchies</text>
-          </svg>
-          <div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:900;color:#1a5a34">ALLONGÉE</div>
+          <div style="width:100%;flex:1;min-height:90px;border-radius:8px;overflow:hidden;background:#f5f5f5;display:flex;align-items:center;justify-content:center">
+            <img src="images/pos3.png" alt="Position allongée jambes fléchies — abdomen"
+              style="width:100%;height:100%;object-fit:contain;max-height:120px">
+          </div>
+          <div style="font-family:'Outfit',sans-serif;font-size:17px;font-weight:900;color:#1a5a34">ALLONGÉE</div>
           <div style="font-size:11px;color:#1a5a34;line-height:1.4">Jambes <strong>fléchies</strong><br>Relâche les muscles abdominaux</div>
         </div>
 
         <!-- Oeil -->
-        <div style="background:#f5eef8;border:2px solid #6c3483;border-radius:14px;display:flex;flex-direction:column;align-items:center;padding:12px 8px;gap:8px;text-align:center">
+        <div style="background:#f5eef8;border:2px solid #6c3483;border-radius:14px;display:flex;flex-direction:column;align-items:center;padding:10px 8px;gap:6px;text-align:center">
           <div style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#6c3483">Plaie à l'œil</div>
-          <!-- Tête avec mains maintenant -->
-          <svg viewBox="0 0 100 60" width="90" height="54" xmlns="http://www.w3.org/2000/svg">
-            <!-- lit -->
-            <rect x="5" y="40" width="90" height="6" rx="3" fill="#c39bd3" opacity="0.4"/>
-            <!-- tête -->
-            <circle cx="18" cy="34" r="10" fill="#c39bd3"/>
-            <!-- yeux fermés -->
-            <path d="M13 33 Q18 31 23 33" stroke="#6c3483" stroke-width="1.5" fill="none"/>
-            <path d="M13 35 Q18 33 23 35" stroke="#6c3483" stroke-width="1.5" fill="none"/>
-            <!-- corps -->
-            <rect x="24" y="30" width="50" height="10" rx="5" fill="#c39bd3"/>
-            <!-- 2 mains maintenant tête -->
-            <ellipse cx="12" cy="24" rx="5" ry="4" fill="#a569bd" opacity="0.8"/>
-            <ellipse cx="24" cy="24" rx="5" ry="4" fill="#a569bd" opacity="0.8"/>
-          </svg>
-          <div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:900;color:#6c3483">ALLONGÉE</div>
+          <div style="width:100%;flex:1;min-height:90px;border-radius:8px;overflow:hidden;background:#f5f5f5;display:flex;align-items:center;justify-content:center">
+            <img src="images/pos4.png" alt="Position allongée tête immobile — œil"
+              style="width:100%;height:100%;object-fit:contain;max-height:120px">
+          </div>
+          <div style="font-family:'Outfit',sans-serif;font-size:17px;font-weight:900;color:#6c3483">ALLONGÉE</div>
           <div style="font-size:11px;color:#6c3483;line-height:1.4">Yeux fermés · Tête immobile<br>Maintenir tête à 2 mains</div>
         </div>
 
@@ -515,14 +482,14 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
       <div style="background:#1a2d4a;border-radius:10px;padding:10px 16px;display:flex;align-items:center;gap:12px">
         <div style="font-size:22px">💡</div>
         <div style="font-size:12px;color:#a0c0e0;line-height:1.6;">
-          <strong style="color:white">À retenir :</strong> Thorax → <strong style="color:#f0c040">assise</strong> (respiration). Abdomen → <strong style="color:#40c080">allongée jambes fléchies</strong>. Œil → <strong style="color:#c39bd3">allongée tête immobile</strong>. Tout le reste → <strong style="color:#d4956a">allongée</strong>.
+          <strong style="color:white">À retenir :</strong> Thorax → <strong style="color:#f0c040">assise</strong>. Abdomen → <strong style="color:#40c080">allongée jambes fléchies</strong>. Œil → <strong style="color:#c39bd3">allongée tête immobile</strong>. Tout le reste → <strong style="color:#d4956a">allongée</strong>.
         </div>
       </div>
     </div>
     <div class="slide-footer">
       <span>Positions d'attente selon la localisation</span>
       <div class="progress-dots" id="dots3"></div>
-      <span>Slide 4/9</span>
+      <span>Slide 4/10</span>
     </div>
   </div>
 
@@ -582,95 +549,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="slide-footer">
       <span>CAT plaie simple</span>
       <div class="progress-dots" id="dots4"></div>
-      <span>Slide 5/10</span>
-    </div>
-  </div>
-
-  <!-- SLIDE 5 : CAT PLAIE GRAVE -->
-  <div class="slide">
-    <div class="slide-header" style="background:linear-gradient(135deg,#8B1A1A,#c0392b)">
-      <div class="left">
-        <div class="sup">Chapitre 6 · Plaie grave</div>
-        <h2>CAT — Plaie grave</h2>
-      </div>
-      <div class="badge-dur"><div class="v">🚨</div><div class="l">CAT grave</div></div>
-    </div>
-    <div class="slide-body" style="gap:8px">
-      <div style="background:#fdecea;border:2px solid #c0392b;border-radius:10px;padding:10px 16px;font-size:12px;color:#7a1a10">
-        ⚠️ <strong>Plaie grave</strong> : hémorragie associée, mécanisme pénétrant, localisation thorax/abdomen/œil, aspect déchiqueté, morsure, plaie de la main. → <strong>Ne jamais traiter seul — alerter les secours.</strong>
-      </div>
-
-      <!-- Étapes CAT plaie grave -->
-      <div style="display:flex;flex-direction:column;gap:6px;flex:1">
-
-        <div style="display:flex;align-items:flex-start;gap:12px;background:#fdf5f0;border:1.5px solid #d4956a;border-radius:10px;padding:10px 14px">
-          <div style="background:#8B4513;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;flex-shrink:0">1</div>
-          <div>
-            <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;color:#8B4513">🛡️ Protéger</div>
-            <div style="font-size:12px;color:#7a5030;margin-top:2px">Sécuriser la zone. Écarter les dangers (verre, objet tranchant…). Ne pas se mettre en danger.</div>
-          </div>
-        </div>
-
-        <div style="display:flex;align-items:flex-start;gap:12px;background:#fdecea;border:1.5px solid #c0392b;border-radius:10px;padding:10px 14px">
-          <div style="background:#c0392b;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;flex-shrink:0">2</div>
-          <div>
-            <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;color:#c0392b">🚫 Ne jamais retirer le corps étranger</div>
-            <div style="font-size:12px;color:#7a1a10;margin-top:2px">Laisser en place. Si hémorragie autour : comprimer <em>autour</em> du corps étranger, jamais dessus.</div>
-          </div>
-        </div>
-
-        <div style="display:flex;align-items:flex-start;gap:12px;background:#e8f0fd;border:1.5px solid #2558a8;border-radius:10px;padding:10px 14px">
-          <div style="background:#2558a8;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;flex-shrink:0">3</div>
-          <div>
-            <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;color:#1a3a6b">🛏️ Installer dans la bonne position d'attente</div>
-            <div style="font-size:12px;color:#2a4a7f;margin-top:2px">
-              <span style="background:#ddeeff;border-radius:4px;padding:1px 6px;margin-right:4px;font-weight:700">Thorax → assise</span>
-              <span style="background:#e8f8ef;border-radius:4px;padding:1px 6px;margin-right:4px;font-weight:700;color:#1a5a34">Abdomen → allongée jambes fléchies</span>
-              <span style="background:#f5eef8;border-radius:4px;padding:1px 6px;font-weight:700;color:#6c3483">Œil → allongée tête immobile</span>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex;align-items:flex-start;gap:12px;background:#fff8e1;border:1.5px solid #f0c040;border-radius:10px;padding:10px 14px">
-          <div style="background:#e6a817;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;flex-shrink:0">4</div>
-          <div>
-            <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;color:#7a5000">📞 Alerter les secours — 15 / 18 / 112</div>
-            <div style="font-size:12px;color:#7a5000;margin-top:2px">Donner : lieu précis, nature de la plaie, état de la victime (consciente, saignement…). Appliquer les consignes reçues.</div>
-          </div>
-        </div>
-
-        <div style="display:flex;align-items:flex-start;gap:12px;background:#e8f8ef;border:1.5px solid #1a7a4a;border-radius:10px;padding:10px 14px">
-          <div style="background:#1a7a4a;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;flex-shrink:0">5</div>
-          <div>
-            <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;color:#1a5a34">👀 Surveiller &amp; rassurer jusqu'aux secours</div>
-            <div style="font-size:12px;color:#1a5a34;margin-top:2px">Parler à la victime, la rassurer, la couvrir contre le froid. Surveiller la respiration et l'état de conscience. Ne pas la laisser seule.</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class="slide-footer">
-      <span>CAT plaie grave</span>
-      <div class="progress-dots" id="dots5new"></div>
-      <span>Slide 6/9</span>
-    </div>
-  </div>
-
-  <!-- SLIDE 5b : CHRONO-CAT — Clique dans le bon ordre -->
-  <div class="slide" style="background:#0d1117">
-    <div class="slide-header" style="background:linear-gradient(135deg,#1a0a2e,#2d1b6b)">
-      <div class="left">
-        <div class="sup">Chapitre 6 · Jeu interactif</div>
-        <h2>⚡ Chrono-CAT — Clique dans le bon ordre !</h2>
-      </div>
-      <div class="badge-dur"><div class="v">⚡</div><div class="l">Jeu</div></div>
-    </div>
-    <div class="slide-body game-dark" id="chronocat-body" style="padding:16px 20px;gap:10px;overflow-y:auto">
-    </div>
-    <div class="slide-footer" style="background:#0d0820;border-color:#2a1a4a">
-      <span>Chrono-CAT — Clique dans le bon ordre</span>
-      <div class="progress-dots" id="dots5b"></div>
-      <span>Slide 7/9</span>
+      <span>Slide 5/8</span>
     </div>
   </div>
 
@@ -764,7 +643,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="slide-footer" style="background:#0d0820;border-color:#2a1a4a">
       <span style="color:rgba(255,255,255,.4)">Duel de Champions — Plaies</span>
       <div class="progress-dots" id="dots5"></div>
-      <span style="color:rgba(255,255,255,.4)">Slide 8/10</span>
+      <span style="color:rgba(255,255,255,.4)">Slide 6/8</span>
     </div>
   </div>
 
@@ -818,7 +697,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="slide-footer">
       <span>Protéger · Alerter · Surveiller</span>
       <div class="progress-dots" id="dots6"></div>
-      <span>Slide 9/10</span>
+      <span>Slide 7/8</span>
     </div>
   </div>
 
@@ -988,7 +867,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="slide-footer" id="cc-footer">
       <span>Temps 1 — Situation soumise aux élèves</span>
       <div class="progress-dots" id="dots7"></div>
-      <span>Slide 10/10</span>
+      <span>Slide 8/8</span>
     </div>
   </div>
 
@@ -1002,7 +881,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 
 <script>
 let current = 0;
-const total = 10;
+const total = 8;
 const slidePills = document.querySelectorAll('.pill[onclick^="goSlide"]');
 
 function goSlide(n) {
@@ -1013,10 +892,6 @@ function goSlide(n) {
   slidePills[current].classList.add('active');
   document.getElementById('slide-counter').textContent = (current+1) + ' / ' + total;
   renderDots();
-  if(n === 6) {
-    const b = document.getElementById('chronocat-body');
-    if(b && b.innerHTML.trim() === '') setTimeout(chronoCatInit, 50);
-  }
 }
 function nextSlide(){if(current<total-1)goSlide(current+1);}
 function prevSlide(){if(current>0)goSlide(current-1);}
@@ -1033,106 +908,6 @@ function renderDots() {
   }
 }
 renderDots();
-
-// ── CHRONO-CAT ──
-const CC_SIMPLE = [
-  {id:'s1', txt:'Se laver les mains'},
-  {id:'s2', txt:'Rincer abondamment a l\'eau courante'},
-  {id:'s3', txt:'Desinfecter'},
-  {id:'s4', txt:'Proteger avec un pansement'},
-  {id:'s5', txt:'Conseiller verification vaccin antitetanique'},
-];
-const CC_GRAVE = [
-  {id:'g1', txt:'Proteger la zone'},
-  {id:'g2', txt:'Ne pas retirer le corps etranger'},
-  {id:'g3', txt:'Installer dans la bonne position d\'attente'},
-  {id:'g4', txt:'Alerter les secours (15/18/112)'},
-  {id:'g5', txt:'Surveiller et rassurer jusqu\'aux secours'},
-];
-var ccManche=1, ccExpected=0, ccScore=0, ccErrors=0, ccTimer=null, ccSeconds=0;
-
-function chronoCatInit(){ccManche=1;ccScore=0;ccErrors=0;chronoCatRender();}
-
-function chronoCatRender(){
-  const body=document.getElementById('chronocat-body');
-  body.innerHTML='';
-  const steps=ccManche===1?CC_SIMPLE:CC_GRAVE;
-  const label=ccManche===1?'Plaie SIMPLE':'Plaie GRAVE';
-  const color=ccManche===1?'#40c080':'#ff6060';
-  const bg=ccManche===1?'rgba(26,122,74,.15)':'rgba(192,57,43,.15)';
-  ccExpected=0; clearInterval(ccTimer); ccSeconds=0;
-
-  const hdr=document.createElement('div');
-  hdr.style.cssText='display:flex;align-items:center;justify-content:space-between;margin-bottom:8px';
-  hdr.innerHTML='<div><div style="font-family:Outfit,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.5)">Manche '+ccManche+' / 2</div><div style="font-family:Outfit,sans-serif;font-size:18px;font-weight:900;color:'+color+'">CAT — '+label+'</div></div><div style="display:flex;gap:12px;align-items:center"><div id="cc-chrono" style="font-family:Outfit,sans-serif;font-size:22px;font-weight:900;color:#f0c040">0s</div><div style="font-family:Outfit,sans-serif;font-size:12px;color:rgba(255,255,255,.5)">Erreurs : <span id="cc-errors">0</span></div></div>';
-  body.appendChild(hdr);
-
-  const cons=document.createElement('div');
-  cons.style.cssText='background:'+bg+';border:1.5px solid '+color+';border-radius:10px;padding:10px 14px;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;color:white;margin-bottom:8px;text-align:center';
-  cons.textContent='Clique sur les etapes dans le bon ordre — le plus vite possible !';
-  body.appendChild(cons);
-
-  const shuffled=[...steps].sort(()=>Math.random()-.5);
-  const grid=document.createElement('div');
-  grid.id='cc-grid';
-  grid.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1';
-  shuffled.forEach(step=>{
-    const btn=document.createElement('button');
-    btn.id='cc-btn-'+step.id;
-    btn.dataset.order=steps.indexOf(step);
-    btn.style.cssText='background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.2);border-radius:12px;padding:14px 12px;color:white;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;cursor:pointer;text-align:center;line-height:1.4;transition:all .15s';
-    btn.textContent=step.txt;
-    btn.onclick=()=>chronoCatClick(btn,step,steps,color);
-    grid.appendChild(btn);
-  });
-  body.appendChild(grid);
-
-  const fb=document.createElement('div');
-  fb.id='cc-fb';
-  fb.style.cssText='min-height:34px;border-radius:8px;padding:6px 12px;font-family:Outfit,sans-serif;font-size:12px;font-weight:600;text-align:center;margin-top:6px';
-  body.appendChild(fb);
-
-  ccTimer=setInterval(()=>{ccSeconds++;const el=document.getElementById('cc-chrono');if(el)el.textContent=ccSeconds+'s';},1000);
-}
-
-function chronoCatClick(btn,step,steps,color){
-  if(btn.disabled) return;
-  const order=parseInt(btn.dataset.order);
-  const fb=document.getElementById('cc-fb');
-  if(order===ccExpected){
-    btn.style.background='rgba(64,192,128,.3)';btn.style.borderColor='#40c080';btn.style.color='#80ffb8';btn.disabled=true;
-    fb.style.cssText='display:block;min-height:34px;border-radius:8px;padding:6px 12px;font-family:Outfit,sans-serif;font-size:12px;font-weight:600;text-align:center;margin-top:6px;background:rgba(64,192,128,.15);border:1px solid #40c080;color:#80ffb8';
-    fb.textContent='Bonne etape !';
-    ccExpected++;
-    if(ccExpected===steps.length){clearInterval(ccTimer);setTimeout(()=>chronoCatMancheEnd(steps.length,color),400);}
-  } else {
-    ccErrors++;document.getElementById('cc-errors').textContent=ccErrors;
-    btn.style.background='rgba(192,64,64,.25)';btn.style.borderColor='#c04040';
-    fb.style.cssText='display:block;min-height:34px;border-radius:8px;padding:6px 12px;font-family:Outfit,sans-serif;font-size:12px;font-weight:600;text-align:center;margin-top:6px;background:rgba(192,64,64,.15);border:1px solid #c04040;color:#ffb0b0';
-    fb.textContent='Pas encore ! Cherche l\'etape n°'+(ccExpected+1)+'.';
-    setTimeout(()=>{btn.style.background='rgba(255,255,255,.08)';btn.style.borderColor='rgba(255,255,255,.2)';},700);
-  }
-}
-
-function chronoCatMancheEnd(nbSteps,color){
-  const body=document.getElementById('chronocat-body');
-  const pts=Math.max(0,nbSteps-ccErrors);ccScore+=pts;body.innerHTML='';
-  const emoji=ccErrors===0?'trophy':ccErrors<=2?'muscle':'book';
-  const txt=ccErrors===0?'Parfait ! Aucune erreur !':ccErrors<=2?'Bien joue !':'Continue a reviser !';
-  const nextBtn=ccManche<2
-    ?'<button onclick="ccManche++;chronoCatRender()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer">Manche 2 — Plaie GRAVE</button>'
-    :'<button onclick="chronoCatFinal()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer">Voir mon score final</button>';
-  body.innerHTML='<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px"><div style="font-size:48px">&#127942;</div><div style="font-family:Outfit,sans-serif;font-size:20px;font-weight:900;color:'+color+'">Manche '+ccManche+' terminee</div><div style="font-family:Outfit,sans-serif;font-size:14px;color:rgba(255,255,255,.7)">'+ccSeconds+'s · '+ccErrors+' erreur(s) · +'+pts+' point(s)</div><div style="font-family:Outfit,sans-serif;font-size:15px;font-weight:700;color:white">'+txt+'</div>'+nextBtn+'</div>';
-}
-
-function chronoCatFinal(){
-  const body=document.getElementById('chronocat-body');
-  const max=CC_SIMPLE.length+CC_GRAVE.length;
-  const pct=ccScore/max;
-  const stars=pct>=.9?'★★★':pct>=.6?'★★':'★';
-  const msg=pct>=.9?'Expert secouriste !':pct>=.6?'Bien joue !':'Revois les CAT et recommence !';
-  body.innerHTML='<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px"><div style="font-size:52px">&#127942;</div><div style="font-family:Outfit,sans-serif;font-size:32px;font-weight:900;color:#f0c040;">'+stars+'</div><div style="font-family:Outfit,sans-serif;font-size:22px;font-weight:900;color:white">Score : '+ccScore+' / '+max+'</div><div style="font-size:13px;color:rgba(255,255,255,.6)">'+msg+'</div><button onclick="chronoCatInit()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 32px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer">Rejouer</button></div>';
-}
 
 // ── DUEL DE CHAMPIONS — PREMIER À 6 POINTS ──
 // Principe d'équité : à chaque tour, Rouge ET Bleu reçoivent une question du MÊME niveau
