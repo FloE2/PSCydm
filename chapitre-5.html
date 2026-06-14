@@ -622,47 +622,85 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
       <!-- TEMPS 1 -->
       <div id="cc-t1">
         <div class="cc-header">
-          <div class="cc-tag">🏠 Accident domestique</div>
-          <h3>Lucas (13 ans) s'est blessé en cassant un verre dans la cuisine</h3>
+          <div class="cc-tag">🪚 Accident bricolage</div>
+          <h3>M. Martin s'est blessé à la main en sciant une planche</h3>
         </div>
-        
-        <!-- FCC -->
+
+        <!-- Image scénario -->
+        <div style="text-align:center;margin-bottom:10px;">
+          <img src="hmo.jpg" alt="Homme qui scie une planche — scie égoïne"
+               style="max-height:200px;max-width:100%;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.3);border:2px solid var(--sang-bord);">
+        </div>
+
+        <!-- FCC accordéon -->
         <div class="fcc-accordion">
-        <button class="fcc-accordion-btn" type="button" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span>📋 Fiche Cas Concret — Infos formateur</span><span class="fcc-accordion-chevron">›</span></button>
-        <div class="fcc-accordion-body">
-          <div class="fcc-wrap">
-          <div class="fcc-box span2">
-            <div class="fcc-lbl">📋 Scénario — FCC n° 5.02</div>
-            <div style="display:grid;grid-template-columns:1fr 2fr;gap:6px;margin-top:4px">
-              <div><div class="fcc-lbl">📍 Lieu</div><div class="fcc-val">Domicile — cuisine</div></div>
-              <div><div class="fcc-lbl">📝 MSAS</div><div class="fcc-val">Couteau dérape, entaille profonde à l'avant-bras. Saignement abondant.</div></div>
+          <button class="fcc-accordion-btn" type="button" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span>📋 Fiche Cas Concret — Infos formateur</span><span class="fcc-accordion-chevron">›</span></button>
+          <div class="fcc-accordion-body">
+            <div class="fcc-wrap">
+
+              <div class="fcc-box span2">
+                <div class="fcc-lbl">📋 Scénario — FCC n° 5.01 · Hémorragie externe</div>
+                <div style="display:grid;grid-template-columns:1fr 2fr;gap:6px;margin-top:4px">
+                  <div><div class="fcc-lbl">📍 Lieu</div><div class="fcc-val">Jardin / atelier — domicile</div></div>
+                  <div><div class="fcc-lbl">📝 MSAS</div><div class="fcc-val">Scie égoïne dérape sur la planche, entaille profonde et nette de la paume de la main droite. Saignement abondant et actif. Pas de corps étranger dans la plaie.</div></div>
+                </div>
+              </div>
+
+              <div class="fcc-box">
+                <div class="fcc-lbl">🎭 Organisation — Acteurs</div>
+                <div class="fcc-row"><span class="fcc-ico">🤕</span><div><b>Victime</b>M. Martin (adulte, père de famille) scie une planche. La scie dérape, entaille sa main. Il crie, lâche la scie, serre instinctivement sa main contre lui. Saignement abondant visible. Il est conscient, debout, agité.</div></div>
+                <div class="fcc-row"><span class="fcc-ico">👥</span><div><b>Témoin</b>Aucun dans un premier temps — le sauveteur arrive attiré par les cris.</div></div>
+                <div class="fcc-row"><span class="fcc-ico">🦺</span><div><b>Sauveteur</b>Élève présent au domicile — arrive en courant depuis l'intérieur. Son téléphone est dans sa poche.</div></div>
+              </div>
+
+              <div class="fcc-box">
+                <div class="fcc-lbl">🧰 Matériel à prévoir</div>
+                <div class="fcc-chips">
+                  <span class="fcc-chip">Scie égoïne (vraie ou imitation)</span>
+                  <span class="fcc-chip">Planche de bois</span>
+                  <span class="fcc-chip">Maquillage plaie main</span>
+                  <span class="fcc-chip">Faux sang</span>
+                  <span class="fcc-chip">Torchon / chiffon</span>
+                  <span class="fcc-chip">Bande ou écharpe</span>
+                  <span class="fcc-chip">Téléphone portable</span>
+                  <span class="fcc-chip">Adresse du domicile</span>
+                </div>
+              </div>
+
+              <div class="fcc-box span2">
+                <div class="fcc-lbl">📣 Consignes à donner à la victime (formateur)</div>
+                <div class="fcc-row"><span class="fcc-ico">🗣️</span><div>Au départ : serrer la main blessée contre soi, crier de douleur, rester debout mais agité.</div></div>
+                <div class="fcc-row"><span class="fcc-ico">🗣️</span><div>Si le sauveteur demande à comprimer : coopérer mais dire <em>"j'ai très mal"</em>, ne pas comprimer seul si non demandé.</div></div>
+                <div class="fcc-row"><span class="fcc-ico">🗣️</span><div>Si allongé : se laisser faire. Dire <em>"j'ai froid"</em> après 1 min pour tester la surveillance des signes d'aggravation.</div></div>
+                <div class="fcc-row"><span class="fcc-ico">⚠️</span><div><b>Ne pas improviser de corps étranger</b> — la scie a raté la main, la plaie est nette (pas d'esquille, pas d'objet dans la plaie).</div></div>
+              </div>
+
+              <div class="fcc-box span2">
+                <div class="fcc-lbl">✅ Actions attendues du sauveteur</div>
+                <div class="fcc-row"><span class="fcc-ico">1️⃣</span><div>Vérifier qu'il n'y a pas de danger (scie posée, zone dégagée)</div></div>
+                <div class="fcc-row"><span class="fcc-ico">2️⃣</span><div>Demander à la victime de comprimer elle-même avec un tissu propre — sinon comprimer à sa place</div></div>
+                <div class="fcc-row"><span class="fcc-ico">3️⃣</span><div>Allonger la victime sur le sol ou un banc</div></div>
+                <div class="fcc-row"><span class="fcc-ico">4️⃣</span><div>Si compression efficace : poser pansement compressif pour se libérer les mains</div></div>
+                <div class="fcc-row"><span class="fcc-ico">5️⃣</span><div>Alerter le 15 en donnant lieu, nature de l'accident, état de la victime</div></div>
+                <div class="fcc-row"><span class="fcc-ico">6️⃣</span><div>Surveiller, rassurer, appliquer les consignes des secours jusqu'à leur arrivée</div></div>
+              </div>
+
             </div>
           </div>
-          <div class="fcc-box">
-            <div class="fcc-lbl">🎭 Organisation — Acteurs</div>
-            <div class="fcc-row"><span class="fcc-ico">🤕</span><div><b>Victime</b>Découpe viande. Couteau dérape, entaille avant-bras. Hémorragie. Ne peut pas comprimer (pas de tél. à portée).</div></div>
-            <div class="fcc-row"><span class="fcc-ico">👥</span><div><b>Témoin</b>Aucun.</div></div>
-            <div class="fcc-row"><span class="fcc-ico">🦺</span><div><b>Sauveteur</b>Membre de la famille — entend crier la victime (sans téléphone sur lui).</div></div>
-          </div>
-          <div class="fcc-box">
-            <div class="fcc-lbl">🧰 Matériel disponible</div>
-            <div class="fcc-chips"><span class="fcc-chip">Couteau (imitation)</span><span class="fcc-chip">Maquillage plaie</span><span class="fcc-chip">Téléphone fixe (à l'écart)</span><span class="fcc-chip">Adresse</span><span class="fcc-chip">Torchon</span><span class="fcc-chip">Écharpe</span></div>
-          </div>
         </div>
-        </div>
-        </div>
+
         <div class="cc-scene">
-          Tu rentres chez toi après les cours. Dans la cuisine, tu trouves <strong>Lucas, ton frère de 13 ans</strong>, qui a renversé un grand verre en verre. En tentant de ramasser les morceaux, il s'est profondément entaillé la main gauche. Il saigne <strong>abondamment</strong>, le sang coule sur le sol. Il est pâle, assis par terre, il pleure.<br><br>
-          Tu es <strong>seul avec lui</strong>. Ton téléphone est dans ta poche.<br><br>
+          Tu passes l'après-midi chez les Martin. Soudain, tu entends un cri venant du jardin. Tu sors en courant et tu trouves <strong>M. Martin</strong>, qui était en train de scier une planche pour une étagère. <strong>La scie a dérapé</strong> sur la planche et a entaillé profondément sa <strong>main droite</strong>. Il serre sa main contre lui, le sang coule abondamment entre ses doigts et forme une mare sur le sol. Il est debout, agité, très pâle.<br><br>
+          La scie est tombée par terre à côté de lui. Tu es seul avec lui. <strong>Ton téléphone est dans ta poche.</strong><br><br>
           <strong>Que fais-tu ?</strong>
         </div>
-        <div class="info-box" style="font-size:12px;margin-top:6px">
-          💬 <strong>À l'élève :</strong> mime ou décris les gestes que tu ferais, dans l'ordre. Le formateur observe et note.
+
+        <div class="info-box" style="font-size:12px;margin-top:8px">
+          💬 <strong>À l'élève :</strong> mime ou décris les gestes que tu ferais, dans l'ordre. Le formateur observe et note sans intervenir.
         </div>
-        
       </div>
 
-      <!-- TEMPS 2 : CORRECTION (cachée) -->
+      <!-- TEMPS 2 : CORRECTION -->
       <div id="cc-t2" style="display:none">
         <div class="section-label">Correction — ce qu'il fallait faire</div>
         <div class="cc-reveal-zone">
@@ -672,7 +710,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
               <span><span class="step-icon">🛡️</span>1. Protéger la zone</span>
               <span class="chevron">›</span>
             </div>
-            <div class="cc-step-body">Écarter les morceaux de verre pour ne pas se blesser soi-même. Ne pas marcher dedans.</div>
+            <div class="cc-step-body">S'assurer qu'il n'y a pas de danger : éloigner ou sécuriser la scie égoïne au sol pour ne pas se blesser en s'approchant. Vérifier la stabilité de la zone.</div>
           </div>
 
           <div class="cc-step ok" id="step2">
@@ -681,16 +719,16 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
               <span class="chevron">›</span>
             </div>
             <div class="cc-step-body">
-              Demander à Lucas s'il peut comprimer lui-même avec son autre main (en interposant un tissu propre — torchon, mouchoir). Si non, comprimer toi-même fort et en continu. <strong>Ne pas lâcher.</strong>
+              Demander à M. Martin de comprimer lui-même fort avec son autre main, en interposant un <strong>tissu propre</strong> (torchon, chiffon). Si impossible, comprimer soi-même fermement et en continu. <strong>Ne jamais lâcher avant l'arrêt du saignement.</strong>
             </div>
           </div>
 
           <div class="cc-step ok" id="step3">
             <div class="cc-step-header" onclick="toggleStep('step3')">
-              <span><span class="step-icon">🛏️</span>3. Allonger Lucas</span>
+              <span><span class="step-icon">🛏️</span>3. Allonger la victime</span>
               <span class="chevron">›</span>
             </div>
-            <div class="cc-step-body">L'aider à s'allonger confortablement sur le sol ou le canapé tout en maintenant la compression. La position allongée retarde l'installation d'une détresse circulatoire.</div>
+            <div class="cc-step-body">Aider M. Martin à s'allonger sur le sol ou un banc, tout en maintenant la compression. La position allongée retarde l'installation d'une détresse circulatoire liée à la perte de sang.</div>
           </div>
 
           <div class="cc-step ok" id="step4">
@@ -699,7 +737,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
               <span class="chevron">›</span>
             </div>
             <div class="cc-step-body">
-              Si la compression manuelle a <strong>arrêté le saignement</strong> : poser un pansement serré (tissu propre + lien large) pour maintenir la compression sans tes mains. Cela te libère pour alerter.
+              Si la compression manuelle a <strong>arrêté le saignement</strong> : maintenir avec un tissu propre fixé serré par une bande ou une écharpe. Ce pansement compressif <strong>libère les mains</strong> pour alerter les secours — il ne se pose <strong>pas</strong> si le saignement n'est pas contrôlé.
             </div>
           </div>
 
@@ -708,42 +746,46 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
               <span><span class="step-icon">📞</span>5. Alerter les secours</span>
               <span class="chevron">›</span>
             </div>
-            <div class="cc-step-body">Appeler le <strong>15 (SAMU)</strong> ou le <strong>18 (Pompiers)</strong> ou le <strong>112</strong>. Indiquer : qui vous êtes, où vous êtes, ce qui s'est passé, l'état de Lucas. Appliquer les consignes.</div>
+            <div class="cc-step-body">Appeler le <strong>15 (SAMU)</strong>, le <strong>18 (Pompiers)</strong> ou le <strong>112</strong>. Préciser : l'adresse exacte, la nature de l'accident (plaie à la scie égoïne), l'état de M. Martin (conscient, saignement abondant, pâle). Appliquer les consignes données.</div>
           </div>
 
           <div class="cc-step ok" id="step6">
             <div class="cc-step-header" onclick="toggleStep('step6')">
-              <span><span class="step-icon">👀</span>6. Surveiller &amp; rassurer</span>
+              <span><span class="step-icon">👀</span>6. Surveiller &amp; rassurer jusqu'aux secours</span>
               <span class="chevron">›</span>
             </div>
             <div class="cc-step-body">
-              Rester avec Lucas, lui parler, le rassurer. Surveiller que le pansement tient. Si le saignement reprend : recomprimer par-dessus. Surveiller les signes d'aggravation (pâleur, sueurs, perte de connaissance).
+              Rester aux côtés de M. Martin, lui parler, le rassurer. Vérifier que le pansement tient. Si le saignement reprend : <strong>recomprimer par-dessus</strong> sans retirer le pansement. Surveiller les signes d'aggravation : pâleur intense, sueurs froides, sensation de froid, perte de connaissance.
             </div>
           </div>
 
         </div>
 
-        <!-- Images illustration gestes -->
-        <div style="display:flex;gap:12px;margin-top:12px;">
-          <div style="flex:1;text-align:center;">
+        <!-- Images illustration -->
+        <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:120px;text-align:center;">
+            <img src="hmo.jpg" alt="Scénario scie égoïne"
+                 style="width:100%;max-height:160px;object-fit:cover;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,0.25);border:2px solid var(--sang-bord);">
+            <p style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:var(--sang);margin-top:6px;letter-spacing:1px;text-transform:uppercase;">🪚 La situation</p>
+          </div>
+          <div style="flex:1;min-width:120px;text-align:center;">
             <img src="images/compressiondirecte.jpg" alt="Compression directe"
-                 style="width:100%;max-height:180px;object-fit:cover;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,0.25);border:2px solid #80cba0;">
+                 style="width:100%;max-height:160px;object-fit:cover;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,0.25);border:2px solid #80cba0;">
             <p style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:#1a7a4a;margin-top:6px;letter-spacing:1px;text-transform:uppercase;">✊ Compression directe</p>
           </div>
-          <div style="flex:1;text-align:center;">
-            <div style="position:relative;display:inline-block;width:100%;">
-              <img src="images/pansement_compressif.jpg" alt="Pansement compressif"
-                   style="width:100%;max-height:180px;object-fit:cover;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,0.25);border:2px solid #80cba0;display:block;">
-
-            </div>
+          <div style="flex:1;min-width:120px;text-align:center;">
+            <img src="images/pansement_compressif.jpg" alt="Pansement compressif"
+                 style="width:100%;max-height:160px;object-fit:cover;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,0.25);border:2px solid #80cba0;">
             <p style="font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:#1a7a4a;margin-top:6px;letter-spacing:1px;text-transform:uppercase;">🩹 Pansement compressif</p>
           </div>
         </div>
 
         <div class="debrief-box" style="margin-top:10px">
           <h4>💬 Débriefing formateur</h4>
-          <p>Points clés à vérifier : la compression a-t-elle été immédiate et suffisante ? Le pansement compressif a-t-il été posé correctement (seulement après arrêt du saignement) ? L'appel aux secours a-t-il été fait avec les bons numéros ? La victime a-t-elle été allongée et rassurée ?</p>
-          <p style="margin-top:6px"><strong>Question de prévention :</strong> Quel conseil donner pour éviter ce type d'accident ? (manipuler le verre cassé avec un balai et une pelle, ne jamais ramasser à mains nues)</p>
+          <p><strong>Points clés à vérifier :</strong></p>
+          <p>① La zone a-t-elle été sécurisée (scie écartée) ? ② La compression a-t-elle été immédiate, forte et continue ? ③ La victime a-t-elle été allongée ? ④ Le pansement compressif a-t-il été posé <em>seulement après</em> arrêt du saignement ? ⑤ L'appel au 15 a-t-il été fait avec les bonnes informations ? ⑥ Les signes d'aggravation ont-ils été surveillés ?</p>
+          <p style="margin-top:6px"><strong>Point de confusion fréquent :</strong> certains élèves voudront chercher un corps étranger dans la plaie — rappeler que la scie a raté la main, la plaie est nette et sans corps étranger. On ne doit pas fouiller la plaie.</p>
+          <p style="margin-top:6px"><strong>Question de prévention :</strong> Quels équipements de protection aurait pu porter M. Martin ? (gants anti-coupure, lunettes de protection, maintenir la pièce avec un étau plutôt qu'avec la main)</p>
         </div>
 
         <div style="margin-top:10px;text-align:center">
