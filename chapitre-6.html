@@ -1013,6 +1013,10 @@ function goSlide(n) {
   slidePills[current].classList.add('active');
   document.getElementById('slide-counter').textContent = (current+1) + ' / ' + total;
   renderDots();
+  if(n === 6) {
+    const b = document.getElementById('chronocat-body');
+    if(b && b.innerHTML.trim() === '') setTimeout(chronoCatInit, 50);
+  }
 }
 function nextSlide(){if(current<total-1)goSlide(current+1);}
 function prevSlide(){if(current>0)goSlide(current-1);}
@@ -1029,16 +1033,6 @@ function renderDots() {
   }
 }
 renderDots();
-
-// Patch goSlide pour lancer ChronoCAT au slide 6
-const _origGoSlide = goSlide;
-goSlide = function(n) {
-  _origGoSlide(n);
-  if(n === 6) {
-    const b = document.getElementById('chronocat-body');
-    if(b && b.innerHTML.trim() === '') chronoCatInit();
-  }
-};
 
 // ── CHRONO-CAT ──
 const CC_SIMPLE = [
