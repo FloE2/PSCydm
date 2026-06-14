@@ -450,6 +450,24 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
         🔄 <strong>Un cycle RCP = 30 compressions + 2 insufflations</strong><br>
         Répéter les cycles sans interruption jusqu'aux secours. Si 2 sauveteurs : alterner toutes les 2 minutes pour ne pas s'épuiser.
       </div>
+
+      <!-- Capsule vidéo compressions -->
+      <div style="display:flex;align-items:center;gap:14px;background:#1a0a0a;border:2px solid var(--rouge);border-radius:12px;padding:12px 16px">
+        <div style="flex-shrink:0">
+          <video id="vid-ct" src="videos/ct.mp4"
+            style="width:220px;height:130px;border-radius:8px;object-fit:cover;cursor:pointer;display:block;background:#000"
+            playsinline
+            onclick="this.paused ? this.play() : this.pause()">
+          </video>
+        </div>
+        <div style="flex:1">
+          <div style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#ff8080;margin-bottom:4px">▶ Démonstration — Compressions thoraciques</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.6">Clique sur la vidéo pour lancer · Reclique pour pause<br>
+          <span style="color:#f0c040;font-weight:700">Observer :</span> position des mains · bras tendus · décompression complète · rythme régulier</div>
+          <button onclick="var v=document.getElementById('vid-ct');v.currentTime=0;v.play()" style="margin-top:8px;background:var(--rouge);color:white;border:none;border-radius:6px;padding:5px 14px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;cursor:pointer">↺ Recommencer</button>
+        </div>
+      </div>
+
       <div class="alerte-box">
         <div class="alerte-icon">🦴</div>
         <div>
