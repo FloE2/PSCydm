@@ -297,15 +297,13 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="pill" onclick="goSlide(1)">Définition</div>
     <div class="pill" onclick="goSlide(2)">Compression directe</div>
     <div class="pill" onclick="goSlide(3)">Arbre de décision</div>
-    <div class="pill" onclick="goSlide(4)">Le garrot — Vrai/Faux</div>
+    <div class="pill" onclick="goSlide(4)">🎮 Défi Hémorragies</div>
     <div class="pill" onclick="goSlide(5)">Saignements particuliers</div>
-    <div class="pill" onclick="goSlide(6)">Quiz</div>
-    <div class="pill" onclick="goSlide(7)">🩸 Triage Express</div>
-    <div class="pill" onclick="goSlide(8)">🛡️ Protection sauveteur</div>
-    <div class="pill" onclick="goSlide(9)">Cas Concret</div>
+    <div class="pill" onclick="goSlide(6)">🛡️ Protection sauveteur</div>
+    <div class="pill" onclick="goSlide(7)">Cas Concret</div>
   </div>
   <div id="nav-btns">
-    <div id="slide-counter">1 / 9</div>
+    <div id="slide-counter">1 / 8</div>
     <button class="nav-btn" onclick="prevSlide()">← Préc.</button>
     <button class="nav-btn" onclick="nextSlide()">Suiv. →</button>
   </div>
@@ -486,231 +484,21 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     </div>
   </div>
 
-  <!-- SLIDE 4 : GARROT VRAI/FAUX -->
-  <div class="slide">
-    <div class="slide-header">
+  <!-- SLIDE 4 : DÉFI HÉMORRAGIES (jeu unifié 3 niveaux) -->
+  <div class="slide" id="defi-slide">
+    <div class="slide-header" style="background:linear-gradient(135deg,#7a1a1a,#c0392b);">
       <div class="left">
-        <div class="sup">Chapitre 5 · Le garrot</div>
-        <h2>Garrot d'urgence — Vrai ou Faux ?</h2>
+        <div class="sup">Chapitre 5 · Jeu progressif</div>
+        <h2>🎮 Défi Hémorragies — 3 niveaux</h2>
       </div>
-      <div class="badge-dur"><div class="v">🩸</div><div class="l">Idées reçues</div></div>
+      <div class="badge-dur"><div class="v">🎮</div><div class="l">Défi</div></div>
     </div>
-    <div class="slide-body">
-      <div class="info-box" style="margin-bottom:4px">
-        👇 Clique sur <strong>VRAI</strong> ou <strong>FAUX</strong> pour chaque affirmation, puis lis l'explication.
-      </div>
-      <div class="vf-grid">
-
-        <div class="vf-item" id="vf1">
-          <div class="vf-statement">💬 « Le garrot, c'est dangereux, ça fait perdre le bras. »</div>
-          <div class="vf-btns">
-            <button class="vf-btn" onclick="answerVF('vf1',true,false)">✅ VRAI</button>
-            <button class="vf-btn" onclick="answerVF('vf1',false,false)">❌ FAUX</button>
-          </div>
-          <div class="vf-explication incorrect">❌ FAUX. Cette idée reçue est dépassée. Un garrot bien posé et maintenu quelques heures ne fait pas perdre le membre. <strong>Ne pas poser de garrot quand c'est nécessaire peut être mortel.</strong></div>
-        </div>
-
-        <div class="vf-item" id="vf2">
-          <div class="vf-statement">💬 « Le garrot se pose directement sur la plaie. »</div>
-          <div class="vf-btns">
-            <button class="vf-btn" onclick="answerVF('vf2',true,false)">✅ VRAI</button>
-            <button class="vf-btn" onclick="answerVF('vf2',false,true)">❌ FAUX</button>
-          </div>
-          <div class="vf-explication correct">✅ FAUX — et c'est une bonne réponse ! Le garrot se pose <strong>5 à 7 cm AU-DESSUS de la plaie</strong> (entre le cœur et la plaie), <strong>jamais sur une articulation</strong>.</div>
-        </div>
-
-        <div class="vf-item" id="vf3">
-          <div class="vf-statement">💬 « Une fois posé, on peut desserrer le garrot si la douleur est trop forte. »</div>
-          <div class="vf-btns">
-            <button class="vf-btn" onclick="answerVF('vf3',true,false)">✅ VRAI</button>
-            <button class="vf-btn" onclick="answerVF('vf3',false,true)">❌ FAUX</button>
-          </div>
-          <div class="vf-explication correct">✅ FAUX. Une fois posé, le garrot <strong>ne doit JAMAIS être retiré ou desserré sans avis médical</strong>. La douleur est normale et inévitable.</div>
-        </div>
-
-        <div class="vf-item" id="vf4">
-          <div class="vf-statement">💬 « On peut utiliser une ceinture ou une cravate comme garrot improvisé. »</div>
-          <div class="vf-btns">
-            <button class="vf-btn" onclick="answerVF('vf4',true,true)">✅ VRAI</button>
-            <button class="vf-btn" onclick="answerVF('vf4',false,false)">❌ FAUX</button>
-          </div>
-          <div class="vf-explication correct">✅ VRAI — en partie. On peut utiliser un lien de toile <strong>large (3 à 5 cm), solide et non élastique</strong>. Une cravate fine ou une cordelette peut blesser les tissus. Le garrot industriel est toujours préférable s'il est disponible.</div>
-        </div>
-
-      </div>
-      <div class="score-box" id="vf-score"></div>
+    <div class="slide-body game-dark" id="defi-body" style="padding:14px 20px;gap:10px;overflow-y:auto;">
     </div>
     <div class="slide-footer">
-      <span>Garrot — Idées reçues</span>
+      <span id="defi-footer-label">Défi Hémorragies</span>
       <div class="progress-dots" id="dots4"></div>
-      <span>Slide 5/9</span>
-    </div>
-  </div>
-
-  <!-- SLIDE 5 : SAIGNEMENTS PARTICULIERS -->
-  <div class="slide">
-    <div class="slide-header">
-      <div class="left">
-        <div class="sup">Chapitre 5 · Cas particuliers</div>
-        <h2>Saignements par le nez, la bouche ou un orifice</h2>
-      </div>
-      <div class="badge-dur"><div class="v">👃</div><div class="l">Cas spéciaux</div></div>
-    </div>
-    <div class="slide-body">
-      <div class="spe-grid">
-        <div class="spe-card">
-          <div class="ic">👃</div>
-          <h3>Saignement de nez</h3>
-          <ul>
-            <li>Asseoir la victime, <strong>tête penchée en avant</strong> (jamais allongée !)</li>
-            <li>Lui demander de se moucher vigoureusement</li>
-            <li>Comprimer les <strong>deux narines</strong> avec les doigts, <strong>10 minutes</strong> sans relâcher</li>
-            <li>Demander un avis médical si ça ne s'arrête pas, se reproduit ou survient après un choc</li>
-          </ul>
-        </div>
-        <div class="spe-card">
-          <div class="ic">🤢</div>
-          <h3>Vomit ou crache du sang</h3>
-          <ul>
-            <li>Signe d'une possible maladie grave</li>
-            <li>Installer la victime dans la <strong>position où elle se sent le mieux</strong> si consciente</li>
-            <li>Si inconsciente : <strong>PLS</strong></li>
-            <li>Alerter les secours immédiatement</li>
-            <li>Surveiller en permanence</li>
-          </ul>
-        </div>
-        <div class="spe-card">
-          <div class="ic">🔴</div>
-          <h3>Saignement par un orifice (sauf nez)</h3>
-          <ul>
-            <li>Perte de sang inhabituelle par oreille ou tout orifice naturel…</li>
-            <li><strong>Allonger</strong> la victime</li>
-            <li>Alerter les secours</li>
-            <li>Appliquer leurs consignes</li>
-            <li>Surveiller en permanence</li>
-          </ul>
-        </div>
-      </div>
-      <div class="alerte-box">
-        <div class="alerte-icon">🚨</div>
-        <div>
-          <h3>Signes d'aggravation — recontacter les secours</h3>
-          <p>Sueurs abondantes · sensation de froid intense · pâleur · perte de connaissance → <strong>rappeler le 15 ou le 18</strong> et pratiquer les gestes qui s'imposent.</p>
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer">
-      <span>Saignements particuliers</span>
-      <div class="progress-dots" id="dots5"></div>
-      <span>Slide 6/9</span>
-    </div>
-  </div>
-
-  <!-- SLIDE 6 : QUIZ QCM -->
-  <div class="slide">
-    <div class="slide-header">
-      <div class="left">
-        <div class="sup">Chapitre 5 · Quiz</div>
-        <h2>Teste tes connaissances</h2>
-      </div>
-      <div class="badge-dur"><div class="v">🧠</div><div class="l">Quiz</div></div>
-    </div>
-    <div class="slide-body">
-      <div class="qcm-box" id="q1">
-        <div class="qcm-question">1. Tu arrives et quelqu'un saigne abondamment du bras. Quelle est ta première action ?</div>
-        <div class="qcm-opts">
-          <div class="qcm-opt" onclick="answerQCM('q1',this,'A','A')"><span class="opt-letter">A</span> Appeler le 15 immédiatement</div>
-          <div class="qcm-opt" onclick="answerQCM('q1',this,'B','A')"><span class="opt-letter">B</span> Comprimer fortement l'endroit qui saigne avec un tissu</div>
-          <div class="qcm-opt" onclick="answerQCM('q1',this,'C','A')"><span class="opt-letter">C</span> Attendre pour voir si ça s'arrête tout seul</div>
-          <div class="qcm-opt" onclick="answerQCM('q1',this,'D','A')"><span class="opt-letter">D</span> Poser immédiatement un garrot</div>
-        </div>
-        <div class="qcm-feedback" id="q1-fb">✅ <strong>Comprimer immédiatement</strong> est la priorité absolue. On appelle ensuite les secours (ou on demande à un témoin de le faire).</div>
-      </div>
-
-      <div class="qcm-box" id="q2">
-        <div class="qcm-question">2. Tu as comprimé et le saignement est arrêté. Tu es seul. Que fais-tu ?</div>
-        <div class="qcm-opts">
-          <div class="qcm-opt" onclick="answerQCM('q2',this,'A','B')"><span class="opt-letter">A</span> Tu continues à comprimer jusqu'à l'arrivée des secours</div>
-          <div class="qcm-opt" onclick="answerQCM('q2',this,'B','B')"><span class="opt-letter">B</span> Tu poses un pansement compressif serré, tu te lèves et tu appelles les secours</div>
-          <div class="qcm-opt" onclick="answerQCM('q2',this,'C','B')"><span class="opt-letter">C</span> Tu retires ta main pour vérifier que ça ne saigne plus</div>
-          <div class="qcm-opt" onclick="answerQCM('q2',this,'D','B')"><span class="opt-letter">D</span> Tu poses un garrot par précaution</div>
-        </div>
-        <div class="qcm-feedback" id="q2-fb">✅ Le pansement compressif sert exactement à ça : <strong>libérer les mains du sauveteur</strong> pour pouvoir alerter et surveiller.</div>
-      </div>
-
-      <div class="qcm-box" id="q3">
-        <div class="qcm-question">3. Quelqu'un saigne du nez après un choc à la tête. Tu dois…</div>
-        <div class="qcm-opts">
-          <div class="qcm-opt" onclick="answerQCM('q3',this,'A','C')"><span class="opt-letter">A</span> L'allonger et lui surélever la tête</div>
-          <div class="qcm-opt" onclick="answerQCM('q3',this,'B','C')"><span class="opt-letter">B</span> L'asseoir, tête en avant, et comprimer les narines 10 min</div>
-          <div class="qcm-opt" onclick="answerQCM('q3',this,'C','C')"><span class="opt-letter">C</span> L'asseoir tête en avant et <strong>demander un avis médical</strong> car survenu après un choc</div>
-          <div class="qcm-opt" onclick="answerQCM('q3',this,'D','C')"><span class="opt-letter">D</span> Lui dire de renifler pour arrêter le saignement</div>
-        </div>
-        <div class="qcm-feedback" id="q3-fb">✅ Tête en avant + compression des narines, <strong>mais un avis médical est indispensable car le saignement fait suite à un choc</strong>.</div>
-      </div>
-
-      <div class="qcm-box" id="q4">
-        <div class="qcm-question">4. Où pose-t-on le garrot sur un membre qui saigne ?</div>
-        <div class="qcm-opts">
-          <div class="qcm-opt" onclick="answerQCM('q4',this,'A','D')"><span class="opt-letter">A</span> Directement sur la plaie</div>
-          <div class="qcm-opt" onclick="answerQCM('q4',this,'B','D')"><span class="opt-letter">B</span> Sur l'articulation la plus proche</div>
-          <div class="qcm-opt" onclick="answerQCM('q4',this,'C','D')"><span class="opt-letter">C</span> 5 à 7 cm en dessous de la plaie (côté main)</div>
-          <div class="qcm-opt" onclick="answerQCM('q4',this,'D','D')"><span class="opt-letter">D</span> 5 à 7 cm au-dessus de la plaie, entre le cœur et la plaie</div>
-        </div>
-        <div class="qcm-feedback" id="q4-fb">✅ <strong>Au-dessus de la plaie</strong> (côté cœur), à 5-7 cm, jamais sur une articulation. Cela interrompt la circulation en amont.</div>
-      </div>
-
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-        <button class="check-btn" onclick="showQuizScore()">📊 Voir mon score</button>
-        <button class="reset-btn" onclick="resetQuiz()">↺ Recommencer</button>
-        <div class="score-box" id="quiz-score"></div>
-      </div>
-    </div>
-    <div class="slide-footer">
-      <span>Quiz — Hémorragies</span>
-      <div class="progress-dots" id="dots6"></div>
-      <span>Slide 7/9</span>
-    </div>
-  </div>
-
-
-  <!-- SLIDE 7 : TRIAGE EXPRESS — HÉMORRAGIES -->
-  <div class="slide">
-    <div class="slide-header">
-      <div class="left"><div class="sup">Chapitre 5 · Jeu interactif</div><h2>🩸 Triage Express — Quel geste pour quelle situation ?</h2></div>
-      <div class="badge-dur"><div class="v">🩸</div><div class="l">Triage</div></div>
-    </div>
-    <div class="slide-body game-dark">
-      <div class="game-score-row" style="margin-bottom:4px">
-        <div style="color:rgba(255,255,255,.5);font-size:12px">Glisse chaque scène dans la bonne zone de geste</div>
-        <button onclick="triageCheck()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:8px;padding:7px 16px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;cursor:pointer">✓ Vérifier</button>
-        <button class="game-restart-btn" onclick="triageReset()">↺ Reset</button>
-      </div>
-      <div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:4px">Situations à classer</div>
-      <div class="triage-pool" id="triage-pool"
-        ondragover="event.preventDefault()" ondrop="triagePoolDrop(event)"></div>
-      <div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin:8px 0 4px">Zones de geste</div>
-      <div class="triage-zones">
-        <div class="triage-zone" id="tz-compression" ondragover="tzOver(event,'compression')" ondragleave="tzLeave('compression')" ondrop="tzDrop(event,'compression')">
-          <div class="triage-zone-label">🤜 Compression<br>directe</div>
-        </div>
-        <div class="triage-zone" id="tz-garrot" ondragover="tzOver(event,'garrot')" ondragleave="tzLeave('garrot')" ondrop="tzDrop(event,'garrot')">
-          <div class="triage-zone-label">🎗️ Garrot</div>
-        </div>
-        <div class="triage-zone" id="tz-pansement" ondragover="tzOver(event,'pansement')" ondragleave="tzLeave('pansement')" ondrop="tzDrop(event,'pansement')">
-          <div class="triage-zone-label">🩹 Pansement<br>compressif</div>
-        </div>
-        <div class="triage-zone" id="tz-rien" ondragover="tzOver(event,'rien')" ondragleave="tzLeave('rien')" ondrop="tzDrop(event,'rien')">
-          <div class="triage-zone-label">✋ Plaie simple<br>(rincer/protéger)</div>
-        </div>
-      </div>
-      <div class="game-fb" id="triage-fb"></div>
-      <div id="triage-corrections" style="display:none;font-size:12px;color:rgba(255,255,255,.7);line-height:1.8;background:rgba(255,255,255,.04);border-radius:8px;padding:10px;margin-top:4px"></div>
-    </div>
-    <div class="slide-footer">
-      <span>Triage Express — Hémorragies</span>
-      <div class="progress-dots" id="dots7"></div>
-      <span>Slide 8/10</span>
+      <span>Slide 5/8</span>
     </div>
   </div>
 
@@ -932,7 +720,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 <script>
 // ── Navigation ──
 let current = 0;
-const total = 10;
+const total = 8;
 const slidePills = document.querySelectorAll('.pill[onclick^="goSlide"]');
 
 function goSlide(n) {
@@ -961,219 +749,218 @@ function renderDots() {
 }
 renderDots();
 
-// ── Vrai/Faux ──
-let vfAnswers = {};
-function answerVF(id, userAnswer, correct) {
-  if(vfAnswers[id] !== undefined) return;
-  vfAnswers[id] = (userAnswer === correct);
-  const item = document.getElementById(id);
-  item.classList.add('revealed');
-  const btns = item.querySelectorAll('.vf-btn');
-  const expl = item.querySelector('.vf-explication');
-  btns.forEach(b => b.disabled = true);
-  if(userAnswer === correct){
-    expl.classList.add('correct');
-    expl.classList.remove('incorrect');
-  } else {
-    expl.classList.add('incorrect');
-    expl.classList.remove('correct');
-  }
-  // show score if all answered
-  const total_vf = 4;
-  if(Object.keys(vfAnswers).length === total_vf){
-    const ok = Object.values(vfAnswers).filter(Boolean).length;
-    const sc = document.getElementById('vf-score');
-    sc.style.display='block';
-    sc.textContent = `Score : ${ok} / ${total_vf} bonne${ok>1?'s':''} réponse${ok>1?'s':''}`;
-    sc.style.background = ok>=3?'#e8f8ef':'#fdecea';
-    sc.style.borderColor = ok>=3?'#80cba0':'#e8a09a';
-    sc.style.color = ok>=3?'#1a7a4a':'#c0392b';
-  }
-}
+// ══════════════════════════════════════════
+// 🎮 DÉFI HÉMORRAGIES — JEU UNIFIÉ 3 NIVEAUX
+// ══════════════════════════════════════════
 
-// ── QCM ──
-const qcmCorrects = {q1:'B',q2:'B',q3:'C',q4:'D'};
-const qcmAnswered = {};
-function answerQCM(qid, el, chosen, qKey){
-  if(qcmAnswered[qid]) return;
-  qcmAnswered[qid] = chosen;
-  const correct = qcmCorrects[qKey];
-  const allOpts = document.querySelectorAll('#'+qid+' .qcm-opt');
-  allOpts.forEach(o => o.classList.add('locked'));
-  const letters = ['A','B','C','D'];
-  allOpts.forEach((o,i)=>{
-    if(letters[i]===correct) o.classList.add('correct');
-    else if(letters[i]===chosen && chosen!==correct) o.classList.add('wrong');
-  });
-  const fb = document.getElementById(qid+'-fb');
-  fb.classList.add('show');
-  fb.classList.add(chosen===correct?'ok':'ko');
-}
-function showQuizScore(){
-  const keys=['q1','q2','q3','q4'];
-  const corrects={q1:'B',q2:'B',q3:'C',q4:'D'};
-  let ok=0;
-  keys.forEach(k=>{if(qcmAnswered[k]===corrects[k])ok++;});
-  const sc=document.getElementById('quiz-score');
-  sc.style.display='block';
-  sc.textContent=`Score : ${ok} / 4 bonne${ok>1?'s':''} réponse${ok>1?'s':''}`;
-  sc.style.background=ok>=3?'#e8f8ef':'#fdecea';
-  sc.style.borderColor=ok>=3?'#80cba0':'#e8a09a';
-  sc.style.color=ok>=3?'#1a7a4a':'#c0392b';
-}
-function resetQuiz(){
-  ['q1','q2','q3','q4'].forEach(qid=>{
-    delete qcmAnswered[qid];
-    const allOpts=document.querySelectorAll('#'+qid+' .qcm-opt');
-    allOpts.forEach(o=>{o.classList.remove('correct','wrong','locked');});
-    const fb=document.getElementById(qid+'-fb');
-    fb.classList.remove('show','ok','ko');
-  });
-  const sc=document.getElementById('quiz-score');
-  sc.style.display='none';
-}
-
-// ── Cas concret ──
-let ccTime2 = false;
-function switchCC(){
-  ccTime2 = !ccTime2;
-  document.getElementById('cc-t1').style.display = ccTime2?'none':'block';
-  document.getElementById('cc-t2').style.display = ccTime2?'block':'none';
-  document.getElementById('cc-switch-btn').textContent = ccTime2?'← Retour temps 1':'Temps 2 : Correction →';
-  document.getElementById('cc-title').textContent = ccTime2?'Cas Concret — ✅ Temps 2 : Correction':'🏠 Cas Concret — Temps 1 : La situation';
-  document.getElementById('cc-footer').querySelector('span').textContent = ccTime2?'Temps 2 — Correction avec les étapes clés':'Temps 1 — Situation soumise aux élèves';
-}
-function toggleStep(id){
-  const el=document.getElementById(id);
-  el.classList.toggle('open');
-}
-
-// ── Dashboard ──
-function goToDashboard(e){
-  if(e) e.preventDefault();
-  window.location.href = 'index.html?done=5';
-}
-
-// keyboard nav
-document.addEventListener('keydown',e=>{
-  if(e.key==='ArrowRight') nextSlide();
-  if(e.key==='ArrowLeft') prevSlide();
-});
-
-// ── TRIAGE EXPRESS — HÉMORRAGIES ──
-const TRIAGE_ITEMS = [
-  { id:'t1', label:'Coupure au doigt avec un couteau, saignement faible', answer:'rien', expl:'Plaie simple → rincer à l\'eau courante + pansement.' },
-  { id:'t2', label:'Plaie profonde au bras, sang qui coule abondamment', answer:'compression', expl:'Compression directe immédiate pour stopper l\'hémorragie.' },
-  { id:'t3', label:'Section partielle de l\'avant-bras, compression inefficace depuis 3 min', answer:'garrot', expl:'Garrot : compression échoue, membre atteint. Noter l\'heure.' },
-  { id:'t4', label:'Plaie au front saignant beaucoup mais compression a stoppé le flux', answer:'pansement', expl:'Pansement compressif : la compression directe a été efficace.' },
-  { id:'t5', label:'Éraflure au genou qui arrête de saigner seule', answer:'rien', expl:'Éraflure = plaie simple. Pas d\'hémorragie, pas de compression nécessaire.' },
-  { id:'t6', label:'Plaie par balle à la cuisse, saignement massif', answer:'garrot', expl:'Garrot immédiat : plaie par balle au membre = garrot d\'emblée.' },
+// ── Banque de questions ──
+const DEFI_VF = [
+  { q:'« Le garrot, c'est dangereux, ça fait perdre le bras. »', answer:false, expl:'FAUX — idée reçue dépassée. Un garrot bien posé ne fait pas perdre le membre. Ne pas le poser quand c'est nécessaire peut être mortel.' },
+  { q:'« Le garrot se pose directement sur la plaie. »', answer:false, expl:'FAUX — Le garrot se pose 5 à 7 cm AU-DESSUS de la plaie (côté cœur), jamais sur une articulation.' },
+  { q:'« Une fois posé, on peut desserrer le garrot si la douleur est trop forte. »', answer:false, expl:'FAUX — Une fois posé, le garrot ne doit jamais être retiré ou desserré sans avis médical.' },
+  { q:'« On peut utiliser une ceinture large comme garrot improvisé. »', answer:true, expl:'VRAI — Un lien large (3-5 cm), solide et non élastique convient. Le garrot industriel reste préférable s'il est disponible.' },
+  { q:'« La compression directe doit être légère pour ne pas faire mal. »', answer:false, expl:'FAUX — La compression doit être FORTE et PERMANENTE pour stopper le saignement.' },
+  { q:'« Un pansement compressif peut remplacer la compression manuelle même si le saignement n'est pas arrêté. »', answer:false, expl:'FAUX — Le pansement compressif ne remplace la compression manuelle QUE si elle a permis d'arrêter le saignement.' },
 ];
 
-// triagePlaced = { zone: [id1, id2, ...] } — plusieurs cartes par zone
-let triageDragging=null, triageFrom=null, triagePlaced={compression:[],garrot:[],pansement:[],rien:[]};
+const DEFI_QCM = [
+  { q:'Tu arrives et quelqu'un saigne abondamment du bras. Ta première action ?', opts:['Appeler le 15 immédiatement','Comprimer fortement avec un tissu','Attendre pour voir si ça s'arrête','Poser immédiatement un garrot'], answer:1, expl:'Comprimer immédiatement est la priorité absolue. On appelle ensuite les secours.' },
+  { q:'La compression a stoppé le saignement. Tu es seul. Que fais-tu ?', opts:['Continuer à comprimer jusqu'aux secours','Poser un pansement compressif serré, puis appeler le 15','Retirer la main pour vérifier que ça ne saigne plus','Poser un garrot par précaution'], answer:1, expl:'Le pansement compressif libère les mains du sauveteur pour alerter et surveiller.' },
+  { q:'Quelqu'un saigne du nez après un choc à la tête. Tu dois…', opts:['L'allonger et lui surélever la tête','L'asseoir, tête en avant, comprimer 10 min','L'asseoir tête en avant ET demander un avis médical (choc)','Lui dire de renifler pour arrêter'], answer:2, expl:'Tête en avant + compression, MAIS avis médical indispensable car saignement après un choc.' },
+  { q:'Où pose-t-on le garrot sur un membre qui saigne ?', opts:['Directement sur la plaie','Sur l'articulation la plus proche','5 à 7 cm en dessous de la plaie','5 à 7 cm au-dessus de la plaie, côté cœur'], answer:3, expl:'Au-dessus de la plaie (côté cœur), à 5-7 cm, jamais sur une articulation.' },
+  { q:'Quelle est la condition pour poser un pansement compressif ?', opts:['Le saignement est abondant','Le sauveteur a besoin de ses deux mains','La compression manuelle a arrêté le saignement','La victime peut appuyer elle-même'], answer:2, expl:'Le pansement compressif remplace la compression manuelle SEULEMENT si elle a permis d'arrêter le saignement.' },
+  { q:'Victime qui vomit du sang, elle est consciente. Tu fais ?', opts:['L'allonger sur le dos','L'asseoir, tête en avant','L'installer dans la position où elle se sent le mieux, alerter','Lui donner à boire pour compenser la perte de sang'], answer:2, expl:'Position de confort + alerte immédiate. C'est un signe de maladie grave.' },
+];
 
-function triageAllPlaced(){
-  // returns flat list of all placed ids
-  return Object.values(triagePlaced).flat();
+const DEFI_TRIAGE = [
+  { q:'Coupure au doigt avec un couteau, saignement faible qui s'arrête seul.', opts:['🤜 Compression directe','🎗️ Garrot','🩹 Pansement compressif','✋ Plaie simple (rincer/protéger)'], answer:3, expl:'Éraflure = plaie simple. Pas d'hémorragie, pas de compression nécessaire.' },
+  { q:'Plaie profonde au bras, sang qui coule abondamment, ne s'arrête pas seul.', opts:['🤜 Compression directe','🎗️ Garrot','🩹 Pansement compressif','✋ Plaie simple'], answer:0, expl:'Compression directe immédiate et forte pour stopper l'hémorragie.' },
+  { q:'Section partielle de l'avant-bras, compression directe inefficace depuis 3 min.', opts:['🤜 Compression directe','🎗️ Garrot','🩹 Pansement compressif','✋ Plaie simple'], answer:1, expl:'Garrot : compression échoue, membre atteint. Il faut noter l'heure de pose.' },
+  { q:'Plaie au bras — la compression a stoppé le flux. Tu es seul et dois appeler le 15.', opts:['🤜 Compression directe','🎗️ Garrot','🩹 Pansement compressif','✋ Plaie simple'], answer:2, expl:'Pansement compressif : la compression a été efficace, il libère les mains pour alerter.' },
+  { q:'Plaie par balle à la cuisse, saignement massif.', opts:['🤜 Compression directe','🎗️ Garrot','🩹 Pansement compressif','✋ Plaie simple'], answer:1, expl:'Garrot immédiat : plaie par balle au membre = garrot d'emblée.' },
+  { q:'Éraflure au genou qui s'arrête de saigner seule après 30 secondes.', opts:['🤜 Compression directe','🎗️ Garrot','🩹 Pansement compressif','✋ Plaie simple'], answer:3, expl:'Éraflure = plaie simple. Rincer à l'eau courante, protéger avec un pansement.' },
+];
+
+function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
+function pick3(arr){ return shuffle(arr).slice(0,3); }
+
+// ── État du jeu ──
+let defiLevel = 1; // 1, 2, 3
+let defiQuestions = [];
+let defiIdx = 0;
+let defiScore = 0;
+let defiAnswered = false;
+
+function defiInit(){
+  defiLevel = 1; defiIdx = 0; defiScore = 0;
+  defiLoadLevel();
 }
 
-function triageBuild(){
-  const pool=document.getElementById('triage-pool');
-  pool.innerHTML='';
-  const placed=triageAllPlaced();
-  TRIAGE_ITEMS.forEach(item=>{
-    if(!placed.includes(item.id)) pool.appendChild(triageMakeCard(item,'pool'));
-  });
-  ['compression','garrot','pansement','rien'].forEach(z=>{
-    const el=document.getElementById('tz-'+z);
-    const lbl=el.querySelector('.triage-zone-label');
-    el.innerHTML=''; el.appendChild(lbl);
-    (triagePlaced[z]||[]).forEach(id=>{
-      const item=TRIAGE_ITEMS.find(i=>i.id===id);
-      if(item) el.appendChild(triageMakeCard(item,z));
-    });
-  });
+function defiLoadLevel(){
+  defiIdx = 0; defiAnswered = false;
+  if(defiLevel === 1) defiQuestions = pick3(DEFI_VF);
+  else if(defiLevel === 2) defiQuestions = pick3(DEFI_QCM);
+  else defiQuestions = pick3(DEFI_TRIAGE);
+  defiRender();
 }
 
-function triageMakeCard(item,from){
-  const d=document.createElement('div'); d.className='triage-card'; d.textContent=item.label;
-  d.draggable=true; d.dataset.id=item.id;
-  d.addEventListener('dragstart',()=>{triageDragging=item.id;triageFrom=from;d.style.opacity='.4';});
-  d.addEventListener('dragend',()=>{d.style.opacity='1';});
-  return d;
-}
+function defiRender(){
+  const body = document.getElementById('defi-body');
+  body.innerHTML = '';
 
-function triageRemoveFromZone(id){
-  // Remove id from whichever zone contains it
-  Object.keys(triagePlaced).forEach(z=>{
-    triagePlaced[z]=triagePlaced[z].filter(i=>i!==id);
-  });
-}
-
-function triagePoolDrop(e){
-  e.preventDefault();
-  if(triageDragging && triageFrom!=='pool'){
-    triageRemoveFromZone(triageDragging);
-    triageBuild();
+  // Barre de niveaux
+  const lvlNames = ['Niveau 1 — Vrai / Faux','Niveau 2 — Quiz','Niveau 3 — Triage Express'];
+  const lvlIcons = ['🔵','🟡','🔴'];
+  const lvlDesc  = ['Questions rapides — vrai ou faux ?','4 choix — il faut réfléchir !','Situation réelle — quel geste ?'];
+  const bar = document.createElement('div');
+  bar.style.cssText = 'display:flex;gap:6px;margin-bottom:10px;';
+  for(let i=1;i<=3;i++){
+    const b = document.createElement('div');
+    b.style.cssText = `flex:1;text-align:center;padding:6px 4px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;border:2px solid ${i<defiLevel?'#40c080':i===defiLevel?'#f0c040':'rgba(255,255,255,.15)'};background:${i<defiLevel?'rgba(64,192,128,.15)':i===defiLevel?'rgba(240,192,64,.15)':'transparent'};color:${i<defiLevel?'#40c080':i===defiLevel?'#f0c040':'rgba(255,255,255,.3)'};`;
+    b.innerHTML = `${lvlIcons[i-1]} ${lvlNames[i-1]}`;
+    bar.appendChild(b);
   }
-  triageDragging=null;
+  body.appendChild(bar);
+
+  // Titre du niveau
+  const h = document.createElement('div');
+  h.style.cssText = 'font-family:'Outfit',sans-serif;font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;text-align:center;';
+  h.textContent = lvlDesc[defiLevel-1] + ' — Question ' + (defiIdx+1) + ' / ' + defiQuestions.length;
+  body.appendChild(h);
+
+  // Score courant
+  const sc = document.createElement('div');
+  sc.style.cssText = 'text-align:right;font-family:'Outfit',sans-serif;font-size:12px;color:#f0c040;margin-bottom:6px;';
+  sc.textContent = '⭐ Score : ' + defiScore;
+  body.appendChild(sc);
+
+  const q = defiQuestions[defiIdx];
+
+  if(defiLevel === 1) defiRenderVF(body, q);
+  else defiRenderQCM(body, q);
 }
 
-function tzOver(e,z){e.preventDefault();document.getElementById('tz-'+z).classList.add('over');}
-function tzLeave(z){document.getElementById('tz-'+z).classList.remove('over');}
-
-function tzDrop(e,z){
-  e.preventDefault(); document.getElementById('tz-'+z).classList.remove('over');
-  if(!triageDragging)return;
-  // Remove from previous zone (or pool)
-  triageRemoveFromZone(triageDragging);
-  // Add to new zone
-  if(!triagePlaced[z]) triagePlaced[z]=[];
-  triagePlaced[z].push(triageDragging);
-  triageDragging=null; triageFrom=null;
-  triageBuild();
-  document.getElementById('triage-fb').className='game-fb';
-  document.getElementById('triage-corrections').style.display='none';
+function defiRenderVF(body, q){
+  const box = document.createElement('div');
+  box.style.cssText = 'background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px 18px;text-align:center;';
+  box.innerHTML = `<div style="font-size:13px;color:rgba(255,255,255,.6);font-family:'Outfit',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;">Vrai ou Faux ?</div>
+    <div style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;color:white;line-height:1.5;margin-bottom:16px;">💬 ${q.q}</div>
+    <div style="display:flex;gap:12px;justify-content:center;">
+      <button onclick="defiAnswerVF(true)" style="background:rgba(64,192,128,.2);border:2px solid #40c080;color:#40c080;border-radius:10px;padding:10px 28px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer;">✅ VRAI</button>
+      <button onclick="defiAnswerVF(false)" style="background:rgba(192,64,64,.2);border:2px solid #c04040;color:#ff8080;border-radius:10px;padding:10px 28px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer;">❌ FAUX</button>
+    </div>`;
+  body.appendChild(box);
+  const fb = document.createElement('div');
+  fb.id = 'defi-fb';
+  fb.style.cssText = 'display:none;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:13px;font-family:'Outfit',sans-serif;font-weight:600;text-align:center;';
+  body.appendChild(fb);
 }
 
-function triageCheck(){
-  let ok=0, corrections=[];
-  TRIAGE_ITEMS.forEach(item=>{
-    const inZone=(triagePlaced[item.answer]||[]).includes(item.id);
-    if(inZone) ok++;
-    else corrections.push('<strong>'+item.label+'</strong> → '+item.expl);
+function defiAnswerVF(chosen){
+  if(defiAnswered) return;
+  defiAnswered = true;
+  const q = defiQuestions[defiIdx];
+  const correct = (chosen === q.answer);
+  if(correct) defiScore++;
+  const btns = document.querySelectorAll('#defi-body button');
+  btns.forEach(b => b.disabled = true);
+  const fb = document.getElementById('defi-fb');
+  fb.style.display = 'block';
+  fb.style.background = correct ? 'rgba(64,192,128,.15)' : 'rgba(192,64,64,.15)';
+  fb.style.border = '1px solid ' + (correct ? '#40c080' : '#c04040');
+  fb.style.color = correct ? '#80ffb8' : '#ffb0b0';
+  fb.innerHTML = (correct ? '🎯 Bonne réponse ! ' : '❌ ') + q.expl;
+  defiShowNext();
+}
+
+function defiRenderQCM(body, q){
+  const box = document.createElement('div');
+  box.style.cssText = 'background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;';
+  const type = defiLevel === 2 ? 'Quiz — 1 bonne réponse' : 'Triage Express — Quel geste ?';
+  box.innerHTML = `<div style="font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:8px;">${type}</div>
+    <div style="font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;color:white;line-height:1.5;margin-bottom:12px;">${q.q}</div>`;
+  const grid = document.createElement('div');
+  grid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:8px;';
+  q.opts.forEach((opt, i) => {
+    const b = document.createElement('button');
+    b.style.cssText = 'background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 10px;color:white;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-align:left;line-height:1.4;';
+    b.innerHTML = `<span style="font-family:'Outfit',sans-serif;font-weight:900;color:#f0c040;margin-right:6px;">${String.fromCharCode(65+i)}.</span>${opt}`;
+    b.onclick = () => defiAnswerQCM(i, b);
+    grid.appendChild(b);
   });
-  const fb=document.getElementById('triage-fb');
-  const total=TRIAGE_ITEMS.length;
-  // Colour the cards in zones
-  ['compression','garrot','pansement','rien'].forEach(z=>{
-    const el=document.getElementById('tz-'+z);
-    el.querySelectorAll('.triage-card').forEach(card=>{
-      const item=TRIAGE_ITEMS.find(i=>i.id===card.dataset.id);
-      if(item && item.answer===z){card.style.borderColor='#40c080';card.style.background='rgba(64,192,128,.15)';}
-      else{card.style.borderColor='#c04040';card.style.background='rgba(192,64,64,.15)';}
-    });
+  box.appendChild(grid);
+  body.appendChild(box);
+  const fb = document.createElement('div');
+  fb.id = 'defi-fb';
+  fb.style.cssText = 'display:none;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;';
+  body.appendChild(fb);
+}
+
+function defiAnswerQCM(chosen, btn){
+  if(defiAnswered) return;
+  defiAnswered = true;
+  const q = defiQuestions[defiIdx];
+  const correct = (chosen === q.answer);
+  if(correct) defiScore++;
+  const allBtns = document.querySelectorAll('#defi-body button');
+  allBtns.forEach((b,i) => {
+    b.disabled = true;
+    if(i === q.answer){ b.style.background='rgba(64,192,128,.25)'; b.style.borderColor='#40c080'; }
+    else if(i === chosen && !correct){ b.style.background='rgba(192,64,64,.25)'; b.style.borderColor='#c04040'; }
   });
-  if(ok===total){fb.className='game-fb ok';fb.textContent='🎯 Parfait ! Toutes les situations bien classées !';}
-  else{
-    fb.className='game-fb ko';
-    fb.textContent='❌ '+ok+'/'+total+' corrects. Voir les corrections ci-dessous.';
-    const corr=document.getElementById('triage-corrections');
-    corr.style.display='block';
-    corr.innerHTML='<strong style="color:#f0c040">Corrections :</strong><br>'+corrections.join('<br>');
+  const fb = document.getElementById('defi-fb');
+  fb.style.display = 'block';
+  fb.style.background = correct ? 'rgba(64,192,128,.15)' : 'rgba(192,64,64,.15)';
+  fb.style.border = '1px solid ' + (correct ? '#40c080' : '#c04040');
+  fb.style.color = correct ? '#80ffb8' : '#ffb0b0';
+  fb.innerHTML = (correct ? '🎯 ' : '❌ ') + q.expl;
+  defiShowNext();
+}
+
+function defiShowNext(){
+  const body = document.getElementById('defi-body');
+  const nextBtn = document.createElement('button');
+  const isLastQ = defiIdx >= defiQuestions.length - 1;
+  const isLastLevel = defiLevel === 3;
+  nextBtn.style.cssText = 'margin-top:10px;width:100%;background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:11px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer;';
+  if(!isLastQ){
+    nextBtn.textContent = 'Question suivante →';
+    nextBtn.onclick = () => { defiIdx++; defiAnswered = false; defiRender(); };
+  } else if(!isLastLevel){
+    nextBtn.textContent = '🚀 Niveau ' + (defiLevel+1) + ' — C'est parti !';
+    nextBtn.style.background = defiLevel===1 ? '#f0c040' : '#c04040';
+    nextBtn.onclick = () => { defiLevel++; defiLoadLevel(); };
+  } else {
+    nextBtn.textContent = '🏆 Voir mon score final';
+    nextBtn.onclick = defiShowFinal;
   }
+  body.appendChild(nextBtn);
 }
 
-function triageReset(){
-  triagePlaced={compression:[],garrot:[],pansement:[],rien:[]};
-  triageDragging=null;
-  document.getElementById('triage-fb').className='game-fb';
-  document.getElementById('triage-corrections').style.display='none';
-  triageBuild();
+function defiShowFinal(){
+  const body = document.getElementById('defi-body');
+  const max = 9; // 3 niveaux × 3 questions
+  const pct = defiScore / max;
+  const stars = pct >= .89 ? '⭐⭐⭐' : pct >= .66 ? '⭐⭐' : '⭐';
+  const msg = pct >= .89 ? 'Excellent ! Tu maîtrises les hémorragies 💪' : pct >= .66 ? 'Bien joué ! Quelques notions à revoir.' : 'Continue à t'entraîner — tu y es presque !';
+  body.innerHTML = `
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px;">
+      <div style="font-size:52px;">🏆</div>
+      <div style="font-family:'Outfit',sans-serif;font-size:28px;font-weight:900;color:#f0c040;">${stars}</div>
+      <div style="font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:white;">Score final : ${defiScore} / ${max}</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.6);max-width:360px;line-height:1.6;">${msg}</div>
+      <button onclick="defiInit()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 32px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;cursor:pointer;margin-top:8px;">↺ Rejouer (nouvelles questions)</button>
+    </div>`;
 }
-triageBuild();
 
+// Lancer le jeu quand on arrive sur le slide
+document.querySelectorAll('.slide')[4] && (function(){
+  // init au clic sur la pill
+  const pillDefi = document.querySelector('.pill[onclick="goSlide(4)"]');
+  if(pillDefi) pillDefi.addEventListener('click', () => setTimeout(defiInit, 50));
+})();
+
+// ── Cas concret ──
 
 // ── DRAG & DROP PILLS NAVIGATION avec persistance localStorage ──
 (function(){
@@ -1277,6 +1064,11 @@ triageBuild();
     current = n;
     document.getElementById('slide-counter').textContent = (n + 1) + ' / ' + total;
     renderDots();
+    // Initialiser le Défi si on arrive sur ce slide
+    if(n === 4 && typeof defiInit === 'function'){
+      const body = document.getElementById('defi-body');
+      if(body && body.innerHTML.trim() === '') defiInit();
+    }
   };
 
   // Patch nextSlide/prevSlide : naviguer dans l'ordre VISUEL des pills
