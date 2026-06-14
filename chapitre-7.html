@@ -121,7 +121,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
   min-height:0;
 }
 .millionaire-top{display:flex;gap:12px;align-items:flex-start;flex:1;min-height:0;overflow:hidden}
-.millionaire-question-zone{flex:1;display:flex;flex-direction:column;gap:10px;min-width:0;overflow-y:auto;min-height:0}
+.millionaire-question-zone{flex:1;display:flex;flex-direction:column;gap:10px;min-width:0;overflow-y:auto;min-height:0;max-height:100%;scrollbar-width:thin;scrollbar-color:rgba(240,192,64,.4) rgba(255,255,255,.05)}
 .q-header{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .q-level-badge{
   font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;
@@ -249,7 +249,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 .debrief-box h4{font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:6px}
 
 /* TIMER */
-.timer-ring{position:relative;width:52px;height:52px;flex-shrink:0}
+.timer-ring{position:relative;width:52px;height:52px;flex-shrink:0;position:sticky;top:0;z-index:10}
 .timer-ring svg{transform:rotate(-90deg)}
 .timer-ring .ring-bg{stroke:rgba(255,255,255,.1)}
 .timer-ring .ring-fill{stroke:#f0c040;stroke-dasharray:138;transition:stroke-dasharray .9s linear}
