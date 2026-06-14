@@ -5,17 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PSC1 — Chapitre 5 : Hémorragies externes</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script>
-// goSlide disponible immediatement - execute apres DOMContentLoaded si appele avant
-var _goSlideQueue=[];
-function goSlide(n){
-  if(typeof _goSlide==='function') _goSlide(n);
-  else _goSlideQueue.push(n);
-}
-function goToDashboard(e){if(e)e.preventDefault();window.location.href='index.html?done=5';}
-function nextSlide(){}
-function prevSlide(){}
-</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -344,7 +333,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="slide-footer">
       <span>Scénario 5 — Collège Yves du Manoir · Vaucresson</span>
       <div class="progress-dots" id="dots0"></div>
-      <span>Chapitre 5 / 10</span>
+      <span>Chapitre 5 / 8</span>
     </div>
   </div>
 
@@ -725,73 +714,66 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
   </div>
 
 <script>
-let current=0, total=8;
-
-function _goSlide(n){
-  document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('#nav-pills .pill[data-slide]').forEach(p=>p.classList.remove('active'));
-  const s=document.querySelectorAll('.slide')[n];
-  if(s) s.classList.add('active');
-  const p=document.querySelector('#nav-pills .pill[data-slide="'+n+'"]');
-  if(p) p.classList.add('active');
-  current=n;
-  document.getElementById('slide-counter').textContent=(n+1)+' / '+total;
+// Navigation directe par index DOM - simple et sans ambiguite
+var SLIDES, PILLS, current, total;
+document.addEventListener('DOMContentLoaded', function(){
+  SLIDES  = Array.from(document.querySelectorAll('.slide'));
+  PILLS   = Array.from(document.querySelectorAll('#nav-pills .pill[onclick^="goSlide"]'));
+  current = 0;
+  total   = SLIDES.length;
+  document.getElementById('slide-counter').textContent = '1 / ' + total;
   renderDots();
-  if(n===4&&typeof defiInit==='function'){
-    const b=document.getElementById('defi-body');
-    if(b&&b.innerHTML.trim()==='') defiInit();
+  // Vider file si appels anticipes
+  if(window._gsq && window._gsq.length) goSlide(window._gsq[window._gsq.length-1]);
+});
+
+function goSlide(n){
+  if(!SLIDES){ window._gsq = window._gsq||[]; window._gsq.push(n); return; }
+  if(n<0||n>=SLIDES.length) return;
+  SLIDES[current].classList.remove('active');
+  if(PILLS[current]) PILLS[current].classList.remove('active');
+  current = n;
+  SLIDES[current].classList.add('active');
+  if(PILLS[current]) PILLS[current].classList.add('active');
+  document.getElementById('slide-counter').textContent = (current+1)+' / '+total;
+  renderDots();
+  if(current===4 && typeof defiInit==='function'){
+    var b=document.getElementById('defi-body');
+    if(b && b.innerHTML.trim()==='') defiInit();
   }
 }
-function goSlide(n){ _goSlide(n); }
-function nextSlide(){
-  const pp=Array.from(document.querySelectorAll('#nav-pills .pill[data-slide]'));
-  const i=pp.findIndex(p=>p.classList.contains('active'));
-  if(i<pp.length-1) _goSlide(parseInt(pp[i+1].dataset.slide));
-}
-function prevSlide(){
-  const pp=Array.from(document.querySelectorAll('#nav-pills .pill[data-slide]'));
-  const i=pp.findIndex(p=>p.classList.contains('active'));
-  if(i>0) _goSlide(parseInt(pp[i-1].dataset.slide));
-}
+function nextSlide(){ if(SLIDES && current<total-1) goSlide(current+1); }
+function prevSlide(){  if(SLIDES && current>0)       goSlide(current-1); }
+function goToDashboard(e){ if(e) e.preventDefault(); window.location.href='index.html?done=5'; }
+
 function renderDots(){
-  for(let i=0;i<total;i++){
-    const el=document.getElementById('dots'+i)||document.getElementById('dots-'+i);
+  for(var i=0;i<total;i++){
+    var el=document.getElementById('dots'+i)||document.getElementById('dots-'+i);
     if(!el) continue;
-    let h='';
-    for(let j=0;j<total;j++) h+='<div class="dot'+(j===i?' active':j<i?' done':'')+'"></div>';
+    var h='';
+    for(var j=0;j<total;j++) h+='<div class="dot'+(j===i?' active':j<i?' done':'')+'"></div>';
     el.innerHTML=h;
   }
 }
-(function(){
-  document.querySelectorAll('#nav-pills .pill').forEach((pill,i)=>{
-    if(i===0) return;
-    pill.dataset.slide=String(i-1);
-  });
-  const p0=document.querySelector('#nav-pills .pill[data-slide="0"]');
-  if(p0) p0.classList.add('active');
-})();
-renderDots();
-// Vider la file des appels goSlide() faits avant le chargement complet
-if(typeof _goSlideQueue!=='undefined'&&_goSlideQueue.length) _goSlide(_goSlideQueue[_goSlideQueue.length-1]);
 
 // DEFI HEMORRAGIES
-const DEFI_VF=[
-  {q:"Le garrot fait perdre le bras.",answer:false,expl:"FAUX - idee recue. Un garrot bien pose ne fait pas perdre le membre."},
-  {q:"Le garrot se pose directement sur la plaie.",answer:false,expl:"FAUX - 5 a 7 cm AU-DESSUS de la plaie, cote coeur, jamais sur une articulation."},
+var DEFI_VF=[
+  {q:"Le garrot fait perdre le bras.",answer:false,expl:"FAUX - Un garrot bien pose ne fait pas perdre le membre."},
+  {q:"Le garrot se pose directement sur la plaie.",answer:false,expl:"FAUX - 5 a 7 cm AU-DESSUS de la plaie, cote coeur."},
   {q:"On peut desserrer le garrot si la douleur est trop forte.",answer:false,expl:"FAUX - Jamais retirer ou desserrer sans avis medical."},
   {q:"Une ceinture large peut servir de garrot improvise.",answer:true,expl:"VRAI - Un lien large (3-5 cm), solide, non elastique convient."},
   {q:"La compression directe doit etre legere pour ne pas faire mal.",answer:false,expl:"FAUX - La compression doit etre FORTE et PERMANENTE."},
-  {q:"Un pansement compressif peut remplacer la compression meme si le saignement continue.",answer:false,expl:"FAUX - Seulement si la compression a arrete le saignement."},
+  {q:"Un pansement compressif peut remplacer la compression si le saignement continue.",answer:false,expl:"FAUX - Seulement si la compression a arrete le saignement."},
 ];
-const DEFI_QCM=[
-  {q:"Quelqu'un saigne abondamment du bras. Ta premiere action ?",opts:["Appeler le 15","Comprimer fortement avec un tissu","Attendre","Poser un garrot"],answer:1,expl:"Comprimer immediatement est la priorite absolue."},
-  {q:"La compression a stoppe le saignement. Tu es seul. Que fais-tu ?",opts:["Continuer a comprimer","Pansement compressif + appeler le 15","Retirer la main pour verifier","Poser un garrot"],answer:1,expl:"Le pansement compressif libere les mains pour alerter."},
-  {q:"Saignement de nez apres un choc a la tete.",opts:["Allonger","Asseoir, tete en avant, comprimer 10 min","Asseoir + avis medical obligatoire","Lui dire de renifler"],answer:2,expl:"Tete en avant + compression, MAIS avis medical car choc."},
-  {q:"Ou pose-t-on le garrot ?",opts:["Sur la plaie","Sur l'articulation","5-7 cm en dessous","5-7 cm au-dessus, cote coeur"],answer:3,expl:"Au-dessus de la plaie, 5-7 cm, jamais sur une articulation."},
-  {q:"Condition pour poser un pansement compressif ?",opts:["Saignement abondant","Sauveteur occupe","La compression a arrete le saignement","Victime consciente"],answer:2,expl:"Seulement si la compression manuelle a arrete le saignement."},
-  {q:"Victime qui vomit du sang, consciente.",opts:["Allonger sur le dos","Asseoir, tete en avant","Position de confort + alerter","Lui donner a boire"],answer:2,expl:"Position de confort + alerte immediate."},
+var DEFI_QCM=[
+  {q:"Quelqu'un saigne abondamment du bras. Ta premiere action ?",opts:["Appeler le 15","Comprimer fortement","Attendre","Poser un garrot"],answer:1,expl:"Comprimer immediatement est la priorite absolue."},
+  {q:"La compression a stoppe le saignement. Tu es seul.",opts:["Continuer a comprimer","Pansement compressif + appeler le 15","Retirer la main","Poser un garrot"],answer:1,expl:"Le pansement compressif libere les mains pour alerter."},
+  {q:"Saignement de nez apres un choc a la tete.",opts:["Allonger","Asseoir tete en avant 10 min","Asseoir + avis medical (choc)","Renifler"],answer:2,expl:"Tete en avant + compression, MAIS avis medical car choc."},
+  {q:"Ou pose-t-on le garrot ?",opts:["Sur la plaie","Sur l'articulation","5-7 cm en dessous","5-7 cm au-dessus cote coeur"],answer:3,expl:"Au-dessus de la plaie, 5-7 cm, jamais sur une articulation."},
+  {q:"Condition pour un pansement compressif ?",opts:["Saignement abondant","Sauveteur occupe","La compression a arrete le saignement","Victime consciente"],answer:2,expl:"Seulement si la compression manuelle a arrete le saignement."},
+  {q:"Victime qui vomit du sang, consciente.",opts:["Allonger sur le dos","Asseoir tete en avant","Position de confort + alerter","Lui donner a boire"],answer:2,expl:"Position de confort + alerte immediate."},
 ];
-const DEFI_TRIAGE=[
+var DEFI_TRIAGE=[
   {q:"Coupure au doigt, saignement faible qui s'arrete seul.",opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"],answer:3,expl:"Plaie simple : rincer + pansement."},
   {q:"Plaie profonde au bras, sang abondant, ne s'arrete pas.",opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"],answer:0,expl:"Compression directe immediate et forte."},
   {q:"Avant-bras : compression inefficace depuis 3 min.",opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"],answer:1,expl:"Garrot : la compression echoue. Noter l'heure."},
@@ -799,157 +781,77 @@ const DEFI_TRIAGE=[
   {q:"Plaie par balle a la cuisse, saignement massif.",opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"],answer:1,expl:"Garrot immediat."},
   {q:"Eraflure au genou qui s'arrete seule.",opts:["Compression directe","Garrot","Pansement compressif","Plaie simple"],answer:3,expl:"Plaie simple : rincer + pansement."},
 ];
-
-function shuffle(arr){return [...arr].sort(()=>Math.random()-.5);}
-function pick3(arr){return shuffle(arr).slice(0,3);}
-
-let defiLevel=1,defiQuestions=[],defiIdx=0,defiScore=0,defiAnswered=false;
+function shuffle(a){return a.slice().sort(function(){return Math.random()-.5;});}
+function pick3(a){return shuffle(a).slice(0,3);}
+var defiLevel=1,defiQuestions=[],defiIdx=0,defiScore=0,defiAnswered=false;
 function defiInit(){defiLevel=1;defiIdx=0;defiScore=0;defiLoadLevel();}
-function defiLoadLevel(){
-  defiIdx=0;defiAnswered=false;
-  if(defiLevel===1) defiQuestions=pick3(DEFI_VF);
-  else if(defiLevel===2) defiQuestions=pick3(DEFI_QCM);
-  else defiQuestions=pick3(DEFI_TRIAGE);
-  defiRender();
-}
+function defiLoadLevel(){defiIdx=0;defiAnswered=false;defiQuestions=pick3(defiLevel===1?DEFI_VF:defiLevel===2?DEFI_QCM:DEFI_TRIAGE);defiRender();}
 function defiRender(){
-  const body=document.getElementById('defi-body');
-  body.innerHTML='';
-  const lvl=['Niv.1 Vrai/Faux','Niv.2 Quiz','Niv.3 Triage'];
-  const bar=document.createElement('div');
-  bar.style.cssText='display:flex;gap:6px;margin-bottom:10px;';
-  for(let i=1;i<=3;i++){
-    const b=document.createElement('div');
-    const done=i<defiLevel,act=i===defiLevel;
-    b.style.cssText='flex:1;text-align:center;padding:6px 4px;border-radius:8px;font-family:Outfit,sans-serif;font-size:11px;font-weight:700;border:2px solid '+(done?'#40c080':act?'#f0c040':'rgba(255,255,255,.15)')+';background:'+(done?'rgba(64,192,128,.15)':act?'rgba(240,192,64,.15)':'transparent')+';color:'+(done?'#40c080':act?'#f0c040':'rgba(255,255,255,.3)')+';';
-    b.textContent=lvl[i-1];bar.appendChild(b);
-  }
+  var body=document.getElementById('defi-body');body.innerHTML='';
+  var lvl=['Niv.1 Vrai/Faux','Niv.2 Quiz','Niv.3 Triage'];
+  var bar=document.createElement('div');bar.style.cssText='display:flex;gap:6px;margin-bottom:10px;';
+  for(var i=1;i<=3;i++){var b=document.createElement('div');var done=i<defiLevel,act=i===defiLevel;b.style.cssText='flex:1;text-align:center;padding:6px 4px;border-radius:8px;font-family:Outfit,sans-serif;font-size:11px;font-weight:700;border:2px solid '+(done?'#40c080':act?'#f0c040':'rgba(255,255,255,.15)')+';background:'+(done?'rgba(64,192,128,.15)':act?'rgba(240,192,64,.15)':'transparent')+';color:'+(done?'#40c080':act?'#f0c040':'rgba(255,255,255,.3)')+';';b.textContent=lvl[i-1];bar.appendChild(b);}
   body.appendChild(bar);
-  const info=document.createElement('div');
-  info.style.cssText='font-family:Outfit,sans-serif;font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;text-align:center;';
-  info.textContent='Question '+(defiIdx+1)+' / '+defiQuestions.length+'  |  Score : '+defiScore;
-  body.appendChild(info);
-  const q=defiQuestions[defiIdx];
-  if(defiLevel===1) defiRenderVF(body,q);
-  else defiRenderQCM(body,q);
+  var info=document.createElement('div');info.style.cssText='font-family:Outfit,sans-serif;font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;text-align:center;';info.textContent='Question '+(defiIdx+1)+' / '+defiQuestions.length+'  -  Score : '+defiScore;body.appendChild(info);
+  var q=defiQuestions[defiIdx];
+  if(defiLevel===1)defiRenderVF(body,q);else defiRenderQCM(body,q);
 }
 function defiRenderVF(body,q){
-  const box=document.createElement('div');
-  box.style.cssText='background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px 18px;text-align:center;';
-  box.innerHTML='<div style="font-size:13px;color:rgba(255,255,255,.6);font-family:Outfit,sans-serif;font-weight:700;text-transform:uppercase;margin-bottom:10px;">Vrai ou Faux ?</div>'
-    +'<div style="font-family:Outfit,sans-serif;font-size:15px;font-weight:700;color:white;line-height:1.5;margin-bottom:16px;">'+q.q+'</div>'
-    +'<div style="display:flex;gap:12px;justify-content:center;">'
-    +'<button onclick="defiAnswerVF(true)" style="background:rgba(64,192,128,.2);border:2px solid #40c080;color:#40c080;border-radius:10px;padding:10px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">VRAI</button>'
-    +'<button onclick="defiAnswerVF(false)" style="background:rgba(192,64,64,.2);border:2px solid #c04040;color:#ff8080;border-radius:10px;padding:10px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">FAUX</button>'
-    +'</div>';
-  body.appendChild(box);
-  const fb=document.createElement('div');fb.id='defi-fb';fb.style.display='none';body.appendChild(fb);
+  var box=document.createElement('div');box.style.cssText='background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px 18px;text-align:center;';
+  box.innerHTML='<div style="font-size:13px;color:rgba(255,255,255,.6);font-family:Outfit,sans-serif;font-weight:700;text-transform:uppercase;margin-bottom:10px;">Vrai ou Faux ?</div><div style="font-family:Outfit,sans-serif;font-size:15px;font-weight:700;color:white;line-height:1.5;margin-bottom:16px;">'+q.q+'</div><div style="display:flex;gap:12px;justify-content:center;"><button onclick="defiAnswerVF(true)" style="background:rgba(64,192,128,.2);border:2px solid #40c080;color:#40c080;border-radius:10px;padding:10px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">VRAI</button><button onclick="defiAnswerVF(false)" style="background:rgba(192,64,64,.2);border:2px solid #c04040;color:#ff8080;border-radius:10px;padding:10px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">FAUX</button></div>';
+  body.appendChild(box);var fb=document.createElement('div');fb.id='defi-fb';fb.style.display='none';body.appendChild(fb);
 }
 function defiAnswerVF(chosen){
-  if(defiAnswered) return;
-  defiAnswered=true;
-  const q=defiQuestions[defiIdx];
-  const ok=(chosen===q.answer);
-  if(ok) defiScore++;
-  document.querySelectorAll('#defi-body button').forEach(b=>b.disabled=true);
-  const fb=document.getElementById('defi-fb');
-  fb.style.cssText='display:block;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:13px;font-family:Outfit,sans-serif;font-weight:600;text-align:center;background:'+(ok?'rgba(64,192,128,.15)':'rgba(192,64,64,.15)')+';border:1px solid '+(ok?'#40c080':'#c04040')+';color:'+(ok?'#80ffb8':'#ffb0b0')+';';
-  fb.textContent=(ok?'Bonne reponse ! ':'Incorrect. ')+q.expl;
-  defiShowNext();
+  if(defiAnswered)return;defiAnswered=true;var q=defiQuestions[defiIdx];var ok=(chosen===q.answer);if(ok)defiScore++;
+  document.querySelectorAll('#defi-body button').forEach(function(b){b.disabled=true;});
+  var fb=document.getElementById('defi-fb');fb.style.cssText='display:block;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:13px;font-family:Outfit,sans-serif;font-weight:600;text-align:center;background:'+(ok?'rgba(64,192,128,.15)':'rgba(192,64,64,.15)')+';border:1px solid '+(ok?'#40c080':'#c04040')+';color:'+(ok?'#80ffb8':'#ffb0b0')+';';fb.textContent=(ok?'Bonne reponse ! ':'Incorrect. ')+q.expl;defiShowNext();
 }
 function defiRenderQCM(body,q){
-  const box=document.createElement('div');
-  box.style.cssText='background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;';
-  const type=defiLevel===2?'Quiz - 1 bonne reponse':'Triage - Quel geste ?';
-  let html='<div style="font-family:Outfit,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">'+type+'</div>'
-    +'<div style="font-family:Outfit,sans-serif;font-size:14px;font-weight:700;color:white;line-height:1.5;margin-bottom:12px;">'+q.q+'</div>'
-    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="defi-opts">';
-  q.opts.forEach((opt,i)=>{
-    html+='<button onclick="defiAnswerQCM('+i+')" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:10px;color:white;font-family:Outfit,sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-align:left;line-height:1.4;">'+String.fromCharCode(65+i)+'. '+opt+'</button>';
-  });
-  html+='</div>';
-  box.innerHTML=html;body.appendChild(box);
-  const fb=document.createElement('div');fb.id='defi-fb';fb.style.display='none';body.appendChild(fb);
+  var box=document.createElement('div');box.style.cssText='background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;';
+  var type=defiLevel===2?'Quiz - 1 bonne reponse':'Triage - Quel geste ?';
+  var html='<div style="font-family:Outfit,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">'+type+'</div><div style="font-family:Outfit,sans-serif;font-size:14px;font-weight:700;color:white;line-height:1.5;margin-bottom:12px;">'+q.q+'</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="defi-opts">';
+  q.opts.forEach(function(opt,i){html+='<button onclick="defiAnswerQCM('+i+')" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:10px;color:white;font-family:Outfit,sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-align:left;line-height:1.4;">'+String.fromCharCode(65+i)+'. '+opt+'</button>';});
+  html+='</div>';box.innerHTML=html;body.appendChild(box);var fb=document.createElement('div');fb.id='defi-fb';fb.style.display='none';body.appendChild(fb);
 }
 function defiAnswerQCM(chosen){
-  if(defiAnswered) return;
-  defiAnswered=true;
-  const q=defiQuestions[defiIdx];
-  const ok=(chosen===q.answer);
-  if(ok) defiScore++;
-  document.querySelectorAll('#defi-opts button').forEach((b,i)=>{
-    b.disabled=true;
-    if(i===q.answer){b.style.background='rgba(64,192,128,.25)';b.style.borderColor='#40c080';}
-    else if(i===chosen&&!ok){b.style.background='rgba(192,64,64,.25)';b.style.borderColor='#c04040';}
-  });
-  const fb=document.getElementById('defi-fb');
-  fb.style.cssText='display:block;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:12px;font-family:Outfit,sans-serif;font-weight:600;background:'+(ok?'rgba(64,192,128,.15)':'rgba(192,64,64,.15)')+';border:1px solid '+(ok?'#40c080':'#c04040')+';color:'+(ok?'#80ffb8':'#ffb0b0')+';';
-  fb.textContent=(ok?'Correct ! ':'Incorrect. ')+q.expl;
-  defiShowNext();
+  if(defiAnswered)return;defiAnswered=true;var q=defiQuestions[defiIdx];var ok=(chosen===q.answer);if(ok)defiScore++;
+  document.querySelectorAll('#defi-opts button').forEach(function(b,i){b.disabled=true;if(i===q.answer){b.style.background='rgba(64,192,128,.25)';b.style.borderColor='#40c080';}else if(i===chosen&&!ok){b.style.background='rgba(192,64,64,.25)';b.style.borderColor='#c04040';}});
+  var fb=document.getElementById('defi-fb');fb.style.cssText='display:block;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:12px;font-family:Outfit,sans-serif;font-weight:600;background:'+(ok?'rgba(64,192,128,.15)':'rgba(192,64,64,.15)')+';border:1px solid '+(ok?'#40c080':'#c04040')+';color:'+(ok?'#80ffb8':'#ffb0b0')+';';fb.textContent=(ok?'Correct ! ':'Incorrect. ')+q.expl;defiShowNext();
 }
 function defiShowNext(){
-  const body=document.getElementById('defi-body');
-  const btn=document.createElement('button');
-  const lastQ=defiIdx>=defiQuestions.length-1;
-  const lastLvl=defiLevel===3;
+  var body=document.getElementById('defi-body');var btn=document.createElement('button');var lastQ=defiIdx>=defiQuestions.length-1;var lastLvl=defiLevel===3;
   btn.style.cssText='margin-top:10px;width:100%;background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:11px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;';
-  if(!lastQ){btn.textContent='Question suivante';btn.onclick=()=>{defiIdx++;defiAnswered=false;defiRender();};}
-  else if(!lastLvl){btn.textContent='Niveau '+(defiLevel+1)+' - Allez-y !';btn.onclick=()=>{defiLevel++;defiLoadLevel();};}
+  if(!lastQ){btn.textContent='Question suivante';btn.onclick=function(){defiIdx++;defiAnswered=false;defiRender();};}
+  else if(!lastLvl){btn.textContent='Niveau '+(defiLevel+1)+' - Allez-y !';btn.onclick=function(){defiLevel++;defiLoadLevel();};}
   else{btn.textContent='Voir mon score final';btn.onclick=defiShowFinal;}
   body.appendChild(btn);
 }
 function defiShowFinal(){
-  const body=document.getElementById('defi-body');
-  const max=9,pct=defiScore/max;
-  const stars=pct>=.89?'***':pct>=.66?'**':'*';
-  const msg=pct>=.89?'Excellent !':pct>=.66?'Bien joue !':'Continue a t'entrainer !';
-  body.innerHTML='<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px;">'
-    +'<div style="font-size:52px;">&#127942;</div>'
-    +'<div style="font-family:Outfit,sans-serif;font-size:28px;font-weight:900;color:#f0c040;">'+stars+'</div>'
-    +'<div style="font-family:Outfit,sans-serif;font-size:22px;font-weight:900;color:white;">Score : '+defiScore+' / '+max+'</div>'
-    +'<div style="font-size:13px;color:rgba(255,255,255,.6);">'+msg+'</div>'
-    +'<button onclick="defiInit()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 32px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">Rejouer</button>'
-    +'</div>';
+  var body=document.getElementById('defi-body');var max=9,pct=defiScore/max;var stars=pct>=.89?'★★★':pct>=.66?'★★':'★';var msg=pct>=.89?'Excellent !':pct>=.66?'Bien joue !':'Continue !';
+  body.innerHTML='<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px;"><div style="font-size:52px;">&#127942;</div><div style="font-family:Outfit,sans-serif;font-size:36px;font-weight:900;color:#f0c040;">'+stars+'</div><div style="font-family:Outfit,sans-serif;font-size:22px;font-weight:900;color:white;">Score : '+defiScore+' / '+max+'</div><div style="font-size:13px;color:rgba(255,255,255,.6);">'+msg+'</div><button onclick="defiInit()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:12px 32px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">Rejouer</button></div>';
 }
 
 // Cas concret
-let ccTime2=false;
-function switchCC(){
-  ccTime2=!ccTime2;
-  document.getElementById('cc-t1').style.display=ccTime2?'none':'block';
-  document.getElementById('cc-t2').style.display=ccTime2?'block':'none';
-  document.getElementById('cc-switch-btn').textContent=ccTime2?'Retour temps 1':'Temps 2 : Correction';
-  document.getElementById('cc-title').textContent=ccTime2?'Cas Concret - Temps 2':'Cas Concret - Temps 1';
-  document.getElementById('cc-footer').querySelector('span').textContent=ccTime2?'Temps 2':'Temps 1';
-}
+var ccTime2=false;
+function switchCC(){ccTime2=!ccTime2;document.getElementById('cc-t1').style.display=ccTime2?'none':'block';document.getElementById('cc-t2').style.display=ccTime2?'block':'none';document.getElementById('cc-switch-btn').textContent=ccTime2?'Retour temps 1':'Temps 2 : Correction';document.getElementById('cc-title').textContent=ccTime2?'Cas Concret - Temps 2':'Cas Concret - Temps 1';document.getElementById('cc-footer').querySelector('span').textContent=ccTime2?'Temps 2':'Temps 1';}
 function toggleStep(id){document.getElementById(id).classList.toggle('open');}
-function goToDashboard(e){if(e)e.preventDefault();window.location.href='index.html?done=5';}
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextSlide();if(e.key==='ArrowLeft')prevSlide();});
-function lbOpen(src,cap){const o=document.getElementById('lb-overlay');document.getElementById('lb-img').src=src;document.getElementById('lb-caption').textContent=cap||'';o.classList.add('open');}
+function lbOpen(src,cap){var o=document.getElementById('lb-overlay');document.getElementById('lb-img').src=src;document.getElementById('lb-caption').textContent=cap||'';o.classList.add('open');}
 function lbClose(){document.getElementById('lb-overlay').classList.remove('open');}
+document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')nextSlide();if(e.key==='ArrowLeft')prevSlide();});
 
-// Drag & drop pills avec localStorage
+// Drag visuel des pills (ordre cosmetique uniquement)
 (function(){
-  const KEY='psc1_ch5_pill_order',container=document.getElementById('nav-pills');
-  let src=null;
-  function save(){localStorage.setItem(KEY,JSON.stringify(Array.from(container.querySelectorAll('.pill[data-slide]')).map(p=>p.dataset.slide)));}
-  function restore(){
-    const s=localStorage.getItem(KEY);if(!s)return;
-    try{JSON.parse(s).forEach(idx=>{const p=document.querySelector('#nav-pills .pill[data-slide="'+idx+'"]');if(p)container.appendChild(p);});}catch(e){}
-  }
-  function initDrag(){
-    container.querySelectorAll('.pill[data-slide]').forEach(pill=>{
-      pill.classList.add('draggable-pill');pill.draggable=true;
-      pill.addEventListener('dragstart',e=>{src=pill;setTimeout(()=>pill.classList.add('pill-dragging'),0);});
-      pill.addEventListener('dragend',()=>{pill.classList.remove('pill-dragging');container.querySelectorAll('.pill').forEach(p=>p.classList.remove('pill-drag-over'));src=null;save();});
-      pill.addEventListener('dragover',e=>{e.preventDefault();if(src&&src!==pill){container.querySelectorAll('.pill').forEach(p=>p.classList.remove('pill-drag-over'));pill.classList.add('pill-drag-over');}});
-      pill.addEventListener('dragleave',e=>{if(!pill.contains(e.relatedTarget))pill.classList.remove('pill-drag-over');});
-      pill.addEventListener('drop',e=>{e.preventDefault();if(!src||src===pill)return;const pp=Array.from(container.querySelectorAll('.pill'));const ti=pp.indexOf(pill);if(ti===0)return;if(pp.indexOf(src)<ti)pill.after(src);else pill.before(src);pill.classList.remove('pill-drag-over');});
-    });
-  }
-  function hint(){const h=document.createElement('span');h.style.cssText='font-size:9px;color:rgba(127,168,212,.38);font-family:Outfit,sans-serif;white-space:nowrap;flex-shrink:0;margin-left:4px;pointer-events:none;';h.textContent='glisser pour reorganiser';container.appendChild(h);}
-  restore();initDrag();hint();
+  var container=document.getElementById('nav-pills'),dragSrc=null;
+  container.querySelectorAll('.pill[onclick^="goSlide"]').forEach(function(pill){
+    pill.classList.add('draggable-pill');pill.draggable=true;
+    pill.addEventListener('dragstart',function(){dragSrc=pill;setTimeout(function(){pill.classList.add('pill-dragging');},0);});
+    pill.addEventListener('dragend',function(){pill.classList.remove('pill-dragging');container.querySelectorAll('.pill').forEach(function(p){p.classList.remove('pill-drag-over');});dragSrc=null;});
+    pill.addEventListener('dragover',function(e){e.preventDefault();if(dragSrc&&dragSrc!==pill){container.querySelectorAll('.pill').forEach(function(p){p.classList.remove('pill-drag-over');});pill.classList.add('pill-drag-over');}});
+    pill.addEventListener('dragleave',function(e){if(!pill.contains(e.relatedTarget))pill.classList.remove('pill-drag-over');});
+    pill.addEventListener('drop',function(e){e.preventDefault();if(!dragSrc||dragSrc===pill)return;var pp=Array.from(container.querySelectorAll('.pill'));var ti=pp.indexOf(pill);if(ti===0)return;if(pp.indexOf(dragSrc)<ti)pill.after(dragSrc);else pill.before(dragSrc);pill.classList.remove('pill-drag-over');});
+  });
+  var hint=document.createElement('span');hint.style.cssText='font-size:9px;color:rgba(127,168,212,.38);font-family:Outfit,sans-serif;white-space:nowrap;flex-shrink:0;margin-left:4px;pointer-events:none;';hint.textContent='glisser pour reorganiser';container.appendChild(hint);
 })();
-
+</script>
 </body>
 </html>
