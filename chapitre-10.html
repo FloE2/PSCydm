@@ -266,9 +266,8 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="pill" onclick="goSlide(3)">RCP — Compressions</div>
     <div class="pill" onclick="goSlide(4)">RCP — Insufflations</div>
     <div class="pill" onclick="goSlide(5)">DAE</div>
-    <div class="pill" onclick="goSlide(6)">🎮 Simulation</div>
-    <div class="pill" onclick="goSlide(7)">🔀 Séquence brisée</div>
-    <div class="pill" onclick="goSlide(8)">Cas Concrets</div>
+    <div class="pill" onclick="goSlide(6)">🔀 Séquence brisée</div>
+    <div class="pill" onclick="goSlide(7)">Cas Concrets</div>
   </div>
   <div id="nav-btns">
     <div id="slide-counter">1 / 8</div>
@@ -576,36 +575,6 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
     <div class="slide-footer"><span>Utilisation du DAE</span><div class="progress-dots" id="dots5"></div><span>Slide 6/8</span></div>
   </div>
 
-  <!-- SLIDE 6 : SIMULATION -->
-  <div class="slide">
-    <div class="slide-header" style="background:linear-gradient(135deg,#1a0505,#3d0a0a)">
-      <div class="left"><div class="sup">Chapitre 10 · Simulation interactive</div><h2>🎮 Clique sur les bonnes étapes dans l'ordre</h2></div>
-      <div class="badge-dur"><div class="v">🎮</div><div class="l">Simulation</div></div>
-    </div>
-    <div class="slide-body" style="padding:10px 14px">
-      <div class="sim-wrap">
-        <div class="sim-scene" id="sim-scene">
-          Tu es dans la rue. Un homme d'environ 50 ans s'effondre devant toi. <strong>Clique sur les actions dans le bon ordre.</strong>
-        </div>
-        <div class="sim-progress">
-          <span id="sim-step-label">Étape 0 / 8</span>
-          <span id="sim-score-label">Score : 0</span>
-        </div>
-        <div class="sim-bar-track"><div class="sim-bar-fill" id="sim-bar" style="width:0%"></div></div>
-        <div class="sim-buttons" id="sim-btns"></div>
-        <div class="sim-feedback" id="sim-feedback"></div>
-        <div class="sim-end" id="sim-end">
-          <div class="sim-end-ic" id="sim-end-ic">🏆</div>
-          <div class="sim-end-title" id="sim-end-title">Bravo !</div>
-          <div class="sim-end-score" id="sim-end-score"></div>
-          <button class="sim-restart" onclick="startSim()">↺ Recommencer</button>
-        </div>
-      </div>
-    </div>
-    <div class="slide-footer"><span>Simulation — CAT arrêt cardiaque</span><div class="progress-dots" id="dots6"></div><span>Slide 7/8</span></div>
-  </div>
-
-  
   <!-- SLIDE 7 NOUVEAU : SÉQUENCE BRISÉE RCP -->
   <div class="slide">
     <div class="slide-header" style="background:var(--rouge)">
@@ -840,7 +809,7 @@ body{font-family:'Inter',sans-serif;background:#0d1525;color:var(--texte);height
 
 <script>
 // ── NAV ──
-let current=0; const total=9;
+let current=0; const total=8;
 const slidePills=document.querySelectorAll('.pill[onclick^="goSlide"]');
 function goSlide(n){
   document.querySelectorAll('.slide')[current].classList.remove('active');
