@@ -906,6 +906,67 @@ let joker5050Used = false;
 let jokerVoteUsed = false;
 let answered = false;
 
+// ── CHRONO CONFIG ──
+const TIME_NORMAL = 20;   // ← Modifie ici pour changer le temps de base
+const TIME_5050   = 20;   // ← Temps après joker 50/50
+const TIME_VOTE   = 30;   // ← Temps après vote du public
+
+let timerInterval = null;
+let timerLeft = 0;
+const RING_FULL = 138; // circumference du cercle r=22
+
+function startTimer(seconds){
+  clearInterval(timerInterval);
+  timerLeft = seconds;
+  const ring = document.getElementById('ring-fill');
+  const val  = document.getElementById('timer-val');
+  const ringEl = document.getElementById('timer-ring');
+  ringEl.style.display = 'flex';
+
+  function tick(){
+    const pct = timerLeft / seconds;
+    ring.style.strokeDasharray = (RING_FULL * pct) + ' ' + RING_FULL;
+    val.textContent = timerLeft;
+    // Couleur : vert → jaune → rouge
+    if(pct > .5)      ring.style.stroke = '#40c080';
+    else if(pct > .25) ring.style.stroke = '#f0c040';
+    else               ring.style.stroke = '#c04040';
+    val.style.color = ring.style.stroke;
+
+    if(timerLeft <= 0){
+      clearInterval(timerInterval);
+      if(!answered) timeUp();
+      return;
+    }
+    timerLeft--;
+  }
+  tick();
+  timerInterval = setInterval(tick, 1000);
+}
+
+function stopTimer(){
+  clearInterval(timerInterval);
+  document.getElementById('timer-ring').style.display = 'none';
+}
+
+function timeUp(){
+  if(answered) return;
+  answered = true;
+  // Révéler la bonne réponse
+  const q = QUESTIONS[currentQ];
+  const letters = ['A','B','C','D'];
+  letters.forEach(l => {
+    const opt = document.getElementById('opt-'+l);
+    if(!opt || opt.classList.contains('hidden')) return;
+    opt.classList.add('locked');
+    if(l === q.correct) opt.classList.add('correct');
+  });
+  const fb = document.getElementById('q-feedback');
+  fb.className = 'q-feedback show bad';
+  fb.textContent = '⏰ Temps écoulé ! La bonne réponse était ' + q.correct + '. ' + q.feedback;
+  setTimeout(() => endGame(false), 3500);
+}
+
 function startGame(){
   currentQ=0; score=0; joker5050Used=false; jokerVoteUsed=false; answered=false;
   document.getElementById('game-start').style.display='none';
@@ -960,11 +1021,15 @@ function loadQuestion(){
     const qi=QUESTIONS.length-1-ri;
     el.className='ladder-item'+(qi===currentQ?' current':qi<currentQ?' done':'');
   });
+
+  // Démarrer le chrono
+  startTimer(TIME_NORMAL);
 }
 
 function answerQ(chosen){
   if(answered) return;
   answered=true;
+  stopTimer();
   const q=QUESTIONS[currentQ];
   const letters=['A','B','C','D'];
   letters.forEach(l=>{
@@ -1006,12 +1071,16 @@ function use5050(){
       if(opt){ opt.classList.add('hidden'); removed++; }
     }
   });
+  // Relancer le chrono
+  startTimer(TIME_5050);
 }
 
 function useVote(){
   if(jokerVoteUsed||answered) return;
   jokerVoteUsed=true;
   document.getElementById('joker-vote').classList.add('used');
+  // Relancer le chrono avec plus de temps pour compter les mains
+  startTimer(TIME_VOTE);
   const q=QUESTIONS[currentQ];
   const letters=['A','B','C','D'];
   const voteZone=document.getElementById('vote-result');
