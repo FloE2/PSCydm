@@ -918,9 +918,9 @@ let jokerVoteUsed = false;
 let answered = false;
 
 // ── CHRONO CONFIG ──
-const TIME_NORMAL = 20;   // ← Modifie ici pour changer le temps de base
-const TIME_5050   = 20;   // ← Temps après joker 50/50
-const TIME_VOTE   = 30;   // ← Temps après vote du public
+const TIME_NORMAL = 10;   // ← Modifie ici pour changer le temps de base
+const TIME_5050   = 10;   // ← Temps après joker 50/50
+const TIME_VOTE   = 10;   // ← Temps après vote du public
 
 let timerInterval = null;
 let timerLeft = 0;
@@ -978,6 +978,14 @@ function timeUp(){
   setTimeout(() => endGame(false), 3500);
 }
 
+function gameGo(){
+  const goWrap = document.getElementById('go-btn-wrap');
+  if(goWrap) goWrap.remove();
+  document.getElementById('q-opts').style.opacity='1';
+  document.getElementById('q-opts').style.pointerEvents='auto';
+  document.querySelectorAll('.joker-btn').forEach(b=>{ b.style.opacity=''; b.style.pointerEvents=''; });
+  startTimer(TIME_NORMAL);
+}
 function startGame(){
   currentQ=0; score=0; joker5050Used=false; jokerVoteUsed=false; answered=false;
   document.getElementById('game-start').style.display='none';
@@ -1033,8 +1041,15 @@ function loadQuestion(){
     el.className='ladder-item'+(qi===currentQ?' current':qi<currentQ?' done':'');
   });
 
-  // Démarrer le chrono
-  startTimer(TIME_NORMAL);
+  // Afficher bouton GO (le chrono démarre au clic)
+  document.getElementById('q-opts').style.opacity='0.35';
+  document.getElementById('q-opts').style.pointerEvents='none';
+  document.querySelectorAll('.joker-btn').forEach(b=>{ b.style.opacity='0.35'; b.style.pointerEvents='none'; });
+  const goDiv = document.createElement('div');
+  goDiv.id='go-btn-wrap';
+  goDiv.style.cssText='text-align:center;margin-top:10px;';
+  goDiv.innerHTML='<button id="go-btn" onclick="gameGo()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:10px 32px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;letter-spacing:.5px;">&#9654; GO &#8212; Lancer le chrono</button>';
+  document.getElementById('q-feedback').after(goDiv);
 }
 
 function answerQ(chosen){
@@ -1073,6 +1088,7 @@ function use5050(){
   if(joker5050Used||answered) return;
   joker5050Used=true;
   document.getElementById('joker-5050').classList.add('used');
+  const goW=document.getElementById('go-btn-wrap');if(goW){goW.remove();document.getElementById('q-opts').style.opacity='1';document.getElementById('q-opts').style.pointerEvents='auto';document.querySelectorAll('.joker-btn').forEach(b=>{b.style.opacity='';b.style.pointerEvents='';});}
   const q=QUESTIONS[currentQ];
   const letters=['A','B','C','D'];
   let removed=0;
@@ -1090,6 +1106,7 @@ function useVote(){
   if(jokerVoteUsed||answered) return;
   jokerVoteUsed=true;
   document.getElementById('joker-vote').classList.add('used');
+  const goW=document.getElementById('go-btn-wrap');if(goW){goW.remove();document.getElementById('q-opts').style.opacity='1';document.getElementById('q-opts').style.pointerEvents='auto';document.querySelectorAll('.joker-btn').forEach(b=>{b.style.opacity='';b.style.pointerEvents='';});}
   startTimer(TIME_VOTE);
   const q=QUESTIONS[currentQ];
   const letters=['A','B','C','D'];
