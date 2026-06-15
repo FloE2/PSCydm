@@ -896,23 +896,67 @@ function defiRender(){
 }
 function defiRenderVF(body,q){
   var box=document.createElement('div');box.style.cssText='background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px 18px;text-align:center;';
-  box.innerHTML='<div style="font-size:13px;color:rgba(255,255,255,.6);font-family:Outfit,sans-serif;font-weight:700;text-transform:uppercase;margin-bottom:10px;">Vrai ou Faux ?</div><div style="font-family:Outfit,sans-serif;font-size:15px;font-weight:700;color:white;line-height:1.5;margin-bottom:16px;">'+q.q+'</div><div style="display:flex;gap:12px;justify-content:center;"><button onclick="defiAnswerVF(true)" style="background:rgba(64,192,128,.2);border:2px solid #40c080;color:#40c080;border-radius:10px;padding:10px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">VRAI</button><button onclick="defiAnswerVF(false)" style="background:rgba(192,64,64,.2);border:2px solid #c04040;color:#ff8080;border-radius:10px;padding:10px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">FAUX</button></div>';
+  box.innerHTML='<div style="font-size:13px;color:rgba(255,255,255,.6);font-family:Outfit,sans-serif;font-weight:700;text-transform:uppercase;margin-bottom:10px;">Vrai ou Faux ?</div><div style="font-family:Outfit,sans-serif;font-size:15px;font-weight:700;color:white;line-height:1.5;margin-bottom:16px;">'+q.q+'</div>'
+    +'<div id="defi-timer-bar-wrap" style="margin-bottom:14px;display:none;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;"><span style="font-family:Outfit,sans-serif;font-size:11px;color:rgba(255,255,255,.5);">⏱ Temps restant</span><span id="defi-timer-count" style="font-family:Outfit,sans-serif;font-size:13px;font-weight:800;color:#f0c040;">15s</span></div><div style="background:rgba(255,255,255,.1);border-radius:99px;height:8px;overflow:hidden;"><div id="defi-timer-bar" style="height:100%;width:100%;border-radius:99px;background:linear-gradient(90deg,#40c080,#f0c040);transition:width .2s linear,background .5s;"></div></div></div>'
+    +'<div id="defi-go-wrap" style="margin-bottom:14px;"><button id="defi-go-btn" onclick="defiStartTimer()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:10px 32px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;letter-spacing:.5px;">▶ GO — Lancer le chrono</button></div>'
+    +'<div id="defi-answer-btns" style="display:flex;gap:12px;justify-content:center;opacity:.35;pointer-events:none;"><button onclick="defiAnswerVF(true)" style="background:rgba(64,192,128,.2);border:2px solid #40c080;color:#40c080;border-radius:10px;padding:10px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">VRAI</button><button onclick="defiAnswerVF(false)" style="background:rgba(192,64,64,.2);border:2px solid #c04040;color:#ff8080;border-radius:10px;padding:10px 28px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;">FAUX</button></div>';
   body.appendChild(box);var fb=document.createElement('div');fb.id='defi-fb';fb.style.display='none';body.appendChild(fb);
 }
+var defiTimerInterval=null,defiTimerLeft=15;
+function defiStartTimer(){
+  var goWrap=document.getElementById('defi-go-wrap');
+  var timerWrap=document.getElementById('defi-timer-bar-wrap');
+  var answerArea=document.getElementById('defi-answer-btns')||document.getElementById('defi-opts');
+  if(goWrap) goWrap.style.display='none';
+  if(timerWrap) timerWrap.style.display='block';
+  if(answerArea){answerArea.style.opacity='1';answerArea.style.pointerEvents='auto';}
+  defiTimerLeft=15;
+  var bar=document.getElementById('defi-timer-bar');
+  var count=document.getElementById('defi-timer-count');
+  if(defiTimerInterval) clearInterval(defiTimerInterval);
+  defiTimerInterval=setInterval(function(){
+    defiTimerLeft-=0.2;
+    var pct=Math.max(0,defiTimerLeft/15*100);
+    if(bar){
+      bar.style.width=pct+'%';
+      if(pct>50) bar.style.background='linear-gradient(90deg,#40c080,#f0c040)';
+      else if(pct>25) bar.style.background='linear-gradient(90deg,#f0c040,#e67e22)';
+      else bar.style.background='linear-gradient(90deg,#c04040,#ff4040)';
+    }
+    if(count) count.textContent=Math.ceil(defiTimerLeft)+'s';
+    if(defiTimerLeft<=0){
+      clearInterval(defiTimerInterval);defiTimerInterval=null;
+      if(!defiAnswered){
+        defiAnswered=true;
+        var ansEl=document.getElementById('defi-answer-btns')||document.getElementById('defi-opts');
+        if(ansEl){ansEl.style.opacity='.3';ansEl.style.pointerEvents='none';}
+        document.querySelectorAll('#defi-body button').forEach(function(b){b.disabled=true;});
+        var q=defiQuestions[defiIdx];
+        var fb=document.getElementById('defi-fb');
+        if(fb){fb.style.cssText='display:block;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:13px;font-family:Outfit,sans-serif;font-weight:600;text-align:center;background:rgba(192,64,64,.15);border:1px solid #c04040;color:#ffb0b0;';fb.textContent='Temps écoulé ! '+q.expl;}
+        defiShowNext();
+      }
+    }
+  },200);
+}
+function defiStopTimer(){if(defiTimerInterval){clearInterval(defiTimerInterval);defiTimerInterval=null;}}
 function defiAnswerVF(chosen){
-  if(defiAnswered)return;defiAnswered=true;var q=defiQuestions[defiIdx];var ok=(chosen===q.answer);if(ok)defiScore++;
+  if(defiAnswered)return;defiAnswered=true;defiStopTimer();var q=defiQuestions[defiIdx];var ok=(chosen===q.answer);if(ok)defiScore++;
   document.querySelectorAll('#defi-body button').forEach(function(b){b.disabled=true;});
   var fb=document.getElementById('defi-fb');fb.style.cssText='display:block;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:13px;font-family:Outfit,sans-serif;font-weight:600;text-align:center;background:'+(ok?'rgba(64,192,128,.15)':'rgba(192,64,64,.15)')+';border:1px solid '+(ok?'#40c080':'#c04040')+';color:'+(ok?'#80ffb8':'#ffb0b0')+';';fb.textContent=(ok?'Bonne reponse ! ':'Incorrect. ')+q.expl;defiShowNext();
 }
 function defiRenderQCM(body,q){
   var box=document.createElement('div');box.style.cssText='background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;';
   var type=defiLevel===2?'Quiz - 1 bonne reponse':'Triage - Quel geste ?';
-  var html='<div style="font-family:Outfit,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">'+type+'</div><div style="font-family:Outfit,sans-serif;font-size:14px;font-weight:700;color:white;line-height:1.5;margin-bottom:12px;">'+q.q+'</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="defi-opts">';
+  var html='<div style="font-family:Outfit,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">'+type+'</div><div style="font-family:Outfit,sans-serif;font-size:14px;font-weight:700;color:white;line-height:1.5;margin-bottom:12px;">'+q.q+'</div>'
+    +'<div id="defi-timer-bar-wrap" style="margin-bottom:12px;display:none;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;"><span style="font-family:Outfit,sans-serif;font-size:11px;color:rgba(255,255,255,.5);">&#9201; Temps restant</span><span id="defi-timer-count" style="font-family:Outfit,sans-serif;font-size:13px;font-weight:800;color:#f0c040;">15s</span></div><div style="background:rgba(255,255,255,.1);border-radius:99px;height:8px;overflow:hidden;"><div id="defi-timer-bar" style="height:100%;width:100%;border-radius:99px;background:linear-gradient(90deg,#40c080,#f0c040);transition:width .2s linear,background .5s;"></div></div></div>'
+    +'<div id="defi-go-wrap" style="margin-bottom:12px;text-align:center;"><button id="defi-go-btn" onclick="defiStartTimer()" style="background:#f0c040;color:#1a0a2e;border:none;border-radius:10px;padding:10px 32px;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;letter-spacing:.5px;">&#9654; GO &#8212; Lancer le chrono</button></div>'
+    +'<div id="defi-opts" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;opacity:.35;pointer-events:none;">';
   q.opts.forEach(function(opt,i){html+='<button onclick="defiAnswerQCM('+i+')" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:10px;color:white;font-family:Outfit,sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-align:left;line-height:1.4;">'+String.fromCharCode(65+i)+'. '+opt+'</button>';});
   html+='</div>';box.innerHTML=html;body.appendChild(box);var fb=document.createElement('div');fb.id='defi-fb';fb.style.display='none';body.appendChild(fb);
 }
 function defiAnswerQCM(chosen){
-  if(defiAnswered)return;defiAnswered=true;var q=defiQuestions[defiIdx];var ok=(chosen===q.answer);if(ok)defiScore++;
+  if(defiAnswered)return;defiAnswered=true;defiStopTimer();var q=defiQuestions[defiIdx];var ok=(chosen===q.answer);if(ok)defiScore++;
   document.querySelectorAll('#defi-opts button').forEach(function(b,i){b.disabled=true;if(i===q.answer){b.style.background='rgba(64,192,128,.25)';b.style.borderColor='#40c080';}else if(i===chosen&&!ok){b.style.background='rgba(192,64,64,.25)';b.style.borderColor='#c04040';}});
   var fb=document.getElementById('defi-fb');fb.style.cssText='display:block;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:12px;font-family:Outfit,sans-serif;font-weight:600;background:'+(ok?'rgba(64,192,128,.15)':'rgba(192,64,64,.15)')+';border:1px solid '+(ok?'#40c080':'#c04040')+';color:'+(ok?'#80ffb8':'#ffb0b0')+';';fb.textContent=(ok?'Correct ! ':'Incorrect. ')+q.expl;defiShowNext();
 }
